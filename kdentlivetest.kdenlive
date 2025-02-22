@@ -201,7 +201,7 @@
     <property name="kdenlive_id">qtblend</property>
     <property name="compositing">0</property>
     <property name="distort">0</property>
-    <property name="rect">00:00:00.000=0 0 1920 1080 1.000000;00:00:04.960=0 300 1920 1080 1.000000</property>
+    <property name="rect">00:00:00.000=-490 -527 2710 2085 1.000000;00:00:04.960=-13 7 1920 1080 1.000000</property>
     <property name="rotation">00:00:00.000=0;00:00:04.960=0</property>
     <property name="kdenlive:collapsed">0</property>
    </filter>
@@ -250,7 +250,7 @@
   <property name="kdenlive:sequenceproperties.hasAudio">1</property>
   <property name="kdenlive:sequenceproperties.hasVideo">1</property>
   <property name="kdenlive:sequenceproperties.lastUsedFrame">0</property>
-  <property name="kdenlive:sequenceproperties.position">0</property>
+  <property name="kdenlive:sequenceproperties.position">250</property>
   <property name="kdenlive:sequenceproperties.previewchunks"/>
   <property name="kdenlive:sequenceproperties.scrollPos">0</property>
   <property name="kdenlive:sequenceproperties.tracks">4</property>
