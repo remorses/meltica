@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <mlt LC_NUMERIC="en_US.UTF-8" producer="main_bin" root="/Users/morse/Documents/kdenlive" version="7.30.0">
  <profile colorspace="709" description="Vertical HD 30 fps" display_aspect_den="16" display_aspect_num="9" frame_rate_den="1" frame_rate_num="30" height="1920" progressive="1" sample_aspect_den="1" sample_aspect_num="1" width="1080"/>
- <consumer ab="160k" acodec="aac" channels="2" crf="23" deinterlacer="onefield" f="mp4" g="15" in="0" mlt_service="avformat" movflags="+faststart" out="466" preset="veryfast" real_time="-1" rescale="bilinear" target="/Users/morse/Documents/kdenlive/./kdentlivetest.mp4" threads="0" vcodec="libx264"/>
+ <consumer ab="160k" acodec="aac" channels="2" crf="23" deinterlacer="onefield" f="mp4" g="15" in="0" mlt_service="avformat" movflags="+faststart" preset="veryfast" real_time="-1" rescale="bilinear" target="./kdentlivetest.mp4" threads="0" vcodec="libx264"/>
  <producer id="producer6" in="00:00:00.000" out="00:00:00.967">
   <property name="length">00:00:01.000</property>
   <property name="eof">pause</property>
