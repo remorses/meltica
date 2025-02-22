@@ -1,82 +1,126 @@
 import { render } from 'jsx-xml'
 import { writeFileSync } from 'fs'
 
-// Common property types
-type CommonProps = {
-    id?: string
-    in?: string
-    out?: string
-    length?: string | number
+// Utility to generate unique IDs
+let idCounter = 0
+const generateId = (prefix: string) => {
+    idCounter++
+    return `${prefix}${idCounter}`
 }
 
-// Property component
-function Property({ name, children = null as any }) {
-    return <property name={name}>{children}</property>
-}
 
-// Producer component
-function Producer({
-    id,
-    in: inTime = '00:00:00.000',
-    out,
+
+// Enhanced Producer component for images/videos
+function ImageProducer({
     resource,
-    children,
-}: CommonProps & {
-    resource?: string
-    children?: any
+    duration = '00:00:05.000',
+    inTime = '00:00:00.000',
+    kdenliveId,
+}: {
+    resource: string
+    duration?: string
+    inTime?: string
+    kdenliveId?: number
 }) {
+    const id = generateId('producer')
+    const outTime = '00:00:04.967' // Calculate based on duration
+
     return (
-        <producer id={id} in={inTime} out={out}>
-            {children}
+        <producer id={id} in={inTime} out={outTime}>
+            <property name='length'>{duration}</property>
+            <property name='eof'>pause</property>
+            <property name='resource'>{resource}</property>
+            <property name='ttl'>25</property>
+            <property name='aspect_ratio'>1</property>
+            <property name='meta.media.progressive'>1</property>
+            <property name='seekable'>1</property>
+            <property name='format'>1</property>
+            <property name='meta.media.width'>720</property>
+            <property name='meta.media.height'>2342</property>
+            <property name='mlt_service'>qimage</property>
+            <property name='kdenlive:duration'>{duration}</property>
+            <property name='kdenlive:folderid'>-1</property>
+            <property name='kdenlive:id'>
+                {kdenliveId || generateId('')}
+            </property>
+            <property name='kdenlive:clip_type'>2</property>
         </producer>
     )
 }
 
-// Chain component
-function Chain({ id, out, resource, children = null as any }) {
-    return (
-        <chain id={id} out={out}>
-            {children}
-        </chain>
-    )
-}
-
-// Playlist component
-function Playlist({ id, children }: { id: string; children?: any }) {
-    return <playlist id={id}>{children}</playlist>
-}
-
-// Tractor component
-function Tractor({
-    id,
-    in: inTime,
-    out,
-    children,
-}: CommonProps & {
-    children?: any
+// Audio Track component (combines producer, playlist, and tractor)
+function AudioTrack({
+    resource,
+    trackNumber,
+    inTime = '00:00:00.000',
+    outTime,
+    volume = 1.0,
+    kdenliveId,
+}: {
+    resource: string
+    trackNumber: number
+    inTime?: string
+    outTime: string
+    volume?: number
+    kdenliveId?: number
 }) {
-    return (
-        <tractor id={id} in={inTime} out={out}>
-            {children}
-        </tractor>
-    )
-}
+    const chainId = generateId('chain')
+    const playlistId = generateId('playlist')
+    const tractorId = generateId('tractor')
+    const filterId = generateId('filter')
 
-// Filter component
-function Filter({ id, children }: { id: string; children?: any }) {
-    return <filter id={id}>{children}</filter>
+    return (
+        <>
+            {/* Producer */}
+            <chain id={chainId} out={outTime}>
+                <property name='length'>436</property>
+                <property name='eof'>pause</property>
+                <property name='resource'>{resource}</property>
+                <property name='mlt_service'>avformat</property>
+                <property name='seekable'>1</property>
+                <property name='audio_index'>0</property>
+                <property name='video_index'>-1</property>
+                <property name='kdenlive:id'>
+                    {kdenliveId || generateId('')}
+                </property>
+                <property name='kdenlive:clip_type'>1</property>
+            </chain>
+
+            {/* Playlist */}
+            <playlist id={playlistId}>
+                <property name='kdenlive:audio_track'>{trackNumber}</property>
+                <entry in={inTime} out={outTime} producer={chainId}>
+                    <filter id={filterId}>
+                        <property name='window'>75</property>
+                        <property name='max_gain'>20dB</property>
+                        <property name='mlt_service'>volume</property>
+                        <property name='kdenlive_id'>gain</property>
+                        <property name='gain'>{volume}</property>
+                        <property name='kdenlive:collapsed'>0</property>
+                    </filter>
+                </entry>
+            </playlist>
+
+            {/* Tractor */}
+            <tractor id={tractorId} in={inTime} out={outTime}>
+                <property name='kdenlive:audio_track'>{trackNumber}</property>
+                <track hide='video' producer={playlistId} />
+            </tractor>
+        </>
+    )
 }
 
 function MLT() {
     return (
         <mlt LC_NUMERIC='en_US.UTF-8' producer='main_bin' version='7.30.0'>
             <consumer
-                ab='160k'
+                f='mp4'
                 acodec='aac'
+                vcodec='libx264'
+                ab='160k'
                 channels='2'
                 crf='23'
                 deinterlacer='onefield'
-                f='mp4'
                 g='15'
                 in='0'
                 mlt_service='avformat'
@@ -86,7 +130,6 @@ function MLT() {
                 rescale='bilinear'
                 target='./out.mp4'
                 threads='0'
-                vcodec='libx264'
             />
 
             <profile
@@ -103,71 +146,42 @@ function MLT() {
                 width='1080'
             />
 
-            {/* Producers */}
-            <Producer id='producer6' in='00:00:00.000' out='00:00:00.967'>
-                <Property name='length'>00:00:01.000</Property>
-                <Property name='eof'>pause</Property>
-                <Property name='resource'>
-                    /Users/morse/Library/Caches/kdenlive/1740250889506/preview/75.mov
-                </Property>
-                <Property name='kdenlive:id'>3</Property>
-                <Property name='kdenlive:control_uuid'>{`{5efa1694-ca6a-4d76-b297-cf5e50739474}`}</Property>
-            </Producer>
+            {/* Images */}
+            <ImageProducer
+                resource='sololevelling/page-000.jpg'
+                kdenliveId={5}
+            />
+            <ImageProducer
+                resource='sololevelling/page-001.jpg'
+                kdenliveId={6}
+            />
 
-            {/* Chains */}
-            <Chain id='chain3' out='00:00:14.500'>
-                <Property name='length'>436</Property>
-                <Property name='eof'>pause</Property>
-                <Property name='resource'>narrator.wav</Property>
-                <Property name='kdenlive:id'>12</Property>
-                <Property name='kdenlive:control_uuid'>{`{bd02d3d0-39c1-4f84-a9dd-46f0d7f09794}`}</Property>
-            </Chain>
-
-            {/* Playlists */}
-            <Playlist id='playlist0'>
-                <Property name='kdenlive:audio_track'>1</Property>
-                <entry in='00:00:00.000' out='00:00:15.533' producer='chain0'>
-                    <Property name='kdenlive:id'>8</Property>
-                    <Filter id='filter0'>
-                        <Property name='window'>75</Property>
-                        <Property name='max_gain'>20dB</Property>
-                        <Property name='mlt_service'>volume</Property>
-                        <Property name='kdenlive_id'>gain</Property>
-                        <Property name='gain'>0.2</Property>
-                        <Property name='kdenlive:collapsed'>0</Property>
-                    </Filter>
-                </entry>
-            </Playlist>
-
-            {/* Tractors */}
-            <Tractor id='tractor0' in='00:00:00.000' out='00:00:15.533'>
-                <Property name='kdenlive:audio_track'>1</Property>
-                <track hide='video' producer='playlist0' />
-                <track hide='video' producer='playlist1' />
-            </Tractor>
+            {/* Audio Tracks */}
+            <AudioTrack
+                resource='narrator.wav'
+                trackNumber={1}
+                outTime='00:00:14.500'
+                volume={0.2}
+                kdenliveId={12}
+            />
 
             {/* Main bin */}
             <playlist id='main_bin'>
                 <entry
+                    producer='producer1'
                     in='00:00:00.000'
-                    out='00:00:00.967'
-                    producer='producer6'
+                    out='00:00:04.967'
                 />
             </playlist>
 
             {/* Project tractor */}
-            <Tractor id='tractor5' in='00:00:00.000' out='00:00:15.533'>
-                <Property name='kdenlive:projectTractor'>1</Property>
-                <track
-                    in='00:00:00.000'
-                    out='00:00:15.533'
-                    producer='tractor4'
-                />
-            </Tractor>
+            <tractor id='tractor5' in='00:00:00.000' out='00:00:15.533'>
+                <property name='kdenlive:projectTractor'>1</property>
+                <track producer='tractor4' />
+            </tractor>
         </mlt>
     )
 }
-
 
 writeFileSync(
     'slideshow.kdenlive',
@@ -175,5 +189,5 @@ writeFileSync(
         headless: false,
         prettyPrint: true,
         allowEmptyTags: false,
-    })
+    }),
 )
