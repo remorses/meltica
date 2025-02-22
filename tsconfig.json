@@ -24,7 +24,6 @@
             "~/*": ["./public/*"],
             "website/*": ["./*"],
         },
-        "noEmit": true,
     },
     "include": ["src", "scripts"],
 }

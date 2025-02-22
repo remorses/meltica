@@ -2,7 +2,7 @@
 <mlt LC_NUMERIC="en_US.UTF-8" producer="main_bin" version="7.30.0">
   <consumer f="mp4" acodec="aac" vcodec="libx264" ab="160k" channels="2" crf="23" deinterlacer="onefield" g="15" in="0" mlt_service="avformat" movflags="+faststart" preset="veryfast" real_time="-1" rescale="bilinear" target="./out.mp4" threads="0"/>
   <profile colorspace="709" description="Vertical HD 30 fps" display_aspect_den="16" display_aspect_num="9" frame_rate_den="1" frame_rate_num="30" height="1920" progressive="1" sample_aspect_den="1" sample_aspect_num="1" width="1080"/>
-  <producer id="producer1" in="00:00:00.000" out="00:00:04.967">
+  <producer id="producer3" in="00:00:00.000" out="00:00:04.967">
     <property name="length">00:00:05.000</property>
     <property name="eof">pause</property>
     <property name="resource">sololevelling/page-000.jpg</property>
@@ -19,7 +19,7 @@
     <property name="kdenlive:id">5</property>
     <property name="kdenlive:clip_type">2</property>
   </producer>
-  <producer id="producer2" in="00:00:00.000" out="00:00:04.967">
+  <producer id="producer4" in="00:00:00.000" out="00:00:04.967">
     <property name="length">00:00:05.000</property>
     <property name="eof">pause</property>
     <property name="resource">sololevelling/page-001.jpg</property>
@@ -36,7 +36,41 @@
     <property name="kdenlive:id">6</property>
     <property name="kdenlive:clip_type">2</property>
   </producer>
-  <chain id="chain3" out="00:00:14.500">
+  <producer id="producer5" in="00:00:00.000" out="00:00:04.967">
+    <property name="length">00:00:05.000</property>
+    <property name="eof">pause</property>
+    <property name="resource">sololevelling/page-002.jpg</property>
+    <property name="ttl">25</property>
+    <property name="aspect_ratio">1</property>
+    <property name="meta.media.progressive">1</property>
+    <property name="seekable">1</property>
+    <property name="format">1</property>
+    <property name="meta.media.width">720</property>
+    <property name="meta.media.height">2342</property>
+    <property name="mlt_service">qimage</property>
+    <property name="kdenlive:duration">00:00:05.000</property>
+    <property name="kdenlive:folderid">-1</property>
+    <property name="kdenlive:id">7</property>
+    <property name="kdenlive:clip_type">2</property>
+  </producer>
+  <producer id="producer6" in="00:00:00.000" out="00:00:04.967">
+    <property name="length">00:00:05.000</property>
+    <property name="eof">pause</property>
+    <property name="resource">sololevelling/page-003.jpg</property>
+    <property name="ttl">25</property>
+    <property name="aspect_ratio">1</property>
+    <property name="meta.media.progressive">1</property>
+    <property name="seekable">1</property>
+    <property name="format">1</property>
+    <property name="meta.media.width">720</property>
+    <property name="meta.media.height">2342</property>
+    <property name="mlt_service">qimage</property>
+    <property name="kdenlive:duration">00:00:05.000</property>
+    <property name="kdenlive:folderid">-1</property>
+    <property name="kdenlive:id">13</property>
+    <property name="kdenlive:clip_type">2</property>
+  </producer>
+  <chain id="chain7" out="00:00:14.500">
     <property name="length">436</property>
     <property name="eof">pause</property>
     <property name="resource">narrator.wav</property>
@@ -47,10 +81,10 @@
     <property name="kdenlive:id">12</property>
     <property name="kdenlive:clip_type">1</property>
   </chain>
-  <playlist id="playlist4">
+  <playlist id="playlist8">
     <property name="kdenlive:audio_track">1</property>
-    <entry in="00:00:00.000" out="00:00:14.500" producer="chain3">
-      <filter id="filter6">
+    <entry in="00:00:00.000" out="00:00:14.500" producer="chain7">
+      <filter id="filter10">
         <property name="window">75</property>
         <property name="max_gain">20dB</property>
         <property name="mlt_service">volume</property>
@@ -60,14 +94,107 @@
       </filter>
     </entry>
   </playlist>
-  <tractor id="tractor5" in="00:00:00.000" out="00:00:14.500">
+  <tractor id="tractor9" in="00:00:00.000" out="00:00:14.500">
     <property name="kdenlive:audio_track">1</property>
-    <track hide="video" producer="playlist4"/>
+    <track hide="video" producer="playlist8"/>
+  </tractor>
+  <chain id="chain11" out="00:00:19.967">
+    <property name="length">436</property>
+    <property name="eof">pause</property>
+    <property name="resource">edapollo - Let It Go [bQ5glYCsv94].mp3</property>
+    <property name="mlt_service">avformat</property>
+    <property name="seekable">1</property>
+    <property name="audio_index">0</property>
+    <property name="video_index">-1</property>
+    <property name="kdenlive:id">8</property>
+    <property name="kdenlive:clip_type">1</property>
+  </chain>
+  <playlist id="playlist12">
+    <property name="kdenlive:audio_track">2</property>
+    <entry in="00:00:00.000" out="00:00:19.967" producer="chain11">
+      <filter id="filter14">
+        <property name="window">75</property>
+        <property name="max_gain">20dB</property>
+        <property name="mlt_service">volume</property>
+        <property name="kdenlive_id">gain</property>
+        <property name="gain">0.2</property>
+        <property name="kdenlive:collapsed">0</property>
+      </filter>
+    </entry>
+  </playlist>
+  <tractor id="tractor13" in="00:00:00.000" out="00:00:19.967">
+    <property name="kdenlive:audio_track">2</property>
+    <track hide="video" producer="playlist12"/>
   </tractor>
   <playlist id="main_bin">
+    <property name="kdenlive:docproperties.activetimeline">{764b0aa1-87ca-47d4-a966-aa812f8e7803}</property>
+    <property name="kdenlive:docproperties.audioChannels">2</property>
+    <property name="kdenlive:docproperties.documentid">1740250889506</property>
+    <property name="kdenlive:docproperties.enableTimelineZone">0</property>
+    <property name="kdenlive:docproperties.kdenliveversion">24.12.2</property>
+    <property name="kdenlive:docproperties.position">756</property>
+    <property name="kdenlive:docproperties.profile">vertical_hd_30</property>
+    <property name="kdenlive:docproperties.rendercategory">Generic (HD for web, mobile devices...)</property>
+    <property name="kdenlive:docproperties.renderprofile">MP4-H264/AAC</property>
+    <property name="kdenlive:docproperties.renderurl">./kdentlivetest.mp4</property>
+    <property name="kdenlive:docproperties.version">1.1</property>
     <entry producer="producer1" in="00:00:00.000" out="00:00:04.967"/>
+    <entry producer="producer2" in="00:00:00.000" out="00:00:04.967"/>
+    <entry producer="producer3" in="00:00:00.000" out="00:00:04.967"/>
+    <entry producer="producer4" in="00:00:00.000" out="00:00:04.967"/>
   </playlist>
-  <tractor id="tractor5" in="00:00:00.000" out="00:00:15.533">
+  <playlist id="playlist4">
+    <entry producer="producer4" in="00:00:00.000" out="00:00:04.967">
+      <filter id="filter1">
+        <property name="rotate_center">1</property>
+        <property name="mlt_service">qtblend</property>
+        <property name="kdenlive_id">qtblend</property>
+        <property name="rect">00:00:00.000=-758 -296 2569 3054 1.000000;00:00:04.967=-698 -568 2511 2490 1.000000</property>
+        <property name="rotation">00:00:00.000=0;00:00:04.967=0</property>
+      </filter>
+    </entry>
+    <entry producer="producer5" in="00:00:00.000" out="00:00:04.967">
+      <filter id="filter2">
+        <property name="rotate_center">1</property>
+        <property name="mlt_service">qtblend</property>
+        <property name="kdenlive_id">qtblend</property>
+        <property name="rect">00:00:00.000=-633 -84 2328 3054 1.000000;00:00:04.967=-639 -332 2328 3054 1.000000</property>
+        <property name="rotation">00:00:00.000=0;00:00:04.967=0</property>
+      </filter>
+    </entry>
+  </playlist>
+  <tractor id="tractor4" in="00:00:00.000" out="00:00:19.967">
+    <property name="kdenlive:duration">00:00:20.000</property>
+    <property name="kdenlive:maxduration">600</property>
+    <property name="kdenlive:trackheight">57</property>
+    <property name="kdenlive:timeline_active">1</property>
+    <property name="kdenlive:collapsed">0</property>
+    <track producer="producer0"/>
+    <track producer="tractor0"/>
+    <track producer="tractor1"/>
+    <track producer="tractor2"/>
+    <track producer="tractor3"/>
+    <track hide="both" producer="playlist8"/>
+    <transition id="transition0">
+      <property name="a_track">0</property>
+      <property name="b_track">1</property>
+      <property name="mlt_service">mix</property>
+      <property name="kdenlive_id">mix</property>
+      <property name="internal_added">237</property>
+      <property name="always_active">1</property>
+      <property name="sum">1</property>
+    </transition>
+    <transition id="transition1">
+      <property name="a_track">0</property>
+      <property name="b_track">2</property>
+      <property name="mlt_service">mix</property>
+      <property name="kdenlive_id">mix</property>
+      <property name="internal_added">237</property>
+      <property name="always_active">1</property>
+      <property name="sum">1</property>
+    </transition>
+  </tractor>
+  <tractor id="tractor5" in="00:00:00.000" out="00:00:19.967">
     <property name="kdenlive:projectTractor">1</property>
     <track producer="tractor4"/>
   </tractor>

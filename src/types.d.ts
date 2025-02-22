@@ -1,7 +1,12 @@
-type ReactNode = any
+import { ReactNode } from 'react';
+
 
 declare global {
     namespace JSX {
+        interface ElementChildrenAttribute {
+            children?: ReactNode
+        }
+
         interface IntrinsicElements {
             mlt: {
                 LC_NUMERIC?: string
@@ -9,6 +14,12 @@ declare global {
                 root?: string
                 profile?: string
                 title?: string
+                producer?: string
+                children?: ReactNode
+            }
+            entry: {
+                in?: string
+                out?: string
                 producer?: string
                 children?: ReactNode
             }

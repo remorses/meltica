@@ -1,6 +1,7 @@
-import { render } from 'jsx-xml'
+import { render, JsxXmlElement } from 'jsx-xml'
 
 function Example({ children }) {
+    console.log(children.map(x => x))
     return (
         <mlt LC_NUMERIC='en_US.UTF-8' version='7.30.0'>
             <profile
