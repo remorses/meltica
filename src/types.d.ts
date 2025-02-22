@@ -17,6 +17,9 @@ declare global {
                 producer?: string
                 children?: ReactNode
             }
+            blank: {
+                length?: string
+            }
             entry: {
                 in?: string
                 out?: string
