@@ -10,7 +10,7 @@ try {
 
   // Run the container and remove it when done
   console.log('\nRunning container...');
-  const runOutput = execSync('docker run --rm kdenlivetest', {
+  const runOutput = execSync('docker run -v ./:/app --rm kdenlivetest', {
     encoding: 'utf-8',
     stdio: 'inherit'
   });

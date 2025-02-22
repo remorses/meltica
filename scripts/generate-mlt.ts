@@ -28,9 +28,13 @@ function generateMlt({
     if (!mltElement) {
         throw new Error('No MLT element found in kdenlive file')
     }
+
+    // Set root attribute to ./
+    delete mltElement.attribs.root
+
     // Parse and add consumer as first child
     const consumerXml =
-        '\n<consumer ab="160k" acodec="aac" channels="2" crf="23" deinterlacer="onefield" f="mp4" g="15" in="0" mlt_service="avformat" movflags="+faststart" preset="veryfast" real_time="-1" rescale="bilinear" target="./kdentlivetest.mp4" threads="0" vcodec="libx264" />'
+        '\n<consumer ab="160k" acodec="aac" channels="2" crf="23" deinterlacer="onefield" f="mp4" g="15" in="0" mlt_service="avformat" movflags="+faststart" preset="veryfast" real_time="-1" rescale="bilinear" target="./out.mp4" threads="0" vcodec="libx264" />'
     const consumerDom = parseXml(consumerXml)
     mltElement.children.unshift(consumerDom[0])
 

@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY render.mlt ./
 
-ENV XDG_RUNTIME_DIR=/home/root/
+# ENV XDG_RUNTIME_DIR=/home/root/
 
 
 CMD ["melt", "render.mlt"]
