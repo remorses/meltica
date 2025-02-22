@@ -1,6 +1,12 @@
 import { render } from 'jsx-xml'
 import { writeFileSync } from 'fs'
 
+// Utility to generate unique IDs
+let idCounter = 0
+const generateId = (prefix: string) => {
+    idCounter++
+    return `${prefix}${idCounter}`
+}
 
 function MLT() {
     return (
@@ -52,7 +58,7 @@ function MLT() {
          <property name="meta.media.top_field_first">0</property>
          <property name="meta.media.progressive">1</property>
          <property name="kdenlive:id">3</property>
-         <property name="kdenlive:control_uuid">{`5efa1694-ca6a-4d76-b297-cf5e50739474`}</property>
+         <property name="kdenlive:control_uuid">{`{5efa1694-ca6a-4d76-b297-cf5e50739474}`}</property>
          <property name="kdenlive:clip_type">2</property>
          <property name="kdenlive:file_size">4711337</property>
          <property name="kdenlive:file_hash">fe63b04d506c62b69ec4e1dcf8d41c36</property>
@@ -75,7 +81,7 @@ function MLT() {
          <property name="xml">was here</property>
          <property name="kdenlive:folderid">-1</property>
          <property name="kdenlive:id">5</property>
-         <property name="kdenlive:control_uuid">{`4146d5ac-1ec2-4bcc-87f8-e36d4916f5f9`}</property>
+         <property name="kdenlive:control_uuid">{`{4146d5ac-1ec2-4bcc-87f8-e36d4916f5f9}`}</property>
          <property name="kdenlive:clip_type">2</property>
          <property name="kdenlive:file_size">101474</property>
          <property name="kdenlive:file_hash">8b8fffbe9073241a87a1a2eecb8a1893</property>
@@ -97,7 +103,7 @@ function MLT() {
          <property name="xml">was here</property>
          <property name="kdenlive:folderid">-1</property>
          <property name="kdenlive:id">6</property>
-         <property name="kdenlive:control_uuid">{`6d205bed-b49d-417d-bd51-bf373cf75f35`}</property>
+         <property name="kdenlive:control_uuid">{`{6d205bed-b49d-417d-bd51-bf373cf75f35}`}</property>
          <property name="kdenlive:clip_type">2</property>
          <property name="kdenlive:file_size">200528</property>
          <property name="kdenlive:file_hash">5aeaca4c95cfefd0c7e5bf1a0744bd2a</property>
@@ -118,7 +124,7 @@ function MLT() {
          <property name="xml">was here</property>
          <property name="kdenlive:folderid">-1</property>
          <property name="kdenlive:id">7</property>
-         <property name="kdenlive:control_uuid">{`b1b6435f-e07f-4b60-be86-1d59e0d51284`}</property>
+         <property name="kdenlive:control_uuid">{`{b1b6435f-e07f-4b60-be86-1d59e0d51284}`}</property>
          <property name="kdenlive:clip_type">2</property>
          <property name="kdenlive:file_size">176110</property>
          <property name="kdenlive:file_hash">bf9b6de399dcaaedf066bd006bd7ae5b</property>
@@ -140,7 +146,7 @@ function MLT() {
          <property name="xml">was here</property>
          <property name="kdenlive:folderid">-1</property>
          <property name="kdenlive:id">9</property>
-         <property name="kdenlive:control_uuid">{`84e33c46-8bda-49e4-904a-bec14f0d3dcd`}</property>
+         <property name="kdenlive:control_uuid">{`{84e33c46-8bda-49e4-904a-bec14f0d3dcd}`}</property>
          <property name="kdenlive:clip_type">2</property>
          <property name="kdenlive:file_size">101474</property>
          <property name="kdenlive:file_hash">8b8fffbe9073241a87a1a2eecb8a1893</property>
@@ -162,7 +168,7 @@ function MLT() {
          <property name="xml">was here</property>
          <property name="kdenlive:folderid">-1</property>
          <property name="kdenlive:id">10</property>
-         <property name="kdenlive:control_uuid">{`526c9825-d500-4d0a-a979-0144560e5944`}</property>
+         <property name="kdenlive:control_uuid">{`{526c9825-d500-4d0a-a979-0144560e5944}`}</property>
          <property name="kdenlive:clip_type">2</property>
          <property name="kdenlive:file_size">200528</property>
          <property name="kdenlive:file_hash">5aeaca4c95cfefd0c7e5bf1a0744bd2a</property>
@@ -184,7 +190,7 @@ function MLT() {
          <property name="xml">was here</property>
          <property name="kdenlive:folderid">-1</property>
          <property name="kdenlive:id">11</property>
-         <property name="kdenlive:control_uuid">{`258fada4-ba8d-45b5-afd7-fafff0fd1ec9`}</property>
+         <property name="kdenlive:control_uuid">{`{258fada4-ba8d-45b5-afd7-fafff0fd1ec9}`}</property>
          <property name="kdenlive:clip_type">2</property>
          <property name="kdenlive:file_size">176110</property>
          <property name="kdenlive:file_hash">bf9b6de399dcaaedf066bd006bd7ae5b</property>
@@ -210,7 +216,7 @@ function MLT() {
          <property name="astream">0</property>
          <property name="kdenlive:folderid">-1</property>
          <property name="kdenlive:id">12</property>
-         <property name="kdenlive:control_uuid">{`bd02d3d0-39c1-4f84-a9dd-46f0d7f09794`}</property>
+         <property name="kdenlive:control_uuid">{`{bd02d3d0-39c1-4f84-a9dd-46f0d7f09794}`}</property>
          <property name="kdenlive:clip_type">1</property>
          <property name="kdenlive:file_size">1282092</property>
          <property name="kdenlive:file_hash">69466ddf6841801c8e1e00e775299ad7</property>
@@ -236,7 +242,7 @@ function MLT() {
          <property name="audio_index">0</property>
          <property name="video_index">-1</property>
          <property name="astream">0</property>
-         <property name="kdenlive:control_uuid">{`9aca0516-8d33-468e-b598-7144fa82e594`}</property>
+         <property name="kdenlive:control_uuid">{`{9aca0516-8d33-468e-b598-7144fa82e594}`}</property>
          <property name="kdenlive:proxy">-</property>
          <property name="kdenlive:originalurl">edapollo - Let It Go [bQ5glYCsv94].mp3</property>
          <property name="kdenlive:id">8</property>
@@ -322,7 +328,7 @@ function MLT() {
          <property name="astream">0</property>
          <property name="kdenlive:folderid">-1</property>
          <property name="kdenlive:id">12</property>
-         <property name="kdenlive:control_uuid">{`bd02d3d0-39c1-4f84-a9dd-46f0d7f09794`}</property>
+         <property name="kdenlive:control_uuid">{`{bd02d3d0-39c1-4f84-a9dd-46f0d7f09794}`}</property>
          <property name="kdenlive:clip_type">1</property>
          <property name="kdenlive:file_size">1282092</property>
          <property name="kdenlive:file_hash">69466ddf6841801c8e1e00e775299ad7</property>
@@ -398,7 +404,7 @@ function MLT() {
          <property name="xml">was here</property>
          <property name="kdenlive:folderid">-1</property>
          <property name="kdenlive:id">13</property>
-         <property name="kdenlive:control_uuid">{`4c73117b-ab05-4db3-ac36-3b66a48b89f2`}</property>
+         <property name="kdenlive:control_uuid">{`{4c73117b-ab05-4db3-ac36-3b66a48b89f2}`}</property>
          <property name="kdenlive:clip_type">2</property>
          <property name="kdenlive:file_size">83723</property>
          <property name="kdenlive:file_hash">4ac15013d0735300104d23c43446735d</property>
@@ -486,9 +492,9 @@ function MLT() {
          <property name="kdenlive:maxduration">600</property>
          <property name="kdenlive:clipname">Sequence 1</property>
          <property name="kdenlive:description"/>
-         <property name="kdenlive:uuid">{`764b0aa1-87ca-47d4-a966-aa812f8e7803`}</property>
+         <property name="kdenlive:uuid">{`{764b0aa1-87ca-47d4-a966-aa812f8e7803}`}</property>
          <property name="kdenlive:producer_type">17</property>
-         <property name="kdenlive:control_uuid">{`764b0aa1-87ca-47d4-a966-aa812f8e7803`}</property>
+         <property name="kdenlive:control_uuid">{`{764b0aa1-87ca-47d4-a966-aa812f8e7803}`}</property>
          <property name="kdenlive:id">4</property>
          <property name="kdenlive:clip_type">0</property>
          <property name="kdenlive:file_hash">50cc9fb8af55802d31f7c0f9abe1032b</property>
@@ -497,7 +503,7 @@ function MLT() {
          <property name="kdenlive:sequenceproperties.audioTarget">1</property>
          <property name="kdenlive:sequenceproperties.dirtypreviewchunks">0-75</property>
          <property name="kdenlive:sequenceproperties.disablepreview">0</property>
-         <property name="kdenlive:sequenceproperties.documentuuid">{`764b0aa1-87ca-47d4-a966-aa812f8e7803`}</property>
+         <property name="kdenlive:sequenceproperties.documentuuid">{`{764b0aa1-87ca-47d4-a966-aa812f8e7803}`}</property>
          <property name="kdenlive:sequenceproperties.hasAudio">1</property>
          <property name="kdenlive:sequenceproperties.hasVideo">1</property>
          <property name="kdenlive:sequenceproperties.lastUsedFrame">0</property>
@@ -603,7 +609,7 @@ function MLT() {
          <property name="audio_index">0</property>
          <property name="video_index">-1</property>
          <property name="astream">0</property>
-         <property name="kdenlive:control_uuid">{`9aca0516-8d33-468e-b598-7144fa82e594`}</property>
+         <property name="kdenlive:control_uuid">{`{9aca0516-8d33-468e-b598-7144fa82e594}`}</property>
          <property name="kdenlive:proxy">-</property>
          <property name="kdenlive:originalurl">edapollo - Let It Go [bQ5glYCsv94].mp3</property>
          <property name="kdenlive:id">8</property>
@@ -617,7 +623,7 @@ function MLT() {
         <playlist id="main_bin">
          <property name="kdenlive:folder.-1.2">Sequences</property>
          <property name="kdenlive:sequenceFolder">2</property>
-         <property name="kdenlive:docproperties.activetimeline">{`764b0aa1-87ca-47d4-a966-aa812f8e7803`}</property>
+         <property name="kdenlive:docproperties.activetimeline">{`{764b0aa1-87ca-47d4-a966-aa812f8e7803}`}</property>
          <property name="kdenlive:docproperties.audioChannels">2</property>
          <property name="kdenlive:docproperties.binsort">0</property>
          <property name="kdenlive:docproperties.browserurl">/Users/morse/Documents/</property>
@@ -630,7 +636,7 @@ function MLT() {
          <property name="kdenlive:docproperties.generateproxy">0</property>
          
          <property name="kdenlive:docproperties.kdenliveversion">24.12.2</property>
-         <property name="kdenlive:docproperties.opensequences">{`764b0aa1-87ca-47d4-a966-aa812f8e7803`}</property>
+         <property name="kdenlive:docproperties.opensequences">{`{764b0aa1-87ca-47d4-a966-aa812f8e7803}`}</property>
          <property name="kdenlive:docproperties.previewextension">mov</property>
          <property name="kdenlive:docproperties.previewparameters">r=25 s=1920x1080 vb=36M threads=0 vcodec=dnxhd progressive=1</property>
          <property name="kdenlive:docproperties.profile">vertical_hd_30</property>
@@ -659,8 +665,8 @@ function MLT() {
          <property name="kdenlive:docproperties.rendertwopass">0</property>
          <property name="kdenlive:docproperties.renderurl">./kdentlivetest.mp4</property>
          <property name="kdenlive:docproperties.seekOffset">30000</property>
-         <property name="kdenlive:docproperties.sessionid">{`8124437a-eb83-4651-a68d-638f7484e36d`}</property>
-         <property name="kdenlive:docproperties.uuid">{`764b0aa1-87ca-47d4-a966-aa812f8e7803`}</property>
+         <property name="kdenlive:docproperties.sessionid">{`{8124437a-eb83-4651-a68d-638f7484e36d}`}</property>
+         <property name="kdenlive:docproperties.uuid">{`{764b0aa1-87ca-47d4-a966-aa812f8e7803}`}</property>
          <property name="kdenlive:docproperties.version">1.1</property>
          <property name="kdenlive:expandedFolders"/>
          <property name="kdenlive:binZoom">4</property>
@@ -692,7 +698,8 @@ writeFileSync(
     'slideshow.kdenlive',
     render(<MLT />).end({
         headless: false,
-        prettyPrint: true,
+        // prettyPrint: true,
+        indentTextOnlyNodes: true,
         allowEmptyTags: false,
     }),
 )

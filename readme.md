@@ -30,3 +30,14 @@ kdenlive respects the root mlt root attribute, if you remove it, all paths will 
 
 
 
+
+
+## putting the xml into jsx
+
+use this regex replacement:
+```
+>\{(.*)\}<
+>{`{$1}`}<
+```
+
+this makes sure the ids are quotes correctly
