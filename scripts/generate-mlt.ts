@@ -4,18 +4,20 @@ import { Parser } from 'htmlparser2'
 import { DomHandler, Element } from 'domhandler'
 import { render } from 'dom-serializer'
 
-const parseXml = (xml: string) => {
+function parseXml(xml: string) {
     const handler = new DomHandler()
     const parser = new Parser(handler, {
         xmlMode: true,
-        recognizeSelfClosing: true
+        recognizeSelfClosing: true,
     })
     parser.write(xml)
     parser.end()
     return handler.dom
 }
 
-const generateMlt = () => {
+function generateMlt({
+    root = '/Users/morse/Documents/GitHub/ugcvideos.org/website/',
+} = {}) {
     // Read and parse the kdenlive file
     const kdenliveContent = fs.readFileSync('kdentlivetest.kdenlive', 'utf-8')
     const dom = parseXml(kdenliveContent)
@@ -33,11 +35,12 @@ const generateMlt = () => {
     mltElement.children.unshift(consumerDom[0])
 
     // Convert back to XML and write to file
-    const xml = render(dom, {
+    let xml = render(dom, {
         xmlMode: true,
         encodeEntities: false,
-        selfClosingTags: true
+        selfClosingTags: true,
     })
+    xml = xml.replaceAll(root, './')
 
     fs.writeFileSync('render.mlt', xml)
 }

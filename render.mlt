@@ -58,7 +58,7 @@
  <producer id="producer1" in="00:00:00.000" out="00:00:19.200">
   <property name="length">00:00:19.240</property>
   <property name="eof">pause</property>
-  <property name="resource">/Users/morse/Documents/GitHub/ugcvideos.org/website/sololevelling/page-000.jpg</property>
+  <property name="resource">./sololevelling/page-000.jpg</property>
   <property name="ttl">25</property>
   <property name="aspect_ratio">1</property>
   <property name="meta.media.progressive">1</property>
@@ -80,7 +80,7 @@
  <producer id="producer2" in="00:00:00.000" out="00:00:04.967">
   <property name="length">00:00:05.000</property>
   <property name="eof">pause</property>
-  <property name="resource">/Users/morse/Documents/GitHub/ugcvideos.org/website/sololevelling/page-001.jpg</property>
+  <property name="resource">./sololevelling/page-001.jpg</property>
   <property name="ttl">25</property>
   <property name="aspect_ratio">1</property>
   <property name="meta.media.progressive">1</property>
@@ -101,7 +101,7 @@
  <producer id="producer3" in="00:00:00.000" out="00:00:04.967">
   <property name="length">00:00:05.000</property>
   <property name="eof">pause</property>
-  <property name="resource">/Users/morse/Documents/GitHub/ugcvideos.org/website/sololevelling/page-002.jpg</property>
+  <property name="resource">./sololevelling/page-002.jpg</property>
   <property name="ttl">25</property>
   <property name="aspect_ratio">1</property>
   <property name="meta.media.progressive">1</property>
