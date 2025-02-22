@@ -421,7 +421,7 @@
   <property name="kdenlive:sequenceproperties.hasAudio">1</property>
   <property name="kdenlive:sequenceproperties.hasVideo">1</property>
   <property name="kdenlive:sequenceproperties.lastUsedFrame">0</property>
-  <property name="kdenlive:sequenceproperties.position">623</property>
+  <property name="kdenlive:sequenceproperties.position">466</property>
   <property name="kdenlive:sequenceproperties.scrollPos">0</property>
   <property name="kdenlive:sequenceproperties.tracks">4</property>
   <property name="kdenlive:sequenceproperties.tracksCount">3</property>
