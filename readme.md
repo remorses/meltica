@@ -23,3 +23,10 @@ there is also a concept of
 
 the mlt file produced by kdenlive is just the kdenlive with the consumer element added.
 
+
+## mlt root
+
+kdenlive respects the root mlt root attribute, if you remove it, all paths will use a relative path instead of an absolute path! this is perfect for running inside docker. or creating portable mlt files.
+
+
+
