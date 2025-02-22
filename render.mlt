@@ -1,8 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <mlt LC_NUMERIC="en_US.UTF-8" producer="main_bin" version="7.30.0">
-
+<consumer ab="160k" acodec="aac" channels="2" crf="23" deinterlacer="onefield" f="mp4" g="15" in="0" mlt_service="avformat" movflags="+faststart" preset="veryfast" real_time="-1" rescale="bilinear" target="./out.mp4" threads="0" vcodec="libx264"/>
  <profile colorspace="709" description="Vertical HD 30 fps" display_aspect_den="16" display_aspect_num="9" frame_rate_den="1" frame_rate_num="30" height="1920" progressive="1" sample_aspect_den="1" sample_aspect_num="1" width="1080"/>
- <consumer ab="160k" acodec="aac" channels="2" crf="23" deinterlacer="onefield" f="mp4" g="15" in="0" mlt_service="avformat" movflags="+faststart" preset="veryfast" real_time="-1" rescale="bilinear" target="./kdentlivetest.mp4" threads="0" vcodec="libx264"/>
  <producer id="producer6" in="00:00:00.000" out="00:00:00.967">
   <property name="length">00:00:01.000</property>
   <property name="eof">pause</property>
@@ -54,6 +53,7 @@
   <property name="kdenlive:file_size">4711337</property>
   <property name="kdenlive:file_hash">fe63b04d506c62b69ec4e1dcf8d41c36</property>
   <property name="kdenlive:folderid">-1</property>
+  <property name="kdenlive:monitorPosition">0</property>
  </producer>
  <producer id="producer1" in="00:00:00.000" out="00:00:19.200">
   <property name="length">00:00:19.240</property>
@@ -120,38 +120,6 @@
   <property name="kdenlive:file_hash">bf9b6de399dcaaedf066bd006bd7ae5b</property>
   <property name="kdenlive:monitorPosition">0</property>
  </producer>
- <chain id="chain1" out="00:02:15.067">
-  <property name="length">00:02:15.120</property>
-  <property name="eof">pause</property>
-  <property name="resource">/Volumes/1tb sabrent/downloaded youtube videos/edapollo - Let It Go [bQ5glYCsv94].mp3</property>
-  <property name="mlt_service">avformat</property>
-  <property name="meta.media.nb_streams">1</property>
-  <property name="meta.media.0.stream.type">audio</property>
-  <property name="meta.media.0.codec.sample_fmt">fltp</property>
-  <property name="meta.media.0.codec.sample_rate">44100</property>
-  <property name="meta.media.0.codec.channels">2</property>
-  <property name="meta.media.0.codec.layout">stereo</property>
-  <property name="meta.media.0.codec.name">mp3float</property>
-  <property name="meta.media.0.codec.long_name">MP3 (MPEG audio layer 3)</property>
-  <property name="meta.media.0.codec.bit_rate">192000</property>
-  <property name="meta.attr.0.stream.encoder.markup">Lavc61.19</property>
-  <property name="meta.attr.major_brand.markup">isom</property>
-  <property name="meta.attr.minor_version.markup">512</property>
-  <property name="meta.attr.compatible_brands.markup">isomiso2avc1mp41</property>
-  <property name="meta.attr.encoder.markup">Lavf61.7.100</property>
-  <property name="seekable">1</property>
-  <property name="audio_index">0</property>
-  <property name="video_index">-1</property>
-  <property name="astream">0</property>
-  <property name="kdenlive:folderid">-1</property>
-  <property name="kdenlive:id">8</property>
-  <property name="kdenlive:control_uuid">{9aca0516-8d33-468e-b598-7144fa82e594}</property>
-  <property name="kdenlive:clip_type">1</property>
-  <property name="kdenlive:file_size">3243927</property>
-  <property name="kdenlive:file_hash">f7ad7c6a1d2cc517ae39ebe6b5f4502a</property>
-  <property name="kdenlive:audio_max0">252</property>
-  <property name="kdenlive:monitorPosition">0</property>
- </chain>
  <producer id="producer4" in="00:00:00.000" out="00:00:04.967">
   <property name="length">00:00:05.000</property>
   <property name="eof">pause</property>
@@ -255,8 +223,8 @@
   <property name="mlt_image_format">rgba</property>
   <property name="set.test_audio">0</property>
  </producer>
- <chain id="chain0" out="00:02:15.067">
-  <property name="length">00:02:15.120</property>
+ <chain id="chain0" out="00:02:15.100">
+  <property name="length">4054</property>
   <property name="eof">pause</property>
   <property name="resource">/Volumes/1tb sabrent/downloaded youtube videos/edapollo - Let It Go [bQ5glYCsv94].mp3</property>
   <property name="mlt_service">avformat-novalidate</property>
@@ -264,12 +232,14 @@
   <property name="audio_index">0</property>
   <property name="video_index">-1</property>
   <property name="astream">0</property>
-  <property name="kdenlive:folderid">-1</property>
-  <property name="kdenlive:id">8</property>
   <property name="kdenlive:control_uuid">{9aca0516-8d33-468e-b598-7144fa82e594}</property>
+  <property name="kdenlive:proxy">-</property>
+  <property name="kdenlive:originalurl">/Volumes/1tb sabrent/downloaded youtube videos/edapollo - Let It Go [bQ5glYCsv94].mp3</property>
+  <property name="kdenlive:id">8</property>
   <property name="kdenlive:clip_type">1</property>
   <property name="kdenlive:file_size">3243927</property>
   <property name="kdenlive:file_hash">f7ad7c6a1d2cc517ae39ebe6b5f4502a</property>
+  <property name="kdenlive:folderid">-1</property>
   <property name="meta.media.nb_streams">1</property>
   <property name="meta.media.0.stream.type">audio</property>
   <property name="meta.media.0.codec.sample_fmt">fltp</property>
@@ -293,7 +263,6 @@
   <property name="kdenlive:audio_track">1</property>
   <entry in="00:00:00.000" out="00:00:15.533" producer="chain0">
    <property name="kdenlive:id">8</property>
-   <property name="kdenlive:activeeffect">0</property>
    <filter id="filter0">
     <property name="window">75</property>
     <property name="max_gain">20dB</property>
@@ -493,7 +462,7 @@
   <property name="kdenlive:sequenceproperties.hasAudio">1</property>
   <property name="kdenlive:sequenceproperties.hasVideo">1</property>
   <property name="kdenlive:sequenceproperties.lastUsedFrame">0</property>
-  <property name="kdenlive:sequenceproperties.position">890</property>
+  <property name="kdenlive:sequenceproperties.position">466</property>
   <property name="kdenlive:sequenceproperties.scrollPos">0</property>
   <property name="kdenlive:sequenceproperties.tracks">4</property>
   <property name="kdenlive:sequenceproperties.tracksCount">3</property>
@@ -572,6 +541,39 @@
    <property name="disable">1</property>
   </filter>
  </tractor>
+ <chain id="chain1" out="00:02:15.100">
+  <property name="length">4054</property>
+  <property name="eof">pause</property>
+  <property name="resource">/Volumes/1tb sabrent/downloaded youtube videos/edapollo - Let It Go [bQ5glYCsv94].mp3</property>
+  <property name="mlt_service">avformat</property>
+  <property name="meta.media.nb_streams">1</property>
+  <property name="meta.media.0.stream.type">audio</property>
+  <property name="meta.media.0.codec.sample_fmt">fltp</property>
+  <property name="meta.media.0.codec.sample_rate">44100</property>
+  <property name="meta.media.0.codec.channels">2</property>
+  <property name="meta.media.0.codec.layout">stereo</property>
+  <property name="meta.media.0.codec.name">mp3float</property>
+  <property name="meta.media.0.codec.long_name">MP3 (MPEG audio layer 3)</property>
+  <property name="meta.media.0.codec.bit_rate">192000</property>
+  <property name="meta.attr.0.stream.encoder.markup">Lavc61.19</property>
+  <property name="meta.attr.major_brand.markup">isom</property>
+  <property name="meta.attr.minor_version.markup">512</property>
+  <property name="meta.attr.compatible_brands.markup">isomiso2avc1mp41</property>
+  <property name="meta.attr.encoder.markup">Lavf61.7.100</property>
+  <property name="seekable">1</property>
+  <property name="audio_index">0</property>
+  <property name="video_index">-1</property>
+  <property name="astream">0</property>
+  <property name="kdenlive:control_uuid">{9aca0516-8d33-468e-b598-7144fa82e594}</property>
+  <property name="kdenlive:proxy">-</property>
+  <property name="kdenlive:originalurl">/Volumes/1tb sabrent/downloaded youtube videos/edapollo - Let It Go [bQ5glYCsv94].mp3</property>
+  <property name="kdenlive:id">8</property>
+  <property name="kdenlive:clip_type">1</property>
+  <property name="kdenlive:file_size">3243927</property>
+  <property name="kdenlive:file_hash">f7ad7c6a1d2cc517ae39ebe6b5f4502a</property>
+  <property name="kdenlive:folderid">-1</property>
+  <property name="kdenlive:audio_max0">252</property>
+ </chain>
  <playlist id="main_bin">
   <property name="kdenlive:folder.-1.2">Sequences</property>
   <property name="kdenlive:sequenceFolder">2</property>
@@ -677,12 +679,12 @@
   <entry in="00:00:00.000" out="00:00:19.200" producer="producer1"/>
   <entry in="00:00:00.000" out="00:00:04.967" producer="producer2"/>
   <entry in="00:00:00.000" out="00:00:04.967" producer="producer3"/>
-  <entry in="00:00:00.000" out="00:02:15.067" producer="chain1"/>
   <entry in="00:00:00.000" out="00:00:04.967" producer="producer4"/>
   <entry in="00:00:00.000" out="00:00:04.967" producer="producer5"/>
   <entry in="00:00:00.000" out="00:00:04.967" producer="producer7"/>
   <entry in="00:00:00.000" out="00:00:14.500" producer="chain3"/>
   <entry in="00:00:00.000" out="00:00:15.533" producer="tractor4"/>
+  <entry in="00:00:00.000" out="00:02:15.100" producer="chain1"/>
  </playlist>
  <tractor id="tractor5" in="00:00:00.000" out="00:00:15.533">
   <property name="kdenlive:projectTractor">1</property>

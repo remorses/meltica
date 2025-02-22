@@ -36,7 +36,7 @@ function generateMlt({
     const consumerXml =
         '\n<consumer ab="160k" acodec="aac" channels="2" crf="23" deinterlacer="onefield" f="mp4" g="15" in="0" mlt_service="avformat" movflags="+faststart" preset="veryfast" real_time="-1" rescale="bilinear" target="./out.mp4" threads="0" vcodec="libx264" />'
     const consumerDom = parseXml(consumerXml)
-    mltElement.children.unshift(consumerDom[0])
+    mltElement.children = [...consumerDom, ...mltElement.children]
 
     // Convert back to XML and write to file
     let xml = render(dom, {
