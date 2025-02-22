@@ -1,0 +1,26 @@
+{
+    "compilerOptions": {
+        "lib": ["DOM", "DOM.Iterable", "ES2022", "ESNext"],
+        "types": [],
+        "isolatedModules": true,
+        "esModuleInterop": true,
+        "jsx": "preserve",
+        "module": "ESNext",
+        "moduleResolution": "Bundler",
+        "resolveJsonModule": true,
+        "target": "ES2022",
+        "strict": true,
+        "allowJs": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "baseUrl": ".",
+        "noImplicitAny": false,
+        "paths": {
+            "@/*": ["./src/*"],
+            "~/*": ["./public/*"],
+            "website/*": ["./*"],
+        },
+        "noEmit": true,
+    },
+    "include": ["src", "scripts"],
+}
