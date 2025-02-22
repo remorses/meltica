@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <mlt LC_NUMERIC="en_US.UTF-8" producer="main_bin" root="/Users/morse/Documents/kdenlive" version="7.30.0">
  <profile colorspace="709" description="HD 1080p 25 fps" display_aspect_den="9" display_aspect_num="16" frame_rate_den="1" frame_rate_num="25" height="1080" progressive="1" sample_aspect_den="1" sample_aspect_num="1" width="1920"/>
- <consumer ab="160k" acodec="aac" channels="2" crf="23" deinterlacer="onefield" f="mp4" g="15" in="0" mlt_service="avformat" movflags="+faststart" out="388" preset="veryfast" real_time="-1" rescale="bilinear" target="/Users/morse/Movies/kdentlivetest.mp4" threads="0" vcodec="libx264"/>
+ <consumer ab="160k" acodec="aac" channels="2" crf="23" deinterlacer="onefield" f="mp4" g="15" in="0" mlt_service="avformat" movflags="+faststart" out="388" preset="veryfast" real_time="-1" rescale="bilinear" target="./kdentlivetest.mp4" threads="0" vcodec="libx264"/>
  <producer id="producer6" in="00:00:00.000" out="00:00:00.960">
   <property name="length">25</property>
   <property name="eof">pause</property>
@@ -526,7 +526,7 @@
   <property name="kdenlive:docproperties.rendertcoverlay">0</property>
   <property name="kdenlive:docproperties.rendertctype">-1</property>
   <property name="kdenlive:docproperties.rendertwopass">0</property>
-  <property name="kdenlive:docproperties.renderurl">/Users/morse/Movies/kdentlivetest.mp4</property>
+  <property name="kdenlive:docproperties.renderurl">./kdentlivetest.mp4</property>
   <property name="kdenlive:docproperties.seekOffset">30000</property>
   <property name="kdenlive:docproperties.sessionid">{b7ee275b-2f31-4ae9-a74d-221aa4f5a250}</property>
   <property name="kdenlive:docproperties.uuid">{764b0aa1-87ca-47d4-a966-aa812f8e7803}</property>
