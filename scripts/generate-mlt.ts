@@ -1,46 +1,41 @@
-import * as fs from 'fs';
-import * as path from 'path';
-import { Parser } from 'htmlparser2';
-import { DomHandler, Element } from 'domhandler';
-import { render } from 'dom-serializer';
+import * as fs from 'fs'
+import * as path from 'path'
+import { Parser } from 'htmlparser2'
+import { DomHandler, Element } from 'domhandler'
+import { render } from 'dom-serializer'
+
+const parseXml = (xml: string) => {
+    const handler = new DomHandler()
+    const parser = new Parser(handler)
+    parser.write(xml)
+    parser.end()
+    return handler.dom
+}
 
 const generateMlt = () => {
-  // Read the kdenlive file
-  const kdenliveContent = fs.readFileSync('kdentlivetest.kdenlive', 'utf-8');
+    // Read and parse the kdenlive file
+    const kdenliveContent = fs.readFileSync('kdentlivetest.kdenlive', 'utf-8')
+    const dom = parseXml(kdenliveContent)
+    const mltElement = dom.find(
+        (node) => node instanceof Element && node.name === 'mlt',
+    ) as Element
 
-  // Parse XML
-  const handler = new DomHandler();
-  const parser = new Parser(handler);
-  parser.write(kdenliveContent);
-  parser.end();
+    if (!mltElement) {
+        throw new Error('No MLT element found in kdenlive file')
+    }
+    // Parse and add consumer as first child
+    const consumerXml =
+        '<consumer ab="160k" acodec="aac" channels="2" crf="23" deinterlacer="onefield" f="mp4" g="15" in="0" mlt_service="avformat" movflags="+faststart" preset="veryfast" real_time="-1" rescale="bilinear" target="./kdentlivetest.mp4" threads="0" vcodec="libx264"/>'
+    const consumerDom = parseXml(consumerXml)
+    mltElement.children.unshift(consumerDom[0])
 
-  const dom = handler.dom;
-  const mltElement = dom.find(node => 
-    node instanceof Element && node.name === 'mlt'
-  ) as Element;
+    // Convert back to XML and write to file
+    const xml = render(dom, {
+        xmlMode: true,
+        encodeEntities: 'utf8',
+    })
 
-  // Consumer element as string
-  const consumerXml = '<consumer ab="160k" acodec="aac" channels="2" crf="23" deinterlacer="onefield" f="mp4" g="15" in="0" mlt_service="avformat" movflags="+faststart" preset="veryfast" real_time="-1" rescale="bilinear" target="./kdentlivetest.mp4" threads="0" vcodec="libx264"/>';
+    fs.writeFileSync('render.mlt', xml)
+}
 
-  // Parse consumer XML to DOM
-  const consumerHandler = new DomHandler();
-  const consumerParser = new Parser(consumerHandler);
-  consumerParser.write(consumerXml);
-  consumerParser.end();
-  
-  // Insert consumer after profile element
-  const profileIndex = mltElement.children.findIndex(node =>
-    node instanceof Element && node.name === 'profile'
-  );
-  mltElement.children.splice(profileIndex + 1, 0, consumerHandler.dom[0]);
-
-  // Convert back to XML and write to file
-  const xml = render(dom, {
-    xmlMode: true,
-    encodeEntities: 'utf8'
-  });
-
-  fs.writeFileSync('render.mlt', xml);
-};
-
-generateMlt();
+generateMlt()
