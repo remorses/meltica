@@ -10,6 +10,9 @@
   "author": "remorses <beats.by.morse@gmail.com>",
   "license": "ISC",
   "dependencies": {
-    "@types/node": "^22.13.5"
+    "@types/node": "^22.13.5",
+    "dom-serializer": "^2.0.0",
+    "domhandler": "^5.0.3",
+    "htmlparser2": "^10.0.0"
   }
 }
