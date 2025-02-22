@@ -77,6 +77,7 @@ declare global {
             chain: {
                 id?: string
                 out?: string
+                in?: string
                 length?: string
                 resource?: string
                 mlt_service?: string
@@ -85,6 +86,8 @@ declare global {
             track: {
                 producer?: string
                 hide?: string
+                in?: string
+                out?: string
                 children?: ReactNode
             }
             transition: {
