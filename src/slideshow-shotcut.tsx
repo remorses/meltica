@@ -295,35 +295,7 @@ function MLT({ children }) {
                 <track producer='playlist0' />
                 <track producer='playlist1' hide='video' />
                 <track producer='playlist2' hide='video' />
-                <transition id='transition0'>
-                    <property name='a_track'>0</property>
-                    <property name='b_track'>1</property>
-                    <property name='mlt_service'>mix</property>
-                    <property name='always_active'>1</property>
-                    <property name='sum'>1</property>
-                </transition>
-                <transition id='transition1'>
-                    <property name='a_track'>0</property>
-                    <property name='b_track'>1</property>
-                    <property name='version'>0.1</property>
-                    <property name='mlt_service'>frei0r.cairoblend</property>
-                    <property name='threads'>0</property>
-                    <property name='disable'>1</property>
-                </transition>
-                <transition id='transition2'>
-                    <property name='a_track'>0</property>
-                    <property name='b_track'>2</property>
-                    <property name='mlt_service'>mix</property>
-                    <property name='always_active'>1</property>
-                    <property name='sum'>1</property>
-                </transition>
-                <transition id='transition3'>
-                    <property name='a_track'>0</property>
-                    <property name='b_track'>3</property>
-                    <property name='mlt_service'>mix</property>
-                    <property name='always_active'>1</property>
-                    <property name='sum'>1</property>
-                </transition>
+               
             </tractor>
         </mlt>
     )
