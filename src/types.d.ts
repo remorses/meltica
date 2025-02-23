@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 
+type NumberLike = NumberLike
 
 declare global {
     namespace JSX {
@@ -21,8 +22,8 @@ declare global {
                 length?: string
             }
             entry: {
-                in?: string
-                out?: string
+                in?: NumberLike
+                out?: NumberLike
                 producer?: string
                 children?: ReactNode
             }
@@ -34,7 +35,7 @@ declare global {
                 deinterlacer?: string
                 f?: string
                 g?: string
-                in?: string
+                in?: NumberLike
                 mlt_service?: string
                 movflags?: string
                 preset?: string
@@ -51,7 +52,7 @@ declare global {
                 display_aspect_den?: string
                 display_aspect_num?: string
                 frame_rate_den?: string
-                frame_rate_num?: string | number
+                frame_rate_num?: NumberLike
                 height?: string
                 progressive?: string
                 sample_aspect_den?: string
@@ -61,8 +62,8 @@ declare global {
             }
             producer: {
                 id?: string
-                in?: string
-                out?: string
+                in?: NumberLike
+                out?: NumberLike
                 length?: string
                 eof?: string
                 resource?: string
@@ -79,8 +80,8 @@ declare global {
             }
             chain: {
                 id?: string
-                out?: string
-                in?: string
+                out?: NumberLike
+                in?: NumberLike
                 length?: string
                 resource?: string
                 mlt_service?: string
@@ -89,8 +90,8 @@ declare global {
             track: {
                 producer?: string
                 hide?: string
-                in?: string
-                out?: string
+                in?: NumberLike
+                out?: NumberLike
                 children?: ReactNode
             }
             transition: {
@@ -100,11 +101,11 @@ declare global {
             filter: {
                 id?: string
                 window?: string
-                max_gain?: string
+                max_gain?: NumberLike
                 mlt_service?: string
                 internal_added?: string
                 disable?: string
-                out?: string
+                out?: NumberLike
                 children?: ReactNode
             }
             playlist: {
@@ -113,9 +114,9 @@ declare global {
             }
             tractor: {
                 id?: string
-                in?: string
+                in?: NumberLike
                 title?: string
-                out?: string
+                out?: NumberLike
                 children?: ReactNode
             }
         }

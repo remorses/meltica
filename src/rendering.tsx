@@ -15,8 +15,8 @@ export type AssetRegistration =
           filepath: string
           id: string
           parentTrackId: string
-          in: string | number
-          out: string | number
+          in?: string | number
+          out?: string | number
           type: AssetType
       }
     | {
@@ -220,7 +220,7 @@ function domHandlerNodesToJsx(nodes: ChildNode[]): any[] {
     })
 }
 
-function formatSecondsToTime(secs) {
+export function formatSecondsToTime(secs: number) {
     const hours = Math.floor(secs / 3600)
     const minutes = Math.floor((secs % 3600) / 60)
     const seconds = Math.floor(secs % 60)

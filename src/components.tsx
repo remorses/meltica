@@ -3,6 +3,7 @@ import {
     AssetProducer,
     AssetRegistration,
     AssetType,
+    formatSecondsToTime,
     renderingContext,
 } from '@/rendering'
 import { Fragment } from 'jsx-xml'
@@ -169,13 +170,7 @@ export function Track({ id: trackId, name = 'track', children }) {
                     if (x.type === 'blank') {
                         return <blank length={x.length} />
                     }
-                    return (
-                        <entry
-                            producer={x.id}
-                            in='00:00:00.000'
-                            out='00:00:03.167'
-                        />
-                    )
+                    return <entry producer={x.id} in={x.in} out={x.out} />
                 })}
             </playlist>
         </trackContext.Provider>
@@ -198,7 +193,7 @@ function groupBy<T, K extends string | number>(
 
 export function VideoRoot({ children }) {
     const context = useContext(renderingContext)
-
+    let backgroundDuration = 9999999
     const playlists = groupBy(context.assets, (a) => a.parentTrackId!)
     return (
         <mlt
@@ -212,8 +207,8 @@ export function VideoRoot({ children }) {
             <playlist id='main_bin'>
                 <property name='xml_retain'>1</property>
             </playlist>
-            <producer id='black' in='00:00:00.000' out='00:00:17.133'>
-                <property name='length'>00:00:17.167</property>
+            <producer id='black' in='00:00:00.000' out={backgroundDuration}>
+                <property name='length'>{backgroundDuration}</property>
                 <property name='eof'>pause</property>
                 <property name='resource'>0</property>
                 <property name='aspect_ratio'>1</property>
@@ -222,13 +217,17 @@ export function VideoRoot({ children }) {
                 <property name='set.test_audio'>0</property>
             </producer>
             <playlist id='background'>
-                <entry producer='black' in='00:00:00.000' out='00:00:17.133' />
+                <entry
+                    producer='black'
+                    in='00:00:00.000'
+                    // out={backgroundDuration}
+                />
             </playlist>
             <tractor
                 id='tractor1'
                 title='Shotcut version 25.01.25'
-                in='00:00:00.000'
-                out='00:00:17.133'
+                in={0}
+                out={3}
             >
                 <property name='shotcut'>1</property>
                 <property name='shotcut:projectAudioChannels'>2</property>
@@ -243,6 +242,20 @@ export function VideoRoot({ children }) {
                         return <track producer={trackId} hide='video' />
                     }
                     return <track producer={trackId} />
+                })}
+                {/* transitions are necessary to make audio tracks play one upon the other */}
+                {Object.keys(playlists).map((trackId, index) => {
+                    // const type = getTrackType(playlists[trackId])
+
+                    return (
+                        <transition id={'transition' + index}>
+                            <property name='a_track'>0</property>
+                            <property name='b_track'>{index + 1}</property>
+                            <property name='mlt_service'>mix</property>
+                            <property name='always_active'>1</property>
+                            <property name='sum'>1</property>
+                        </transition>
+                    )
                 })}
             </tractor>
         </mlt>
