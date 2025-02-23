@@ -48,8 +48,8 @@ export function Asset({
 }: {
     id: string
     filepath: string
-    in?: number
-    out?: number
+    in?: number | string
+    out?: number | string
     type: AssetType
     children?: any
 }) {
@@ -130,13 +130,18 @@ export function PanningAnimation({}) {
 
     const { height: videoHeight, width: videoWidth } =
         useContext(videoRootContext)!
-    const width = producer.properties['meta.media.width']
-    const height = producer.properties['meta.media.height']
+    const width =
+        producer.properties['meta.media.width'] ||
+        producer.properties['meta.media.0.codec.width']
+    const height =
+        producer.properties['meta.media.height'] ||
+        producer.properties['meta.media.0.codec.height']
     const out = producer.attributes.out
     const id = producer.id
 
     // Assert and convert image dimensions to numbers
     if (!width || !height) {
+        console.log(producer)
         throw new Error('Media width and height must be defined')
     }
     const imageWidth = parseInt(width)

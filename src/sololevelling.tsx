@@ -19,15 +19,6 @@ function Video({}) {
         >
             <Track id={'video1'}>
                 <Asset
-                    type='video'
-                    filepath={'recording.mov'}
-                    id={'videoExample'}
-                    in='00:00:00.000'
-                    out='00:00:04.467'
-                >
-                    <PanningAnimation />
-                </Asset>
-                <Asset
                     type='image'
                     id={'producer0'}
                     filepath={'sololevelling/page-000.jpg'}
@@ -45,15 +36,7 @@ function Video({}) {
                 >
                     <PanningAnimation />
                 </Asset>
-                <Asset
-                    type='image'
-                    id={'producer2'}
-                    filepath={'sololevelling/page-002.jpg'}
-                    in={0}
-                    out={4}
-                >
-                    <PanningAnimation />
-                </Asset>
+                
             </Track>
             <Track id={'audio1'}>
                 <BlankSpace length={formatSecondsToTime(1)} />
