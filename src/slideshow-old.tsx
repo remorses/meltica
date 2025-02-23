@@ -6,7 +6,7 @@ import {
     VideoConsumer,
     Profile,
 } from '@/components'
-import { renderToXml } from '@/rendering'
+import { renderToVideo, renderToXml } from '@/rendering'
 import { writeFileSync } from 'fs'
 
 function MLT({}) {
@@ -75,12 +75,12 @@ function MLT({}) {
                 <property name='shotcut:name'>A1</property>
                 <entry producer='chain0' in='00:00:00.000' out='00:00:14.467' />
             </playlist>
-            {/* <AudioFile
+            <AudioFile
                 id={'chain1'}
                 filepath={'edapollo - Let It Go [bQ5glYCsv94].mp3'}
                 volume={-14.1}
             />
-            */}
+           
             <playlist id='playlist2'>
                 <property name='shotcut:audio'>1</property>
                 <property name='shotcut:name'>A2</property>
@@ -105,3 +105,4 @@ function MLT({}) {
 }
 
 writeFileSync('slideshow-shotcut.mlt', renderToXml(<MLT />))
+renderToVideo(<MLT />)

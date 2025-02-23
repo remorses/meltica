@@ -1,88 +1,111 @@
 import { createContext, useContext } from '@/context'
-import { AssetProducer, renderingContext } from '@/rendering'
+import {
+    AssetProducer,
+    AssetRegistration,
+    AssetType,
+    renderingContext,
+} from '@/rendering'
+import { Fragment } from 'jsx-xml'
+import { type } from 'os'
 import path from 'path'
 
-export function AudioFile({ id, filepath, volume = 0 }) {
-    const context = useContext(renderingContext)
-    if (context.isRegistrationStep) {
-        context.assets.push({
-            filepath,
-            id,
-            type: 'audio',
-        })
-        return null
+const trackContext = createContext<{ trackId: string } | null>(null)
+
+function useTrackContext() {
+    const context = useContext(trackContext)
+    if (!context) {
+        throw new Error('No track context found for a video asset component')
     }
-    const producer = context.producers.find((p) => p.id === id)
+    return context
+}
 
-    const basename = path.basename(filepath)
+export function AudioGain({ volume = 0 }) {
+    const { id } = useProducerContext()
+
     return (
-        <chain out={producer?.attributes.out} id={id}>
-            <property name='length'>00:00:14.520</property>
-            <property name='eof'>pause</property>
-            <property name='resource'>{filepath}</property>
-            <property name='mlt_service'>avformat-novalidate</property>
-            {producer?.children}
-
-            <property name='meta.media.0.codec.bit_rate'>705600</property>
-            <property name='seekable'>1</property>
-            <property name='audio_index'>0</property>
-            <property name='video_index'>-1</property>
-
-            <property name='astream'>0</property>
-            <property name='shotcut:skipConvert'>1</property>
-
-            <property name='shotcut:caption'>{basename}</property>
-            <filter id={id + 'gain'}>
-                <property name='window'>75</property>
-                <property name='max_gain'>20dB</property>
-                <property name='level'>{volume.toString()}</property>
-                <property name='mlt_service'>volume</property>
-            </filter>
-        </chain>
+        <filter id={id + 'gain'}>
+            <property name='window'>75</property>
+            <property name='max_gain'>20dB</property>
+            <property name='level'>{volume.toString()}</property>
+            <property name='mlt_service'>volume</property>
+        </filter>
     )
 }
 
-export function ImageFile({ id, filepath }) {
+export function Asset({
+    id,
+    filepath,
+    in: inTime,
+    out,
+    type,
+    children,
+}: {
+    id: string
+    filepath: string
+    in: number | string
+    out: number | string
+    type: AssetType
+    children?: any
+}) {
     const context = useContext(renderingContext)
+    const { trackId } = useTrackContext()
+    const producer = context.producers.find((p) => p.id === id)
     if (context.isRegistrationStep) {
         context.assets.push({
             filepath,
             id,
-            type: 'image',
+            type,
+            in: inTime,
+            out,
+            parentTrackId: trackId,
         })
         return null
     }
-    const basename = path.basename(filepath)
-    return (
-        <producer id={id} in='00:00:00.000' out='03:59:59.967'>
-            <property name='length'>04:00:00.000</property>
-            <property name='eof'>pause</property>
-            <property name='resource'>{filepath}</property>
-            <property name='ttl'>1</property>
-            <property name='aspect_ratio'>1</property>
-            <property name='meta.media.progressive'>1</property>
-            <property name='seekable'>1</property>
-            <property name='format'>1</property>
-            <property name='meta.media.width'>720</property>
-            <property name='meta.media.height'>2342</property>
-            <property name='mlt_service'>qimage</property>
+    if (!producer) {
+        throw new Error(`Producer for asset with id ${id} not found`)
+    }
 
-            <property name='shotcut:skipConvert'>1</property>
-            <property name='shotcut:caption'>{basename}</property>
-            <property name='xml'>was here</property>
-            <property name='meta.shotcut.vui'>1</property>
-        </producer>
+    const basename = path.basename(filepath)
+
+    if (type === 'image') {
+        return (
+            <producerContext.Provider value={producer}>
+                <producer {...producer.attributes} id={id}>
+                    {producer.children}
+                    <property name='resource'>{filepath}</property>
+                    <property name='shotcut:skipConvert'>1</property>
+                    <property name='shotcut:caption'>{basename}</property>
+                    {children}
+                </producer>
+            </producerContext.Provider>
+        )
+    }
+
+    return (
+        <producerContext.Provider value={producer}>
+            <chain {...producer?.attributes} id={id}>
+                {producer.children}
+                <property name='resource'>{filepath}</property>
+                <property name='shotcut:skipConvert'>1</property>
+                <property name='shotcut:caption'>{basename}</property>
+                {children}
+            </chain>
+        </producerContext.Provider>
     )
 }
 
 export const producerContext = createContext<AssetProducer | null>(null)
 
-export function PanningAnimation({}) {
+function useProducerContext() {
     const producer = useContext(producerContext)
     if (!producer) {
         throw new Error('No producer found in context')
     }
-    console.log({ producer })
+    return producer
+}
+
+export function PanningAnimation({}) {
+    const producer = useProducerContext()
     const width = producer.properties['meta.media.width']
     const height = producer.properties['meta.media.height']
     const out = producer.attributes.out
@@ -106,33 +129,137 @@ export function PanningAnimation({}) {
     )
 }
 
-export function VideoFile({ id, filepath, children }) {
+export function BlankSpace({ length }) {
     const context = useContext(renderingContext)
+    const { trackId } = useTrackContext()
     if (context.isRegistrationStep) {
         context.assets.push({
-            filepath,
-            id,
-            type: 'video',
+            type: 'blank',
+            length,
+            parentTrackId: trackId,
         })
-        return null
     }
-    const basename = path.basename(filepath)
-    const producer = context.producers.find((p) => p.id === id)
-    if (!producer) {
-        throw new Error(`Producer for video with id ${id} not found`)
-    }
-    const width = producer.properties['meta.media.width']
-    const height = producer.properties['meta.media.height']
+    return null
+}
 
-    return (
-        <producerContext.Provider value={producer}>
-            <chain {...producer?.attributes} id={id}>
-                {producer.children}
-                <property name='resource'>{filepath}</property>
+export function Track({ id: trackId, name = 'track', children }) {
+    const context = useContext(renderingContext)
+    if (context.isRegistrationStep) {
+        return (
+            <trackContext.Provider value={{ trackId }}>
                 {children}
-            </chain>
-        </producerContext.Provider>
+            </trackContext.Provider>
+        )
+    }
+    const assets = context.assets.filter((a) => a.parentTrackId === trackId)
+    const type = getTrackType(assets)
+    return (
+        <trackContext.Provider value={{ trackId }}>
+            {children}
+            <playlist id={trackId}>
+                {type === 'video' && (
+                    <property name='shotcut:video'>1</property>
+                )}
+                {type === 'audio' && (
+                    <property name='shotcut:audio'>1</property>
+                )}
+                <property name='shotcut:name'>{name}</property>
+
+                {assets.map((x) => {
+                    if (x.type === 'blank') {
+                        return <blank length={x.length} />
+                    }
+                    return (
+                        <entry
+                            producer={x.id}
+                            in='00:00:00.000'
+                            out='00:00:03.167'
+                        />
+                    )
+                })}
+            </playlist>
+        </trackContext.Provider>
     )
+}
+
+function groupBy<T, K extends string | number>(
+    array: T[],
+    keyFn: (item: T) => K,
+): Record<K, T[]> {
+    return array.reduce(
+        (result, item) => {
+            const groupKey = keyFn(item)
+            ;(result[groupKey] = result[groupKey] || []).push(item)
+            return result
+        },
+        {} as Record<K, T[]>,
+    )
+}
+
+export function VideoRoot({ children }) {
+    const context = useContext(renderingContext)
+
+    const playlists = groupBy(context.assets, (a) => a.parentTrackId!)
+    return (
+        <mlt
+            LC_NUMERIC='C'
+            version='7.30.0'
+            title='Shotcut version 25.01.25'
+            producer='main_bin'
+            root={process.cwd()}
+        >
+            {children}
+            <playlist id='main_bin'>
+                <property name='xml_retain'>1</property>
+            </playlist>
+            <producer id='black' in='00:00:00.000' out='00:00:17.133'>
+                <property name='length'>00:00:17.167</property>
+                <property name='eof'>pause</property>
+                <property name='resource'>0</property>
+                <property name='aspect_ratio'>1</property>
+                <property name='mlt_service'>color</property>
+                <property name='mlt_image_format'>rgba</property>
+                <property name='set.test_audio'>0</property>
+            </producer>
+            <playlist id='background'>
+                <entry producer='black' in='00:00:00.000' out='00:00:17.133' />
+            </playlist>
+            <tractor
+                id='tractor1'
+                title='Shotcut version 25.01.25'
+                in='00:00:00.000'
+                out='00:00:17.133'
+            >
+                <property name='shotcut'>1</property>
+                <property name='shotcut:projectAudioChannels'>2</property>
+                <property name='shotcut:projectFolder'>0</property>
+                <property name='shotcut:trackHeight'>50</property>
+                <property name='shotcut:skipConvert'>0</property>
+                <track producer='background' />
+                {Object.keys(playlists).map((trackId) => {
+                    const type = getTrackType(playlists[trackId])
+
+                    if (type === 'audio') {
+                        return <track producer={trackId} hide='video' />
+                    }
+                    return <track producer={trackId} />
+                })}
+            </tractor>
+        </mlt>
+    )
+}
+
+function getTrackType(assets: AssetRegistration[]) {
+    const type = assets.reduce<AssetType | ''>((acc, i) => {
+        if (i.type === 'video') {
+            return 'video'
+        }
+        if (i.type === 'audio') {
+            return 'audio'
+        }
+        return acc
+    }, '')
+    return type
 }
 
 export function VideoConsumer({ target }) {

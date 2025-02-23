@@ -1,22 +1,29 @@
-import { render, createElement } from 'jsx-xml'
+import { createElement, render } from 'jsx-xml'
 
-import serialize from 'dom-serializer'
-
-import fs from 'fs'
-import os from 'os'
-import { writeFileSync } from 'fs'
-import path from 'path'
+import { createContext } from '@/context'
 import { execSync } from 'child_process'
 import DomHandler, { ChildNode } from 'domhandler'
+import fs from 'fs'
 import { Parser } from 'htmlparser2'
-import { ImageFile, AudioFile } from '@/components'
-import { createContext } from '@/context'
+import os from 'os'
+import path from 'path'
 
-type AssetRegistration = {
-    filepath: string
-    id: string
-    type: 'image' | 'video' | 'audio'
-}
+export type AssetType = 'audio' | 'image' | 'video'
+
+export type AssetRegistration =
+    | {
+          filepath: string
+          id: string
+          parentTrackId: string
+          in: string | number
+          out: string | number
+          type: AssetType
+      }
+    | {
+          parentTrackId: string
+          type: 'blank'
+          length: string
+      }
 
 export type AssetProducer = {
     id: string
@@ -154,7 +161,6 @@ export function renderToXml(jsx: any) {
     )
 
     const producers = generateProducersXml(currentContext.assets)
-    console.log(producers)
 
     let xml = render(
         <renderingContext.Provider
@@ -175,6 +181,15 @@ export function renderToXml(jsx: any) {
     })
 
     return xml
+}
+
+export function renderToVideo(jsx: any) {
+    const xml = renderToXml(jsx)
+    const timestamp = Date.now()
+    // const tempXmlFile = path.join(os.tmpdir(), `video-${timestamp}.mlt`)
+    const tempXmlFile = `video-${timestamp}.mlt`
+    fs.writeFileSync(tempXmlFile, xml)
+    execSync(`melt ${tempXmlFile}`, { stdio: 'inherit' })
 }
 
 export function parseXml(xml: string) {
@@ -217,7 +232,10 @@ function generateProducersXml(assets: AssetRegistration[]) {
     const tempXmlFile = path.join(os.tmpdir(), `test-${timestamp}.mlt`)
     fs.writeFileSync(tempXmlFile, '')
     execSync(
-        `melt ${assets.map((a) => `"${a.filepath}" id=${a.id}`).join(' ')} -consumer xml:${tempXmlFile}`,
+        `melt ${assets
+            .filter((x) => x.type !== 'blank')
+            .map((a) => `"${a.filepath}" id=${a.id}`)
+            .join(' ')} -consumer xml:${tempXmlFile}`,
     )
     const xml = fs.readFileSync(tempXmlFile).toString()
 

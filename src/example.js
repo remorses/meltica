@@ -9,11 +9,12 @@ import { render } from 'jsx-xml'
 // }
 
 export function Ideal({ chunks = [] }) {
-    const totalDuration = chunks.reduce(
+    
+    const context = useContext(renderingContext)
+    const totalDuration = context.producers.reduce(
         (acc, i) => acc + i.durationInSeconds,
         0,
     )
-    const context = useContext(renderingContext)
 
     return (
         <Video>

@@ -51,7 +51,7 @@ declare global {
                 display_aspect_den?: string
                 display_aspect_num?: string
                 frame_rate_den?: string
-                frame_rate_num?: string
+                frame_rate_num?: string | number
                 height?: string
                 progressive?: string
                 sample_aspect_den?: string

@@ -3,7 +3,7 @@ import * as path from 'path'
 import { Parser } from 'htmlparser2'
 import { DomHandler, Element } from 'domhandler'
 import { render } from 'dom-serializer'
-import { parseXml } from '@/slideshow-shotcut'
+import { parseXml } from '@/slideshow-old'
 
 
 function generateMlt({

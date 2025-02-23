@@ -47,7 +47,9 @@ How a shotcut mlt file is structured:
 - root `mlt` element
 - `profile`, the size of the output video
 - there is a producer for a black background, this is used for the playlist `background`
-- `background` is later used as a `track` in `tractor0`, which is basically the vertical timeline, a parallel timeline of tracks, each track here is a track in the video editor. each track references a playlist as producer, each playlist is a horizontal timeline, a series of clips
+- `background` is later used as a `track` in `tractor0`, 
+- tractor is basically the vertical timeline, a stack of playlists, a parallel timeline of tracks, each track here is a track in the video editor. 
+- track references a playlist element, each playlist is a horizontal timeline, a series of clips
 - tractor also contains a series of transitions, it seems these are used vertically, like a blend mode. audio tracks are simply mixed, video ones too, there is also one for `frei0r.cairoblend` https://www.mltframework.org/plugins/TransitionFrei0r-cairoblend/, this is a blend mode transition i think
 - playlists 
    - `playlist0` is the series of video or image clips in the first track, is also has a shotcut:name prop which is displayed in the editor. to show each clip it uses the element `entry`, which references producers, which are basically assets. each entry also has an in and out attributes, which are used to cut the source asset.
