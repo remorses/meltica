@@ -1,8 +1,10 @@
 import { spawnSync } from 'child_process'
 
+console.time('meltExecutionTime')
+
 try {
     const output = spawnSync(
-        '/Applications/kdenlive.app/Contents/MacOS/melt "slideshow-shotcut.mlt"',
+        '/Applications/kdenlive.app/Contents/MacOS/melt "sololevelling/page-000.jpg" "sololevelling/page-001.jpg" "sololevelling/page-002.jpg" "/Volumes/1tb sabrent/Screens/Screen Recording 2024-12-13 at 10.50.31.mov" -consumer xml:test.mlt',
         {
             shell: true,
             stdio: 'inherit',
@@ -13,4 +15,6 @@ try {
     }
 } catch (error) {
     console.error(`Error executing melt: ${error}`)
+} finally {
+    console.timeEnd('meltExecutionTime')
 }

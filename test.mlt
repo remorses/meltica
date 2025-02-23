@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mlt LC_NUMERIC="en_US.UTF-8" version="7.30.0" root="/Users/morse/Documents/kdenlive" title="page-000.jpg">
   <profile description="DV/DVD PAL" width="720" height="576" progressive="0" sample_aspect_num="16" sample_aspect_den="15" display_aspect_num="4" display_aspect_den="3" frame_rate_num="25" frame_rate_den="1" colorspace="601"/>
-  <producer id="producer0" in="0" out="125">
+  <producer id="producer0" in="0" out="14999">
     <property name="length">15000</property>
     <property name="eof">pause</property>
     <property name="resource">sololevelling/page-000.jpg</property>
@@ -14,7 +14,33 @@
     <property name="meta.media.height">2342</property>
     <property name="mlt_service">qimage</property>
   </producer>
-  <producer id="producer1" in="0" out="398">
+  <producer id="producer1" in="0" out="14999">
+    <property name="length">15000</property>
+    <property name="eof">pause</property>
+    <property name="resource">sololevelling/page-001.jpg</property>
+    <property name="ttl">25</property>
+    <property name="aspect_ratio">1</property>
+    <property name="meta.media.progressive">1</property>
+    <property name="seekable">1</property>
+    <property name="format">1</property>
+    <property name="meta.media.width">720</property>
+    <property name="meta.media.height">2342</property>
+    <property name="mlt_service">qimage</property>
+  </producer>
+  <producer id="producer2" in="0" out="14999">
+    <property name="length">15000</property>
+    <property name="eof">pause</property>
+    <property name="resource">sololevelling/page-002.jpg</property>
+    <property name="ttl">25</property>
+    <property name="aspect_ratio">1</property>
+    <property name="meta.media.progressive">1</property>
+    <property name="seekable">1</property>
+    <property name="format">1</property>
+    <property name="meta.media.width">720</property>
+    <property name="meta.media.height">2313</property>
+    <property name="mlt_service">qimage</property>
+  </producer>
+  <producer id="producer3" in="0" out="398">
     <property name="length">399</property>
     <property name="eof">pause</property>
     <property name="resource">/Volumes/1tb sabrent/Screens/Screen Recording 2024-12-13 at 10.50.31.mov</property>
@@ -66,10 +92,12 @@
     <property name="mlt_service">avformat</property>
   </producer>
   <playlist id="playlist0">
-    <entry producer="producer0" in="0" out="125"/>
-    <entry producer="producer1" in="0" out="398"/>
+    <entry producer="producer0" in="0" out="14999"/>
+    <entry producer="producer1" in="0" out="14999"/>
+    <entry producer="producer2" in="0" out="14999"/>
+    <entry producer="producer3" in="0" out="398"/>
   </playlist>
-  <tractor id="tractor0" title="page-000.jpg" in="0" out="524">
+  <tractor id="tractor0" title="page-000.jpg" in="0" out="45398">
     <track producer="playlist0"/>
   </tractor>
 </mlt>

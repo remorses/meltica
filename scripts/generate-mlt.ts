@@ -3,17 +3,8 @@ import * as path from 'path'
 import { Parser } from 'htmlparser2'
 import { DomHandler, Element } from 'domhandler'
 import { render } from 'dom-serializer'
+import { parseXml } from '@/slideshow-shotcut'
 
-function parseXml(xml: string) {
-    const handler = new DomHandler()
-    const parser = new Parser(handler, {
-        xmlMode: true,
-        recognizeSelfClosing: true,
-    })
-    parser.write(xml)
-    parser.end()
-    return handler.dom
-}
 
 function generateMlt({
     root = '/Users/morse/Documents/GitHub/ugcvideos.org/website/',

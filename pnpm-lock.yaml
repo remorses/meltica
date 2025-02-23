@@ -24,8 +24,11 @@ importers:
         specifier: ^10.0.0
         version: 10.0.0
       jsx-xml:
-        specifier: ^0.3.0
+        specifier: 0.3.0
         version: 0.3.0
+      prettier:
+        specifier: ^3.5.2
+        version: 3.5.2
       uuid:
         specifier: ^11.1.0
         version: 11.1.0
@@ -93,6 +96,11 @@ packages:
   jsx-xml@0.3.0:
     resolution: {integrity: sha512-KXzxJw7FVURJKZiMOCwxa9oGd9mztLeIeQmUmfvt8lu+t31eRBm26czfz2SPh+0IgklJgt3Cebk96XYJ4y+dMw==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+
+  prettier@3.5.2:
+    resolution: {integrity: sha512-lc6npv5PH7hVqozBR7lkBNOGXV9vMwROAPlumdBkX0wTbbzPu/U1hk5yL8p2pt4Xoc+2mkT8t/sow2YrV/M5qg==}
+    engines: {node: '>=14'}
+    hasBin: true
 
   react-is@18.3.1:
     resolution: {integrity: sha512-/LLMVyas0ljjAtoYiPqYiL8VWXzUUdThrmU5+n20DZv+a+ClRoevUzw5JxU+Ieh5/c87ytoTBV9G1FiKfNJdmg==}
@@ -180,6 +188,8 @@ snapshots:
     dependencies:
       react-is: 18.3.1
       xmlbuilder2: 3.1.1
+
+  prettier@3.5.2: {}
 
   react-is@18.3.1: {}
 

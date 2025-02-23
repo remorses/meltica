@@ -29,13 +29,11 @@
     <property name="meta.media.width">720</property>
     <property name="meta.media.height">2342</property>
     <property name="mlt_service">qimage</property>
-    <property name="creation_time">2025-02-22T21:21:41</property>
     <property name="shotcut:skipConvert">1</property>
-    <property name="shotcut:hash">8b8fffbe9073241a87a1a2eecb8a1893</property>
     <property name="shotcut:caption">page-000.jpg</property>
     <property name="xml">was here</property>
     <property name="meta.shotcut.vui">1</property>
-    <filter id="filter0" out="00:00:02.867">
+    <filter id="producer0transform">
       <property name="background">color:#00000000</property>
       <property name="mlt_service">affine</property>
       <property name="shotcut:filter">affineSizePosition</property>
@@ -62,20 +60,18 @@
     <property name="meta.media.width">720</property>
     <property name="meta.media.height">2342</property>
     <property name="mlt_service">qimage</property>
-    <property name="creation_time">2025-02-22T21:21:41</property>
     <property name="shotcut:skipConvert">1</property>
-    <property name="shotcut:hash">5aeaca4c95cfefd0c7e5bf1a0744bd2a</property>
     <property name="shotcut:caption">page-001.jpg</property>
     <property name="xml">was here</property>
     <property name="meta.shotcut.vui">1</property>
-    <filter id="filter1" out="00:00:02.733">
+    <filter id="producer1transform">
       <property name="background">color:#00000000</property>
       <property name="mlt_service">affine</property>
       <property name="shotcut:filter">affineSizePosition</property>
       <property name="transition.fix_rotate_x">0</property>
       <property name="transition.fill">1</property>
       <property name="transition.distort">0</property>
-      <property name="transition.rect">00:00:00.000=245 1.13687e-13 590.265 1920 1;00:00:02.733=212.93 -235.742 590.265 1920 1</property>
+      <property name="transition.rect">00:00:00.000=221.528 -7.60509 592.707 1927.94 1;00:00:02.733=-149.36 -1214.13 1334.59 4341 1;00:00:02.867=-151.183 -1220.13 1338.13 4353 1;00:00:02.900=-142.121 -1184.2 1319.07 4291.01 1</property>
       <property name="transition.valign">middle</property>
       <property name="transition.halign">center</property>
       <property name="shotcut:animIn">00:00:00.000</property>
@@ -93,22 +89,20 @@
     <property name="seekable">1</property>
     <property name="format">1</property>
     <property name="meta.media.width">720</property>
-    <property name="meta.media.height">2313</property>
+    <property name="meta.media.height">2342</property>
     <property name="mlt_service">qimage</property>
-    <property name="creation_time">2025-02-22T21:21:41</property>
     <property name="shotcut:skipConvert">1</property>
-    <property name="shotcut:hash">bf9b6de399dcaaedf066bd006bd7ae5b</property>
     <property name="shotcut:caption">page-002.jpg</property>
     <property name="xml">was here</property>
     <property name="meta.shotcut.vui">1</property>
-    <filter id="filter2" out="00:00:03.167">
+    <filter id="producer2transform">
       <property name="background">color:#00000000</property>
       <property name="mlt_service">affine</property>
       <property name="shotcut:filter">affineSizePosition</property>
       <property name="transition.fix_rotate_x">0</property>
       <property name="transition.fill">1</property>
       <property name="transition.distort">0</property>
-      <property name="transition.rect">00:00:00.000=-69.5469 -578.242 1086.9 3491.68 1;00:00:03.167=-77.0469 -1544.57 1086.9 3491.68 1</property>
+      <property name="transition.rect">00:00:00.000=221.528 -7.60509 592.707 1927.94 1;00:00:02.733=-149.36 -1214.13 1334.59 4341 1;00:00:02.867=-151.183 -1220.13 1338.13 4353 1;00:00:02.900=-142.121 -1184.2 1319.07 4291.01 1</property>
       <property name="transition.valign">middle</property>
       <property name="transition.halign">center</property>
       <property name="shotcut:animIn">00:00:00.000</property>
@@ -123,68 +117,30 @@
     <entry producer="producer1" in="00:00:00.000" out="00:00:02.733"/>
     <entry producer="producer2" in="00:00:00.000" out="00:00:03.167"/>
   </playlist>
-  <chain id="chain0" out="00:00:14.467">
+  <chain id="chain0">
     <property name="length">00:00:14.520</property>
     <property name="eof">pause</property>
     <property name="resource">narrator.wav</property>
     <property name="mlt_service">avformat-novalidate</property>
-    <property name="meta.media.nb_streams">1</property>
-    <property name="meta.media.0.stream.type">audio</property>
-    <property name="meta.media.0.codec.sample_fmt">s16</property>
-    <property name="meta.media.0.codec.sample_rate">44100</property>
-    <property name="meta.media.0.codec.channels">1</property>
-    <property name="meta.media.0.codec.layout">mono</property>
-    <property name="meta.media.0.codec.name">pcm_s16le</property>
-    <property name="meta.media.0.codec.long_name">PCM signed 16-bit little-endian</property>
     <property name="meta.media.0.codec.bit_rate">705600</property>
     <property name="seekable">1</property>
     <property name="audio_index">0</property>
     <property name="video_index">-1</property>
-    <property name="creation_time">2025-02-22T21:42:14</property>
     <property name="astream">0</property>
     <property name="shotcut:skipConvert">1</property>
-    <property name="shotcut:hash">69466ddf6841801c8e1e00e775299ad7</property>
     <property name="shotcut:caption">narrator.wav</property>
+    <filter id="chain0gain">
+      <property name="window">75</property>
+      <property name="max_gain">20dB</property>
+      <property name="level">0</property>
+      <property name="mlt_service">volume</property>
+    </filter>
   </chain>
   <playlist id="playlist1">
     <property name="shotcut:audio">1</property>
     <property name="shotcut:name">A1</property>
     <entry producer="chain0" in="00:00:00.000" out="00:00:14.467"/>
   </playlist>
-  <chain id="chain1" out="00:02:15.067">
-    <property name="length">00:02:15.120</property>
-    <property name="eof">pause</property>
-    <property name="resource">edapollo - Let It Go [bQ5glYCsv94].mp3</property>
-    <property name="mlt_service">avformat-novalidate</property>
-    <property name="meta.media.nb_streams">1</property>
-    <property name="meta.media.0.stream.type">audio</property>
-    <property name="meta.media.0.codec.sample_fmt">fltp</property>
-    <property name="meta.media.0.codec.sample_rate">44100</property>
-    <property name="meta.media.0.codec.channels">2</property>
-    <property name="meta.media.0.codec.layout">stereo</property>
-    <property name="meta.media.0.codec.name">mp3float</property>
-    <property name="meta.media.0.codec.long_name">MP3 (MPEG audio layer 3)</property>
-    <property name="meta.media.0.codec.bit_rate">192000</property>
-    <property name="meta.attr.0.stream.encoder.markup">Lavc61.19</property>
-    <property name="meta.attr.major_brand.markup">isom</property>
-    <property name="meta.attr.minor_version.markup">512</property>
-    <property name="meta.attr.compatible_brands.markup">isomiso2avc1mp41</property>
-    <property name="meta.attr.encoder.markup">Lavf61.7.100</property>
-    <property name="seekable">1</property>
-    <property name="audio_index">0</property>
-    <property name="video_index">-1</property>
-    <property name="creation_time">2025-02-18T16:12:11</property>
-    <property name="astream">0</property>
-    <property name="shotcut:skipConvert">1</property>
-    <property name="shotcut:hash">f7ad7c6a1d2cc517ae39ebe6b5f4502a</property>
-    <property name="shotcut:caption">edapollo - Let It Go [bQ5glYCsv94].mp3</property>
-    <filter id="filter3" out="00:02:15.067">
-      <property name="window">75</property>
-      <property name="max_gain">20dB</property>
-      <property name="level">-14.1</property>
-      <property name="mlt_service">volume</property>
-    </filter>
-  </chain>
   <playlist id="playlist2">
     <property name="shotcut:audio">1</property>
     <property name="shotcut:name">A2</property>

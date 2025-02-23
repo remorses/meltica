@@ -1,7 +1,224 @@
-import { render } from 'jsx-xml'
-import { writeFileSync } from 'fs'
+import { render, createElement } from 'jsx-xml'
 
-function MLT({ children }) {
+import serialize from 'dom-serializer'
+
+import fs from 'fs'
+import os from 'os'
+import { writeFileSync } from 'fs'
+import path from 'path'
+import { execSync } from 'child_process'
+import DomHandler, { ChildNode } from 'domhandler'
+import { Parser } from 'htmlparser2'
+
+type AssetRegistration = {
+    filepath: string
+    id: string
+    type: 'image' | 'video' | 'audio'
+}
+
+type AssetProducer = {
+    id: string
+    attributes: Record<string, string>
+    children: any[]
+}
+
+let defaultContext = {
+    assets: [] as AssetRegistration[],
+    producers: [] as AssetProducer[],
+    isRegistrationStep: true,
+}
+
+let currentContext = structuredClone(defaultContext)
+function useContext() {
+    return currentContext
+}
+
+function renderToXml(jsx: any) {
+    currentContext = structuredClone(defaultContext)
+    try {
+        render(jsx)
+        console.log(currentContext)
+        const producers = generateProducersXml(currentContext.assets)
+        console.log(producers)
+        currentContext = {
+            ...currentContext,
+            producers,
+            isRegistrationStep: false,
+        }
+        let xml = render(jsx).end({
+            headless: false,
+            prettyPrint: true,
+            indentTextOnlyNodes: false,
+            format: 'xml',
+            allowEmptyTags: false,
+        })
+
+        return xml
+    } finally {
+        currentContext = structuredClone(defaultContext)
+    }
+}
+
+export function parseXml(xml: string) {
+    const handler = new DomHandler()
+    const parser = new Parser(handler, {
+        xmlMode: true,
+        recognizeSelfClosing: true,
+    })
+    parser.write(xml)
+    parser.end()
+    return handler.dom
+}
+
+function domhandlerNodesToJsx(nodes: ChildNode[]): any[] {
+    return nodes.map((node) => {
+        if (node.type === 'text') {
+            return node.data
+        }
+
+        if (node.type === 'tag') {
+            const children = node.children
+                ? domhandlerNodesToJsx(node.children)
+                : []
+            return createElement(node.name, node.attribs, ...children)
+        }
+
+        return null
+    })
+}
+
+function formatSecondsToTime(secs) {
+    const hours = Math.floor(secs / 3600)
+    const minutes = Math.floor((secs % 3600) / 60)
+    const seconds = Math.floor(secs % 60)
+    return `${hours}:${minutes}:${seconds}`
+}
+
+function generateProducersXml(assets: AssetRegistration[]) {
+    const timestamp = Date.now()
+    const tempXmlFile = path.join(os.tmpdir(), `test-${timestamp}.mlt`)
+    fs.writeFileSync(tempXmlFile, '')
+    execSync(
+        `melt ${assets.map((a) => `"${a.filepath}" id=${a.id}`).join(' ')} -consumer xml:${tempXmlFile}`,
+    )
+    const xml = fs.readFileSync(tempXmlFile).toString()
+
+    const parsed = parseXml(xml)
+
+    const producers = [] as AssetProducer[]
+
+    function extractProducers(node) {
+        if (node.type === 'tag' && node.name === 'producer') {
+            const attributes = node.attribs
+
+            const id = attributes.id
+            const children = domhandlerNodesToJsx(node.children)
+            producers.push({ attributes, id, children })
+        }
+        if (node.children) {
+            node.children.forEach((child) => {
+                extractProducers(child)
+            })
+        }
+    }
+
+    parsed.forEach((node) => extractProducers(node))
+    return producers
+}
+
+function AudioFile({ id, filepath, volume = 0 }) {
+    const context = useContext()
+    if (context.isRegistrationStep) {
+        context.assets.push({
+            filepath,
+            id,
+            type: 'audio',
+        })
+        return null
+    }
+    const producer = context.producers.find((p) => p.id === id)
+
+    const basename = path.basename(filepath)
+    return (
+        <chain id={id}>
+            <property name='length'>00:00:14.520</property>
+            <property name='eof'>pause</property>
+            <property name='resource'>{filepath}</property>
+            <property name='mlt_service'>avformat-novalidate</property>
+            {producer?.children}
+
+            <property name='meta.media.0.codec.bit_rate'>705600</property>
+            <property name='seekable'>1</property>
+            <property name='audio_index'>0</property>
+            <property name='video_index'>-1</property>
+
+            <property name='astream'>0</property>
+            <property name='shotcut:skipConvert'>1</property>
+
+            <property name='shotcut:caption'>{basename}</property>
+            <filter id={id + 'gain'}>
+                <property name='window'>75</property>
+                <property name='max_gain'>20dB</property>
+                <property name='level'>{volume.toString()}</property>
+                <property name='mlt_service'>volume</property>
+            </filter>
+        </chain>
+    )
+}
+
+function ImageFile({ id, filepath }) {
+    const context = useContext()
+    if (context.isRegistrationStep) {
+        context.assets.push({
+            filepath,
+            id,
+            type: 'image',
+        })
+        return null
+    }
+    const basename = path.basename(filepath)
+    return (
+        <producer id={id} in='00:00:00.000' out='03:59:59.967'>
+            <property name='length'>04:00:00.000</property>
+            <property name='eof'>pause</property>
+            <property name='resource'>{filepath}</property>
+            <property name='ttl'>1</property>
+            <property name='aspect_ratio'>1</property>
+            <property name='meta.media.progressive'>1</property>
+            <property name='seekable'>1</property>
+            <property name='format'>1</property>
+            <property name='meta.media.width'>720</property>
+            <property name='meta.media.height'>2342</property>
+            <property name='mlt_service'>qimage</property>
+
+            <property name='shotcut:skipConvert'>1</property>
+            <property name='shotcut:caption'>{basename}</property>
+            <property name='xml'>was here</property>
+            <property name='meta.shotcut.vui'>1</property>
+            <filter id={id + 'transform'}>
+                <property name='background'>color:#00000000</property>
+                <property name='mlt_service'>affine</property>
+                <property name='shotcut:filter'>affineSizePosition</property>
+                <property name='transition.fix_rotate_x'>0</property>
+                <property name='transition.fill'>1</property>
+                <property name='transition.distort'>0</property>
+                <property name='transition.rect'>
+                    00:00:00.000=221.528 -7.60509 592.707 1927.94
+                    1;00:00:02.733=-149.36 -1214.13 1334.59 4341
+                    1;00:00:02.867=-151.183 -1220.13 1338.13 4353
+                    1;00:00:02.900=-142.121 -1184.2 1319.07 4291.01 1
+                </property>
+                <property name='transition.valign'>middle</property>
+                <property name='transition.halign'>center</property>
+                <property name='shotcut:animIn'>00:00:00.000</property>
+                <property name='shotcut:animOut'>00:00:00.000</property>
+                <property name='transition.threads'>0</property>
+            </filter>
+        </producer>
+    )
+}
+
+function MLT({}) {
     return (
         <mlt
             LC_NUMERIC='C'
@@ -55,128 +272,19 @@ function MLT({ children }) {
             <playlist id='background'>
                 <entry producer='black' in='00:00:00.000' out='00:02:15.067' />
             </playlist>
-            <producer id='producer0' in='00:00:00.000' out='03:59:59.967'>
-                <property name='length'>04:00:00.000</property>
-                <property name='eof'>pause</property>
-                <property name='resource'>sololevelling/page-000.jpg</property>
-                <property name='ttl'>1</property>
-                <property name='aspect_ratio'>1</property>
-                <property name='meta.media.progressive'>1</property>
-                <property name='seekable'>1</property>
-                <property name='format'>1</property>
-                <property name='meta.media.width'>720</property>
-                <property name='meta.media.height'>2342</property>
-                <property name='mlt_service'>qimage</property>
-                <property name='creation_time'>2025-02-22T21:21:41</property>
-                <property name='shotcut:skipConvert'>1</property>
-                <property name='shotcut:hash'>
-                    8b8fffbe9073241a87a1a2eecb8a1893
-                </property>
-                <property name='shotcut:caption'>page-000.jpg</property>
-                <property name='xml'>was here</property>
-                <property name='meta.shotcut.vui'>1</property>
-                <filter id='filter0' out='00:00:02.867'>
-                    <property name='background'>color:#00000000</property>
-                    <property name='mlt_service'>affine</property>
-                    <property name='shotcut:filter'>
-                        affineSizePosition
-                    </property>
-                    <property name='transition.fix_rotate_x'>0</property>
-                    <property name='transition.fill'>1</property>
-                    <property name='transition.distort'>0</property>
-                    <property name='transition.rect'>
-                        00:00:00.000=221.528 -7.60509 592.707 1927.94
-                        1;00:00:02.733=-149.36 -1214.13 1334.59 4341
-                        1;00:00:02.867=-151.183 -1220.13 1338.13 4353
-                        1;00:00:02.900=-142.121 -1184.2 1319.07 4291.01 1
-                    </property>
-                    <property name='transition.valign'>middle</property>
-                    <property name='transition.halign'>center</property>
-                    <property name='shotcut:animIn'>00:00:00.000</property>
-                    <property name='shotcut:animOut'>00:00:00.000</property>
-                    <property name='transition.threads'>0</property>
-                </filter>
-            </producer>
-            <producer id='producer1' in='00:00:00.000' out='03:59:59.967'>
-                <property name='length'>04:00:00.000</property>
-                <property name='eof'>pause</property>
-                <property name='resource'>sololevelling/page-001.jpg</property>
-                <property name='ttl'>1</property>
-                <property name='aspect_ratio'>1</property>
-                <property name='meta.media.progressive'>1</property>
-                <property name='seekable'>1</property>
-                <property name='format'>1</property>
-                <property name='meta.media.width'>720</property>
-                <property name='meta.media.height'>2342</property>
-                <property name='mlt_service'>qimage</property>
-                <property name='creation_time'>2025-02-22T21:21:41</property>
-                <property name='shotcut:skipConvert'>1</property>
-                <property name='shotcut:hash'>
-                    5aeaca4c95cfefd0c7e5bf1a0744bd2a
-                </property>
-                <property name='shotcut:caption'>page-001.jpg</property>
-                <property name='xml'>was here</property>
-                <property name='meta.shotcut.vui'>1</property>
-                <filter id='filter1' out='00:00:02.733'>
-                    <property name='background'>color:#00000000</property>
-                    <property name='mlt_service'>affine</property>
-                    <property name='shotcut:filter'>
-                        affineSizePosition
-                    </property>
-                    <property name='transition.fix_rotate_x'>0</property>
-                    <property name='transition.fill'>1</property>
-                    <property name='transition.distort'>0</property>
-                    <property name='transition.rect'>
-                        00:00:00.000=245 1.13687e-13 590.265 1920
-                        1;00:00:02.733=212.93 -235.742 590.265 1920 1
-                    </property>
-                    <property name='transition.valign'>middle</property>
-                    <property name='transition.halign'>center</property>
-                    <property name='shotcut:animIn'>00:00:00.000</property>
-                    <property name='shotcut:animOut'>00:00:00.000</property>
-                    <property name='transition.threads'>0</property>
-                </filter>
-            </producer>
-            <producer id='producer2' in='00:00:00.000' out='03:59:59.967'>
-                <property name='length'>04:00:00.000</property>
-                <property name='eof'>pause</property>
-                <property name='resource'>sololevelling/page-002.jpg</property>
-                <property name='ttl'>1</property>
-                <property name='aspect_ratio'>1</property>
-                <property name='meta.media.progressive'>1</property>
-                <property name='seekable'>1</property>
-                <property name='format'>1</property>
-                <property name='meta.media.width'>720</property>
-                <property name='meta.media.height'>2313</property>
-                <property name='mlt_service'>qimage</property>
-                <property name='creation_time'>2025-02-22T21:21:41</property>
-                <property name='shotcut:skipConvert'>1</property>
-                <property name='shotcut:hash'>
-                    bf9b6de399dcaaedf066bd006bd7ae5b
-                </property>
-                <property name='shotcut:caption'>page-002.jpg</property>
-                <property name='xml'>was here</property>
-                <property name='meta.shotcut.vui'>1</property>
-                <filter id='filter2' out='00:00:03.167'>
-                    <property name='background'>color:#00000000</property>
-                    <property name='mlt_service'>affine</property>
-                    <property name='shotcut:filter'>
-                        affineSizePosition
-                    </property>
-                    <property name='transition.fix_rotate_x'>0</property>
-                    <property name='transition.fill'>1</property>
-                    <property name='transition.distort'>0</property>
-                    <property name='transition.rect'>
-                        00:00:00.000=-69.5469 -578.242 1086.9 3491.68
-                        1;00:00:03.167=-77.0469 -1544.57 1086.9 3491.68 1
-                    </property>
-                    <property name='transition.valign'>middle</property>
-                    <property name='transition.halign'>center</property>
-                    <property name='shotcut:animIn'>00:00:00.000</property>
-                    <property name='shotcut:animOut'>00:00:00.000</property>
-                    <property name='transition.threads'>0</property>
-                </filter>
-            </producer>
+            <ImageFile
+                id={'producer0'}
+                filepath={'sololevelling/page-000.jpg'}
+            />
+            <ImageFile
+                id={'producer1'}
+                filepath={'sololevelling/page-001.jpg'}
+            />
+            <ImageFile
+                id={'producer2'}
+                filepath={'sololevelling/page-002.jpg'}
+            />
+
             <playlist id='playlist0'>
                 <property name='shotcut:video'>1</property>
                 <property name='shotcut:name'>V1</property>
@@ -196,86 +304,18 @@ function MLT({ children }) {
                     out='00:00:03.167'
                 />
             </playlist>
-            <chain id='chain0' out='00:00:14.467'>
-                <property name='length'>00:00:14.520</property>
-                <property name='eof'>pause</property>
-                <property name='resource'>narrator.wav</property>
-                <property name='mlt_service'>avformat-novalidate</property>
-                <property name='meta.media.nb_streams'>1</property>
-                <property name='meta.media.0.stream.type'>audio</property>
-                <property name='meta.media.0.codec.sample_fmt'>s16</property>
-                <property name='meta.media.0.codec.sample_rate'>44100</property>
-                <property name='meta.media.0.codec.channels'>1</property>
-                <property name='meta.media.0.codec.layout'>mono</property>
-                <property name='meta.media.0.codec.name'>pcm_s16le</property>
-                <property name='meta.media.0.codec.long_name'>
-                    PCM signed 16-bit little-endian
-                </property>
-                <property name='meta.media.0.codec.bit_rate'>705600</property>
-                <property name='seekable'>1</property>
-                <property name='audio_index'>0</property>
-                <property name='video_index'>-1</property>
-                <property name='creation_time'>2025-02-22T21:42:14</property>
-                <property name='astream'>0</property>
-                <property name='shotcut:skipConvert'>1</property>
-                <property name='shotcut:hash'>
-                    69466ddf6841801c8e1e00e775299ad7
-                </property>
-                <property name='shotcut:caption'>narrator.wav</property>
-            </chain>
+            <AudioFile filepath={'narrator.wav'} id={'chain0'} />
             <playlist id='playlist1'>
                 <property name='shotcut:audio'>1</property>
                 <property name='shotcut:name'>A1</property>
                 <entry producer='chain0' in='00:00:00.000' out='00:00:14.467' />
             </playlist>
-            <chain id='chain1' out='00:02:15.067'>
-                <property name='length'>00:02:15.120</property>
-                <property name='eof'>pause</property>
-                <property name='resource'>
-                    edapollo - Let It Go [bQ5glYCsv94].mp3
-                </property>
-                <property name='mlt_service'>avformat-novalidate</property>
-                <property name='meta.media.nb_streams'>1</property>
-                <property name='meta.media.0.stream.type'>audio</property>
-                <property name='meta.media.0.codec.sample_fmt'>fltp</property>
-                <property name='meta.media.0.codec.sample_rate'>44100</property>
-                <property name='meta.media.0.codec.channels'>2</property>
-                <property name='meta.media.0.codec.layout'>stereo</property>
-                <property name='meta.media.0.codec.name'>mp3float</property>
-                <property name='meta.media.0.codec.long_name'>
-                    MP3 (MPEG audio layer 3)
-                </property>
-                <property name='meta.media.0.codec.bit_rate'>192000</property>
-                <property name='meta.attr.0.stream.encoder.markup'>
-                    Lavc61.19
-                </property>
-                <property name='meta.attr.major_brand.markup'>isom</property>
-                <property name='meta.attr.minor_version.markup'>512</property>
-                <property name='meta.attr.compatible_brands.markup'>
-                    isomiso2avc1mp41
-                </property>
-                <property name='meta.attr.encoder.markup'>
-                    Lavf61.7.100
-                </property>
-                <property name='seekable'>1</property>
-                <property name='audio_index'>0</property>
-                <property name='video_index'>-1</property>
-                <property name='creation_time'>2025-02-18T16:12:11</property>
-                <property name='astream'>0</property>
-                <property name='shotcut:skipConvert'>1</property>
-                <property name='shotcut:hash'>
-                    f7ad7c6a1d2cc517ae39ebe6b5f4502a
-                </property>
-                <property name='shotcut:caption'>
-                    edapollo - Let It Go [bQ5glYCsv94].mp3
-                </property>
-                <filter id='filter3' out='00:02:15.067'>
-                    <property name='window'>75</property>
-                    <property name='max_gain'>20dB</property>
-                    <property name='level'>-14.1</property>
-                    <property name='mlt_service'>volume</property>
-                </filter>
-            </chain>
+            {/* <AudioFile
+                id={'chain1'}
+                filepath={'edapollo - Let It Go [bQ5glYCsv94].mp3'}
+                volume={-14.1}
+            />
+            */}
             <playlist id='playlist2'>
                 <property name='shotcut:audio'>1</property>
                 <property name='shotcut:name'>A2</property>
@@ -295,20 +335,9 @@ function MLT({ children }) {
                 <track producer='playlist0' />
                 <track producer='playlist1' hide='video' />
                 <track producer='playlist2' hide='video' />
-               
             </tractor>
         </mlt>
     )
 }
 
-writeFileSync(
-    'slideshow-shotcut.mlt',
-    render(<MLT />).end({
-        headless: false,
-        prettyPrint: true,
-        indentTextOnlyNodes: false,
-        format: 'xml',
-
-        allowEmptyTags: false,
-    }),
-)
+writeFileSync('slideshow-shotcut.mlt', renderToXml(<MLT />))
