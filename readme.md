@@ -75,7 +75,7 @@ How a shotcut mlt file is structured:
         - filters have an id, but it is never used because the tree hierarchy is used to understand which filter applies to which producer
         - shotcut:filter define the shotcut filter type, for size, rotation and position this is `affineSizePosition`
         - transition.rect defines the transformation to the producer, it is defined as a series of tokens separated by ;
-        - each token is {start}={top} {left} {width} {height} 1
+        - each token is {start}={left} {top} {width} {height} 1
         - each token is a keyframe
         - there can be a letter after the duration to add a easing function, for example {start}q=... to add a quadratic easing
         - transition.valign specify where to align things, same for halign
