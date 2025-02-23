@@ -10,7 +10,14 @@ import { Fragment } from 'jsx-xml'
 import { type } from 'os'
 import path from 'path'
 
-const trackContext = createContext<{ trackId: string } | null>(null)
+
+type TrackContext = {
+    trackId: string
+    in: number
+    out: number
+}
+
+const trackContext = createContext<TrackContext | null>(null)
 
 function useTrackContext() {
     const context = useContext(trackContext)
@@ -105,13 +112,37 @@ function useProducerContext() {
     return producer
 }
 
+function renderRectKeyframe({ time, top, left, width, height }) {
+    // format is keyframes delimited by semicolons, with keyframes in format {start}={left} {top} {width} {height} 1
+    return `${formatSecondsToTime(time)}=${left} ${top} ${width} ${height} 1`
+}
+
 export function PanningAnimation({}) {
     const producer = useProducerContext()
+    const { in: inTime, out: outTime } = useContext(trackContext)!
+    const { height: videoHeight, width: videoWidth } =
+        useContext(videoRootContext)!
     const width = producer.properties['meta.media.width']
     const height = producer.properties['meta.media.height']
     const out = producer.attributes.out
     const id = producer.id
-    const rect = `0=221.528 -7.60509 592.707 1927.94 1;00:00:02.733=-149.36 -1214.13 1334.59 4341 1`
+
+    const start = renderRectKeyframe({
+        time: 0,
+        top: 0,
+        left: 0,
+        width: videoWidth,
+        height: videoHeight,
+    })
+    const end = renderRectKeyframe({
+        time: outTime,
+        top: 0,
+        left: 0,
+        width: videoWidth,
+        height: videoHeight,
+    })
+    const rect = `${start};${end}`
+
     return (
         <filter id={id + 'transformFilter'}>
             <property name='background'>color:#00000000</property>
@@ -145,9 +176,10 @@ export function BlankSpace({ length }) {
 
 export function Track({ id: trackId, name = 'track', children }) {
     const context = useContext(renderingContext)
+    const trackCtx = { trackId, in: 0, out: 0 }
     if (context.isRegistrationStep) {
         return (
-            <trackContext.Provider value={{ trackId }}>
+            <trackContext.Provider value={trackCtx}>
                 {children}
             </trackContext.Provider>
         )
@@ -155,7 +187,7 @@ export function Track({ id: trackId, name = 'track', children }) {
     const assets = context.assets.filter((a) => a.parentTrackId === trackId)
     const type = getTrackType(assets)
     return (
-        <trackContext.Provider value={{ trackId }}>
+        <trackContext.Provider value={trackCtx}>
             {children}
             <playlist id={trackId}>
                 {type === 'video' && (
