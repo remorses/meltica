@@ -10,10 +10,8 @@ import { Fragment } from 'jsx-xml'
 import { type } from 'os'
 import path from 'path'
 
-
 type TrackContext = {
     trackId: string
-    
 }
 
 const trackContext = createContext<TrackContext | null>(null)
@@ -27,7 +25,8 @@ function useTrackContext() {
 }
 
 export function AudioGain({ volume = 0 }) {
-    const { id } = useProducerContext()
+    const { producer } = useProducerContext()
+    const id = producer.id
 
     return (
         <filter id={id + 'gain'}>
@@ -49,8 +48,8 @@ export function Asset({
 }: {
     id: string
     filepath: string
-    in?: number | string
-    out?: number | string
+    in?: number
+    out?: number
     type: AssetType
     children?: any
 }) {
@@ -73,10 +72,14 @@ export function Asset({
     }
 
     const basename = path.basename(filepath)
-
+    const assetCtx: AssetContext = {
+        producer,
+        in: inTime ?? producer.attributes.in,
+        out: out ?? producer.attributes.out,
+    }
     if (type === 'image') {
         return (
-            <producerContext.Provider value={producer}>
+            <assetContext.Provider value={assetCtx}>
                 <producer {...producer.attributes} id={id}>
                     {producer.children}
                     <property name='resource'>{filepath}</property>
@@ -84,12 +87,12 @@ export function Asset({
                     <property name='shotcut:caption'>{basename}</property>
                     {children}
                 </producer>
-            </producerContext.Provider>
+            </assetContext.Provider>
         )
     }
 
     return (
-        <producerContext.Provider value={producer}>
+        <assetContext.Provider value={assetCtx}>
             <chain {...producer?.attributes} id={id}>
                 {producer.children}
                 <property name='resource'>{filepath}</property>
@@ -97,14 +100,20 @@ export function Asset({
                 <property name='shotcut:caption'>{basename}</property>
                 {children}
             </chain>
-        </producerContext.Provider>
+        </assetContext.Provider>
     )
 }
 
-export const producerContext = createContext<AssetProducer | null>(null)
+type AssetContext = {
+    producer: AssetProducer
+    in?: number | string
+    out?: number | string
+}
+
+export const assetContext = createContext<AssetContext | null>(null)
 
 function useProducerContext() {
-    const producer = useContext(producerContext)
+    const producer = useContext(assetContext)
     if (!producer) {
         throw new Error('No producer found in context')
     }
@@ -117,8 +126,8 @@ function renderRectKeyframe({ time, top, left, width, height }) {
 }
 
 export function PanningAnimation({}) {
-    const producer = useProducerContext()
-    const { in: inTime, out: outTime } = useContext(trackContext)!
+    const { producer, in: inTime, out: outTime } = useProducerContext()
+
     const { height: videoHeight, width: videoWidth } =
         useContext(videoRootContext)!
     const width = producer.properties['meta.media.width']
@@ -201,7 +210,7 @@ export function BlankSpace({ length }) {
 
 export function Track({ id: trackId, name = 'track', children }) {
     const context = useContext(renderingContext)
-    const trackCtx = { trackId,  }
+    const trackCtx = { trackId }
     if (context.isRegistrationStep) {
         return (
             <trackContext.Provider value={trackCtx}>

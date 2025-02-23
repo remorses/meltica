@@ -24,7 +24,7 @@
       <property name="transition.fix_rotate_x">0</property>
       <property name="transition.fill">1</property>
       <property name="transition.distort">0</property>
-      <property name="transition.rect">00:00:00.000=-216 -351.3 1080 3513 1;00:00:00.000=0 -1593 1080 3513 1</property>
+      <property name="transition.rect">00:00:00.000=-216 -351.3 1080 3513 1;00:00:04.000=0 -1593 1080 3513 1</property>
       <property name="transition.valign">middle</property>
       <property name="transition.halign">center</property>
       <property name="shotcut:animIn">00:00:00.000</property>
@@ -54,7 +54,7 @@
       <property name="transition.fix_rotate_x">0</property>
       <property name="transition.fill">1</property>
       <property name="transition.distort">0</property>
-      <property name="transition.rect">00:00:00.000=-216 -351.3 1080 3513 1;00:00:00.000=0 -1593 1080 3513 1</property>
+      <property name="transition.rect">00:00:00.000=-216 -351.3 1080 3513 1;00:00:04.000=0 -1593 1080 3513 1</property>
       <property name="transition.valign">middle</property>
       <property name="transition.halign">center</property>
       <property name="shotcut:animIn">00:00:00.000</property>
@@ -84,7 +84,7 @@
       <property name="transition.fix_rotate_x">0</property>
       <property name="transition.fill">1</property>
       <property name="transition.distort">0</property>
-      <property name="transition.rect">00:00:00.000=-216 -346.95000000000005 1080 3469.5 1;00:00:00.000=0 -1549.5 1080 3469.5 1</property>
+      <property name="transition.rect">00:00:00.000=-216 -346.95000000000005 1080 3469.5 1;00:00:04.000=0 -1549.5 1080 3469.5 1</property>
       <property name="transition.valign">middle</property>
       <property name="transition.halign">center</property>
       <property name="shotcut:animIn">00:00:00.000</property>
