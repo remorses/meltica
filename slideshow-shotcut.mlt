@@ -1,75 +1,7 @@
 <?xml version="1.0"?>
 <mlt LC_NUMERIC="C" version="7.30.0" title="Shotcut version 25.01.25" producer="main_bin" root="/Users/morse/Documents/kdenlive">
-  <consumer ab="160k" acodec="aac" channels="2" crf="23" deinterlacer="onefield" f="mp4" g="15" in="0" mlt_service="avformat" movflags="+faststart" preset="veryfast" real_time="-1" rescale="bilinear" target="slideshow.mp4" threads="0" vcodec="libx264"/>
+  <consumer ab="160k" acodec="aac" channels="2" crf="23" deinterlacer="onefield" f="mp4" g="15" in="0" out="00:04:20.000" mlt_service="avformat" movflags="+faststart" preset="veryfast" real_time="-1" rescale="bilinear" target="slideshow.mp4" threads="0" vcodec="libx264"/>
   <profile description="PAL 4:3 DV or DVD" width="1080" height="1920" progressive="1" sample_aspect_num="1" sample_aspect_den="1" display_aspect_num="9" display_aspect_den="16" frame_rate_num="30" frame_rate_den="1" colorspace="709"/>
-  <chain id="videoExample" in="0" out="957">
-    <property name="length">958</property>
-    <property name="eof">pause</property>
-    <property name="resource">recording.mov</property>
-    <property name="meta.media.nb_streams">2</property>
-    <property name="meta.media.0.stream.type">video</property>
-    <property name="meta.media.0.stream.frame_rate">60</property>
-    <property name="meta.media.0.stream.sample_aspect_ratio">0</property>
-    <property name="meta.media.0.codec.width">1716</property>
-    <property name="meta.media.0.codec.height">1260</property>
-    <property name="meta.media.0.codec.rotate">0</property>
-    <property name="meta.media.0.codec.pix_fmt">yuv420p</property>
-    <property name="meta.media.0.codec.sample_aspect_ratio">0</property>
-    <property name="meta.media.0.codec.colorspace">709</property>
-    <property name="meta.media.0.codec.color_trc">1</property>
-    <property name="meta.media.0.codec.name">h264</property>
-    <property name="meta.media.0.codec.long_name">H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10</property>
-    <property name="meta.media.0.codec.bit_rate">1514781</property>
-    <property name="meta.attr.0.stream.creation_time.markup">2024-12-13T09:50:32.000000Z</property>
-    <property name="meta.attr.0.stream.handler_name.markup">Core Media Video</property>
-    <property name="meta.attr.0.stream.vendor_id.markup">[0][0][0][0]</property>
-    <property name="meta.attr.0.stream.encoder.markup">H.264</property>
-    <property name="meta.media.1.stream.type">audio</property>
-    <property name="meta.media.1.codec.sample_fmt">fltp</property>
-    <property name="meta.media.1.codec.sample_rate">48000</property>
-    <property name="meta.media.1.codec.channels">1</property>
-    <property name="meta.media.1.codec.layout">mono</property>
-    <property name="meta.media.1.codec.name">aac</property>
-    <property name="meta.media.1.codec.long_name">AAC (Advanced Audio Coding)</property>
-    <property name="meta.media.1.codec.bit_rate">128458</property>
-    <property name="meta.attr.1.stream.creation_time.markup">2024-12-13T09:50:32.000000Z</property>
-    <property name="meta.attr.1.stream.handler_name.markup">Core Media Audio</property>
-    <property name="meta.attr.1.stream.vendor_id.markup">[0][0][0][0]</property>
-    <property name="meta.attr.major_brand.markup">qt  </property>
-    <property name="meta.attr.minor_version.markup">0</property>
-    <property name="meta.attr.compatible_brands.markup">qt  </property>
-    <property name="meta.attr.creation_time.markup">2024-12-13T09:50:32.000000Z</property>
-    <property name="meta.attr.com.apple.quicktime.make.markup">Apple</property>
-    <property name="meta.attr.com.apple.quicktime.model.markup">Mac14,9</property>
-    <property name="meta.attr.com.apple.quicktime.software.markup">macOS 14.5 (23F79)</property>
-    <property name="meta.attr.com.apple.quicktime.creationdate.markup">2024-12-13T10:50:31+0100</property>
-    <property name="seekable">1</property>
-    <property name="meta.media.sample_aspect_num">1</property>
-    <property name="meta.media.sample_aspect_den">1</property>
-    <property name="aspect_ratio">1</property>
-    <property name="format">3</property>
-    <property name="audio_index">1</property>
-    <property name="video_index">0</property>
-    <property name="mute_on_pause">0</property>
-    <property name="mlt_service">avformat</property>
-    <property name="resource">recording.mov</property>
-    <property name="shotcut:skipConvert">1</property>
-    <property name="shotcut:caption">recording.mov</property>
-    <filter id="videoExampletransformFilter">
-      <property name="background">color:#00000000</property>
-      <property name="mlt_service">affine</property>
-      <property name="shotcut:filter">affineSizePosition</property>
-      <property name="transition.fix_rotate_x">0</property>
-      <property name="transition.fill">1</property>
-      <property name="transition.distort">0</property>
-      <property name="transition.rect">00:00:00.000=-514.8000000000001 -189 2574 1890 1;00:00:04.467=-1494 30 2574 1890 1</property>
-      <property name="transition.valign">middle</property>
-      <property name="transition.halign">center</property>
-      <property name="shotcut:animIn">00:00:00.000</property>
-      <property name="shotcut:animOut">00:00:00.000</property>
-      <property name="transition.threads">0</property>
-    </filter>
-  </chain>
   <producer id="producer0" in="0" out="14999">
     <property name="length">15000</property>
     <property name="eof">pause</property>
@@ -92,7 +24,7 @@
       <property name="transition.fix_rotate_x">0</property>
       <property name="transition.fill">1</property>
       <property name="transition.distort">0</property>
-      <property name="transition.rect">00:00:00.000=-216 -351.3 1080 3513 1;00:00:04.000=0 -1593 1080 3513 1</property>
+      <property name="transition.rect">00:00:00.000=-216 -351.3 1080 3513 1;00:00:10.000=0 -1593 1080 3513 1</property>
       <property name="transition.valign">middle</property>
       <property name="transition.halign">center</property>
       <property name="shotcut:animIn">00:00:00.000</property>
@@ -122,7 +54,7 @@
       <property name="transition.fix_rotate_x">0</property>
       <property name="transition.fill">1</property>
       <property name="transition.distort">0</property>
-      <property name="transition.rect">00:00:00.000=-216 -351.3 1080 3513 1;00:00:04.000=0 -1593 1080 3513 1</property>
+      <property name="transition.rect">00:00:00.000=-216 -351.3 1080 3513 1;00:00:10.000=0 -1593 1080 3513 1</property>
       <property name="transition.valign">middle</property>
       <property name="transition.halign">center</property>
       <property name="shotcut:animIn">00:00:00.000</property>
@@ -152,7 +84,7 @@
       <property name="transition.fix_rotate_x">0</property>
       <property name="transition.fill">1</property>
       <property name="transition.distort">0</property>
-      <property name="transition.rect">00:00:00.000=-216 -346.95000000000005 1080 3469.5 1;00:00:04.000=0 -1549.5 1080 3469.5 1</property>
+      <property name="transition.rect">00:00:00.000=-216 -346.95000000000005 1080 3469.5 1;00:00:10.000=0 -1549.5 1080 3469.5 1</property>
       <property name="transition.valign">middle</property>
       <property name="transition.halign">center</property>
       <property name="shotcut:animIn">00:00:00.000</property>
@@ -160,16 +92,727 @@
       <property name="transition.threads">0</property>
     </filter>
   </producer>
-  <playlist id="video1">
-    <property name="shotcut:video">1</property>
+  <producer id="producer3" in="0" out="14999">
+    <property name="length">15000</property>
+    <property name="eof">pause</property>
+    <property name="resource">sololevelling/page-003.jpg</property>
+    <property name="ttl">25</property>
+    <property name="aspect_ratio">1</property>
+    <property name="meta.media.progressive">1</property>
+    <property name="seekable">1</property>
+    <property name="format">1</property>
+    <property name="meta.media.width">720</property>
+    <property name="meta.media.height">2313</property>
+    <property name="mlt_service">qimage</property>
+    <property name="resource">sololevelling/page-003.jpg</property>
+    <property name="shotcut:skipConvert">1</property>
+    <property name="shotcut:caption">page-003.jpg</property>
+    <filter id="producer3transformFilter">
+      <property name="background">color:#00000000</property>
+      <property name="mlt_service">affine</property>
+      <property name="shotcut:filter">affineSizePosition</property>
+      <property name="transition.fix_rotate_x">0</property>
+      <property name="transition.fill">1</property>
+      <property name="transition.distort">0</property>
+      <property name="transition.rect">00:00:00.000=-216 -346.95000000000005 1080 3469.5 1;00:00:10.000=0 -1549.5 1080 3469.5 1</property>
+      <property name="transition.valign">middle</property>
+      <property name="transition.halign">center</property>
+      <property name="shotcut:animIn">00:00:00.000</property>
+      <property name="shotcut:animOut">00:00:00.000</property>
+      <property name="transition.threads">0</property>
+    </filter>
+  </producer>
+  <producer id="producer4" in="0" out="14999">
+    <property name="length">15000</property>
+    <property name="eof">pause</property>
+    <property name="resource">sololevelling/page-004.jpg</property>
+    <property name="ttl">25</property>
+    <property name="aspect_ratio">1</property>
+    <property name="meta.media.progressive">1</property>
+    <property name="seekable">1</property>
+    <property name="format">1</property>
+    <property name="meta.media.width">720</property>
+    <property name="meta.media.height">2638</property>
+    <property name="mlt_service">qimage</property>
+    <property name="resource">sololevelling/page-004.jpg</property>
+    <property name="shotcut:skipConvert">1</property>
+    <property name="shotcut:caption">page-004.jpg</property>
+    <filter id="producer4transformFilter">
+      <property name="background">color:#00000000</property>
+      <property name="mlt_service">affine</property>
+      <property name="shotcut:filter">affineSizePosition</property>
+      <property name="transition.fix_rotate_x">0</property>
+      <property name="transition.fill">1</property>
+      <property name="transition.distort">0</property>
+      <property name="transition.rect">00:00:00.000=-216 -395.70000000000005 1080 3957 1;00:00:10.000=0 -2037 1080 3957 1</property>
+      <property name="transition.valign">middle</property>
+      <property name="transition.halign">center</property>
+      <property name="shotcut:animIn">00:00:00.000</property>
+      <property name="shotcut:animOut">00:00:00.000</property>
+      <property name="transition.threads">0</property>
+    </filter>
+  </producer>
+  <producer id="producer5" in="0" out="14999">
+    <property name="length">15000</property>
+    <property name="eof">pause</property>
+    <property name="resource">sololevelling/page-005.jpg</property>
+    <property name="ttl">25</property>
+    <property name="aspect_ratio">1</property>
+    <property name="meta.media.progressive">1</property>
+    <property name="seekable">1</property>
+    <property name="format">1</property>
+    <property name="meta.media.width">720</property>
+    <property name="meta.media.height">2638</property>
+    <property name="mlt_service">qimage</property>
+    <property name="resource">sololevelling/page-005.jpg</property>
+    <property name="shotcut:skipConvert">1</property>
+    <property name="shotcut:caption">page-005.jpg</property>
+    <filter id="producer5transformFilter">
+      <property name="background">color:#00000000</property>
+      <property name="mlt_service">affine</property>
+      <property name="shotcut:filter">affineSizePosition</property>
+      <property name="transition.fix_rotate_x">0</property>
+      <property name="transition.fill">1</property>
+      <property name="transition.distort">0</property>
+      <property name="transition.rect">00:00:00.000=-216 -395.70000000000005 1080 3957 1;00:00:10.000=0 -2037 1080 3957 1</property>
+      <property name="transition.valign">middle</property>
+      <property name="transition.halign">center</property>
+      <property name="shotcut:animIn">00:00:00.000</property>
+      <property name="shotcut:animOut">00:00:00.000</property>
+      <property name="transition.threads">0</property>
+    </filter>
+  </producer>
+  <producer id="producer6" in="0" out="14999">
+    <property name="length">15000</property>
+    <property name="eof">pause</property>
+    <property name="resource">sololevelling/page-006.jpg</property>
+    <property name="ttl">25</property>
+    <property name="aspect_ratio">1</property>
+    <property name="meta.media.progressive">1</property>
+    <property name="seekable">1</property>
+    <property name="format">1</property>
+    <property name="meta.media.width">720</property>
+    <property name="meta.media.height">2671</property>
+    <property name="mlt_service">qimage</property>
+    <property name="resource">sololevelling/page-006.jpg</property>
+    <property name="shotcut:skipConvert">1</property>
+    <property name="shotcut:caption">page-006.jpg</property>
+    <filter id="producer6transformFilter">
+      <property name="background">color:#00000000</property>
+      <property name="mlt_service">affine</property>
+      <property name="shotcut:filter">affineSizePosition</property>
+      <property name="transition.fix_rotate_x">0</property>
+      <property name="transition.fill">1</property>
+      <property name="transition.distort">0</property>
+      <property name="transition.rect">00:00:00.000=-216 -400.65000000000003 1080 4006.5 1;00:00:10.000=0 -2086.5 1080 4006.5 1</property>
+      <property name="transition.valign">middle</property>
+      <property name="transition.halign">center</property>
+      <property name="shotcut:animIn">00:00:00.000</property>
+      <property name="shotcut:animOut">00:00:00.000</property>
+      <property name="transition.threads">0</property>
+    </filter>
+  </producer>
+  <producer id="producer7" in="0" out="14999">
+    <property name="length">15000</property>
+    <property name="eof">pause</property>
+    <property name="resource">sololevelling/page-007.jpg</property>
+    <property name="ttl">25</property>
+    <property name="aspect_ratio">1</property>
+    <property name="meta.media.progressive">1</property>
+    <property name="seekable">1</property>
+    <property name="format">1</property>
+    <property name="meta.media.width">720</property>
+    <property name="meta.media.height">2671</property>
+    <property name="mlt_service">qimage</property>
+    <property name="resource">sololevelling/page-007.jpg</property>
+    <property name="shotcut:skipConvert">1</property>
+    <property name="shotcut:caption">page-007.jpg</property>
+    <filter id="producer7transformFilter">
+      <property name="background">color:#00000000</property>
+      <property name="mlt_service">affine</property>
+      <property name="shotcut:filter">affineSizePosition</property>
+      <property name="transition.fix_rotate_x">0</property>
+      <property name="transition.fill">1</property>
+      <property name="transition.distort">0</property>
+      <property name="transition.rect">00:00:00.000=-216 -400.65000000000003 1080 4006.5 1;00:00:10.000=0 -2086.5 1080 4006.5 1</property>
+      <property name="transition.valign">middle</property>
+      <property name="transition.halign">center</property>
+      <property name="shotcut:animIn">00:00:00.000</property>
+      <property name="shotcut:animOut">00:00:00.000</property>
+      <property name="transition.threads">0</property>
+    </filter>
+  </producer>
+  <producer id="producer8" in="0" out="14999">
+    <property name="length">15000</property>
+    <property name="eof">pause</property>
+    <property name="resource">sololevelling/page-008.jpg</property>
+    <property name="ttl">25</property>
+    <property name="aspect_ratio">1</property>
+    <property name="meta.media.progressive">1</property>
+    <property name="seekable">1</property>
+    <property name="format">1</property>
+    <property name="meta.media.width">720</property>
+    <property name="meta.media.height">2280</property>
+    <property name="mlt_service">qimage</property>
+    <property name="resource">sololevelling/page-008.jpg</property>
+    <property name="shotcut:skipConvert">1</property>
+    <property name="shotcut:caption">page-008.jpg</property>
+    <filter id="producer8transformFilter">
+      <property name="background">color:#00000000</property>
+      <property name="mlt_service">affine</property>
+      <property name="shotcut:filter">affineSizePosition</property>
+      <property name="transition.fix_rotate_x">0</property>
+      <property name="transition.fill">1</property>
+      <property name="transition.distort">0</property>
+      <property name="transition.rect">00:00:00.000=-216 -342 1080 3420 1;00:00:10.000=0 -1500 1080 3420 1</property>
+      <property name="transition.valign">middle</property>
+      <property name="transition.halign">center</property>
+      <property name="shotcut:animIn">00:00:00.000</property>
+      <property name="shotcut:animOut">00:00:00.000</property>
+      <property name="transition.threads">0</property>
+    </filter>
+  </producer>
+  <producer id="producer9" in="0" out="14999">
+    <property name="length">15000</property>
+    <property name="eof">pause</property>
+    <property name="resource">sololevelling/page-009.jpg</property>
+    <property name="ttl">25</property>
+    <property name="aspect_ratio">1</property>
+    <property name="meta.media.progressive">1</property>
+    <property name="seekable">1</property>
+    <property name="format">1</property>
+    <property name="meta.media.width">720</property>
+    <property name="meta.media.height">2280</property>
+    <property name="mlt_service">qimage</property>
+    <property name="resource">sololevelling/page-009.jpg</property>
+    <property name="shotcut:skipConvert">1</property>
+    <property name="shotcut:caption">page-009.jpg</property>
+    <filter id="producer9transformFilter">
+      <property name="background">color:#00000000</property>
+      <property name="mlt_service">affine</property>
+      <property name="shotcut:filter">affineSizePosition</property>
+      <property name="transition.fix_rotate_x">0</property>
+      <property name="transition.fill">1</property>
+      <property name="transition.distort">0</property>
+      <property name="transition.rect">00:00:00.000=-216 -342 1080 3420 1;00:00:10.000=0 -1500 1080 3420 1</property>
+      <property name="transition.valign">middle</property>
+      <property name="transition.halign">center</property>
+      <property name="shotcut:animIn">00:00:00.000</property>
+      <property name="shotcut:animOut">00:00:00.000</property>
+      <property name="transition.threads">0</property>
+    </filter>
+  </producer>
+  <producer id="producer10" in="0" out="14999">
+    <property name="length">15000</property>
+    <property name="eof">pause</property>
+    <property name="resource">sololevelling/page-010.jpg</property>
+    <property name="ttl">25</property>
+    <property name="aspect_ratio">1</property>
+    <property name="meta.media.progressive">1</property>
+    <property name="seekable">1</property>
+    <property name="format">1</property>
+    <property name="meta.media.width">720</property>
+    <property name="meta.media.height">2404</property>
+    <property name="mlt_service">qimage</property>
+    <property name="resource">sololevelling/page-010.jpg</property>
+    <property name="shotcut:skipConvert">1</property>
+    <property name="shotcut:caption">page-010.jpg</property>
+    <filter id="producer10transformFilter">
+      <property name="background">color:#00000000</property>
+      <property name="mlt_service">affine</property>
+      <property name="shotcut:filter">affineSizePosition</property>
+      <property name="transition.fix_rotate_x">0</property>
+      <property name="transition.fill">1</property>
+      <property name="transition.distort">0</property>
+      <property name="transition.rect">00:00:00.000=-216 -360.6 1080 3606 1;00:00:10.000=0 -1686 1080 3606 1</property>
+      <property name="transition.valign">middle</property>
+      <property name="transition.halign">center</property>
+      <property name="shotcut:animIn">00:00:00.000</property>
+      <property name="shotcut:animOut">00:00:00.000</property>
+      <property name="transition.threads">0</property>
+    </filter>
+  </producer>
+  <producer id="producer11" in="0" out="14999">
+    <property name="length">15000</property>
+    <property name="eof">pause</property>
+    <property name="resource">sololevelling/page-011.jpg</property>
+    <property name="ttl">25</property>
+    <property name="aspect_ratio">1</property>
+    <property name="meta.media.progressive">1</property>
+    <property name="seekable">1</property>
+    <property name="format">1</property>
+    <property name="meta.media.width">720</property>
+    <property name="meta.media.height">2404</property>
+    <property name="mlt_service">qimage</property>
+    <property name="resource">sololevelling/page-011.jpg</property>
+    <property name="shotcut:skipConvert">1</property>
+    <property name="shotcut:caption">page-011.jpg</property>
+    <filter id="producer11transformFilter">
+      <property name="background">color:#00000000</property>
+      <property name="mlt_service">affine</property>
+      <property name="shotcut:filter">affineSizePosition</property>
+      <property name="transition.fix_rotate_x">0</property>
+      <property name="transition.fill">1</property>
+      <property name="transition.distort">0</property>
+      <property name="transition.rect">00:00:00.000=-216 -360.6 1080 3606 1;00:00:10.000=0 -1686 1080 3606 1</property>
+      <property name="transition.valign">middle</property>
+      <property name="transition.halign">center</property>
+      <property name="shotcut:animIn">00:00:00.000</property>
+      <property name="shotcut:animOut">00:00:00.000</property>
+      <property name="transition.threads">0</property>
+    </filter>
+  </producer>
+  <producer id="producer12" in="0" out="14999">
+    <property name="length">15000</property>
+    <property name="eof">pause</property>
+    <property name="resource">sololevelling/page-012.jpg</property>
+    <property name="ttl">25</property>
+    <property name="aspect_ratio">1</property>
+    <property name="meta.media.progressive">1</property>
+    <property name="seekable">1</property>
+    <property name="format">1</property>
+    <property name="meta.media.width">720</property>
+    <property name="meta.media.height">2473</property>
+    <property name="mlt_service">qimage</property>
+    <property name="resource">sololevelling/page-012.jpg</property>
+    <property name="shotcut:skipConvert">1</property>
+    <property name="shotcut:caption">page-012.jpg</property>
+    <filter id="producer12transformFilter">
+      <property name="background">color:#00000000</property>
+      <property name="mlt_service">affine</property>
+      <property name="shotcut:filter">affineSizePosition</property>
+      <property name="transition.fix_rotate_x">0</property>
+      <property name="transition.fill">1</property>
+      <property name="transition.distort">0</property>
+      <property name="transition.rect">00:00:00.000=-216 -370.95000000000005 1080 3709.5 1;00:00:10.000=0 -1789.5 1080 3709.5 1</property>
+      <property name="transition.valign">middle</property>
+      <property name="transition.halign">center</property>
+      <property name="shotcut:animIn">00:00:00.000</property>
+      <property name="shotcut:animOut">00:00:00.000</property>
+      <property name="transition.threads">0</property>
+    </filter>
+  </producer>
+  <producer id="producer13" in="0" out="14999">
+    <property name="length">15000</property>
+    <property name="eof">pause</property>
+    <property name="resource">sololevelling/page-013.jpg</property>
+    <property name="ttl">25</property>
+    <property name="aspect_ratio">1</property>
+    <property name="meta.media.progressive">1</property>
+    <property name="seekable">1</property>
+    <property name="format">1</property>
+    <property name="meta.media.width">720</property>
+    <property name="meta.media.height">2473</property>
+    <property name="mlt_service">qimage</property>
+    <property name="resource">sololevelling/page-013.jpg</property>
+    <property name="shotcut:skipConvert">1</property>
+    <property name="shotcut:caption">page-013.jpg</property>
+    <filter id="producer13transformFilter">
+      <property name="background">color:#00000000</property>
+      <property name="mlt_service">affine</property>
+      <property name="shotcut:filter">affineSizePosition</property>
+      <property name="transition.fix_rotate_x">0</property>
+      <property name="transition.fill">1</property>
+      <property name="transition.distort">0</property>
+      <property name="transition.rect">00:00:00.000=-216 -370.95000000000005 1080 3709.5 1;00:00:10.000=0 -1789.5 1080 3709.5 1</property>
+      <property name="transition.valign">middle</property>
+      <property name="transition.halign">center</property>
+      <property name="shotcut:animIn">00:00:00.000</property>
+      <property name="shotcut:animOut">00:00:00.000</property>
+      <property name="transition.threads">0</property>
+    </filter>
+  </producer>
+  <producer id="producer14" in="0" out="14999">
+    <property name="length">15000</property>
+    <property name="eof">pause</property>
+    <property name="resource">sololevelling/page-014.jpg</property>
+    <property name="ttl">25</property>
+    <property name="aspect_ratio">1</property>
+    <property name="meta.media.progressive">1</property>
+    <property name="seekable">1</property>
+    <property name="format">1</property>
+    <property name="meta.media.width">720</property>
+    <property name="meta.media.height">2307</property>
+    <property name="mlt_service">qimage</property>
+    <property name="resource">sololevelling/page-014.jpg</property>
+    <property name="shotcut:skipConvert">1</property>
+    <property name="shotcut:caption">page-014.jpg</property>
+    <filter id="producer14transformFilter">
+      <property name="background">color:#00000000</property>
+      <property name="mlt_service">affine</property>
+      <property name="shotcut:filter">affineSizePosition</property>
+      <property name="transition.fix_rotate_x">0</property>
+      <property name="transition.fill">1</property>
+      <property name="transition.distort">0</property>
+      <property name="transition.rect">00:00:00.000=-216 -346.05 1080 3460.5 1;00:00:10.000=0 -1540.5 1080 3460.5 1</property>
+      <property name="transition.valign">middle</property>
+      <property name="transition.halign">center</property>
+      <property name="shotcut:animIn">00:00:00.000</property>
+      <property name="shotcut:animOut">00:00:00.000</property>
+      <property name="transition.threads">0</property>
+    </filter>
+  </producer>
+  <producer id="producer15" in="0" out="14999">
+    <property name="length">15000</property>
+    <property name="eof">pause</property>
+    <property name="resource">sololevelling/page-015.jpg</property>
+    <property name="ttl">25</property>
+    <property name="aspect_ratio">1</property>
+    <property name="meta.media.progressive">1</property>
+    <property name="seekable">1</property>
+    <property name="format">1</property>
+    <property name="meta.media.width">720</property>
+    <property name="meta.media.height">2307</property>
+    <property name="mlt_service">qimage</property>
+    <property name="resource">sololevelling/page-015.jpg</property>
+    <property name="shotcut:skipConvert">1</property>
+    <property name="shotcut:caption">page-015.jpg</property>
+    <filter id="producer15transformFilter">
+      <property name="background">color:#00000000</property>
+      <property name="mlt_service">affine</property>
+      <property name="shotcut:filter">affineSizePosition</property>
+      <property name="transition.fix_rotate_x">0</property>
+      <property name="transition.fill">1</property>
+      <property name="transition.distort">0</property>
+      <property name="transition.rect">00:00:00.000=-216 -346.05 1080 3460.5 1;00:00:10.000=0 -1540.5 1080 3460.5 1</property>
+      <property name="transition.valign">middle</property>
+      <property name="transition.halign">center</property>
+      <property name="shotcut:animIn">00:00:00.000</property>
+      <property name="shotcut:animOut">00:00:00.000</property>
+      <property name="transition.threads">0</property>
+    </filter>
+  </producer>
+  <producer id="producer16" in="0" out="14999">
+    <property name="length">15000</property>
+    <property name="eof">pause</property>
+    <property name="resource">sololevelling/page-016.jpg</property>
+    <property name="ttl">25</property>
+    <property name="aspect_ratio">1</property>
+    <property name="meta.media.progressive">1</property>
+    <property name="seekable">1</property>
+    <property name="format">1</property>
+    <property name="meta.media.width">720</property>
+    <property name="meta.media.height">2024</property>
+    <property name="mlt_service">qimage</property>
+    <property name="resource">sololevelling/page-016.jpg</property>
+    <property name="shotcut:skipConvert">1</property>
+    <property name="shotcut:caption">page-016.jpg</property>
+    <filter id="producer16transformFilter">
+      <property name="background">color:#00000000</property>
+      <property name="mlt_service">affine</property>
+      <property name="shotcut:filter">affineSizePosition</property>
+      <property name="transition.fix_rotate_x">0</property>
+      <property name="transition.fill">1</property>
+      <property name="transition.distort">0</property>
+      <property name="transition.rect">00:00:00.000=-216 -303.6 1080 3036 1;00:00:10.000=0 -1116 1080 3036 1</property>
+      <property name="transition.valign">middle</property>
+      <property name="transition.halign">center</property>
+      <property name="shotcut:animIn">00:00:00.000</property>
+      <property name="shotcut:animOut">00:00:00.000</property>
+      <property name="transition.threads">0</property>
+    </filter>
+  </producer>
+  <producer id="producer17" in="0" out="14999">
+    <property name="length">15000</property>
+    <property name="eof">pause</property>
+    <property name="resource">sololevelling/page-017.jpg</property>
+    <property name="ttl">25</property>
+    <property name="aspect_ratio">1</property>
+    <property name="meta.media.progressive">1</property>
+    <property name="seekable">1</property>
+    <property name="format">1</property>
+    <property name="meta.media.width">720</property>
+    <property name="meta.media.height">2024</property>
+    <property name="mlt_service">qimage</property>
+    <property name="resource">sololevelling/page-017.jpg</property>
+    <property name="shotcut:skipConvert">1</property>
+    <property name="shotcut:caption">page-017.jpg</property>
+    <filter id="producer17transformFilter">
+      <property name="background">color:#00000000</property>
+      <property name="mlt_service">affine</property>
+      <property name="shotcut:filter">affineSizePosition</property>
+      <property name="transition.fix_rotate_x">0</property>
+      <property name="transition.fill">1</property>
+      <property name="transition.distort">0</property>
+      <property name="transition.rect">00:00:00.000=-216 -303.6 1080 3036 1;00:00:10.000=0 -1116 1080 3036 1</property>
+      <property name="transition.valign">middle</property>
+      <property name="transition.halign">center</property>
+      <property name="shotcut:animIn">00:00:00.000</property>
+      <property name="shotcut:animOut">00:00:00.000</property>
+      <property name="transition.threads">0</property>
+    </filter>
+  </producer>
+  <producer id="producer18" in="0" out="14999">
+    <property name="length">15000</property>
+    <property name="eof">pause</property>
+    <property name="resource">sololevelling/page-018.jpg</property>
+    <property name="ttl">25</property>
+    <property name="aspect_ratio">1</property>
+    <property name="meta.media.progressive">1</property>
+    <property name="seekable">1</property>
+    <property name="format">1</property>
+    <property name="meta.media.width">720</property>
+    <property name="meta.media.height">2160</property>
+    <property name="mlt_service">qimage</property>
+    <property name="resource">sololevelling/page-018.jpg</property>
+    <property name="shotcut:skipConvert">1</property>
+    <property name="shotcut:caption">page-018.jpg</property>
+    <filter id="producer18transformFilter">
+      <property name="background">color:#00000000</property>
+      <property name="mlt_service">affine</property>
+      <property name="shotcut:filter">affineSizePosition</property>
+      <property name="transition.fix_rotate_x">0</property>
+      <property name="transition.fill">1</property>
+      <property name="transition.distort">0</property>
+      <property name="transition.rect">00:00:00.000=-216 -324 1080 3240 1;00:00:10.000=0 -1320 1080 3240 1</property>
+      <property name="transition.valign">middle</property>
+      <property name="transition.halign">center</property>
+      <property name="shotcut:animIn">00:00:00.000</property>
+      <property name="shotcut:animOut">00:00:00.000</property>
+      <property name="transition.threads">0</property>
+    </filter>
+  </producer>
+  <producer id="producer19" in="0" out="14999">
+    <property name="length">15000</property>
+    <property name="eof">pause</property>
+    <property name="resource">sololevelling/page-019.jpg</property>
+    <property name="ttl">25</property>
+    <property name="aspect_ratio">1</property>
+    <property name="meta.media.progressive">1</property>
+    <property name="seekable">1</property>
+    <property name="format">1</property>
+    <property name="meta.media.width">720</property>
+    <property name="meta.media.height">2160</property>
+    <property name="mlt_service">qimage</property>
+    <property name="resource">sololevelling/page-019.jpg</property>
+    <property name="shotcut:skipConvert">1</property>
+    <property name="shotcut:caption">page-019.jpg</property>
+    <filter id="producer19transformFilter">
+      <property name="background">color:#00000000</property>
+      <property name="mlt_service">affine</property>
+      <property name="shotcut:filter">affineSizePosition</property>
+      <property name="transition.fix_rotate_x">0</property>
+      <property name="transition.fill">1</property>
+      <property name="transition.distort">0</property>
+      <property name="transition.rect">00:00:00.000=-216 -324 1080 3240 1;00:00:10.000=0 -1320 1080 3240 1</property>
+      <property name="transition.valign">middle</property>
+      <property name="transition.halign">center</property>
+      <property name="shotcut:animIn">00:00:00.000</property>
+      <property name="shotcut:animOut">00:00:00.000</property>
+      <property name="transition.threads">0</property>
+    </filter>
+  </producer>
+  <producer id="producer20" in="0" out="14999">
+    <property name="length">15000</property>
+    <property name="eof">pause</property>
+    <property name="resource">sololevelling/page-020.jpg</property>
+    <property name="ttl">25</property>
+    <property name="aspect_ratio">1</property>
+    <property name="meta.media.progressive">1</property>
+    <property name="seekable">1</property>
+    <property name="format">1</property>
+    <property name="meta.media.width">720</property>
+    <property name="meta.media.height">2169</property>
+    <property name="mlt_service">qimage</property>
+    <property name="resource">sololevelling/page-020.jpg</property>
+    <property name="shotcut:skipConvert">1</property>
+    <property name="shotcut:caption">page-020.jpg</property>
+    <filter id="producer20transformFilter">
+      <property name="background">color:#00000000</property>
+      <property name="mlt_service">affine</property>
+      <property name="shotcut:filter">affineSizePosition</property>
+      <property name="transition.fix_rotate_x">0</property>
+      <property name="transition.fill">1</property>
+      <property name="transition.distort">0</property>
+      <property name="transition.rect">00:00:00.000=-216 -325.35 1080 3253.5 1;00:00:10.000=0 -1333.5 1080 3253.5 1</property>
+      <property name="transition.valign">middle</property>
+      <property name="transition.halign">center</property>
+      <property name="shotcut:animIn">00:00:00.000</property>
+      <property name="shotcut:animOut">00:00:00.000</property>
+      <property name="transition.threads">0</property>
+    </filter>
+  </producer>
+  <producer id="producer21" in="0" out="14999">
+    <property name="length">15000</property>
+    <property name="eof">pause</property>
+    <property name="resource">sololevelling/page-021.jpg</property>
+    <property name="ttl">25</property>
+    <property name="aspect_ratio">1</property>
+    <property name="meta.media.progressive">1</property>
+    <property name="seekable">1</property>
+    <property name="format">1</property>
+    <property name="meta.media.width">720</property>
+    <property name="meta.media.height">2169</property>
+    <property name="mlt_service">qimage</property>
+    <property name="resource">sololevelling/page-021.jpg</property>
+    <property name="shotcut:skipConvert">1</property>
+    <property name="shotcut:caption">page-021.jpg</property>
+    <filter id="producer21transformFilter">
+      <property name="background">color:#00000000</property>
+      <property name="mlt_service">affine</property>
+      <property name="shotcut:filter">affineSizePosition</property>
+      <property name="transition.fix_rotate_x">0</property>
+      <property name="transition.fill">1</property>
+      <property name="transition.distort">0</property>
+      <property name="transition.rect">00:00:00.000=-216 -325.35 1080 3253.5 1;00:00:10.000=0 -1333.5 1080 3253.5 1</property>
+      <property name="transition.valign">middle</property>
+      <property name="transition.halign">center</property>
+      <property name="shotcut:animIn">00:00:00.000</property>
+      <property name="shotcut:animOut">00:00:00.000</property>
+      <property name="transition.threads">0</property>
+    </filter>
+  </producer>
+  <producer id="producer22" in="0" out="14999">
+    <property name="length">15000</property>
+    <property name="eof">pause</property>
+    <property name="resource">sololevelling/page-022.jpg</property>
+    <property name="ttl">25</property>
+    <property name="aspect_ratio">1</property>
+    <property name="meta.media.progressive">1</property>
+    <property name="seekable">1</property>
+    <property name="format">1</property>
+    <property name="meta.media.width">720</property>
+    <property name="meta.media.height">2142</property>
+    <property name="mlt_service">qimage</property>
+    <property name="resource">sololevelling/page-022.jpg</property>
+    <property name="shotcut:skipConvert">1</property>
+    <property name="shotcut:caption">page-022.jpg</property>
+    <filter id="producer22transformFilter">
+      <property name="background">color:#00000000</property>
+      <property name="mlt_service">affine</property>
+      <property name="shotcut:filter">affineSizePosition</property>
+      <property name="transition.fix_rotate_x">0</property>
+      <property name="transition.fill">1</property>
+      <property name="transition.distort">0</property>
+      <property name="transition.rect">00:00:00.000=-216 -321.3 1080 3213 1;00:00:10.000=0 -1293 1080 3213 1</property>
+      <property name="transition.valign">middle</property>
+      <property name="transition.halign">center</property>
+      <property name="shotcut:animIn">00:00:00.000</property>
+      <property name="shotcut:animOut">00:00:00.000</property>
+      <property name="transition.threads">0</property>
+    </filter>
+  </producer>
+  <producer id="producer23" in="0" out="14999">
+    <property name="length">15000</property>
+    <property name="eof">pause</property>
+    <property name="resource">sololevelling/page-023.jpg</property>
+    <property name="ttl">25</property>
+    <property name="aspect_ratio">1</property>
+    <property name="meta.media.progressive">1</property>
+    <property name="seekable">1</property>
+    <property name="format">1</property>
+    <property name="meta.media.width">720</property>
+    <property name="meta.media.height">2142</property>
+    <property name="mlt_service">qimage</property>
+    <property name="resource">sololevelling/page-023.jpg</property>
+    <property name="shotcut:skipConvert">1</property>
+    <property name="shotcut:caption">page-023.jpg</property>
+    <filter id="producer23transformFilter">
+      <property name="background">color:#00000000</property>
+      <property name="mlt_service">affine</property>
+      <property name="shotcut:filter">affineSizePosition</property>
+      <property name="transition.fix_rotate_x">0</property>
+      <property name="transition.fill">1</property>
+      <property name="transition.distort">0</property>
+      <property name="transition.rect">00:00:00.000=-216 -321.3 1080 3213 1;00:00:10.000=0 -1293 1080 3213 1</property>
+      <property name="transition.valign">middle</property>
+      <property name="transition.halign">center</property>
+      <property name="shotcut:animIn">00:00:00.000</property>
+      <property name="shotcut:animOut">00:00:00.000</property>
+      <property name="transition.threads">0</property>
+    </filter>
+  </producer>
+  <producer id="producer24" in="0" out="14999">
+    <property name="length">15000</property>
+    <property name="eof">pause</property>
+    <property name="resource">sololevelling/page-024.jpg</property>
+    <property name="ttl">25</property>
+    <property name="aspect_ratio">1</property>
+    <property name="meta.media.progressive">1</property>
+    <property name="seekable">1</property>
+    <property name="format">1</property>
+    <property name="meta.media.width">720</property>
+    <property name="meta.media.height">2655</property>
+    <property name="mlt_service">qimage</property>
+    <property name="resource">sololevelling/page-024.jpg</property>
+    <property name="shotcut:skipConvert">1</property>
+    <property name="shotcut:caption">page-024.jpg</property>
+    <filter id="producer24transformFilter">
+      <property name="background">color:#00000000</property>
+      <property name="mlt_service">affine</property>
+      <property name="shotcut:filter">affineSizePosition</property>
+      <property name="transition.fix_rotate_x">0</property>
+      <property name="transition.fill">1</property>
+      <property name="transition.distort">0</property>
+      <property name="transition.rect">00:00:00.000=-216 -398.25 1080 3982.5 1;00:00:10.000=0 -2062.5 1080 3982.5 1</property>
+      <property name="transition.valign">middle</property>
+      <property name="transition.halign">center</property>
+      <property name="shotcut:animIn">00:00:00.000</property>
+      <property name="shotcut:animOut">00:00:00.000</property>
+      <property name="transition.threads">0</property>
+    </filter>
+  </producer>
+  <producer id="producer25" in="0" out="14999">
+    <property name="length">15000</property>
+    <property name="eof">pause</property>
+    <property name="resource">sololevelling/page-025.jpg</property>
+    <property name="ttl">25</property>
+    <property name="aspect_ratio">1</property>
+    <property name="meta.media.progressive">1</property>
+    <property name="seekable">1</property>
+    <property name="format">1</property>
+    <property name="meta.media.width">720</property>
+    <property name="meta.media.height">2655</property>
+    <property name="mlt_service">qimage</property>
+    <property name="resource">sololevelling/page-025.jpg</property>
+    <property name="shotcut:skipConvert">1</property>
+    <property name="shotcut:caption">page-025.jpg</property>
+    <filter id="producer25transformFilter">
+      <property name="background">color:#00000000</property>
+      <property name="mlt_service">affine</property>
+      <property name="shotcut:filter">affineSizePosition</property>
+      <property name="transition.fix_rotate_x">0</property>
+      <property name="transition.fill">1</property>
+      <property name="transition.distort">0</property>
+      <property name="transition.rect">00:00:00.000=-216 -398.25 1080 3982.5 1;00:00:10.000=0 -2062.5 1080 3982.5 1</property>
+      <property name="transition.valign">middle</property>
+      <property name="transition.halign">center</property>
+      <property name="shotcut:animIn">00:00:00.000</property>
+      <property name="shotcut:animOut">00:00:00.000</property>
+      <property name="transition.threads">0</property>
+    </filter>
+  </producer>
+  <playlist id="images">
     <property name="shotcut:name">track</property>
-    <entry producer="videoExample" in="00:00:00.000" out="00:00:04.467"/>
-    <entry producer="producer0" in="00:00:00.000" out="00:00:04.000"/>
-    <entry producer="producer1" in="00:00:00.000" out="00:00:04.000"/>
-    <entry producer="producer2" in="00:00:00.000" out="00:00:04.000"/>
+    <entry producer="producer0" in="00:00:00.000" out="00:00:10.000"/>
+    <entry producer="producer1" in="00:00:00.000" out="00:00:10.000"/>
+    <entry producer="producer2" in="00:00:00.000" out="00:00:10.000"/>
+    <entry producer="producer3" in="00:00:00.000" out="00:00:10.000"/>
+    <entry producer="producer4" in="00:00:00.000" out="00:00:10.000"/>
+    <entry producer="producer5" in="00:00:00.000" out="00:00:10.000"/>
+    <entry producer="producer6" in="00:00:00.000" out="00:00:10.000"/>
+    <entry producer="producer7" in="00:00:00.000" out="00:00:10.000"/>
+    <entry producer="producer8" in="00:00:00.000" out="00:00:10.000"/>
+    <entry producer="producer9" in="00:00:00.000" out="00:00:10.000"/>
+    <entry producer="producer10" in="00:00:00.000" out="00:00:10.000"/>
+    <entry producer="producer11" in="00:00:00.000" out="00:00:10.000"/>
+    <entry producer="producer12" in="00:00:00.000" out="00:00:10.000"/>
+    <entry producer="producer13" in="00:00:00.000" out="00:00:10.000"/>
+    <entry producer="producer14" in="00:00:00.000" out="00:00:10.000"/>
+    <entry producer="producer15" in="00:00:00.000" out="00:00:10.000"/>
+    <entry producer="producer16" in="00:00:00.000" out="00:00:10.000"/>
+    <entry producer="producer17" in="00:00:00.000" out="00:00:10.000"/>
+    <entry producer="producer18" in="00:00:00.000" out="00:00:10.000"/>
+    <entry producer="producer19" in="00:00:00.000" out="00:00:10.000"/>
+    <entry producer="producer20" in="00:00:00.000" out="00:00:10.000"/>
+    <entry producer="producer21" in="00:00:00.000" out="00:00:10.000"/>
+    <entry producer="producer22" in="00:00:00.000" out="00:00:10.000"/>
+    <entry producer="producer23" in="00:00:00.000" out="00:00:10.000"/>
+    <entry producer="producer24" in="00:00:00.000" out="00:00:10.000"/>
+    <entry producer="producer25" in="00:00:00.000" out="00:00:10.000"/>
   </playlist>
-  <chain id="chain0" in="0" out="871">
-    <property name="length">872</property>
+  <chain id="chain0" in="0" out="362">
+    <property name="length">363</property>
     <property name="eof">pause</property>
     <property name="resource">narrator.wav</property>
     <property name="meta.media.nb_streams">1</property>
@@ -194,10 +837,10 @@
     <property name="shotcut:audio">1</property>
     <property name="shotcut:name">track</property>
     <blank length="00:00:01.000"/>
-    <entry producer="chain0"/>
+    <entry producer="chain0" in="00:00:00.000" out="00:06:02.000"/>
   </playlist>
-  <chain id="chain1" in="0" out="8107">
-    <property name="length">8108</property>
+  <chain id="chain1" in="0" out="3377">
+    <property name="length">3378</property>
     <property name="eof">pause</property>
     <property name="resource">edapollo - Let It Go [bQ5glYCsv94].mp3</property>
     <property name="meta.media.nb_streams">1</property>
@@ -256,7 +899,7 @@
     <property name="shotcut:trackHeight">50</property>
     <property name="shotcut:skipConvert">0</property>
     <track producer="background"/>
-    <track producer="video1"/>
+    <track producer="images"/>
     <track producer="audio1" hide="video"/>
     <track producer="audio2" hide="video"/>
     <transition id="transition0">

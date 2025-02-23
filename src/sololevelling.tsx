@@ -1,3 +1,4 @@
+import fs from 'fs'
 import {
     Asset,
     AudioGain,
@@ -8,35 +9,36 @@ import {
 } from '@/components'
 import { formatSecondsToTime, renderToVideo, renderToXml } from '@/rendering'
 import { writeFileSync } from 'fs'
+import path from 'path'
 
 function Video({}) {
+    const imagesFolder = './sololevelling'
+    const allImages = fs
+        .readdirSync(imagesFolder)
+        .map((x) => path.join(imagesFolder, x))
+        .sort()
+    const imageDuration = 10
+    const duration = allImages.length * imageDuration
     return (
         <VideoRoot
             fps={30}
             width={1080}
             height={1920}
+            duration={duration}
             resultFilePath={'slideshow.mp4'}
         >
-            <Track id={'video1'}>
-                <Asset
-                    type='image'
-                    id={'producer0'}
-                    filepath={'sololevelling/page-000.jpg'}
-                    in={0}
-                    out={4}
-                >
-                    <PanningAnimation />
-                </Asset>
-                <Asset
-                    type='image'
-                    id={'producer1'}
-                    filepath={'sololevelling/page-001.jpg'}
-                    in={0}
-                    out={4}
-                >
-                    <PanningAnimation />
-                </Asset>
-                
+            <Track id={'images'}>
+                {allImages.map((filepath, i) => (
+                    <Asset
+                        type='image'
+                        id={`producer${i}`}
+                        filepath={filepath}
+                        in={0}
+                        out={imageDuration}
+                    >
+                        <PanningAnimation />
+                    </Asset>
+                ))}
             </Track>
             <Track id={'audio1'}>
                 <BlankSpace length={formatSecondsToTime(1)} />

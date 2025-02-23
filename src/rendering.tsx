@@ -184,12 +184,22 @@ export function renderToXml(jsx: any) {
 }
 
 export function renderToVideo(jsx: any, xmlFilename = 'video.mlt') {
+    // Generate unique ID for this render
+    const renderId = `render_${Date.now().toString(36)}`
+
+    // Task 1: Generate XML
+    console.time(`${renderId} generate xml`)
     const xml = renderToXml(jsx)
+    console.timeEnd(`${renderId} generate xml`)
+    
+    // Task 2: Run melt command
+    console.time(`${renderId} melt processing`) 
     const timestamp = Date.now()
     // const tempXmlFile = path.join(os.tmpdir(), `video-${timestamp}.mlt`)
     const tempXmlFile = xmlFilename
     fs.writeFileSync(tempXmlFile, xml)
     execSync(`melt ${tempXmlFile}`, { stdio: 'inherit' })
+    console.timeEnd(`${renderId} melt processing`)
 }
 
 export function parseXml(xml: string) {

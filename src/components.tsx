@@ -56,13 +56,15 @@ export function Asset({
     const context = useContext(renderingContext)
     const { trackId } = useTrackContext()
     const producer = context.producers.find((p) => p.id === id)
+    const inWithDefault = inTime ?? producer?.attributes.in
+    const outWithDefault = out ?? producer?.attributes.out
     if (context.isRegistrationStep) {
         context.assets.push({
             filepath,
             id,
             type,
-            in: inTime,
-            out,
+            in: inWithDefault,
+            out: outWithDefault,
             parentTrackId: trackId,
         })
         return null
@@ -74,8 +76,8 @@ export function Asset({
     const basename = path.basename(filepath)
     const assetCtx: AssetContext = {
         producer,
-        in: inTime ?? producer.attributes.in,
-        out: out ?? producer.attributes.out,
+        in: inWithDefault,
+        out: outWithDefault,
     }
     if (type === 'image') {
         return (
@@ -224,6 +226,7 @@ export function Track({ id: trackId, name = 'track', children }) {
         )
     }
     const assets = context.assets.filter((a) => a.parentTrackId === trackId)
+
     const type = getTrackType(assets)
     return (
         <trackContext.Provider value={trackCtx}>
@@ -241,11 +244,18 @@ export function Track({ id: trackId, name = 'track', children }) {
                     if (x.type === 'blank') {
                         return <blank length={x.length} />
                     }
+                    const producer = context.producers.find(
+                        (p) => p.id === x.id,
+                    )
                     return (
                         <entry
                             producer={x.id}
-                            in={formatSecondsToTime(x.in)}
-                            out={formatSecondsToTime(x.out)}
+                            in={formatSecondsToTime(
+                                x.in ?? producer?.attributes.in,
+                            )}
+                            out={formatSecondsToTime(
+                                x.out ?? producer?.attributes.out,
+                            )}
                         />
                     )
                 })}
