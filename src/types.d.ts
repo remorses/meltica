@@ -104,6 +104,7 @@ declare global {
                 mlt_service?: string
                 internal_added?: string
                 disable?: string
+                out?: string
                 children?: ReactNode
             }
             playlist: {
@@ -113,6 +114,7 @@ declare global {
             tractor: {
                 id?: string
                 in?: string
+                title?: string
                 out?: string
                 children?: ReactNode
             }
