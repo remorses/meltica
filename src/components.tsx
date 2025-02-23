@@ -273,6 +273,7 @@ type VideoRootContext = {
     height: number
     resultFilePath: string
     fps: number
+    duration?: number
 }
 
 const videoRootContext = createContext<VideoRootContext | null>(null)
@@ -285,7 +286,7 @@ export function VideoRoot({
     const context = useContext(renderingContext)
     let backgroundDuration = formatSecondsToTime(9999999)
     const playlists = groupBy(context.assets, (a) => a.parentTrackId!)
-    const { resultFilePath, height, width, fps } = rootProps
+    const { resultFilePath, height, width, duration, fps } = rootProps
     return (
         <videoRootContext.Provider value={rootProps}>
             <mlt
@@ -304,7 +305,7 @@ export function VideoRoot({
                     f='mp4'
                     g='15'
                     in='0'
-                    // out={formatSecondsToTime(3)}
+                    out={formatSecondsToTime(duration)}
                     mlt_service='avformat'
                     movflags='+faststart'
                     preset='veryfast'
