@@ -94,9 +94,9 @@
   </producer>
   <playlist id="video1">
     <property name="shotcut:name">track</property>
-    <entry producer="producer0" in="00:00:00.000" out="00:00:02.867"/>
-    <entry producer="producer1" in="00:00:00.000" out="00:00:02.733"/>
-    <entry producer="producer2" in="00:00:00.000" out="00:00:03.167"/>
+    <entry producer="producer0" in="00:00:00.000" out="00:00:04.000"/>
+    <entry producer="producer1" in="00:00:00.000" out="00:00:04.000"/>
+    <entry producer="producer2" in="00:00:00.000" out="00:00:04.000"/>
   </playlist>
   <chain id="chain0" in="0" out="362">
     <property name="length">363</property>
@@ -123,8 +123,8 @@
   <playlist id="audio1">
     <property name="shotcut:audio">1</property>
     <property name="shotcut:name">track</property>
-    <blank length="00:00:03.000"/>
-    <entry producer="chain0" in="00:00:00.000" out="00:00:14.467"/>
+    <blank length="00:00:01.000"/>
+    <entry producer="chain0"/>
   </playlist>
   <chain id="chain1" in="0" out="3377">
     <property name="length">3378</property>
@@ -152,6 +152,12 @@
     <property name="resource">edapollo - Let It Go [bQ5glYCsv94].mp3</property>
     <property name="shotcut:skipConvert">1</property>
     <property name="shotcut:caption">edapollo - Let It Go [bQ5glYCsv94].mp3</property>
+    <filter id="chain1gain">
+      <property name="window">75</property>
+      <property name="max_gain">20dB</property>
+      <property name="level">-14</property>
+      <property name="mlt_service">volume</property>
+    </filter>
   </chain>
   <playlist id="audio2">
     <property name="shotcut:audio">1</property>
@@ -173,7 +179,7 @@
   <playlist id="background">
     <entry producer="black" in="00:00:00.000" out="2777:46:39.000"/>
   </playlist>
-  <tractor id="tractor1" title="Shotcut version 25.01.25" in="00:00:00.000" out="00:00:03.000">
+  <tractor id="mainTractor" title="Shotcut version 25.01.25">
     <property name="shotcut">1</property>
     <property name="shotcut:projectAudioChannels">2</property>
     <property name="shotcut:projectFolder">0</property>

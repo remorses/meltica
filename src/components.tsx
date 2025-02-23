@@ -43,8 +43,8 @@ export function Asset({
 }: {
     id: string
     filepath: string
-    in: number | string
-    out: number | string
+    in?: number | string
+    out?: number | string
     type: AssetType
     children?: any
 }) {
@@ -170,7 +170,13 @@ export function Track({ id: trackId, name = 'track', children }) {
                     if (x.type === 'blank') {
                         return <blank length={x.length} />
                     }
-                    return <entry producer={x.id} in={x.in} out={x.out} />
+                    return (
+                        <entry
+                            producer={x.id}
+                            in={formatSecondsToTime(x.in)}
+                            out={formatSecondsToTime(x.out)}
+                        />
+                    )
                 })}
             </playlist>
         </trackContext.Provider>
@@ -224,10 +230,10 @@ export function VideoRoot({ children }) {
                 />
             </playlist>
             <tractor
-                id='tractor1'
+                id='mainTractor'
                 title='Shotcut version 25.01.25'
-                in={formatSecondsToTime(0)}
-                out={formatSecondsToTime(3)}
+                // in={formatSecondsToTime(0)}
+                // out={formatSecondsToTime(3)}
             >
                 <property name='shotcut'>1</property>
                 <property name='shotcut:projectAudioChannels'>2</property>
