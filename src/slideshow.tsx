@@ -1,21 +1,23 @@
 import {
-    PanningAnimation,
-    Profile,
-    VideoRoot,
     Asset,
-    Track,
-    VideoConsumer,
-    BlankSpace,
     AudioGain,
+    BlankSpace,
+    PanningAnimation,
+    Track,
+    VideoRoot
 } from '@/components'
 import { formatSecondsToTime, renderToVideo, renderToXml } from '@/rendering'
 import { writeFileSync } from 'fs'
 
 function MLT({}) {
     return (
-        <VideoRoot>
-            <VideoConsumer target={'slideshow.mp4'} />
-            <Profile width={1080} height={1920} fps={30} />
+        <VideoRoot
+            fps={30}
+            width={1080}
+            height={1920}
+            resultFilePath={'slideshow.mp4'}
+        >
+            
             <Track id={'video1'}>
                 <Asset
                     type='image'

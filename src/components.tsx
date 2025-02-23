@@ -197,74 +197,122 @@ function groupBy<T, K extends string | number>(
     )
 }
 
-export function VideoRoot({ children }) {
+type VideoRootContext = {
+    width: number
+    height: number
+    resultFilePath: string
+    fps: number
+}
+
+const videoRootContext = createContext<VideoRootContext | null>(null)
+
+export function VideoRoot({
+    children,
+
+    ...rootProps
+}: VideoRootContext & { children: any }) {
     const context = useContext(renderingContext)
     let backgroundDuration = formatSecondsToTime(9999999)
     const playlists = groupBy(context.assets, (a) => a.parentTrackId!)
+    const { resultFilePath, height, width, fps } = rootProps
     return (
-        <mlt
-            LC_NUMERIC='C'
-            version='7.30.0'
-            title='Shotcut version 25.01.25'
-            producer='main_bin'
-            root={process.cwd()}
-        >
-            {children}
-            <playlist id='main_bin'>
-                <property name='xml_retain'>1</property>
-            </playlist>
-            <producer id='black' in='00:00:00.000' out={backgroundDuration}>
-                <property name='length'>{backgroundDuration}</property>
-                <property name='eof'>pause</property>
-                <property name='resource'>0</property>
-                <property name='aspect_ratio'>1</property>
-                <property name='mlt_service'>color</property>
-                <property name='mlt_image_format'>rgba</property>
-                <property name='set.test_audio'>0</property>
-            </producer>
-            <playlist id='background'>
-                <entry
-                    producer='black'
-                    in='00:00:00.000'
-                    out={backgroundDuration}
-                />
-            </playlist>
-            <tractor
-                id='mainTractor'
+        <videoRootContext.Provider value={rootProps}>
+            <mlt
+                LC_NUMERIC='C'
+                version='7.30.0'
                 title='Shotcut version 25.01.25'
-                // in={formatSecondsToTime(0)}
-                // out={formatSecondsToTime(3)}
+                producer='main_bin'
+                root={process.cwd()}
             >
-                <property name='shotcut'>1</property>
-                <property name='shotcut:projectAudioChannels'>2</property>
-                <property name='shotcut:projectFolder'>0</property>
-                <property name='shotcut:trackHeight'>50</property>
-                <property name='shotcut:skipConvert'>0</property>
-                <track producer='background' />
-                {Object.keys(playlists).map((trackId) => {
-                    const type = getTrackType(playlists[trackId])
+                <consumer
+                    ab='160k'
+                    acodec='aac'
+                    channels='2'
+                    crf='23'
+                    deinterlacer='onefield'
+                    f='mp4'
+                    g='15'
+                    in='0'
+                    // out={formatSecondsToTime(3)}
+                    mlt_service='avformat'
+                    movflags='+faststart'
+                    preset='veryfast'
+                    real_time='-1'
+                    rescale='bilinear'
+                    target={resultFilePath}
+                    threads='0'
+                    vcodec='libx264'
+                />
+                <profile
+                    description='PAL 4:3 DV or DVD'
+                    width={width}
+                    height={height}
+                    progressive='1'
+                    sample_aspect_num='1'
+                    sample_aspect_den='1'
+                    display_aspect_num='9'
+                    display_aspect_den='16'
+                    frame_rate_num={fps}
+                    frame_rate_den='1'
+                    colorspace='709'
+                />
+                {children}
+                <playlist id='main_bin'>
+                    <property name='xml_retain'>1</property>
+                </playlist>
+                <producer id='black' in='00:00:00.000' out={backgroundDuration}>
+                    <property name='length'>{backgroundDuration}</property>
+                    <property name='eof'>pause</property>
+                    <property name='resource'>0</property>
+                    <property name='aspect_ratio'>1</property>
+                    <property name='mlt_service'>color</property>
+                    <property name='mlt_image_format'>rgba</property>
+                    <property name='set.test_audio'>0</property>
+                </producer>
+                <playlist id='background'>
+                    <entry
+                        producer='black'
+                        in='00:00:00.000'
+                        out={backgroundDuration}
+                    />
+                </playlist>
+                <tractor
+                    id='mainTractor'
+                    title='Shotcut version 25.01.25'
+                    // in={formatSecondsToTime(0)}
+                    // out={formatSecondsToTime(3)}
+                >
+                    <property name='shotcut'>1</property>
+                    <property name='shotcut:projectAudioChannels'>2</property>
+                    <property name='shotcut:projectFolder'>0</property>
+                    <property name='shotcut:trackHeight'>50</property>
+                    <property name='shotcut:skipConvert'>0</property>
+                    <track producer='background' />
+                    {Object.keys(playlists).map((trackId) => {
+                        const type = getTrackType(playlists[trackId])
 
-                    if (type === 'audio') {
-                        return <track producer={trackId} hide='video' />
-                    }
-                    return <track producer={trackId} />
-                })}
-                {/* transitions are necessary to make audio tracks play one upon the other */}
-                {Object.keys(playlists).map((trackId, index) => {
-                    // const type = getTrackType(playlists[trackId])
-                    // here we render even the last one because there is one additional playlist for the background
-                    return (
-                        <transition id={'transition' + index}>
-                            <property name='a_track'>0</property>
-                            <property name='b_track'>{index + 1}</property>
-                            <property name='mlt_service'>mix</property>
-                            <property name='always_active'>1</property>
-                            <property name='sum'>1</property>
-                        </transition>
-                    )
-                })}
-            </tractor>
-        </mlt>
+                        if (type === 'audio') {
+                            return <track producer={trackId} hide='video' />
+                        }
+                        return <track producer={trackId} />
+                    })}
+                    {/* transitions are necessary to make audio tracks play one upon the other */}
+                    {Object.keys(playlists).map((trackId, index) => {
+                        // const type = getTrackType(playlists[trackId])
+                        // here we render even the last one because there is one additional playlist for the background
+                        return (
+                            <transition id={'transition' + index}>
+                                <property name='a_track'>0</property>
+                                <property name='b_track'>{index + 1}</property>
+                                <property name='mlt_service'>mix</property>
+                                <property name='always_active'>1</property>
+                                <property name='sum'>1</property>
+                            </transition>
+                        )
+                    })}
+                </tractor>
+            </mlt>
+        </videoRootContext.Provider>
     )
 }
 
@@ -279,45 +327,4 @@ function getTrackType(assets: AssetRegistration[]) {
         return acc
     }, '')
     return type
-}
-
-export function VideoConsumer({ target }) {
-    return (
-        <consumer
-            ab='160k'
-            acodec='aac'
-            channels='2'
-            crf='23'
-            deinterlacer='onefield'
-            f='mp4'
-            g='15'
-            in='0'
-            mlt_service='avformat'
-            movflags='+faststart'
-            preset='veryfast'
-            real_time='-1'
-            rescale='bilinear'
-            target={target}
-            threads='0'
-            vcodec='libx264'
-        />
-    )
-}
-
-export function Profile({ width, height, fps = 30 }) {
-    return (
-        <profile
-            description='PAL 4:3 DV or DVD'
-            width={width}
-            height={height}
-            progressive='1'
-            sample_aspect_num='1'
-            sample_aspect_den='1'
-            display_aspect_num='9'
-            display_aspect_den='16'
-            frame_rate_num={fps}
-            frame_rate_den='1'
-            colorspace='709'
-        />
-    )
 }

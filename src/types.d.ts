@@ -36,6 +36,7 @@ declare global {
                 f?: string
                 g?: string
                 in?: NumberLike
+                out?: NumberLike
                 mlt_service?: string
                 movflags?: string
                 preset?: string
@@ -53,11 +54,11 @@ declare global {
                 display_aspect_num?: string
                 frame_rate_den?: string
                 frame_rate_num?: NumberLike
-                height?: string
+                height?: NumberLike
                 progressive?: string
                 sample_aspect_den?: string
                 sample_aspect_num?: string
-                width?: string
+                width?: NumberLike
                 children?: ReactNode
             }
             producer: {
