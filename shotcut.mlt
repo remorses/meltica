@@ -4,8 +4,8 @@
   <playlist id="main_bin">
     <property name="xml_retain">1</property>
   </playlist>
-  <producer id="black" in="00:00:00.000" out="00:02:15.067">
-    <property name="length">00:02:15.100</property>
+  <producer id="black" in="00:00:00.000" out="00:00:16.433">
+    <property name="length">00:00:16.467</property>
     <property name="eof">pause</property>
     <property name="resource">0</property>
     <property name="aspect_ratio">1</property>
@@ -14,7 +14,7 @@
     <property name="set.test_audio">0</property>
   </producer>
   <playlist id="background">
-    <entry producer="black" in="00:00:00.000" out="00:02:15.067"/>
+    <entry producer="black" in="00:00:00.000" out="00:00:16.433"/>
   </playlist>
   <producer id="producer0" in="00:00:00.000" out="03:59:59.967">
     <property name="length">04:00:00.000</property>
@@ -210,7 +210,43 @@
     <property name="shotcut:skipConvert">1</property>
     <property name="shotcut:hash">f7ad7c6a1d2cc517ae39ebe6b5f4502a</property>
     <property name="shotcut:caption">edapollo - Let It Go [bQ5glYCsv94].mp3</property>
-    <filter id="filter4" out="00:02:15.067">
+    <property name="xml">was here</property>
+    <filter id="filter4" out="00:00:14.433">
+      <property name="window">75</property>
+      <property name="max_gain">20dB</property>
+      <property name="level">-14.1</property>
+      <property name="mlt_service">volume</property>
+    </filter>
+  </chain>
+  <chain id="chain2" out="00:02:15.067">
+    <property name="length">00:02:15.120</property>
+    <property name="eof">pause</property>
+    <property name="resource">edapollo - Let It Go [bQ5glYCsv94].mp3</property>
+    <property name="mlt_service">avformat-novalidate</property>
+    <property name="meta.media.nb_streams">1</property>
+    <property name="meta.media.0.stream.type">audio</property>
+    <property name="meta.media.0.codec.sample_fmt">fltp</property>
+    <property name="meta.media.0.codec.sample_rate">44100</property>
+    <property name="meta.media.0.codec.channels">2</property>
+    <property name="meta.media.0.codec.layout">stereo</property>
+    <property name="meta.media.0.codec.name">mp3float</property>
+    <property name="meta.media.0.codec.long_name">MP3 (MPEG audio layer 3)</property>
+    <property name="meta.media.0.codec.bit_rate">192000</property>
+    <property name="meta.attr.0.stream.encoder.markup">Lavc61.19</property>
+    <property name="meta.attr.major_brand.markup">isom</property>
+    <property name="meta.attr.minor_version.markup">512</property>
+    <property name="meta.attr.compatible_brands.markup">isomiso2avc1mp41</property>
+    <property name="meta.attr.encoder.markup">Lavf61.7.100</property>
+    <property name="seekable">1</property>
+    <property name="audio_index">0</property>
+    <property name="video_index">-1</property>
+    <property name="creation_time">2025-02-18T16:12:11</property>
+    <property name="astream">0</property>
+    <property name="shotcut:skipConvert">1</property>
+    <property name="shotcut:hash">f7ad7c6a1d2cc517ae39ebe6b5f4502a</property>
+    <property name="shotcut:caption">edapollo - Let It Go [bQ5glYCsv94].mp3</property>
+    <property name="xml">was here</property>
+    <filter id="filter5" in="00:00:14.467" out="00:00:16.433">
       <property name="window">75</property>
       <property name="max_gain">20dB</property>
       <property name="level">-14.1</property>
@@ -220,13 +256,15 @@
   <playlist id="playlist2">
     <property name="shotcut:audio">1</property>
     <property name="shotcut:name">A2</property>
-    <entry producer="chain1" in="00:00:00.000" out="00:02:15.067"/>
+    <entry producer="chain1" in="00:00:00.000" out="00:00:14.433"/>
+    <entry producer="chain2" in="00:00:14.467" out="00:00:16.433"/>
   </playlist>
-  <tractor id="tractor1" title="Shotcut version 25.01.25" in="00:00:00.000" out="00:02:15.067">
+  <tractor id="tractor1" title="Shotcut version 25.01.25" in="00:00:00.000" out="00:00:16.433">
     <property name="shotcut">1</property>
     <property name="shotcut:projectAudioChannels">2</property>
     <property name="shotcut:projectFolder">0</property>
     <property name="shotcut:trackHeight">50</property>
+    <property name="shotcut:skipConvert">0</property>
     <track producer="background"/>
     <track producer="playlist0"/>
     <track producer="playlist1" hide="video"/>
