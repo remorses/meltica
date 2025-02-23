@@ -66,4 +66,4 @@ function Video({}) {
 }
 
 writeFileSync('slideshow-shotcut.mlt', renderToXml(<Video />))
-renderToVideo(<Video />)
+// renderToVideo(<Video />)
