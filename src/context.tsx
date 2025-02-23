@@ -1,6 +1,12 @@
 const globalContexts = new Map();
 
-export function createContext<T>(defaultValue: T) {
+type Context<T> = {
+    Provider: ({ value, children }: { value: T; children: any }) => any;
+    contextKey: symbol;
+    defaultValue: T;
+};
+
+export function createContext<T>(defaultValue: T): Context<T> {
     const contextKey = Symbol();
 
     globalContexts.set(contextKey, defaultValue);
@@ -13,7 +19,7 @@ export function createContext<T>(defaultValue: T) {
     return { Provider, contextKey, defaultValue };
 }
 
-export function useContext<T>(context: { contextKey: symbol }): T {
+export function useContext<T>(context: Context<T>): T {
     const { contextKey } = context;
     if (!globalContexts.has(contextKey)) {
         throw new Error("Context not found. Make sure you are using the correct context key.");

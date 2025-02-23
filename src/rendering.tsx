@@ -10,6 +10,7 @@ import { execSync } from 'child_process'
 import DomHandler, { ChildNode } from 'domhandler'
 import { Parser } from 'htmlparser2'
 import { ImageFile, AudioFile } from '@/components'
+import { createContext } from '@/context'
 
 type AssetRegistration = {
     filepath: string
@@ -29,35 +30,38 @@ let defaultContext = {
     isRegistrationStep: true,
 }
 
-let currentContext = structuredClone(defaultContext)
-function useContext() {
-    return currentContext
-}
+export const renderingContext = createContext(defaultContext)
 
 export function renderToXml(jsx: any) {
-    currentContext = structuredClone(defaultContext)
-    try {
-        render(jsx)
-        console.log(currentContext)
-        const producers = generateProducersXml(currentContext.assets)
-        console.log(producers)
-        currentContext = {
-            ...currentContext,
-            producers,
-            isRegistrationStep: false,
-        }
-        let xml = render(jsx).end({
-            headless: false,
-            prettyPrint: true,
-            indentTextOnlyNodes: false,
-            format: 'xml',
-            allowEmptyTags: false,
-        })
+    const currentContext = structuredClone(defaultContext)
+    render(
+        <renderingContext.Provider value={currentContext}>
+            {jsx}
+        </renderingContext.Provider>,
+    )
 
-        return xml
-    } finally {
-        currentContext = structuredClone(defaultContext)
-    }
+    const producers = generateProducersXml(currentContext.assets)
+    console.log(producers)
+
+    let xml = render(
+        <renderingContext.Provider
+            value={{
+                ...currentContext,
+                producers,
+                isRegistrationStep: false,
+            }}
+        >
+            {jsx}
+        </renderingContext.Provider>,
+    ).end({
+        headless: false,
+        prettyPrint: true,
+        indentTextOnlyNodes: false,
+        format: 'xml',
+        allowEmptyTags: false,
+    })
+
+    return xml
 }
 
 export function parseXml(xml: string) {
@@ -65,7 +69,6 @@ export function parseXml(xml: string) {
     const parser = new Parser(handler, {
         xmlMode: true,
         recognizeSelfClosing: true,
-        
     })
     parser.write(xml)
     parser.end()

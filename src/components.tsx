@@ -1,7 +1,9 @@
-import path from "path"
+import { useContext } from '@/context'
+import { renderingContext } from '@/rendering'
+import path from 'path'
 
 export function AudioFile({ id, filepath, volume = 0 }) {
-    const context = useContext()
+    const context = useContext(renderingContext)
     if (context.isRegistrationStep) {
         context.assets.push({
             filepath,
@@ -41,7 +43,7 @@ export function AudioFile({ id, filepath, volume = 0 }) {
 }
 
 export function ImageFile({ id, filepath }) {
-    const context = useContext()
+    const context = useContext(renderingContext)
     if (context.isRegistrationStep) {
         context.assets.push({
             filepath,
