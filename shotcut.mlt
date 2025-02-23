@@ -211,6 +211,21 @@
     <property name="meta.media.top_field_first">0</property>
     <property name="meta.media.progressive">1</property>
     <property name="shotcut:caption">Screen Recording 2024-12-13 at 10.50.31.mov</property>
+    <property name="meta.shotcut.vui">1</property>
+    <filter id="filter4" out="00:00:07.567">
+      <property name="background">color:#00000000</property>
+      <property name="mlt_service">affine</property>
+      <property name="shotcut:filter">affineSizePosition</property>
+      <property name="transition.fix_rotate_x">0</property>
+      <property name="transition.fill">1</property>
+      <property name="transition.distort">0</property>
+      <property name="transition.rect">-208.98 409.687 1497.96 1100 1</property>
+      <property name="transition.valign">middle</property>
+      <property name="transition.halign">center</property>
+      <property name="shotcut:animIn">00:00:00.000</property>
+      <property name="shotcut:animOut">00:00:00.000</property>
+      <property name="transition.threads">0</property>
+    </filter>
   </chain>
   <playlist id="playlist0">
     <property name="shotcut:video">1</property>
@@ -278,7 +293,7 @@
     <property name="shotcut:hash">f7ad7c6a1d2cc517ae39ebe6b5f4502a</property>
     <property name="shotcut:caption">edapollo - Let It Go [bQ5glYCsv94].mp3</property>
     <property name="xml">was here</property>
-    <filter id="filter4" out="00:00:14.433">
+    <filter id="filter5" out="00:00:14.433">
       <property name="window">75</property>
       <property name="max_gain">20dB</property>
       <property name="level">-14.1</property>
@@ -313,7 +328,7 @@
     <property name="shotcut:hash">f7ad7c6a1d2cc517ae39ebe6b5f4502a</property>
     <property name="shotcut:caption">edapollo - Let It Go [bQ5glYCsv94].mp3</property>
     <property name="xml">was here</property>
-    <filter id="filter5" in="00:00:14.467" out="00:00:16.433">
+    <filter id="filter6" in="00:00:14.467" out="00:00:16.433">
       <property name="window">75</property>
       <property name="max_gain">20dB</property>
       <property name="level">-14.1</property>
