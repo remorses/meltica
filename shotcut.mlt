@@ -219,7 +219,7 @@
       <property name="transition.fix_rotate_x">0</property>
       <property name="transition.fill">1</property>
       <property name="transition.distort">0</property>
-      <property name="transition.rect">-1.855 691.895 1077.67 791.297 1</property>
+      <property name="transition.rect">00:00:00.000=-1.855 691.895 1077.67 791.296 1;00:00:07.567=-287.6 482.043 1649.16 1211 1</property>
       <property name="transition.valign">middle</property>
       <property name="transition.halign">center</property>
       <property name="shotcut:animIn">00:00:00.000</property>
