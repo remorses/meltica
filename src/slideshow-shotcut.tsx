@@ -244,7 +244,9 @@ writeFileSync(
     render(<MLT />).end({
         headless: false,
         prettyPrint: true,
-        indentTextOnlyNodes: true,
+        indentTextOnlyNodes: false,
+        format: 'xml',
+        
         allowEmptyTags: false,
     }),
 )
