@@ -132,6 +132,12 @@
     <property name="shotcut:skipConvert">1</property>
     <property name="shotcut:hash">f7ad7c6a1d2cc517ae39ebe6b5f4502a</property>
     <property name="shotcut:caption">edapollo - Let It Go [bQ5glYCsv94].mp3</property>
+    <filter id="filter0" out="00:02:15.080">
+      <property name="window">75</property>
+      <property name="max_gain">20dB</property>
+      <property name="level">-14.1</property>
+      <property name="mlt_service">volume</property>
+    </filter>
   </chain>
   <playlist id="playlist2">
     <property name="shotcut:audio">1</property>
