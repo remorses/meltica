@@ -64,21 +64,22 @@ export function parseXml(xml: string) {
     const parser = new Parser(handler, {
         xmlMode: true,
         recognizeSelfClosing: true,
+        
     })
     parser.write(xml)
     parser.end()
     return handler.dom
 }
 
-function domhandlerNodesToJsx(nodes: ChildNode[]): any[] {
+function domHandlerNodesToJsx(nodes: ChildNode[]): any[] {
     return nodes.map((node) => {
-        if (node.type === 'text') {
+        if (node.type === 'text' && node.data.trim().length > 0) {
             return node.data
         }
 
         if (node.type === 'tag') {
             const children = node.children
-                ? domhandlerNodesToJsx(node.children)
+                ? domHandlerNodesToJsx(node.children)
                 : []
             return createElement(node.name, node.attribs, ...children)
         }
@@ -112,7 +113,7 @@ function generateProducersXml(assets: AssetRegistration[]) {
             const attributes = node.attribs
 
             const id = attributes.id
-            const children = domhandlerNodesToJsx(node.children)
+            const children = domHandlerNodesToJsx(node.children)
             producers.push({ attributes, id, children })
         }
         if (node.children) {
