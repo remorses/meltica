@@ -4,8 +4,8 @@
   <playlist id="main_bin">
     <property name="xml_retain">1</property>
   </playlist>
-  <producer id="black" in="00:00:00.000" out="00:02:15.067">
-    <property name="length">00:02:15.100</property>
+  <producer id="black" in="00:00:00.000" out="00:00:14.467">
+    <property name="length">00:00:14.500</property>
     <property name="eof">pause</property>
     <property name="resource">0</property>
     <property name="aspect_ratio">1</property>
@@ -14,7 +14,7 @@
     <property name="set.test_audio">0</property>
   </producer>
   <playlist id="background">
-    <entry producer="black" in="00:00:00.000" out="00:02:15.067"/>
+    <entry producer="black" in="00:00:00.000" out="00:00:14.467"/>
   </playlist>
   <producer id="producer0" in="00:00:00.000" out="03:59:59.967">
     <property name="length">04:00:00.000</property>
@@ -177,7 +177,8 @@
     <property name="shotcut:skipConvert">1</property>
     <property name="shotcut:hash">f7ad7c6a1d2cc517ae39ebe6b5f4502a</property>
     <property name="shotcut:caption">edapollo - Let It Go [bQ5glYCsv94].mp3</property>
-    <filter id="filter3" out="00:02:15.067">
+    <property name="xml">was here</property>
+    <filter id="filter3" out="00:00:14.400">
       <property name="window">75</property>
       <property name="max_gain">20dB</property>
       <property name="level">-14.1</property>
@@ -187,9 +188,9 @@
   <playlist id="playlist2">
     <property name="shotcut:audio">1</property>
     <property name="shotcut:name">A2</property>
-    <entry producer="chain1" in="00:00:00.000" out="00:02:15.067"/>
+    <entry producer="chain1" in="00:00:00.000" out="00:00:14.400"/>
   </playlist>
-  <tractor id="tractor0" title="Shotcut version 25.01.25" in="00:00:00.000" out="00:02:15.067">
+  <tractor id="tractor0" title="Shotcut version 25.01.25" in="00:00:00.000" out="00:00:14.467">
     <property name="shotcut">1</property>
     <property name="shotcut:projectAudioChannels">2</property>
     <property name="shotcut:projectFolder">0</property>
