@@ -4,7 +4,7 @@ console.time('meltExecutionTime')
 
 try {
     const output = spawnSync(
-        '/Applications/kdenlive.app/Contents/MacOS/melt "narrator.wav"  "sololevelling/page-002.jpg" "/Volumes/1tb sabrent/Screens/Screen Recording 2024-12-13 at 10.50.31.mov" -consumer xml:test.mlt',
+        '/Applications/kdenlive.app/Contents/MacOS/melt "narrator.wav" "sololevelling/page-002.jpg" "/Volumes/1tb sabrent/Screens/Screen Recording 2024-12-13 at 10.50.31.mov" -profile hdv_1080_30p -consumer xml:test.mlt',
         {
             shell: true,
             stdio: 'inherit',

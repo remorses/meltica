@@ -191,9 +191,9 @@ export function renderToVideo(jsx: any, xmlFilename = 'video.mlt') {
     console.time(`${renderId} generate xml`)
     const xml = renderToXml(jsx)
     console.timeEnd(`${renderId} generate xml`)
-    
+
     // Task 2: Run melt command
-    console.time(`${renderId} melt processing`) 
+    console.time(`${renderId} melt processing`)
     const timestamp = Date.now()
     // const tempXmlFile = path.join(os.tmpdir(), `video-${timestamp}.mlt`)
     const tempXmlFile = xmlFilename
@@ -255,11 +255,13 @@ function generateProducersXml(assets: AssetRegistration[]) {
     const timestamp = Date.now()
     const tempXmlFile = path.join(os.tmpdir(), `test-${timestamp}.mlt`)
     fs.writeFileSync(tempXmlFile, '')
+    // TODO the fps is important here and should be parametrized in this step because melt outputs the xml with durations in fps format instead of seconds or durations. now it is hardcoded to 30fps. but melt only supports profile names and not all attributes.
+    const profile = `hdv_1080_30p`
     execSync(
         `melt ${assets
             .filter((x) => x.type !== 'blank')
             .map((a) => `"${a.filepath}" id=${a.id}`)
-            .join(' ')} -consumer xml:${tempXmlFile}`,
+            .join(' ')} -profile ${profile} -consumer xml:${tempXmlFile}`,
     )
     const xml = fs.readFileSync(tempXmlFile).toString()
 
