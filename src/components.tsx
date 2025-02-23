@@ -193,7 +193,7 @@ function groupBy<T, K extends string | number>(
 
 export function VideoRoot({ children }) {
     const context = useContext(renderingContext)
-    let backgroundDuration = 9999999
+    let backgroundDuration = formatSecondsToTime(9999999)
     const playlists = groupBy(context.assets, (a) => a.parentTrackId!)
     return (
         <mlt
@@ -220,14 +220,14 @@ export function VideoRoot({ children }) {
                 <entry
                     producer='black'
                     in='00:00:00.000'
-                    // out={backgroundDuration}
+                    out={backgroundDuration}
                 />
             </playlist>
             <tractor
                 id='tractor1'
                 title='Shotcut version 25.01.25'
-                in={0}
-                out={3}
+                in={formatSecondsToTime(0)}
+                out={formatSecondsToTime(3)}
             >
                 <property name='shotcut'>1</property>
                 <property name='shotcut:projectAudioChannels'>2</property>
