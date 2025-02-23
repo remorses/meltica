@@ -1,6 +1,5 @@
 import {
     PanningAnimation,
-    
     Profile,
     VideoRoot,
     Asset,
@@ -13,7 +12,7 @@ import { writeFileSync } from 'fs'
 function MLT({}) {
     return (
         <VideoRoot>
-            <VideoConsumer target={'out.mp4'} />
+            <VideoConsumer target={'slideshow.mp4'} />
             <Profile width={1080} height={1920} fps={30} />
             <Track id={'video1'}>
                 <Asset
@@ -22,23 +21,28 @@ function MLT({}) {
                     filepath={'sololevelling/page-000.jpg'}
                     in='00:00:00.000'
                     out='00:00:02.867'
-                />
+                >
+                    <PanningAnimation />
+                </Asset>
                 <Asset
                     type='image'
                     id={'producer1'}
                     filepath={'sololevelling/page-001.jpg'}
                     in='00:00:00.000'
                     out='00:00:02.733'
-                />
+                >
+                    <PanningAnimation />
+                </Asset>
                 <Asset
                     type='image'
                     id={'producer2'}
                     filepath={'sololevelling/page-002.jpg'}
                     in='00:00:00.000'
                     out='00:00:03.167'
-                />
-
-                <Asset
+                >
+                    <PanningAnimation />
+                </Asset>
+                {/* <Asset
                     type='video'
                     filepath={'out.mp4'}
                     id={'chain0'}
@@ -46,7 +50,7 @@ function MLT({}) {
                     out='00:00:14.467'
                 >
                     <PanningAnimation />
-                </Asset>
+                </Asset> */}
             </Track>
             <Track id={'audio1'}>
                 <Asset

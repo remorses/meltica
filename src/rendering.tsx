@@ -183,11 +183,11 @@ export function renderToXml(jsx: any) {
     return xml
 }
 
-export function renderToVideo(jsx: any) {
+export function renderToVideo(jsx: any, xmlFilename = 'video.mlt') {
     const xml = renderToXml(jsx)
     const timestamp = Date.now()
     // const tempXmlFile = path.join(os.tmpdir(), `video-${timestamp}.mlt`)
-    const tempXmlFile = `video-${timestamp}.mlt`
+    const tempXmlFile = xmlFilename
     fs.writeFileSync(tempXmlFile, xml)
     execSync(`melt ${tempXmlFile}`, { stdio: 'inherit' })
 }
