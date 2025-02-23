@@ -243,7 +243,7 @@ writeFileSync(
     'slideshow-shotcut.mlt',
     render(<MLT />).end({
         headless: false,
-        // prettyPrint: true,
+        prettyPrint: true,
         indentTextOnlyNodes: true,
         allowEmptyTags: false,
     }),
