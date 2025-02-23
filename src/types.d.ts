@@ -79,7 +79,7 @@ declare global {
             }
             chain: {
                 id?: string
-                out?: string
+                out: string
                 in?: string
                 length?: string
                 resource?: string

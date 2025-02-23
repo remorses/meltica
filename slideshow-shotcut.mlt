@@ -117,7 +117,7 @@
     <entry producer="producer1" in="00:00:00.000" out="00:00:02.733"/>
     <entry producer="producer2" in="00:00:00.000" out="00:00:03.167"/>
   </playlist>
-  <chain id="chain0">
+  <chain out="362" id="chain0">
     <property name="length">00:00:14.520</property>
     <property name="eof">pause</property>
     <property name="resource">narrator.wav</property>
