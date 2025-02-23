@@ -1,6 +1,13 @@
-import { ImageFile, AudioFile } from "@/components"
-import { renderToXml } from "@/rendering"
-import { writeFileSync } from "fs"
+import {
+    ImageFile,
+    AudioFile,
+    VideoFile,
+    PanningAnimation,
+    VideoConsumer,
+    Profile,
+} from '@/components'
+import { renderToXml } from '@/rendering'
+import { writeFileSync } from 'fs'
 
 function MLT({}) {
     return (
@@ -10,37 +17,8 @@ function MLT({}) {
             title='Shotcut version 25.01.25'
             producer='main_bin'
         >
-            <consumer
-                ab='160k'
-                acodec='aac'
-                channels='2'
-                crf='23'
-                deinterlacer='onefield'
-                f='mp4'
-                g='15'
-                in='0'
-                mlt_service='avformat'
-                movflags='+faststart'
-                preset='veryfast'
-                real_time='-1'
-                rescale='bilinear'
-                target='./shotcut.mp4'
-                threads='0'
-                vcodec='libx264'
-            />
-            <profile
-                description='PAL 4:3 DV or DVD'
-                width='1080'
-                height='1920'
-                progressive='1'
-                sample_aspect_num='1'
-                sample_aspect_den='1'
-                display_aspect_num='9'
-                display_aspect_den='16'
-                frame_rate_num='30'
-                frame_rate_den='1'
-                colorspace='709'
-            />
+            <VideoConsumer target={'out.mp4'} />
+            <Profile width={1080} height={1920} fps={30} />
             <playlist id='main_bin'>
                 <property name='xml_retain'>1</property>
             </playlist>
@@ -89,6 +67,9 @@ function MLT({}) {
                 />
             </playlist>
             <AudioFile filepath={'narrator.wav'} id={'chain0'} />
+            <VideoFile filepath={'out.mp4'} id={'chain0'}>
+                <PanningAnimation />
+            </VideoFile>
             <playlist id='playlist1'>
                 <property name='shotcut:audio'>1</property>
                 <property name='shotcut:name'>A1</property>
@@ -107,7 +88,6 @@ function MLT({}) {
             </playlist>
             <tractor
                 id='tractor0'
-                title='Shotcut version 25.01.25'
                 in='00:00:00.000'
                 out='00:02:15.067'
             >

@@ -82,6 +82,13 @@ How a shotcut mlt file is structured:
     - audio gain: volume
         - mlt_service is volume
         - level is the db gain, negative or positive
+- transitions in shotcut are just an entry in a playlist, like a blank or a clip. to add a transition you need to shorten the clips it is placed in the middle of, then add an entry to a tractor in the playlist, this tractor element has:
+    - an id
+    - in and out, the duration of the transition
+    - 2 tracks inside it, which are the clips before and after, their in and out attributes are simply the parts included in the transition, usually very small parts
+    - 2 transitions elements inside it,
+    - on transition is just a mix transition, which i guess is not really needed
+    - a dissolve transition is a mlt_service luma, also has other attributes like out, which tells the duration of the transition
     
 
 

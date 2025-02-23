@@ -18,9 +18,10 @@ type AssetRegistration = {
     type: 'image' | 'video' | 'audio'
 }
 
-type AssetProducer = {
+export type AssetProducer = {
     id: string
     attributes: Record<string, string>
+    properties: Properties
     children: any[]
 }
 
@@ -31,6 +32,118 @@ let defaultContext = {
 }
 
 export const renderingContext = createContext(defaultContext)
+type ImageProducerProperties = {
+    length: string
+    eof: string
+    resource: string
+    ttl: string
+    aspect_ratio: string
+    'meta.media.progressive': string
+    seekable: string
+    format: string
+    'meta.media.width': string
+    'meta.media.height': string
+    mlt_service: string
+}
+
+type VideoProducerProperties = {
+    length: string
+    eof: string
+    resource: string
+    'meta.media.nb_streams': string
+    'meta.media.0.stream.type': string
+    'meta.media.0.stream.frame_rate': string
+    'meta.media.0.stream.sample_aspect_ratio': string
+    'meta.media.0.codec.width': string
+    'meta.media.0.codec.height': string
+    'meta.media.0.codec.rotate': string
+    'meta.media.0.codec.pix_fmt': string
+    'meta.media.0.codec.sample_aspect_ratio': string
+    'meta.media.0.codec.colorspace': string
+    'meta.media.0.codec.color_trc': string
+    'meta.media.0.codec.name': string
+    'meta.media.0.codec.long_name': string
+    'meta.media.0.codec.bit_rate': string
+    'meta.attr.0.stream.handler_name.markup': string
+    'meta.attr.0.stream.vendor_id.markup': string
+    'meta.media.1.stream.type': string
+    'meta.media.1.codec.sample_fmt': string
+    'meta.media.1.codec.sample_rate': string
+    'meta.media.1.codec.channels': string
+    'meta.media.1.codec.layout': string
+    'meta.media.1.codec.name': string
+    'meta.media.1.codec.long_name': string
+    'meta.media.1.codec.bit_rate': string
+    'meta.attr.1.stream.handler_name.markup': string
+    'meta.attr.1.stream.vendor_id.markup': string
+    'meta.attr.major_brand.markup': string
+    'meta.attr.minor_version.markup': string
+    'meta.attr.compatible_brands.markup': string
+    'meta.attr.encoder.markup': string
+    seekable: string
+    'meta.media.sample_aspect_num': string
+    'meta.media.sample_aspect_den': string
+    aspect_ratio: string
+    format: string
+    audio_index: string
+    video_index: string
+    mute_on_pause: string
+    mlt_service: string
+}
+
+type AudioProducerProperties = {
+    length: string
+    eof: string
+    resource: string
+    'meta.media.nb_streams': string
+    'meta.media.0.stream.type': string
+    'meta.media.0.stream.frame_rate': string
+    'meta.media.0.stream.sample_aspect_ratio': string
+    'meta.media.0.codec.width': string
+    'meta.media.0.codec.height': string
+    'meta.media.0.codec.rotate': string
+    'meta.media.0.codec.pix_fmt': string
+    'meta.media.0.codec.sample_aspect_ratio': string
+    'meta.media.0.codec.colorspace': string
+    'meta.media.0.codec.color_trc': string
+    'meta.media.0.codec.name': string
+    'meta.media.0.codec.long_name': string
+    'meta.media.0.codec.bit_rate': string
+    'meta.media.1.stream.type': string
+    'meta.media.1.codec.sample_fmt': string
+    'meta.media.1.codec.sample_rate': string
+    'meta.media.1.codec.channels': string
+    'meta.media.1.codec.layout': string
+    'meta.media.1.codec.name': string
+    'meta.media.1.codec.long_name': string
+    'meta.media.1.codec.bit_rate': string
+    seekable: string
+    'meta.media.sample_aspect_num': string
+    'meta.media.sample_aspect_den': string
+    aspect_ratio: string
+    format: string
+    audio_index: string
+    video_index: string
+    mute_on_pause: string
+    mlt_service: string
+}
+type Properties = Partial<
+    ImageProducerProperties & AudioProducerProperties & VideoProducerProperties
+>
+
+function extractPropertiesFromNodes(nodes: ChildNode[]): Properties {
+    const properties: Record<string, string> = {}
+
+    nodes.forEach((node) => {
+        if (node.type === 'tag' && node.name === 'property') {
+            const nameAttr = node.attribs['name']
+            const value = (node.children[0] as any)?.data || ''
+            properties[nameAttr] = value
+        }
+    })
+
+    return properties as Properties
+}
 
 export function renderToXml(jsx: any) {
     const currentContext = structuredClone(defaultContext)
@@ -115,10 +228,10 @@ function generateProducersXml(assets: AssetRegistration[]) {
     function extractProducers(node) {
         if (node.type === 'tag' && node.name === 'producer') {
             const attributes = node.attribs
-
+            const properties = extractPropertiesFromNodes(node.children)
             const id = attributes.id
             const children = domHandlerNodesToJsx(node.children)
-            producers.push({ attributes, id, children })
+            producers.push({ attributes, id, children, properties })
         }
         if (node.children) {
             node.children.forEach((child) => {
