@@ -220,7 +220,20 @@ function domHandlerNodesToJsx(nodes: ChildNode[]): any[] {
     })
 }
 
-export function formatSecondsToTime(secs: number) {
+export function formatSecondsToTime(secs?: number | string) {
+    if (secs == null) {
+        return undefined
+    }
+    if (typeof secs === 'string') {
+        if (secs.includes(':')) {
+            return secs
+        }
+        const parsed = Number(secs)
+        if (isNaN(parsed)) {
+            throw new Error(`Invalid time string: ${secs}`)
+        }
+        return formatSecondsToTime(parsed)
+    }
     const hours = Math.floor(secs / 3600)
     const minutes = Math.floor((secs % 3600) / 60)
     const seconds = Math.floor(secs % 60)
