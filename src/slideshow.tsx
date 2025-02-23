@@ -1,12 +1,6 @@
 import { render } from 'jsx-xml'
 import { writeFileSync } from 'fs'
 
-// Utility to generate unique IDs
-let idCounter = 0
-const generateId = (prefix: string) => {
-    idCounter++
-    return `${prefix}${idCounter}`
-}
 
 function MLT() {
     return (
@@ -623,7 +617,6 @@ function MLT() {
         <playlist id="main_bin">
          <property name="kdenlive:folder.-1.2">Sequences</property>
          <property name="kdenlive:sequenceFolder">2</property>
-         <property name="kdenlive:docproperties.activetimeline">{`{764b0aa1-87ca-47d4-a966-aa812f8e7803}`}</property>
          <property name="kdenlive:docproperties.audioChannels">2</property>
          <property name="kdenlive:docproperties.binsort">0</property>
          <property name="kdenlive:docproperties.browserurl">/Users/morse/Documents/</property>
@@ -636,7 +629,6 @@ function MLT() {
          <property name="kdenlive:docproperties.generateproxy">0</property>
          
          <property name="kdenlive:docproperties.kdenliveversion">24.12.2</property>
-         <property name="kdenlive:docproperties.opensequences">{`{764b0aa1-87ca-47d4-a966-aa812f8e7803}`}</property>
          <property name="kdenlive:docproperties.previewextension">mov</property>
          <property name="kdenlive:docproperties.previewparameters">r=25 s=1920x1080 vb=36M threads=0 vcodec=dnxhd progressive=1</property>
          <property name="kdenlive:docproperties.profile">vertical_hd_30</property>
