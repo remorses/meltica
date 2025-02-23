@@ -49,9 +49,12 @@ How a shotcut mlt file is structured:
 - there is a producer for a black background, this is used for the playlist `background`
 - `background` is later used as a `track` in `tractor0`, which is basically the vertical timeline, a parallel timeline of tracks, each track here is a track in the video editor. each track references a playlist as producer, each playlist is a horizontal timeline, a series of clips
 - tractor also contains a series of transitions, it seems these are used vertically, like a blend mode. audio tracks are simply mixed, video ones too, there is also one for `frei0r.cairoblend` https://www.mltframework.org/plugins/TransitionFrei0r-cairoblend/, this is a blend mode transition i think
-- playlist `playlist0` is the series of video or image clips in the first track, is also has a shotcut:name prop which is displayed in the editor. to show each clip it uses the element `entry`, which references producers, which are basically assets. each entry also has an in and out attributes, which are used to cut the source asset.
-- audio playlists tracks have `hide='video'` in their tracks in tractor, probably to hide the videos in output in case you use an mp4 as audio.
-- audio playlists references chains with `chain` instead of producers for their `entry`, using still in and out. 
+- playlists 
+   - `playlist0` is the series of video or image clips in the first track, is also has a shotcut:name prop which is displayed in the editor. to show each clip it uses the element `entry`, which references producers, which are basically assets. each entry also has an in and out attributes, which are used to cut the source asset.
+   - playlists are just a series of entry which reference producers and chains, with their in and out cut positions.
+   - playlists assume you put the entries in sequence, to add spaces you use the `blank` element with a length attribute
+    - audio playlists tracks have `hide='video'` in their tracks in tractor, probably to hide the videos in output in case you use an mp4 as audio.
+    - audio playlists references chains with `chain` instead of producers for their `entry`, using in and out. 
 - chains are just audio or video assets it seems, meaning same thing as producers, their props have 
     - resource, the audio path
     - length, the length of the clip in time duration format
