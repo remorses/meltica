@@ -67,7 +67,7 @@
     <property name="shotcut:caption">page-001.jpg</property>
     <property name="xml">was here</property>
     <property name="meta.shotcut.vui">1</property>
-    <filter id="filter1" out="00:00:02.733">
+    <filter id="filter1" out="00:00:03.433">
       <property name="background">color:#00000000</property>
       <property name="mlt_service">affine</property>
       <property name="shotcut:filter">affineSizePosition</property>
@@ -82,6 +82,30 @@
       <property name="transition.threads">0</property>
     </filter>
   </producer>
+  <tractor id="tractor0" in="00:00:00.000" out="00:00:00.667">
+    <property name="shotcut:transition">lumaMix</property>
+    <track producer="producer0" in="00:00:02.200" out="00:00:02.867"/>
+    <track producer="producer1" in="00:00:00.000" out="00:00:00.667"/>
+    <transition id="transition0" out="00:00:00.667">
+      <property name="a_track">0</property>
+      <property name="b_track">1</property>
+      <property name="factory">loader</property>
+      <property name="resource"></property>
+      <property name="mlt_service">luma</property>
+      <property name="alpha_over">1</property>
+      <property name="fix_background_alpha">1</property>
+      <property name="progressive">1</property>
+      <property name="invert">0</property>
+      <property name="softness">0.2</property>
+    </transition>
+    <transition id="transition1" out="00:00:00.667">
+      <property name="a_track">0</property>
+      <property name="b_track">1</property>
+      <property name="start">-1</property>
+      <property name="accepts_blanks">1</property>
+      <property name="mlt_service">mix</property>
+    </transition>
+  </tractor>
   <producer id="producer2" in="00:00:00.000" out="03:59:59.967">
     <property name="length">04:00:00.000</property>
     <property name="eof">pause</property>
@@ -126,8 +150,9 @@
   <playlist id="playlist0">
     <property name="shotcut:video">1</property>
     <property name="shotcut:name">V1</property>
-    <entry producer="producer0" in="00:00:00.000" out="00:00:02.867"/>
-    <entry producer="producer1" in="00:00:00.000" out="00:00:02.733"/>
+    <entry producer="producer0" in="00:00:00.000" out="00:00:02.167"/>
+    <entry producer="tractor0" in="00:00:00.000" out="00:00:00.667"/>
+    <entry producer="producer1" in="00:00:00.700" out="00:00:03.433"/>
     <entry producer="producer2" in="00:00:00.000" out="00:00:03.167"/>
   </playlist>
   <chain id="chain0" out="00:00:14.467">
@@ -197,7 +222,7 @@
     <property name="shotcut:name">A2</property>
     <entry producer="chain1" in="00:00:00.000" out="00:02:15.067"/>
   </playlist>
-  <tractor id="tractor0" title="Shotcut version 25.01.25" in="00:00:00.000" out="00:02:15.067">
+  <tractor id="tractor1" title="Shotcut version 25.01.25" in="00:00:00.000" out="00:02:15.067">
     <property name="shotcut">1</property>
     <property name="shotcut:projectAudioChannels">2</property>
     <property name="shotcut:projectFolder">0</property>
@@ -206,14 +231,14 @@
     <track producer="playlist0"/>
     <track producer="playlist1" hide="video"/>
     <track producer="playlist2" hide="video"/>
-    <transition id="transition0">
+    <transition id="transition2">
       <property name="a_track">0</property>
       <property name="b_track">1</property>
       <property name="mlt_service">mix</property>
       <property name="always_active">1</property>
       <property name="sum">1</property>
     </transition>
-    <transition id="transition1">
+    <transition id="transition3">
       <property name="a_track">0</property>
       <property name="b_track">1</property>
       <property name="version">0.1</property>
@@ -221,14 +246,14 @@
       <property name="threads">0</property>
       <property name="disable">1</property>
     </transition>
-    <transition id="transition2">
+    <transition id="transition4">
       <property name="a_track">0</property>
       <property name="b_track">2</property>
       <property name="mlt_service">mix</property>
       <property name="always_active">1</property>
       <property name="sum">1</property>
     </transition>
-    <transition id="transition3">
+    <transition id="transition5">
       <property name="a_track">0</property>
       <property name="b_track">3</property>
       <property name="mlt_service">mix</property>
