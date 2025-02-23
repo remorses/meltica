@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <mlt LC_NUMERIC="C" version="7.30.0" title="Shotcut version 25.01.25" producer="main_bin" root="/Users/morse/Documents/kdenlive">
-  <consumer ab="160k" acodec="aac" channels="2" crf="23" deinterlacer="onefield" f="mp4" g="15" in="0" out="00:00:03.000" mlt_service="avformat" movflags="+faststart" preset="veryfast" real_time="-1" rescale="bilinear" target="slideshow.mp4" threads="0" vcodec="libx264"/>
+  <consumer ab="160k" acodec="aac" channels="2" crf="23" deinterlacer="onefield" f="mp4" g="15" in="0" mlt_service="avformat" movflags="+faststart" preset="veryfast" real_time="-1" rescale="bilinear" target="slideshow.mp4" threads="0" vcodec="libx264"/>
   <profile description="PAL 4:3 DV or DVD" width="1080" height="1920" progressive="1" sample_aspect_num="1" sample_aspect_den="1" display_aspect_num="9" display_aspect_den="16" frame_rate_num="30" frame_rate_den="1" colorspace="709"/>
   <producer id="producer0" in="0" out="14999">
     <property name="length">15000</property>
@@ -24,7 +24,7 @@
       <property name="transition.fix_rotate_x">0</property>
       <property name="transition.fill">1</property>
       <property name="transition.distort">0</property>
-      <property name="transition.rect">0=221.528 -7.60509 592.707 1927.94 1;00:00:02.733=-149.36 -1214.13 1334.59 4341 1</property>
+      <property name="transition.rect">00:00:00.000=-216 -351.3 1080 3513 1;00:00:00.000=0 -1593 1080 3513 1</property>
       <property name="transition.valign">middle</property>
       <property name="transition.halign">center</property>
       <property name="shotcut:animIn">00:00:00.000</property>
@@ -54,7 +54,7 @@
       <property name="transition.fix_rotate_x">0</property>
       <property name="transition.fill">1</property>
       <property name="transition.distort">0</property>
-      <property name="transition.rect">0=221.528 -7.60509 592.707 1927.94 1;00:00:02.733=-149.36 -1214.13 1334.59 4341 1</property>
+      <property name="transition.rect">00:00:00.000=-216 -351.3 1080 3513 1;00:00:00.000=0 -1593 1080 3513 1</property>
       <property name="transition.valign">middle</property>
       <property name="transition.halign">center</property>
       <property name="shotcut:animIn">00:00:00.000</property>
@@ -84,7 +84,7 @@
       <property name="transition.fix_rotate_x">0</property>
       <property name="transition.fill">1</property>
       <property name="transition.distort">0</property>
-      <property name="transition.rect">0=221.528 -7.60509 592.707 1927.94 1;00:00:02.733=-149.36 -1214.13 1334.59 4341 1</property>
+      <property name="transition.rect">00:00:00.000=-216 -346.95000000000005 1080 3469.5 1;00:00:00.000=0 -1549.5 1080 3469.5 1</property>
       <property name="transition.valign">middle</property>
       <property name="transition.halign">center</property>
       <property name="shotcut:animIn">00:00:00.000</property>

@@ -13,8 +13,7 @@ import path from 'path'
 
 type TrackContext = {
     trackId: string
-    in: number
-    out: number
+    
 }
 
 const trackContext = createContext<TrackContext | null>(null)
@@ -127,20 +126,46 @@ export function PanningAnimation({}) {
     const out = producer.attributes.out
     const id = producer.id
 
+    // Assert and convert image dimensions to numbers
+    if (!width || !height) {
+        throw new Error('Media width and height must be defined')
+    }
+    const imageWidth = parseInt(width)
+    const imageHeight = parseInt(height)
+
+    // This effect creates a dynamic pan and zoom effect across images
+    // Uses negative positioning to allow movement from outside the frame
+    // Zooms in slightly and pans across the image for a more dramatic effect
+    // The image can move beyond the video boundaries using negative coordinates
+
+    // Calculate initial zoom level (slightly zoomed in)
+    const zoomFactor = 1.5
+    const scaledWidth = imageWidth * zoomFactor
+    const scaledHeight = imageHeight * zoomFactor
+
+    // Calculate random starting and ending positions
+    // Using negative values allows the image to move from outside the frame
+    const startLeft = -scaledWidth * 0.2 // Start with image partially off-screen
+    const startTop = -scaledHeight * 0.1
+    const endLeft = -(scaledWidth - videoWidth) // Pan to show other side
+    const endTop = -(scaledHeight - videoHeight)
+
     const start = renderRectKeyframe({
         time: 0,
-        top: 0,
-        left: 0,
-        width: videoWidth,
-        height: videoHeight,
+        top: startTop,
+        left: startLeft,
+        width: scaledWidth,
+        height: scaledHeight,
     })
+
     const end = renderRectKeyframe({
         time: outTime,
-        top: 0,
-        left: 0,
-        width: videoWidth,
-        height: videoHeight,
+        top: endTop,
+        left: endLeft,
+        width: scaledWidth,
+        height: scaledHeight,
     })
+
     const rect = `${start};${end}`
 
     return (
@@ -176,7 +201,7 @@ export function BlankSpace({ length }) {
 
 export function Track({ id: trackId, name = 'track', children }) {
     const context = useContext(renderingContext)
-    const trackCtx = { trackId, in: 0, out: 0 }
+    const trackCtx = { trackId,  }
     if (context.isRegistrationStep) {
         return (
             <trackContext.Provider value={trackCtx}>
