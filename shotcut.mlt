@@ -33,6 +33,21 @@
     <property name="shotcut:hash">8b8fffbe9073241a87a1a2eecb8a1893</property>
     <property name="shotcut:caption">page-000.jpg</property>
     <property name="xml">was here</property>
+    <property name="meta.shotcut.vui">1</property>
+    <filter id="filter0" out="00:00:02.880">
+      <property name="background">color:#00000000</property>
+      <property name="mlt_service">affine</property>
+      <property name="shotcut:filter">affineSizePosition</property>
+      <property name="transition.fix_rotate_x">0</property>
+      <property name="transition.fill">1</property>
+      <property name="transition.distort">0</property>
+      <property name="transition.rect">00:00:00.000=794 0 332.024 1080 1;00:00:01.240=613.949 -585.771 692.19 2251.54 1;00:00:02.880=375.816 -1360.5 1168.39 3801 1</property>
+      <property name="transition.valign">middle</property>
+      <property name="transition.halign">center</property>
+      <property name="shotcut:animIn">00:00:00.000</property>
+      <property name="shotcut:animOut">00:00:00.000</property>
+      <property name="transition.threads">0</property>
+    </filter>
   </producer>
   <producer id="producer1" in="00:00:00.000" out="03:59:59.960">
     <property name="length">04:00:00.000</property>
@@ -132,7 +147,7 @@
     <property name="shotcut:skipConvert">1</property>
     <property name="shotcut:hash">f7ad7c6a1d2cc517ae39ebe6b5f4502a</property>
     <property name="shotcut:caption">edapollo - Let It Go [bQ5glYCsv94].mp3</property>
-    <filter id="filter0" out="00:02:15.080">
+    <filter id="filter1" out="00:02:15.080">
       <property name="window">75</property>
       <property name="max_gain">20dB</property>
       <property name="level">-14.1</property>
