@@ -246,7 +246,7 @@ export function VideoRoot({ children }) {
                 {/* transitions are necessary to make audio tracks play one upon the other */}
                 {Object.keys(playlists).map((trackId, index) => {
                     // const type = getTrackType(playlists[trackId])
-
+                    // here we render even the last one because there is one additional playlist for the background
                     return (
                         <transition id={'transition' + index}>
                             <property name='a_track'>0</property>

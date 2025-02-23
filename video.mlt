@@ -123,6 +123,7 @@
   <playlist id="audio1">
     <property name="shotcut:audio">1</property>
     <property name="shotcut:name">track</property>
+    <blank length="0:0:3"/>
     <entry producer="chain0" in="00:00:00.000" out="00:00:14.467"/>
   </playlist>
   <chain id="chain1" in="0" out="3377">

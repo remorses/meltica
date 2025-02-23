@@ -5,8 +5,9 @@ import {
     Asset,
     Track,
     VideoConsumer,
+    BlankSpace,
 } from '@/components'
-import { renderToVideo, renderToXml } from '@/rendering'
+import { formatSecondsToTime, renderToVideo, renderToXml } from '@/rendering'
 import { writeFileSync } from 'fs'
 
 function MLT({}) {
@@ -53,6 +54,7 @@ function MLT({}) {
                 </Asset> */}
             </Track>
             <Track id={'audio1'}>
+                <BlankSpace length={formatSecondsToTime(3)} />
                 <Asset
                     type='audio'
                     filepath={'narrator.wav'}
