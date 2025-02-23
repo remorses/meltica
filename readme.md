@@ -41,3 +41,47 @@ use this regex replacement:
 ```
 
 this makes sure the ids are quotes correctly
+
+
+How a shotcut mlt file is structured:
+- root `mlt` element
+- `profile`, the size of the output video
+- there is a producer for a black background, this is used for the playlist `background`
+- `background` is later used as a `track` in `tractor0`, which is basically the vertical timeline, a parallel timeline of tracks, each track here is a track in the video editor. each track references a playlist as producer, each playlist is a horizontal timeline, a series of clips
+- tractor also contains a series of transitions, it seems these are used vertically, like a blend mode. audio tracks are simply mixed, video ones too, there is also one for `frei0r.cairoblend` https://www.mltframework.org/plugins/TransitionFrei0r-cairoblend/, this is a blend mode transition i think
+- playlist `playlist0` is the series of video or image clips in the first track, is also has a shotcut:name prop which is displayed in the editor. to show each clip it uses the element `entry`, which references producers, which are basically assets. each entry also has an in and out attributes, which are used to cut the source asset.
+- audio playlists tracks have `hide='video'` in their tracks in tractor, probably to hide the videos in output in case you use an mp4 as audio.
+- audio playlists references chains with `chain` instead of producers for their `entry`, using still in and out. 
+- chains are just audio or video assets it seems, meaning same thing as producers, their props have 
+    - resource, the audio path
+    - length, the length of the clip in time duration format
+    - mlt_service is avformat-novalidate
+    - meta contains info about the codec
+    - there is shotcut related stuff for hash, skipConvert, creation time, caption, which is just the file name
+    - it's probably a good idea to use melt to generate all the xml for these chains because these are quite complex
+- producers instead are image assets. 
+    - resource
+    - length, which is just a very long duration for images
+    - mlt_service is qimage for images
+    - aspect ratio is wrong. 1 even if it should be much higher
+    - producers can also have filters in them, these are effects and animations, they are put as children of the producer element but also have an id, like filter0
+    - meta contains image size
+- filters are effects
+    - size and position: affineSizePosition
+        - have an out attribute to make them shorter than full producer
+        - filters have an id, but it is never used because the tree hierarchy is used to understand which filter applies to which producer
+        - shotcut:filter define the shotcut filter type, for size, rotation and position this is `affineSizePosition`
+        - transition.rect defines the transformation to the producer, it is defined as a series of tokens separated by ;
+        - each token is {start}={top} {left} {width} {height} 1
+        - each token is a keyframe
+        - there can be a letter after the duration to add a easing function, for example {start}q=... to add a quadratic easing
+        - transition.valign specify where to align things, same for halign
+    - audio gain: volume
+        - mlt_service is volume
+        - level is the db gain, negative or positive
+    
+
+
+- playlist `main_bin`, that does not do anything
+- adding avformat consumer is necessary to render the video with melt
+- 

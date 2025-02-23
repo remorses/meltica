@@ -1,7 +1,7 @@
 import { render } from 'jsx-xml'
 import { writeFileSync } from 'fs'
 
-function MLT() {
+function MLT({ children }) {
     return (
         <mlt
             LC_NUMERIC='C'
@@ -9,6 +9,24 @@ function MLT() {
             title='Shotcut version 25.01.25'
             producer='main_bin'
         >
+            <consumer
+                ab='160k'
+                acodec='aac'
+                channels='2'
+                crf='23'
+                deinterlacer='onefield'
+                f='mp4'
+                g='15'
+                in='0'
+                mlt_service='avformat'
+                movflags='+faststart'
+                preset='veryfast'
+                real_time='-1'
+                rescale='bilinear'
+                target='./shotcut.mp4'
+                threads='0'
+                vcodec='libx264'
+            />
             <profile
                 description='PAL 4:3 DV or DVD'
                 width='1080'
