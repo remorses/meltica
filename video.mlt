@@ -811,8 +811,8 @@
     <entry producer="producer24" in="00:00:00.000" out="00:00:10.000"/>
     <entry producer="producer25" in="00:00:00.000" out="00:00:10.000"/>
   </playlist>
-  <chain id="chain0" in="0" out="362">
-    <property name="length">363</property>
+  <chain id="chain0" in="0" out="435">
+    <property name="length">436</property>
     <property name="eof">pause</property>
     <property name="resource">narrator.wav</property>
     <property name="meta.media.nb_streams">1</property>
@@ -837,10 +837,10 @@
     <property name="shotcut:audio">1</property>
     <property name="shotcut:name">track</property>
     <blank length="00:00:01.000"/>
-    <entry producer="chain0" in="00:00:00.000" out="00:06:02.000"/>
+    <entry producer="chain0" in="00:00:00.000" out="00:07:15.000"/>
   </playlist>
-  <chain id="chain1" in="0" out="3377">
-    <property name="length">3378</property>
+  <chain id="chain1" in="0" out="4049">
+    <property name="length">4050</property>
     <property name="eof">pause</property>
     <property name="resource">edapollo - Let It Go [bQ5glYCsv94].mp3</property>
     <property name="meta.media.nb_streams">1</property>
