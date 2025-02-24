@@ -207,7 +207,8 @@ export function renderToVideo(jsx: any, xmlFilename = 'video.mlt') {
     // const tempXmlFile = path.join(os.tmpdir(), `video-${timestamp}.mlt`)
     const tempXmlFile = xmlFilename
     fs.writeFileSync(tempXmlFile, xml)
-    execSync(`melt ${tempXmlFile}`, { stdio: 'inherit' })
+    const meltPath = '/Applications/Shotcut.app/Contents/MacOS/melt'
+    execSync(`"${meltPath}" ${tempXmlFile}`, { stdio: 'inherit' })
     console.timeEnd(`${renderId} melt processing`)
 }
 

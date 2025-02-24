@@ -395,6 +395,16 @@ export function VideoRoot({
                             </transition>
                         )
                     })}
+                    {/* <transition id={'transitionCairoBackground'}>
+                        <property name='a_track'>0</property>
+                        <property name='b_track'>1</property>
+                        <property name='version'>0.1</property>
+                        <property name='mlt_service'>
+                            frei0r.cairoblend
+                        </property>
+                        <property name='threads'>0</property>
+                        <property name='disable'>0</property>
+                    </transition> */}
                     {Object.keys(playlists).map((trackId, index) => {
                         const type = getTrackType(playlists[trackId])
                         if (type === 'audio') {
@@ -454,7 +464,7 @@ export function Text({
         })
         return null
     }
-    const html = dedent`
+    const html = dedent/* html */ `
     <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
     <html>
         <head>
@@ -479,8 +489,9 @@ export function Text({
         </head>
         <body
             style="
-                font-family: '.AppleSystemUIFont';
-                font-size: 13pt;
+                font-family: 'Inter';
+                font-size: ${fontSize}pt;
+                color: ${color};
                 font-weight: 400;
                 font-style: normal;
             "
@@ -496,9 +507,7 @@ export function Text({
                     text-indent: 0px;
                 "
             >
-                <span style="font-family: 'Inter'; font-size: ${fontSize}pt; color: ${color}"
-                    >${text}</span
-                >
+                <span>${text}</span>
             </p>
         </body>
     </html>

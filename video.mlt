@@ -137,6 +137,91 @@
     <entry producer="producer0" in="00:00:00.000" out="00:00:04.000"/>
     <entry producer="producer1" in="00:00:00.000" out="00:00:04.000"/>
   </playlist>
+  <producer id="text1" in="00:00:00.000" out="03:59:59.960">
+    <property name="length">04:00:00.000</property>
+    <property name="eof">pause</property>
+    <property name="resource">#00000000</property>
+    <property name="aspect_ratio">1</property>
+    <property name="mlt_service">color</property>
+    <property name="mlt_image_format">rgba</property>
+    <property name="shotcut:caption">transparent and text</property>
+    <property name="shotcut:detail">transparent</property>
+    <property name="ignore_points">0</property>
+    <property name="seekable">1</property>
+    <property name="meta.shotcut.vui">1</property>
+    <filter id="text1Filter" out="00:00:03.960">
+      <property name="argument">text</property>
+      <property name="geometry">0 100 1080 100 1</property>
+      <property name="family">Helvetica</property>
+      <property name="size">60</property>
+      <property name="weight">7000</property>
+      <property name="style">normal</property>
+      <property name="fgcolour">#fff</property>
+      <property name="bgcolour">#00000000</property>
+      <property name="olcolour">#aa000000</property>
+      <property name="pad">0</property>
+      <property name="halign">center</property>
+      <property name="valign">top</property>
+      <property name="outline">3</property>
+      <property name="pixel_ratio">1</property>
+      <property name="opacity">1</property>
+      <property name="mlt_service">qtext</property>
+      <property name="shotcut:filter">richText</property>
+      <property name="html">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta name="qrichtext" content="1" /&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;style type="text/css"&gt;
+            p,
+            li {
+                white-space: pre-wrap;
+            }
+            hr {
+                height: 1px;
+                border-width: 0;
+            }
+            li.unchecked::marker {
+                content: '\\2610';
+            }
+            li.checked::marker {
+                content: '\\2612';
+            }
+        &lt;/style&gt;
+    &lt;/head&gt;
+    &lt;body
+        style="
+            font-family: 'Inter';
+            font-size: 70pt;
+            color: #fff;
+            font-weight: 400;
+            font-style: normal;
+        "
+    &gt;
+        &lt;p
+            align="center"
+            style="
+                margin-top: 0px;
+                margin-bottom: 0px;
+                margin-left: 0px;
+                margin-right: 0px;
+                -qt-block-indent: 0;
+                text-indent: 0px;
+            "
+        &gt;
+            &lt;span&gt;hello i am a little small text&lt;/span&gt;
+        &lt;/p&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</property>
+      <property name="shotcut:usePointSize">1</property>
+      <property name="shotcut:pointSize">60</property>
+      <property name="overflow-y">1</property>
+    </filter>
+  </producer>
+  <playlist id="titles">
+    <property name="shotcut:name">track</property>
+    <entry producer="text1" in="00:00:00.000" out="00:00:04.000"/>
+  </playlist>
   <chain id="chain0" in="00:00:00.000" out="00:00:14.514">
     <property name="length">436</property>
     <property name="eof">pause</property>
@@ -226,6 +311,7 @@
     <property name="shotcut:skipConvert">0</property>
     <track producer="background"/>
     <track producer="video1"/>
+    <track producer="titles"/>
     <track producer="audio1" hide="video"/>
     <track producer="audio2" hide="video"/>
     <transition id="transition0">
@@ -248,6 +334,29 @@
       <property name="mlt_service">mix</property>
       <property name="always_active">1</property>
       <property name="sum">1</property>
+    </transition>
+    <transition id="transition3">
+      <property name="a_track">0</property>
+      <property name="b_track">4</property>
+      <property name="mlt_service">mix</property>
+      <property name="always_active">1</property>
+      <property name="sum">1</property>
+    </transition>
+    <transition id="transitionCairo0">
+      <property name="a_track">1</property>
+      <property name="b_track">1</property>
+      <property name="version">0.1</property>
+      <property name="mlt_service">frei0r.cairoblend</property>
+      <property name="threads">0</property>
+      <property name="disable">0</property>
+    </transition>
+    <transition id="transitionCairo1">
+      <property name="a_track">1</property>
+      <property name="b_track">2</property>
+      <property name="version">0.1</property>
+      <property name="mlt_service">frei0r.cairoblend</property>
+      <property name="threads">0</property>
+      <property name="disable">0</property>
     </transition>
   </tractor>
 </mlt>

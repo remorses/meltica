@@ -191,8 +191,9 @@
     &lt;/head&gt;
     &lt;body
         style="
-            font-family: '.AppleSystemUIFont';
-            font-size: 13pt;
+            font-family: 'Inter';
+            font-size: 70pt;
+            color: #fff;
             font-weight: 400;
             font-style: normal;
         "
@@ -208,9 +209,7 @@
                 text-indent: 0px;
             "
         &gt;
-            &lt;span style="font-family: 'Inter'; font-size: 70pt; color: #fff"
-                &gt;hello i am a little small text, hello&lt;/span
-            &gt;
+            &lt;span&gt;hello i am a little small text&lt;/span&gt;
         &lt;/p&gt;
     &lt;/body&gt;
 &lt;/html&gt;</property>

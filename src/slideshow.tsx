@@ -49,7 +49,7 @@ function Video({}) {
                 </Asset>
             </Track>
             <Track id={'titles'}>
-                <Text duration={4} top={100} id='text1' text='hello i am a little small text, hello' />
+                <Text duration={4} top={100} id='text1' text='hello i am a little small text' />
             </Track>
             <Track id={'audio1'}>
                 <BlankSpace length={1} />
