@@ -50,18 +50,32 @@ function Video({}) {
                 </Asset>
             </Track>
             <Track id={'titles'}>
-                <RichText
-                    duration={4}
-                    top={200}
-                    id='text1'
-                    html={
-                        <div align='center'>
-                            <div>hello i am a </div>
-                            <br />
-                            <div style='color: red' align='right'>little small text</div>
-                        </div>
-                    }
-                />
+                {[...Array(12)].map((_, i) => {
+                    const words =
+                        'Lorem ipsum dolor sit amet consectetur adipisicing elit'.split(
+                            ' ',
+                        )
+                    return (
+                        <RichText
+                            duration={0.1}
+                            top={200}
+                            id={'text1_' + i}
+                            html={
+                                <div align='center'>
+                                    <div>
+                                        {words.map((word, wordIndex) => (
+                                            <span
+                                                style={`color: ${wordIndex < i + 1 ? '#fff' : 'transparent'}`}
+                                            >
+                                                {word}{' '}
+                                            </span>
+                                        ))}
+                                    </div>
+                                </div>
+                            }
+                        />
+                    )
+                })}
             </Track>
             <Track id={'audio1'}>
                 <BlankSpace length={1} />
