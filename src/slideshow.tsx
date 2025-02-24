@@ -5,6 +5,7 @@ import {
     PanningAnimation,
     Track,
     VideoRoot,
+    Text,
 } from '@/components'
 import { formatSecondsToTime, renderToVideo, renderToXml } from '@/rendering'
 import { writeFileSync } from 'fs'
@@ -46,7 +47,9 @@ function Video({}) {
                 >
                     <PanningAnimation />
                 </Asset>
-               
+            </Track>
+            <Track id={'titles'}>
+                <Text duration={4} top={100} id='text1' text='hello i am a little small text, hello' />
             </Track>
             <Track id={'audio1'}>
                 <BlankSpace length={1} />
@@ -74,4 +77,6 @@ function Video({}) {
 }
 
 writeFileSync('slideshow-shotcut.mlt', renderToXml(<Video />))
-renderToVideo(<Video />)
+if (!process.env.DISABLE_VIDEO) {
+    renderToVideo(<Video />)
+}

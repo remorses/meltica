@@ -97,3 +97,25 @@ How a shotcut mlt file is structured:
 - playlist `main_bin`, that does not do anything
 - adding avformat consumer is necessary to render the video with melt
 - 
+
+## cairo blend transition on tractor
+
+this is required to show titles with transparency and other overlay features, in shotcut it is produced in the xml with these a b attributes
+- 0, 1  # blends background with base video
+- 1, 2  # blends base video with titles track
+- 1, 3  # blends base video with track above titles
+- 1, 5  # blends base video with topmost track
+
+The a_track and b_track indexes are chosen to create a compositing chain where:
+- Track 0 (background) is always the first a_track to start the chain
+- Track 1 (base video) becomes the a_track for all subsequent blends
+- Each higher track number becomes the b_track to blend with track 1
+- This creates a "star" pattern where track 1 is the center, blending with everything above it
+
+when in the timeline these are the tracks:
+- 0, black background
+- 1, video at the bottom
+- 2, titles, track above video
+- 3, empty video track
+- 4, audio track
+- 5, empty video track

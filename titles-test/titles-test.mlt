@@ -101,7 +101,7 @@
     <property name="meta.shotcut.vui">1</property>
     <filter id="filter0" out="00:00:03.960">
       <property name="argument">text</property>
-      <property name="geometry">598 707 667 277 1</property>
+      <property name="geometry">281 546 1206 172 1</property>
       <property name="family">Helvetica</property>
       <property name="size">60</property>
       <property name="weight">7000</property>
@@ -124,10 +124,12 @@ hr { height: 1px; border-width: 0; }
 li.unchecked::marker { content: &quot;\2610&quot;; }
 li.checked::marker { content: &quot;\2612&quot;; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'.AppleSystemUIFont'; font-size:13pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Inter'; font-size:72pt; color:#ffffff;&quot;&gt;rich text example rich text examplerich text example some more  text&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</property>
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Inter'; font-size:72pt; color:#ff0019;&quot;&gt;rich&lt;/span&gt;&lt;span style=&quot; font-family:'Inter'; font-size:72pt; color:#ffffff;&quot;&gt; text example rich text examplerich text example some more  text&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</property>
       <property name="shotcut:usePointSize">1</property>
       <property name="shotcut:pointSize">60</property>
       <property name="overflow-y">1</property>
+      <property name="shotcut:animIn">0</property>
+      <property name="shotcut:animOut">0</property>
     </filter>
   </producer>
   <producer id="producer1" in="00:00:00.000" out="03:59:59.960">
@@ -196,6 +198,16 @@ li.checked::marker { content: &quot;\2612&quot;; }
     <property name="shotcut:name">V3</property>
     <blank length="00:00:00.040"/>
   </playlist>
+  <playlist id="playlist3">
+    <property name="shotcut:audio">1</property>
+    <property name="shotcut:name">A1</property>
+    <blank length="00:00:00.040"/>
+  </playlist>
+  <playlist id="playlist4">
+    <property name="shotcut:video">1</property>
+    <property name="shotcut:name">V4</property>
+    <blank length="00:00:00.040"/>
+  </playlist>
   <tractor id="tractor1" title="Shotcut version 25.01.25" in="00:00:00.000" out="00:00:15.920">
     <property name="shotcut">1</property>
     <property name="shotcut:projectAudioChannels">2</property>
@@ -204,6 +216,8 @@ li.checked::marker { content: &quot;\2612&quot;; }
     <track producer="playlist0"/>
     <track producer="playlist1"/>
     <track producer="playlist2"/>
+    <track producer="playlist3" hide="video"/>
+    <track producer="playlist4"/>
     <transition id="transition2">
       <property name="a_track">0</property>
       <property name="b_track">1</property>
@@ -244,6 +258,28 @@ li.checked::marker { content: &quot;\2612&quot;; }
     <transition id="transition7">
       <property name="a_track">1</property>
       <property name="b_track">3</property>
+      <property name="version">0.1</property>
+      <property name="mlt_service">frei0r.cairoblend</property>
+      <property name="threads">0</property>
+      <property name="disable">0</property>
+    </transition>
+    <transition id="transition8">
+      <property name="a_track">0</property>
+      <property name="b_track">4</property>
+      <property name="mlt_service">mix</property>
+      <property name="always_active">1</property>
+      <property name="sum">1</property>
+    </transition>
+    <transition id="transition9">
+      <property name="a_track">0</property>
+      <property name="b_track">5</property>
+      <property name="mlt_service">mix</property>
+      <property name="always_active">1</property>
+      <property name="sum">1</property>
+    </transition>
+    <transition id="transition10">
+      <property name="a_track">1</property>
+      <property name="b_track">5</property>
       <property name="version">0.1</property>
       <property name="mlt_service">frei0r.cairoblend</property>
       <property name="threads">0</property>

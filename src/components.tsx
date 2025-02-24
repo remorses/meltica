@@ -6,9 +6,11 @@ import {
     formatSecondsToTime,
     renderingContext,
 } from '@/rendering'
+import dedent from 'dedent'
 import { Fragment } from 'jsx-xml'
 import { type } from 'os'
 import path from 'path'
+import { text } from 'stream/consumers'
 
 type TrackContext = {
     trackId: string
@@ -208,7 +210,7 @@ export function BlankSpace({ length }) {
     if (context.isRegistrationStep) {
         context.assets.push({
             type: 'blank',
-            length,
+            duration: length,
             parentTrackId: trackId,
         })
     }
@@ -242,8 +244,9 @@ export function Track({ id: trackId, name = 'track', children }) {
 
                 {assets.map((x) => {
                     if (x.type === 'blank') {
-                        return <blank length={x.length} />
+                        return <blank length={x.duration} />
                     }
+
                     const producer = context.producers.find(
                         (p) => p.id === x.id,
                     )
@@ -380,7 +383,7 @@ export function VideoRoot({
                     })}
                     {/* transitions are necessary to make audio tracks play one upon the other */}
                     {Object.keys(playlists).map((trackId, index) => {
-                        // const type = getTrackType(playlists[trackId])
+                        const type = getTrackType(playlists[trackId])
                         // here we render even the last one because there is one additional playlist for the background
                         return (
                             <transition id={'transition' + index}>
@@ -392,9 +395,160 @@ export function VideoRoot({
                             </transition>
                         )
                     })}
+                    {Object.keys(playlists).map((trackId, index) => {
+                        const type = getTrackType(playlists[trackId])
+                        if (type === 'audio') {
+                            return null
+                        }
+                        return (
+                            <transition id={'transitionCairo' + index}>
+                                <property name='a_track'>1</property>
+                                <property name='b_track'>{index + 1}</property>
+                                <property name='version'>0.1</property>
+                                <property name='mlt_service'>
+                                    frei0r.cairoblend
+                                </property>
+                                <property name='threads'>0</property>
+                                <property name='disable'>0</property>
+                            </transition>
+                        )
+                    })}
                 </tractor>
             </mlt>
         </videoRootContext.Provider>
+    )
+}
+
+export function Text({
+    id,
+    text,
+    left: left_,
+    top: top_,
+    width: width_,
+    height = 100,
+    fontSize = 70,
+    color = '#fff',
+    children,
+    duration,
+}: {
+    id: string
+    text: string
+    left?: number
+    top?: number
+    width?: number
+    height?: number
+    fontSize?: number
+    color?: string
+    children?: any
+    duration: any
+}) {
+    const context = useContext(renderingContext)
+    const { trackId } = useTrackContext()
+    if (context.isRegistrationStep) {
+        context.assets.push({
+            type: 'text',
+            id,
+            in: 0,
+            out: duration,
+            parentTrackId: trackId,
+        })
+        return null
+    }
+    const html = dedent`
+    <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+    <html>
+        <head>
+            <meta name="qrichtext" content="1" />
+            <meta charset="utf-8" />
+            <style type="text/css">
+                p,
+                li {
+                    white-space: pre-wrap;
+                }
+                hr {
+                    height: 1px;
+                    border-width: 0;
+                }
+                li.unchecked::marker {
+                    content: '\\2610';
+                }
+                li.checked::marker {
+                    content: '\\2612';
+                }
+            </style>
+        </head>
+        <body
+            style="
+                font-family: '.AppleSystemUIFont';
+                font-size: 13pt;
+                font-weight: 400;
+                font-style: normal;
+            "
+        >
+            <p
+                align="center"
+                style="
+                    margin-top: 0px;
+                    margin-bottom: 0px;
+                    margin-left: 0px;
+                    margin-right: 0px;
+                    -qt-block-indent: 0;
+                    text-indent: 0px;
+                "
+            >
+                <span style="font-family: 'Inter'; font-size: ${fontSize}pt; color: ${color}"
+                    >${text}</span
+                >
+            </p>
+        </body>
+    </html>
+
+    `
+    const { height: videoHeight, width: videoWidth } =
+        useContext(videoRootContext)!
+    let left = left_ ?? 0
+    let top = top_ ?? 0
+    let width = width_ ?? videoWidth
+
+    const geometry = `${left} ${top} ${width} ${height} 1`
+    return (
+        <producer id={id} in='00:00:00.000' out='03:59:59.960'>
+            <property name='length'>04:00:00.000</property>
+            <property name='eof'>pause</property>
+            <property name='resource'>#00000000</property>
+            <property name='aspect_ratio'>1</property>
+            <property name='mlt_service'>color</property>
+            <property name='mlt_image_format'>rgba</property>
+            <property name='shotcut:caption'>transparent and text</property>
+            <property name='shotcut:detail'>transparent</property>
+            <property name='ignore_points'>0</property>
+            <property name='seekable'>1</property>
+            <property name='meta.shotcut.vui'>1</property>
+            <filter id={id + 'Filter'} out='00:00:03.960'>
+                <property name='argument'>text</property>
+                <property name='geometry'>{geometry}</property>
+                <property name='family'>Helvetica</property>
+                <property name='size'>60</property>
+                <property name='weight'>7000</property>
+                <property name='style'>normal</property>
+                <property name='fgcolour'>{color}</property>
+                <property name='bgcolour'>#00000000</property>
+                <property name='olcolour'>#aa000000</property>
+                <property name='pad'>0</property>
+                <property name='halign'>center</property>
+                <property name='valign'>top</property>
+                <property name='outline'>3</property>
+                <property name='pixel_ratio'>1</property>
+                <property name='opacity'>1</property>
+                <property name='mlt_service'>qtext</property>
+                <property name='shotcut:filter'>richText</property>
+                <property name='html'>{html}</property>
+                <property name='shotcut:usePointSize'>1</property>
+                <property name='shotcut:pointSize'>60</property>
+                <property name='overflow-y'>1</property>
+            </filter>
+            {children}
+        </producer>
     )
 }
 

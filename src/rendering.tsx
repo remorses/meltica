@@ -10,19 +10,28 @@ import path from 'path'
 
 export type AssetType = 'audio' | 'image' | 'video'
 
+type NumberLike = string | number
+
 export type AssetRegistration =
     | {
           filepath: string
           id: string
           parentTrackId: string
-          in?: string | number
-          out?: string | number
+          in?: NumberLike
+          out?: NumberLike
           type: AssetType
       }
     | {
           parentTrackId: string
           type: 'blank'
-          length: string
+          duration: string
+      }
+    | {
+          parentTrackId: string
+          type: 'text'
+          id: string
+          in: NumberLike
+          out: NumberLike
       }
 
 export type AssetProducer = {
@@ -273,7 +282,7 @@ function generateProducersXml(assets: AssetRegistration[]) {
     const timeFormat = 'clock'
     execSync(
         `melt ${assets
-            .filter((x) => x.type !== 'blank')
+            .filter((x) => x.type !== 'blank' && x.type !== 'text')
             .map((a) => `"${a.filepath}" id=${a.id}`)
             .join(
                 ' ',
