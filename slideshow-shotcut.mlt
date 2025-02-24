@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<mlt LC_NUMERIC="C" version="7.30.0" title="Shotcut version 25.01.25" producer="main_bin" root="/Users/morse/Documents/kdenlive">
+<mlt LC_NUMERIC="C" version="7.30.0" title="Shotcut version 25.01.25" producer="main_bin">
   <consumer ab="160k" acodec="aac" channels="2" crf="23" deinterlacer="onefield" f="mp4" g="15" in="0" out="00:00:06.000" mlt_service="avformat" movflags="+faststart" preset="veryfast" real_time="-1" rescale="bilinear" target="slideshow.mp4" threads="0" vcodec="libx264"/>
   <profile description="PAL 4:3 DV or DVD" width="1080" height="1920" progressive="1" sample_aspect_num="1" sample_aspect_den="1" display_aspect_num="9" display_aspect_den="16" frame_rate_num="30" frame_rate_den="1" colorspace="709"/>
   <chain id="videoExample" in="00:00:00.000" out="00:00:15.949">
@@ -197,18 +197,7 @@
             font-weight: 400;
             font-style: normal;
         "
-    &gt;&lt;
-            align="center"
-            style="
-                margin-top: 0px;
-                margin-bottom: 0px;
-                margin-left: 0px;
-                margin-right: 0px;
-                -qt-block-indent: 0;
-                text-indent: 0px;
-                border: 2px solid #ffffff;
-            "
-        &gt;&lt;div style="margin: 100px; font-size: 200px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;div align="left" style="color: #ff0000"&gt;Lorem &lt;/div&gt;&lt;div align="right" style="color: transparent"&gt;ipsum &lt;/div&gt;&lt;div align="left" style="color: transparent"&gt;dolor &lt;/div&gt;&lt;div align="right" style="color: transparent"&gt;sit &lt;/div&gt;&lt;div align="left" style="color: transparent"&gt;amet &lt;/div&gt;&lt;div align="right" style="color: transparent"&gt;consectetur &lt;/div&gt;&lt;div align="left" style="color: transparent"&gt;adipisicing &lt;/div&gt;&lt;div align="right" style="color: transparent"&gt;elit &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
+    &gt;&lt;div style="margin: 100px; font-size: 150px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;div align="left" style="color: #ff0000"&gt;Lorem &lt;/div&gt;&lt;div align="right" style="color: transparent"&gt;ipsum &lt;/div&gt;&lt;div align="left" style="color: transparent"&gt;dolor &lt;/div&gt;&lt;div align="right" style="color: transparent"&gt;sit &lt;/div&gt;&lt;div align="left" style="color: transparent"&gt;amet &lt;/div&gt;&lt;div align="right" style="color: transparent"&gt;consectetur &lt;/div&gt;&lt;div align="left" style="color: transparent"&gt;adipisicing &lt;/div&gt;&lt;div align="right" style="color: transparent"&gt;elit &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
 &lt;/html&gt;</property>
       <property name="shotcut:usePointSize">1</property>
       <property name="shotcut:pointSize">60</property>
@@ -275,18 +264,7 @@
             font-weight: 400;
             font-style: normal;
         "
-    &gt;&lt;
-            align="center"
-            style="
-                margin-top: 0px;
-                margin-bottom: 0px;
-                margin-left: 0px;
-                margin-right: 0px;
-                -qt-block-indent: 0;
-                text-indent: 0px;
-                border: 2px solid #ffffff;
-            "
-        &gt;&lt;div style="margin: 100px; font-size: 200px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;div align="left" style="color: #ff0000"&gt;Lorem &lt;/div&gt;&lt;div align="right" style="color: #00ff00"&gt;ipsum &lt;/div&gt;&lt;div align="left" style="color: transparent"&gt;dolor &lt;/div&gt;&lt;div align="right" style="color: transparent"&gt;sit &lt;/div&gt;&lt;div align="left" style="color: transparent"&gt;amet &lt;/div&gt;&lt;div align="right" style="color: transparent"&gt;consectetur &lt;/div&gt;&lt;div align="left" style="color: transparent"&gt;adipisicing &lt;/div&gt;&lt;div align="right" style="color: transparent"&gt;elit &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
+    &gt;&lt;div style="margin: 100px; font-size: 150px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;div align="left" style="color: #ff0000"&gt;Lorem &lt;/div&gt;&lt;div align="right" style="color: #00ff00"&gt;ipsum &lt;/div&gt;&lt;div align="left" style="color: transparent"&gt;dolor &lt;/div&gt;&lt;div align="right" style="color: transparent"&gt;sit &lt;/div&gt;&lt;div align="left" style="color: transparent"&gt;amet &lt;/div&gt;&lt;div align="right" style="color: transparent"&gt;consectetur &lt;/div&gt;&lt;div align="left" style="color: transparent"&gt;adipisicing &lt;/div&gt;&lt;div align="right" style="color: transparent"&gt;elit &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
 &lt;/html&gt;</property>
       <property name="shotcut:usePointSize">1</property>
       <property name="shotcut:pointSize">60</property>
@@ -353,18 +331,7 @@
             font-weight: 400;
             font-style: normal;
         "
-    &gt;&lt;
-            align="center"
-            style="
-                margin-top: 0px;
-                margin-bottom: 0px;
-                margin-left: 0px;
-                margin-right: 0px;
-                -qt-block-indent: 0;
-                text-indent: 0px;
-                border: 2px solid #ffffff;
-            "
-        &gt;&lt;div style="margin: 100px; font-size: 200px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;div align="left" style="color: #ff0000"&gt;Lorem &lt;/div&gt;&lt;div align="right" style="color: #00ff00"&gt;ipsum &lt;/div&gt;&lt;div align="left" style="color: #0000ff"&gt;dolor &lt;/div&gt;&lt;div align="right" style="color: transparent"&gt;sit &lt;/div&gt;&lt;div align="left" style="color: transparent"&gt;amet &lt;/div&gt;&lt;div align="right" style="color: transparent"&gt;consectetur &lt;/div&gt;&lt;div align="left" style="color: transparent"&gt;adipisicing &lt;/div&gt;&lt;div align="right" style="color: transparent"&gt;elit &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
+    &gt;&lt;div style="margin: 100px; font-size: 150px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;div align="left" style="color: #ff0000"&gt;Lorem &lt;/div&gt;&lt;div align="right" style="color: #00ff00"&gt;ipsum &lt;/div&gt;&lt;div align="left" style="color: #0000ff"&gt;dolor &lt;/div&gt;&lt;div align="right" style="color: transparent"&gt;sit &lt;/div&gt;&lt;div align="left" style="color: transparent"&gt;amet &lt;/div&gt;&lt;div align="right" style="color: transparent"&gt;consectetur &lt;/div&gt;&lt;div align="left" style="color: transparent"&gt;adipisicing &lt;/div&gt;&lt;div align="right" style="color: transparent"&gt;elit &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
 &lt;/html&gt;</property>
       <property name="shotcut:usePointSize">1</property>
       <property name="shotcut:pointSize">60</property>
@@ -431,18 +398,7 @@
             font-weight: 400;
             font-style: normal;
         "
-    &gt;&lt;
-            align="center"
-            style="
-                margin-top: 0px;
-                margin-bottom: 0px;
-                margin-left: 0px;
-                margin-right: 0px;
-                -qt-block-indent: 0;
-                text-indent: 0px;
-                border: 2px solid #ffffff;
-            "
-        &gt;&lt;div style="margin: 100px; font-size: 200px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;div align="left" style="color: #ff0000"&gt;Lorem &lt;/div&gt;&lt;div align="right" style="color: #00ff00"&gt;ipsum &lt;/div&gt;&lt;div align="left" style="color: #0000ff"&gt;dolor &lt;/div&gt;&lt;div align="right" style="color: #ffff00"&gt;sit &lt;/div&gt;&lt;div align="left" style="color: transparent"&gt;amet &lt;/div&gt;&lt;div align="right" style="color: transparent"&gt;consectetur &lt;/div&gt;&lt;div align="left" style="color: transparent"&gt;adipisicing &lt;/div&gt;&lt;div align="right" style="color: transparent"&gt;elit &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
+    &gt;&lt;div style="margin: 100px; font-size: 150px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;div align="left" style="color: #ff0000"&gt;Lorem &lt;/div&gt;&lt;div align="right" style="color: #00ff00"&gt;ipsum &lt;/div&gt;&lt;div align="left" style="color: #0000ff"&gt;dolor &lt;/div&gt;&lt;div align="right" style="color: #ffff00"&gt;sit &lt;/div&gt;&lt;div align="left" style="color: transparent"&gt;amet &lt;/div&gt;&lt;div align="right" style="color: transparent"&gt;consectetur &lt;/div&gt;&lt;div align="left" style="color: transparent"&gt;adipisicing &lt;/div&gt;&lt;div align="right" style="color: transparent"&gt;elit &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
 &lt;/html&gt;</property>
       <property name="shotcut:usePointSize">1</property>
       <property name="shotcut:pointSize">60</property>
@@ -509,18 +465,7 @@
             font-weight: 400;
             font-style: normal;
         "
-    &gt;&lt;
-            align="center"
-            style="
-                margin-top: 0px;
-                margin-bottom: 0px;
-                margin-left: 0px;
-                margin-right: 0px;
-                -qt-block-indent: 0;
-                text-indent: 0px;
-                border: 2px solid #ffffff;
-            "
-        &gt;&lt;div style="margin: 100px; font-size: 200px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;div align="left" style="color: #ff0000"&gt;Lorem &lt;/div&gt;&lt;div align="right" style="color: #00ff00"&gt;ipsum &lt;/div&gt;&lt;div align="left" style="color: #0000ff"&gt;dolor &lt;/div&gt;&lt;div align="right" style="color: #ffff00"&gt;sit &lt;/div&gt;&lt;div align="left" style="color: #ff00ff"&gt;amet &lt;/div&gt;&lt;div align="right" style="color: transparent"&gt;consectetur &lt;/div&gt;&lt;div align="left" style="color: transparent"&gt;adipisicing &lt;/div&gt;&lt;div align="right" style="color: transparent"&gt;elit &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
+    &gt;&lt;div style="margin: 100px; font-size: 150px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;div align="left" style="color: #ff0000"&gt;Lorem &lt;/div&gt;&lt;div align="right" style="color: #00ff00"&gt;ipsum &lt;/div&gt;&lt;div align="left" style="color: #0000ff"&gt;dolor &lt;/div&gt;&lt;div align="right" style="color: #ffff00"&gt;sit &lt;/div&gt;&lt;div align="left" style="color: #ff00ff"&gt;amet &lt;/div&gt;&lt;div align="right" style="color: transparent"&gt;consectetur &lt;/div&gt;&lt;div align="left" style="color: transparent"&gt;adipisicing &lt;/div&gt;&lt;div align="right" style="color: transparent"&gt;elit &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
 &lt;/html&gt;</property>
       <property name="shotcut:usePointSize">1</property>
       <property name="shotcut:pointSize">60</property>
@@ -587,18 +532,7 @@
             font-weight: 400;
             font-style: normal;
         "
-    &gt;&lt;
-            align="center"
-            style="
-                margin-top: 0px;
-                margin-bottom: 0px;
-                margin-left: 0px;
-                margin-right: 0px;
-                -qt-block-indent: 0;
-                text-indent: 0px;
-                border: 2px solid #ffffff;
-            "
-        &gt;&lt;div style="margin: 100px; font-size: 200px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;div align="left" style="color: #ff0000"&gt;Lorem &lt;/div&gt;&lt;div align="right" style="color: #00ff00"&gt;ipsum &lt;/div&gt;&lt;div align="left" style="color: #0000ff"&gt;dolor &lt;/div&gt;&lt;div align="right" style="color: #ffff00"&gt;sit &lt;/div&gt;&lt;div align="left" style="color: #ff00ff"&gt;amet &lt;/div&gt;&lt;div align="right" style="color: #00ffff"&gt;consectetur &lt;/div&gt;&lt;div align="left" style="color: transparent"&gt;adipisicing &lt;/div&gt;&lt;div align="right" style="color: transparent"&gt;elit &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
+    &gt;&lt;div style="margin: 100px; font-size: 150px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;div align="left" style="color: #ff0000"&gt;Lorem &lt;/div&gt;&lt;div align="right" style="color: #00ff00"&gt;ipsum &lt;/div&gt;&lt;div align="left" style="color: #0000ff"&gt;dolor &lt;/div&gt;&lt;div align="right" style="color: #ffff00"&gt;sit &lt;/div&gt;&lt;div align="left" style="color: #ff00ff"&gt;amet &lt;/div&gt;&lt;div align="right" style="color: #00ffff"&gt;consectetur &lt;/div&gt;&lt;div align="left" style="color: transparent"&gt;adipisicing &lt;/div&gt;&lt;div align="right" style="color: transparent"&gt;elit &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
 &lt;/html&gt;</property>
       <property name="shotcut:usePointSize">1</property>
       <property name="shotcut:pointSize">60</property>
@@ -665,18 +599,7 @@
             font-weight: 400;
             font-style: normal;
         "
-    &gt;&lt;
-            align="center"
-            style="
-                margin-top: 0px;
-                margin-bottom: 0px;
-                margin-left: 0px;
-                margin-right: 0px;
-                -qt-block-indent: 0;
-                text-indent: 0px;
-                border: 2px solid #ffffff;
-            "
-        &gt;&lt;div style="margin: 100px; font-size: 200px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;div align="left" style="color: #ff0000"&gt;Lorem &lt;/div&gt;&lt;div align="right" style="color: #00ff00"&gt;ipsum &lt;/div&gt;&lt;div align="left" style="color: #0000ff"&gt;dolor &lt;/div&gt;&lt;div align="right" style="color: #ffff00"&gt;sit &lt;/div&gt;&lt;div align="left" style="color: #ff00ff"&gt;amet &lt;/div&gt;&lt;div align="right" style="color: #00ffff"&gt;consectetur &lt;/div&gt;&lt;div align="left" style="color: #ff8000"&gt;adipisicing &lt;/div&gt;&lt;div align="right" style="color: transparent"&gt;elit &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
+    &gt;&lt;div style="margin: 100px; font-size: 150px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;div align="left" style="color: #ff0000"&gt;Lorem &lt;/div&gt;&lt;div align="right" style="color: #00ff00"&gt;ipsum &lt;/div&gt;&lt;div align="left" style="color: #0000ff"&gt;dolor &lt;/div&gt;&lt;div align="right" style="color: #ffff00"&gt;sit &lt;/div&gt;&lt;div align="left" style="color: #ff00ff"&gt;amet &lt;/div&gt;&lt;div align="right" style="color: #00ffff"&gt;consectetur &lt;/div&gt;&lt;div align="left" style="color: #ff8000"&gt;adipisicing &lt;/div&gt;&lt;div align="right" style="color: transparent"&gt;elit &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
 &lt;/html&gt;</property>
       <property name="shotcut:usePointSize">1</property>
       <property name="shotcut:pointSize">60</property>
@@ -743,18 +666,7 @@
             font-weight: 400;
             font-style: normal;
         "
-    &gt;&lt;
-            align="center"
-            style="
-                margin-top: 0px;
-                margin-bottom: 0px;
-                margin-left: 0px;
-                margin-right: 0px;
-                -qt-block-indent: 0;
-                text-indent: 0px;
-                border: 2px solid #ffffff;
-            "
-        &gt;&lt;div style="margin: 100px; font-size: 200px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;div align="left" style="color: #ff0000"&gt;Lorem &lt;/div&gt;&lt;div align="right" style="color: #00ff00"&gt;ipsum &lt;/div&gt;&lt;div align="left" style="color: #0000ff"&gt;dolor &lt;/div&gt;&lt;div align="right" style="color: #ffff00"&gt;sit &lt;/div&gt;&lt;div align="left" style="color: #ff00ff"&gt;amet &lt;/div&gt;&lt;div align="right" style="color: #00ffff"&gt;consectetur &lt;/div&gt;&lt;div align="left" style="color: #ff8000"&gt;adipisicing &lt;/div&gt;&lt;div align="right" style="color: #8000ff"&gt;elit &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
+    &gt;&lt;div style="margin: 100px; font-size: 150px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;div align="left" style="color: #ff0000"&gt;Lorem &lt;/div&gt;&lt;div align="right" style="color: #00ff00"&gt;ipsum &lt;/div&gt;&lt;div align="left" style="color: #0000ff"&gt;dolor &lt;/div&gt;&lt;div align="right" style="color: #ffff00"&gt;sit &lt;/div&gt;&lt;div align="left" style="color: #ff00ff"&gt;amet &lt;/div&gt;&lt;div align="right" style="color: #00ffff"&gt;consectetur &lt;/div&gt;&lt;div align="left" style="color: #ff8000"&gt;adipisicing &lt;/div&gt;&lt;div align="right" style="color: #8000ff"&gt;elit &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
 &lt;/html&gt;</property>
       <property name="shotcut:usePointSize">1</property>
       <property name="shotcut:pointSize">60</property>
@@ -821,18 +733,7 @@
             font-weight: 400;
             font-style: normal;
         "
-    &gt;&lt;
-            align="center"
-            style="
-                margin-top: 0px;
-                margin-bottom: 0px;
-                margin-left: 0px;
-                margin-right: 0px;
-                -qt-block-indent: 0;
-                text-indent: 0px;
-                border: 2px solid #ffffff;
-            "
-        &gt;&lt;div style="margin: 100px; font-size: 200px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;div align="left" style="color: #ff0000"&gt;Lorem &lt;/div&gt;&lt;div align="right" style="color: #00ff00"&gt;ipsum &lt;/div&gt;&lt;div align="left" style="color: #0000ff"&gt;dolor &lt;/div&gt;&lt;div align="right" style="color: #ffff00"&gt;sit &lt;/div&gt;&lt;div align="left" style="color: #ff00ff"&gt;amet &lt;/div&gt;&lt;div align="right" style="color: #00ffff"&gt;consectetur &lt;/div&gt;&lt;div align="left" style="color: #ff8000"&gt;adipisicing &lt;/div&gt;&lt;div align="right" style="color: #8000ff"&gt;elit &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
+    &gt;&lt;div style="margin: 100px; font-size: 150px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;div align="left" style="color: #ff0000"&gt;Lorem &lt;/div&gt;&lt;div align="right" style="color: #00ff00"&gt;ipsum &lt;/div&gt;&lt;div align="left" style="color: #0000ff"&gt;dolor &lt;/div&gt;&lt;div align="right" style="color: #ffff00"&gt;sit &lt;/div&gt;&lt;div align="left" style="color: #ff00ff"&gt;amet &lt;/div&gt;&lt;div align="right" style="color: #00ffff"&gt;consectetur &lt;/div&gt;&lt;div align="left" style="color: #ff8000"&gt;adipisicing &lt;/div&gt;&lt;div align="right" style="color: #8000ff"&gt;elit &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
 &lt;/html&gt;</property>
       <property name="shotcut:usePointSize">1</property>
       <property name="shotcut:pointSize">60</property>
@@ -899,18 +800,7 @@
             font-weight: 400;
             font-style: normal;
         "
-    &gt;&lt;
-            align="center"
-            style="
-                margin-top: 0px;
-                margin-bottom: 0px;
-                margin-left: 0px;
-                margin-right: 0px;
-                -qt-block-indent: 0;
-                text-indent: 0px;
-                border: 2px solid #ffffff;
-            "
-        &gt;&lt;div style="margin: 100px; font-size: 200px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;div align="left" style="color: #ff0000"&gt;Lorem &lt;/div&gt;&lt;div align="right" style="color: #00ff00"&gt;ipsum &lt;/div&gt;&lt;div align="left" style="color: #0000ff"&gt;dolor &lt;/div&gt;&lt;div align="right" style="color: #ffff00"&gt;sit &lt;/div&gt;&lt;div align="left" style="color: #ff00ff"&gt;amet &lt;/div&gt;&lt;div align="right" style="color: #00ffff"&gt;consectetur &lt;/div&gt;&lt;div align="left" style="color: #ff8000"&gt;adipisicing &lt;/div&gt;&lt;div align="right" style="color: #8000ff"&gt;elit &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
+    &gt;&lt;div style="margin: 100px; font-size: 150px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;div align="left" style="color: #ff0000"&gt;Lorem &lt;/div&gt;&lt;div align="right" style="color: #00ff00"&gt;ipsum &lt;/div&gt;&lt;div align="left" style="color: #0000ff"&gt;dolor &lt;/div&gt;&lt;div align="right" style="color: #ffff00"&gt;sit &lt;/div&gt;&lt;div align="left" style="color: #ff00ff"&gt;amet &lt;/div&gt;&lt;div align="right" style="color: #00ffff"&gt;consectetur &lt;/div&gt;&lt;div align="left" style="color: #ff8000"&gt;adipisicing &lt;/div&gt;&lt;div align="right" style="color: #8000ff"&gt;elit &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
 &lt;/html&gt;</property>
       <property name="shotcut:usePointSize">1</property>
       <property name="shotcut:pointSize">60</property>
@@ -977,18 +867,7 @@
             font-weight: 400;
             font-style: normal;
         "
-    &gt;&lt;
-            align="center"
-            style="
-                margin-top: 0px;
-                margin-bottom: 0px;
-                margin-left: 0px;
-                margin-right: 0px;
-                -qt-block-indent: 0;
-                text-indent: 0px;
-                border: 2px solid #ffffff;
-            "
-        &gt;&lt;div style="margin: 100px; font-size: 200px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;div align="left" style="color: #ff0000"&gt;Lorem &lt;/div&gt;&lt;div align="right" style="color: #00ff00"&gt;ipsum &lt;/div&gt;&lt;div align="left" style="color: #0000ff"&gt;dolor &lt;/div&gt;&lt;div align="right" style="color: #ffff00"&gt;sit &lt;/div&gt;&lt;div align="left" style="color: #ff00ff"&gt;amet &lt;/div&gt;&lt;div align="right" style="color: #00ffff"&gt;consectetur &lt;/div&gt;&lt;div align="left" style="color: #ff8000"&gt;adipisicing &lt;/div&gt;&lt;div align="right" style="color: #8000ff"&gt;elit &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
+    &gt;&lt;div style="margin: 100px; font-size: 150px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;div align="left" style="color: #ff0000"&gt;Lorem &lt;/div&gt;&lt;div align="right" style="color: #00ff00"&gt;ipsum &lt;/div&gt;&lt;div align="left" style="color: #0000ff"&gt;dolor &lt;/div&gt;&lt;div align="right" style="color: #ffff00"&gt;sit &lt;/div&gt;&lt;div align="left" style="color: #ff00ff"&gt;amet &lt;/div&gt;&lt;div align="right" style="color: #00ffff"&gt;consectetur &lt;/div&gt;&lt;div align="left" style="color: #ff8000"&gt;adipisicing &lt;/div&gt;&lt;div align="right" style="color: #8000ff"&gt;elit &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
 &lt;/html&gt;</property>
       <property name="shotcut:usePointSize">1</property>
       <property name="shotcut:pointSize">60</property>
@@ -1055,18 +934,7 @@
             font-weight: 400;
             font-style: normal;
         "
-    &gt;&lt;
-            align="center"
-            style="
-                margin-top: 0px;
-                margin-bottom: 0px;
-                margin-left: 0px;
-                margin-right: 0px;
-                -qt-block-indent: 0;
-                text-indent: 0px;
-                border: 2px solid #ffffff;
-            "
-        &gt;&lt;div style="margin: 100px; font-size: 200px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;div align="left" style="color: #ff0000"&gt;Lorem &lt;/div&gt;&lt;div align="right" style="color: #00ff00"&gt;ipsum &lt;/div&gt;&lt;div align="left" style="color: #0000ff"&gt;dolor &lt;/div&gt;&lt;div align="right" style="color: #ffff00"&gt;sit &lt;/div&gt;&lt;div align="left" style="color: #ff00ff"&gt;amet &lt;/div&gt;&lt;div align="right" style="color: #00ffff"&gt;consectetur &lt;/div&gt;&lt;div align="left" style="color: #ff8000"&gt;adipisicing &lt;/div&gt;&lt;div align="right" style="color: #8000ff"&gt;elit &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
+    &gt;&lt;div style="margin: 100px; font-size: 150px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;div align="left" style="color: #ff0000"&gt;Lorem &lt;/div&gt;&lt;div align="right" style="color: #00ff00"&gt;ipsum &lt;/div&gt;&lt;div align="left" style="color: #0000ff"&gt;dolor &lt;/div&gt;&lt;div align="right" style="color: #ffff00"&gt;sit &lt;/div&gt;&lt;div align="left" style="color: #ff00ff"&gt;amet &lt;/div&gt;&lt;div align="right" style="color: #00ffff"&gt;consectetur &lt;/div&gt;&lt;div align="left" style="color: #ff8000"&gt;adipisicing &lt;/div&gt;&lt;div align="right" style="color: #8000ff"&gt;elit &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
 &lt;/html&gt;</property>
       <property name="shotcut:usePointSize">1</property>
       <property name="shotcut:pointSize">60</property>

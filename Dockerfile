@@ -7,4 +7,4 @@ COPY render.mlt ./
 # ENV XDG_RUNTIME_DIR=/home/root/
 
 
-CMD ["melt", "render.mlt"]
+CMD ["melt", "video.mlt"]

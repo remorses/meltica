@@ -308,7 +308,7 @@ export function VideoRoot({
                 version='7.30.0'
                 title='Shotcut version 25.01.25'
                 producer='main_bin'
-                root={process.cwd()}
+                // root={process.cwd()}
             >
                 <consumer
                     ab='160k'
@@ -501,18 +501,7 @@ export function RichText({
                 font-weight: 400;
                 font-style: normal;
             "
-        ><
-                align="center"
-                style="
-                    margin-top: 0px;
-                    margin-bottom: 0px;
-                    margin-left: 0px;
-                    margin-right: 0px;
-                    -qt-block-indent: 0;
-                    text-indent: 0px;
-                    border: 2px solid #ffffff;
-                "
-            >${renderedHtmlText}</body>
+        >${renderedHtmlText}</body>
     </html>
 
     `
