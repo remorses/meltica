@@ -151,7 +151,7 @@
     <property name="meta.shotcut.vui">1</property>
     <filter id="text1Filter" out="00:00:03.960">
       <property name="argument">text</property>
-      <property name="geometry">0 100 1080 100 1</property>
+      <property name="geometry">0 0 1080 100 1</property>
       <property name="family">Helvetica</property>
       <property name="size">60</property>
       <property name="weight">7000</property>
@@ -197,8 +197,7 @@
             font-weight: 400;
             font-style: normal;
         "
-    &gt;
-        &lt;p
+    &gt;&lt;p
             align="center"
             style="
                 margin-top: 0px;
@@ -207,11 +206,9 @@
                 margin-right: 0px;
                 -qt-block-indent: 0;
                 text-indent: 0px;
+                border: 2px solid #ffffff;
             "
-        &gt;
-            &lt;span&gt;hello i am a little small text&lt;/span&gt;
-        &lt;/p&gt;
-    &lt;/body&gt;
+        &gt;hello i am a little small text&lt;/p&gt;&lt;/body&gt;
 &lt;/html&gt;</property>
       <property name="shotcut:usePointSize">1</property>
       <property name="shotcut:pointSize">60</property>

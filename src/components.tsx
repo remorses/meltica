@@ -495,8 +495,7 @@ export function Text({
                 font-weight: 400;
                 font-style: normal;
             "
-        >
-            <p
+        ><p
                 align="center"
                 style="
                     margin-top: 0px;
@@ -505,11 +504,9 @@ export function Text({
                     margin-right: 0px;
                     -qt-block-indent: 0;
                     text-indent: 0px;
+                    border: 2px solid #ffffff;
                 "
-            >
-                <span>${text}</span>
-            </p>
-        </body>
+            >${text}</p></body>
     </html>
 
     `
