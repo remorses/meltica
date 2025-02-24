@@ -7,7 +7,8 @@ import {
     renderingContext,
 } from '@/rendering'
 import dedent from 'dedent'
-import { Fragment } from 'jsx-xml'
+
+import { render, Fragment } from 'jsx-xml'
 import { type } from 'os'
 import path from 'path'
 import { text } from 'stream/consumers'
@@ -429,9 +430,9 @@ export function VideoRoot({
     )
 }
 
-export function Text({
+export function RichText({
     id,
-    text,
+    html: htmlText,
     left: left_,
     top: top_,
     width: width_,
@@ -442,7 +443,7 @@ export function Text({
     duration,
 }: {
     id: string
-    text: string
+    html: any
     left?: number
     top?: number
     width?: number
@@ -464,6 +465,11 @@ export function Text({
         })
         return null
     }
+    const renderedHtmlText = render(htmlText, {}).end({
+        headless: true,
+        allowEmptyTags: true,
+        indentTextOnlyNodes: false,
+    })
     const html = dedent/* html */ `
     <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
     <html>
@@ -495,7 +501,7 @@ export function Text({
                 font-weight: 400;
                 font-style: normal;
             "
-        ><p
+        ><
                 align="center"
                 style="
                     margin-top: 0px;
@@ -506,7 +512,7 @@ export function Text({
                     text-indent: 0px;
                     border: 2px solid #ffffff;
                 "
-            >${text}</p></body>
+            >${renderedHtmlText}</body>
     </html>
 
     `

@@ -1,0 +1,20 @@
+<mlt>
+  <tractor>
+    <playlist>
+      <producer id="foo" in="100" out="149">
+        <property name="resource">recording.mov</property>
+      </producer>
+      <blank length="25"/>
+      <entry producer="foo" in="10" out="59"/>
+    </playlist>
+    <playlist>
+      <blank length="25"/>
+      <producer id="bar" in="100" out="199">
+        <property name="resource">recording.mov</property>
+      </producer>
+      <entry out="99" producer="bar"/>
+    </playlist>
+  </tractor>
+  <filter mlt_service="greyscale" track="0"/>
+  <transition mlt_service="luma" in="25" out="49" a_track="0" b_track="1"/>
+</mlt>

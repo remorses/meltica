@@ -197,9 +197,8 @@
             font-weight: 400;
             font-style: normal;
         "
-    &gt;&lt;p
+    &gt;&lt;
             align="center"
-            valign="center"
             style="
                 margin-top: 0px;
                 margin-bottom: 0px;
@@ -209,7 +208,7 @@
                 text-indent: 0px;
                 border: 2px solid #ffffff;
             "
-        &gt;hello i am a little small text&lt;/p&gt;&lt;/body&gt;
+        &gt;&lt;div align="center"&gt;&lt;div&gt;hello i am a &lt;/div&gt;&lt;br&gt;&lt;/br&gt;&lt;div style="color: red" align="right"&gt;little small text&lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
 &lt;/html&gt;</property>
       <property name="shotcut:usePointSize">1</property>
       <property name="shotcut:pointSize">60</property>

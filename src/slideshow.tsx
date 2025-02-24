@@ -5,10 +5,11 @@ import {
     PanningAnimation,
     Track,
     VideoRoot,
-    Text,
+    RichText,
 } from '@/components'
 import { formatSecondsToTime, renderToVideo, renderToXml } from '@/rendering'
 import { writeFileSync } from 'fs'
+import { Fragment } from 'jsx-xml'
 
 function Video({}) {
     return (
@@ -49,7 +50,18 @@ function Video({}) {
                 </Asset>
             </Track>
             <Track id={'titles'}>
-                <Text duration={4} top={200} id='text1' text='hello i am a little small text' />
+                <RichText
+                    duration={4}
+                    top={200}
+                    id='text1'
+                    html={
+                        <div align='center'>
+                            <div>hello i am a </div>
+                            <br />
+                            <div style='color: red' align='right'>little small text</div>
+                        </div>
+                    }
+                />
             </Track>
             <Track id={'audio1'}>
                 <BlankSpace length={1} />
