@@ -489,7 +489,7 @@ export function Text({
         </head>
         <body
             style="
-                font-family: 'Inter';
+                font-family: 'Inter', '.AppleSystemUIFont', sans-serif;
                 font-size: ${fontSize}pt;
                 color: ${color};
                 font-weight: 400;

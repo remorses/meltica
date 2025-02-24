@@ -151,7 +151,7 @@
     <property name="meta.shotcut.vui">1</property>
     <filter id="text1Filter" out="00:00:03.960">
       <property name="argument">text</property>
-      <property name="geometry">0 0 1080 100 1</property>
+      <property name="geometry">0 200 1080 100 1</property>
       <property name="family">Helvetica</property>
       <property name="size">60</property>
       <property name="weight">7000</property>
@@ -191,7 +191,7 @@
     &lt;/head&gt;
     &lt;body
         style="
-            font-family: 'Inter';
+            font-family: 'Inter', '.AppleSystemUIFont', sans-serif;
             font-size: 70pt;
             color: #fff;
             font-weight: 400;
@@ -199,6 +199,7 @@
         "
     &gt;&lt;p
             align="center"
+            valign="center"
             style="
                 margin-top: 0px;
                 margin-bottom: 0px;
