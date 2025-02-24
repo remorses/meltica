@@ -251,12 +251,14 @@ export function Track({ id: trackId, name = 'track', children }) {
                     const producer = context.producers.find(
                         (p) => p.id === x.id,
                     )
+                    let inTime = formatSecondsToTime(
+                        x.in ?? producer?.attributes.in,
+                    )
+                    
                     return (
                         <entry
                             producer={x.id}
-                            in={formatSecondsToTime(
-                                x.in ?? producer?.attributes.in,
-                            )}
+                            in={inTime}
                             out={formatSecondsToTime(
                                 x.out ?? producer?.attributes.out,
                             )}
@@ -346,7 +348,11 @@ export function VideoRoot({
                 <playlist id='main_bin'>
                     <property name='xml_retain'>1</property>
                 </playlist>
-                <producer id='black' in='00:00:00.000' out={backgroundDuration}>
+                <producer
+                    id='black'
+                    in={formatSecondsToTime(0)}
+                    out={backgroundDuration}
+                >
                     <property name='length'>{backgroundDuration}</property>
                     <property name='eof'>pause</property>
                     <property name='resource'>0</property>
@@ -358,14 +364,14 @@ export function VideoRoot({
                 <playlist id='background'>
                     <entry
                         producer='black'
-                        in='00:00:00.000'
+                        in={formatSecondsToTime(0)}
                         out={backgroundDuration}
                     />
                 </playlist>
                 <tractor
                     id='mainTractor'
                     title='Shotcut version 25.01.25'
-                    // in={formatSecondsToTime(0)}
+                    in={formatSecondsToTime(0)}
                     // out={formatSecondsToTime(3)}
                 >
                     <property name='shotcut'>1</property>
@@ -496,7 +502,7 @@ export function RichText({
         <body
             style="
                 font-family: 'Inter', '.AppleSystemUIFont', sans-serif;
-                font-size: ${fontSize}pt;
+                font-size: ${fontSize};
                 color: ${color};
                 font-weight: 400;
                 font-style: normal;

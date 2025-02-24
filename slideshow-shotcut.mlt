@@ -192,7 +192,7 @@
     &lt;body
         style="
             font-family: 'Inter', '.AppleSystemUIFont', sans-serif;
-            font-size: 70pt;
+            font-size: 70;
             color: #fff;
             font-weight: 400;
             font-style: normal;
@@ -259,7 +259,7 @@
     &lt;body
         style="
             font-family: 'Inter', '.AppleSystemUIFont', sans-serif;
-            font-size: 70pt;
+            font-size: 70;
             color: #fff;
             font-weight: 400;
             font-style: normal;
@@ -326,7 +326,7 @@
     &lt;body
         style="
             font-family: 'Inter', '.AppleSystemUIFont', sans-serif;
-            font-size: 70pt;
+            font-size: 70;
             color: #fff;
             font-weight: 400;
             font-style: normal;
@@ -393,7 +393,7 @@
     &lt;body
         style="
             font-family: 'Inter', '.AppleSystemUIFont', sans-serif;
-            font-size: 70pt;
+            font-size: 70;
             color: #fff;
             font-weight: 400;
             font-style: normal;
@@ -460,7 +460,7 @@
     &lt;body
         style="
             font-family: 'Inter', '.AppleSystemUIFont', sans-serif;
-            font-size: 70pt;
+            font-size: 70;
             color: #fff;
             font-weight: 400;
             font-style: normal;
@@ -527,7 +527,7 @@
     &lt;body
         style="
             font-family: 'Inter', '.AppleSystemUIFont', sans-serif;
-            font-size: 70pt;
+            font-size: 70;
             color: #fff;
             font-weight: 400;
             font-style: normal;
@@ -594,7 +594,7 @@
     &lt;body
         style="
             font-family: 'Inter', '.AppleSystemUIFont', sans-serif;
-            font-size: 70pt;
+            font-size: 70;
             color: #fff;
             font-weight: 400;
             font-style: normal;
@@ -661,7 +661,7 @@
     &lt;body
         style="
             font-family: 'Inter', '.AppleSystemUIFont', sans-serif;
-            font-size: 70pt;
+            font-size: 70;
             color: #fff;
             font-weight: 400;
             font-style: normal;
@@ -728,7 +728,7 @@
     &lt;body
         style="
             font-family: 'Inter', '.AppleSystemUIFont', sans-serif;
-            font-size: 70pt;
+            font-size: 70;
             color: #fff;
             font-weight: 400;
             font-style: normal;
@@ -795,7 +795,7 @@
     &lt;body
         style="
             font-family: 'Inter', '.AppleSystemUIFont', sans-serif;
-            font-size: 70pt;
+            font-size: 70;
             color: #fff;
             font-weight: 400;
             font-style: normal;
@@ -862,7 +862,7 @@
     &lt;body
         style="
             font-family: 'Inter', '.AppleSystemUIFont', sans-serif;
-            font-size: 70pt;
+            font-size: 70;
             color: #fff;
             font-weight: 400;
             font-style: normal;
@@ -929,7 +929,7 @@
     &lt;body
         style="
             font-family: 'Inter', '.AppleSystemUIFont', sans-serif;
-            font-size: 70pt;
+            font-size: 70;
             color: #fff;
             font-weight: 400;
             font-style: normal;
@@ -1037,7 +1037,7 @@
   <playlist id="background">
     <entry producer="black" in="00:00:00.000" out="2777:46:39.000"/>
   </playlist>
-  <tractor id="mainTractor" title="Shotcut version 25.01.25">
+  <tractor id="mainTractor" title="Shotcut version 25.01.25" in="00:00:00.000">
     <property name="shotcut">1</property>
     <property name="shotcut:projectAudioChannels">2</property>
     <property name="shotcut:projectFolder">0</property>
