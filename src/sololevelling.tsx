@@ -25,7 +25,7 @@ function Video({}) {
             width={1080}
             height={1920}
             duration={duration}
-            resultFilePath={'slideshow.mp4'}
+            resultFilePath={'sololevelling.mp4'}
         >
             <Track id={'images'}>
                 {allImages.map((filepath, i) => (

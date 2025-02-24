@@ -15,6 +15,7 @@ function Video({}) {
             fps={30}
             width={1080}
             height={1920}
+            duration={6}
             resultFilePath={'slideshow.mp4'}
         >
             <Track id={'video1'}>
@@ -23,7 +24,7 @@ function Video({}) {
                     filepath={'recording.mov'}
                     id={'videoExample'}
                     in='00:00:00.000'
-                    out='00:00:04.467'
+                    out='3'
                 >
                     <PanningAnimation />
                 </Asset>
@@ -45,18 +46,10 @@ function Video({}) {
                 >
                     <PanningAnimation />
                 </Asset>
-                <Asset
-                    type='image'
-                    id={'producer2'}
-                    filepath={'sololevelling/page-002.jpg'}
-                    in={0}
-                    out={4}
-                >
-                    <PanningAnimation />
-                </Asset>
+               
             </Track>
             <Track id={'audio1'}>
-                <BlankSpace length={formatSecondsToTime(1)} />
+                <BlankSpace length={1} />
                 <Asset
                     type='audio'
                     filepath={'narrator.wav'}
