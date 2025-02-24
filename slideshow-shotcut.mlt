@@ -2,7 +2,7 @@
 <mlt LC_NUMERIC="C" version="7.30.0" title="Shotcut version 25.01.25" producer="main_bin" root="/Users/morse/Documents/kdenlive">
   <consumer ab="160k" acodec="aac" channels="2" crf="23" deinterlacer="onefield" f="mp4" g="15" in="0" out="00:04:20.000" mlt_service="avformat" movflags="+faststart" preset="veryfast" real_time="-1" rescale="bilinear" target="slideshow.mp4" threads="0" vcodec="libx264"/>
   <profile description="PAL 4:3 DV or DVD" width="1080" height="1920" progressive="1" sample_aspect_num="1" sample_aspect_den="1" display_aspect_num="9" display_aspect_den="16" frame_rate_num="30" frame_rate_den="1" colorspace="709"/>
-  <producer id="producer0" in="0" out="14999">
+  <producer id="producer0" in="00:00:00.000" out="00:08:20.487">
     <property name="length">15000</property>
     <property name="eof">pause</property>
     <property name="resource">sololevelling/page-000.jpg</property>
@@ -32,7 +32,7 @@
       <property name="transition.threads">0</property>
     </filter>
   </producer>
-  <producer id="producer1" in="0" out="14999">
+  <producer id="producer1" in="00:00:00.000" out="00:08:20.487">
     <property name="length">15000</property>
     <property name="eof">pause</property>
     <property name="resource">sololevelling/page-001.jpg</property>
@@ -62,7 +62,7 @@
       <property name="transition.threads">0</property>
     </filter>
   </producer>
-  <producer id="producer2" in="0" out="14999">
+  <producer id="producer2" in="00:00:00.000" out="00:08:20.487">
     <property name="length">15000</property>
     <property name="eof">pause</property>
     <property name="resource">sololevelling/page-002.jpg</property>
@@ -92,7 +92,7 @@
       <property name="transition.threads">0</property>
     </filter>
   </producer>
-  <producer id="producer3" in="0" out="14999">
+  <producer id="producer3" in="00:00:00.000" out="00:08:20.487">
     <property name="length">15000</property>
     <property name="eof">pause</property>
     <property name="resource">sololevelling/page-003.jpg</property>
@@ -122,7 +122,7 @@
       <property name="transition.threads">0</property>
     </filter>
   </producer>
-  <producer id="producer4" in="0" out="14999">
+  <producer id="producer4" in="00:00:00.000" out="00:08:20.487">
     <property name="length">15000</property>
     <property name="eof">pause</property>
     <property name="resource">sololevelling/page-004.jpg</property>
@@ -152,7 +152,7 @@
       <property name="transition.threads">0</property>
     </filter>
   </producer>
-  <producer id="producer5" in="0" out="14999">
+  <producer id="producer5" in="00:00:00.000" out="00:08:20.487">
     <property name="length">15000</property>
     <property name="eof">pause</property>
     <property name="resource">sololevelling/page-005.jpg</property>
@@ -182,7 +182,7 @@
       <property name="transition.threads">0</property>
     </filter>
   </producer>
-  <producer id="producer6" in="0" out="14999">
+  <producer id="producer6" in="00:00:00.000" out="00:08:20.487">
     <property name="length">15000</property>
     <property name="eof">pause</property>
     <property name="resource">sololevelling/page-006.jpg</property>
@@ -212,7 +212,7 @@
       <property name="transition.threads">0</property>
     </filter>
   </producer>
-  <producer id="producer7" in="0" out="14999">
+  <producer id="producer7" in="00:00:00.000" out="00:08:20.487">
     <property name="length">15000</property>
     <property name="eof">pause</property>
     <property name="resource">sololevelling/page-007.jpg</property>
@@ -242,7 +242,7 @@
       <property name="transition.threads">0</property>
     </filter>
   </producer>
-  <producer id="producer8" in="0" out="14999">
+  <producer id="producer8" in="00:00:00.000" out="00:08:20.487">
     <property name="length">15000</property>
     <property name="eof">pause</property>
     <property name="resource">sololevelling/page-008.jpg</property>
@@ -272,7 +272,7 @@
       <property name="transition.threads">0</property>
     </filter>
   </producer>
-  <producer id="producer9" in="0" out="14999">
+  <producer id="producer9" in="00:00:00.000" out="00:08:20.487">
     <property name="length">15000</property>
     <property name="eof">pause</property>
     <property name="resource">sololevelling/page-009.jpg</property>
@@ -302,7 +302,7 @@
       <property name="transition.threads">0</property>
     </filter>
   </producer>
-  <producer id="producer10" in="0" out="14999">
+  <producer id="producer10" in="00:00:00.000" out="00:08:20.487">
     <property name="length">15000</property>
     <property name="eof">pause</property>
     <property name="resource">sololevelling/page-010.jpg</property>
@@ -332,7 +332,7 @@
       <property name="transition.threads">0</property>
     </filter>
   </producer>
-  <producer id="producer11" in="0" out="14999">
+  <producer id="producer11" in="00:00:00.000" out="00:08:20.487">
     <property name="length">15000</property>
     <property name="eof">pause</property>
     <property name="resource">sololevelling/page-011.jpg</property>
@@ -362,7 +362,7 @@
       <property name="transition.threads">0</property>
     </filter>
   </producer>
-  <producer id="producer12" in="0" out="14999">
+  <producer id="producer12" in="00:00:00.000" out="00:08:20.487">
     <property name="length">15000</property>
     <property name="eof">pause</property>
     <property name="resource">sololevelling/page-012.jpg</property>
@@ -392,7 +392,7 @@
       <property name="transition.threads">0</property>
     </filter>
   </producer>
-  <producer id="producer13" in="0" out="14999">
+  <producer id="producer13" in="00:00:00.000" out="00:08:20.487">
     <property name="length">15000</property>
     <property name="eof">pause</property>
     <property name="resource">sololevelling/page-013.jpg</property>
@@ -422,7 +422,7 @@
       <property name="transition.threads">0</property>
     </filter>
   </producer>
-  <producer id="producer14" in="0" out="14999">
+  <producer id="producer14" in="00:00:00.000" out="00:08:20.487">
     <property name="length">15000</property>
     <property name="eof">pause</property>
     <property name="resource">sololevelling/page-014.jpg</property>
@@ -452,7 +452,7 @@
       <property name="transition.threads">0</property>
     </filter>
   </producer>
-  <producer id="producer15" in="0" out="14999">
+  <producer id="producer15" in="00:00:00.000" out="00:08:20.487">
     <property name="length">15000</property>
     <property name="eof">pause</property>
     <property name="resource">sololevelling/page-015.jpg</property>
@@ -482,7 +482,7 @@
       <property name="transition.threads">0</property>
     </filter>
   </producer>
-  <producer id="producer16" in="0" out="14999">
+  <producer id="producer16" in="00:00:00.000" out="00:08:20.487">
     <property name="length">15000</property>
     <property name="eof">pause</property>
     <property name="resource">sololevelling/page-016.jpg</property>
@@ -512,7 +512,7 @@
       <property name="transition.threads">0</property>
     </filter>
   </producer>
-  <producer id="producer17" in="0" out="14999">
+  <producer id="producer17" in="00:00:00.000" out="00:08:20.487">
     <property name="length">15000</property>
     <property name="eof">pause</property>
     <property name="resource">sololevelling/page-017.jpg</property>
@@ -542,7 +542,7 @@
       <property name="transition.threads">0</property>
     </filter>
   </producer>
-  <producer id="producer18" in="0" out="14999">
+  <producer id="producer18" in="00:00:00.000" out="00:08:20.487">
     <property name="length">15000</property>
     <property name="eof">pause</property>
     <property name="resource">sololevelling/page-018.jpg</property>
@@ -572,7 +572,7 @@
       <property name="transition.threads">0</property>
     </filter>
   </producer>
-  <producer id="producer19" in="0" out="14999">
+  <producer id="producer19" in="00:00:00.000" out="00:08:20.487">
     <property name="length">15000</property>
     <property name="eof">pause</property>
     <property name="resource">sololevelling/page-019.jpg</property>
@@ -602,7 +602,7 @@
       <property name="transition.threads">0</property>
     </filter>
   </producer>
-  <producer id="producer20" in="0" out="14999">
+  <producer id="producer20" in="00:00:00.000" out="00:08:20.487">
     <property name="length">15000</property>
     <property name="eof">pause</property>
     <property name="resource">sololevelling/page-020.jpg</property>
@@ -632,7 +632,7 @@
       <property name="transition.threads">0</property>
     </filter>
   </producer>
-  <producer id="producer21" in="0" out="14999">
+  <producer id="producer21" in="00:00:00.000" out="00:08:20.487">
     <property name="length">15000</property>
     <property name="eof">pause</property>
     <property name="resource">sololevelling/page-021.jpg</property>
@@ -662,7 +662,7 @@
       <property name="transition.threads">0</property>
     </filter>
   </producer>
-  <producer id="producer22" in="0" out="14999">
+  <producer id="producer22" in="00:00:00.000" out="00:08:20.487">
     <property name="length">15000</property>
     <property name="eof">pause</property>
     <property name="resource">sololevelling/page-022.jpg</property>
@@ -692,7 +692,7 @@
       <property name="transition.threads">0</property>
     </filter>
   </producer>
-  <producer id="producer23" in="0" out="14999">
+  <producer id="producer23" in="00:00:00.000" out="00:08:20.487">
     <property name="length">15000</property>
     <property name="eof">pause</property>
     <property name="resource">sololevelling/page-023.jpg</property>
@@ -722,7 +722,7 @@
       <property name="transition.threads">0</property>
     </filter>
   </producer>
-  <producer id="producer24" in="0" out="14999">
+  <producer id="producer24" in="00:00:00.000" out="00:08:20.487">
     <property name="length">15000</property>
     <property name="eof">pause</property>
     <property name="resource">sololevelling/page-024.jpg</property>
@@ -752,7 +752,7 @@
       <property name="transition.threads">0</property>
     </filter>
   </producer>
-  <producer id="producer25" in="0" out="14999">
+  <producer id="producer25" in="00:00:00.000" out="00:08:20.487">
     <property name="length">15000</property>
     <property name="eof">pause</property>
     <property name="resource">sololevelling/page-025.jpg</property>
@@ -811,7 +811,7 @@
     <entry producer="producer24" in="00:00:00.000" out="00:00:10.000"/>
     <entry producer="producer25" in="00:00:00.000" out="00:00:10.000"/>
   </playlist>
-  <chain id="chain0" in="0" out="435">
+  <chain id="chain0" in="00:00:00.000" out="00:00:14.514">
     <property name="length">436</property>
     <property name="eof">pause</property>
     <property name="resource">narrator.wav</property>
@@ -837,9 +837,9 @@
     <property name="shotcut:audio">1</property>
     <property name="shotcut:name">track</property>
     <blank length="00:00:01.000"/>
-    <entry producer="chain0" in="00:00:00.000" out="00:07:15.000"/>
+    <entry producer="chain0" in="00:00:00.000" out="00:00:14.514"/>
   </playlist>
-  <chain id="chain1" in="0" out="4049">
+  <chain id="chain1" in="00:00:00.000" out="00:02:15.115">
     <property name="length">4050</property>
     <property name="eof">pause</property>
     <property name="resource">edapollo - Let It Go [bQ5glYCsv94].mp3</property>

@@ -251,17 +251,33 @@ export function formatSecondsToTime(secs?: number | string) {
     return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}.${milliseconds.toString().padStart(3, '0')}`
 }
 
+function deduplicate<T, K>(array: T[], keyFn: (item: T) => K): T[] {
+    const seen = new Set<K>()
+    return array.filter((item) => {
+        const key = keyFn(item)
+        if (seen.has(key)) {
+            return false
+        }
+        seen.add(key)
+        return true
+    })
+}
+
 function generateProducersXml(assets: AssetRegistration[]) {
     const timestamp = Date.now()
     const tempXmlFile = path.join(os.tmpdir(), `test-${timestamp}.mlt`)
     fs.writeFileSync(tempXmlFile, '')
     // TODO the fps is important here and should be parametrized in this step because melt outputs the xml with durations in fps format instead of seconds or durations. now it is hardcoded to 30fps. but melt only supports profile names and not all attributes.
     const profile = `hdv_1080_30p`
+    // https://github.com/mltframework/mlt/blob/master/src/modules/xml/consumer_xml.yml#L91
+    const timeFormat = 'clock'
     execSync(
         `melt ${assets
             .filter((x) => x.type !== 'blank')
             .map((a) => `"${a.filepath}" id=${a.id}`)
-            .join(' ')} -profile ${profile} -consumer xml:${tempXmlFile}`,
+            .join(
+                ' ',
+            )} -profile ${profile} -consumer xml:${tempXmlFile} time_format=${timeFormat}`,
     )
     const xml = fs.readFileSync(tempXmlFile).toString()
 
