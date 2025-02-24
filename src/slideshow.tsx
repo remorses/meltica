@@ -55,22 +55,40 @@ function Video({}) {
                         'Lorem ipsum dolor sit amet consectetur adipisicing elit'.split(
                             ' ',
                         )
+                    const colors = [
+                        '#ff0000',
+                        '#00ff00',
+                        '#0000ff',
+                        '#ffff00',
+                        '#ff00ff',
+                        '#00ffff',
+                        '#ff8000',
+                        '#8000ff',
+                        '#0080ff',
+                        '#ff0080',
+                    ]
                     return (
                         <RichText
-                            duration={0.1}
+                            duration={0.2}
                             top={200}
                             id={'text1_' + i}
                             html={
-                                <div align='center'>
-                                    <div>
-                                        {words.map((word, wordIndex) => (
-                                            <span
-                                                style={`color: ${wordIndex < i + 1 ? '#fff' : 'transparent'}`}
-                                            >
-                                                {word}{' '}
-                                            </span>
-                                        ))}
-                                    </div>
+                                <div
+                                    style="margin: 100px; font-size: 150px; font-family: 'Times New Roman', serif;"
+                                    align='center'
+                                >
+                                    {words.map((word, wordIndex) => (
+                                        <div
+                                            align={
+                                                wordIndex % 2 === 0
+                                                    ? 'left'
+                                                    : 'right'
+                                            }
+                                            style={`color: ${wordIndex < i + 1 ? colors[wordIndex % colors.length] : 'transparent'}`}
+                                        >
+                                            {word}{' '}
+                                        </div>
+                                    ))}
                                 </div>
                             }
                         />

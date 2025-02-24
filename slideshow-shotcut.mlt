@@ -208,7 +208,7 @@
                 text-indent: 0px;
                 border: 2px solid #ffffff;
             "
-        &gt;&lt;div align="center"&gt;&lt;div&gt;&lt;span style="color: #fff"&gt;Lorem &lt;/span&gt;&lt;span style="color: transparent"&gt;ipsum &lt;/span&gt;&lt;span style="color: transparent"&gt;dolor &lt;/span&gt;&lt;span style="color: transparent"&gt;sit &lt;/span&gt;&lt;span style="color: transparent"&gt;amet &lt;/span&gt;&lt;span style="color: transparent"&gt;consectetur &lt;/span&gt;&lt;span style="color: transparent"&gt;adipisicing &lt;/span&gt;&lt;span style="color: transparent"&gt;elit &lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
+        &gt;&lt;div style="margin: 100px; font-size: 200px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;div align="left" style="color: #ff0000"&gt;Lorem &lt;/div&gt;&lt;div align="right" style="color: transparent"&gt;ipsum &lt;/div&gt;&lt;div align="left" style="color: transparent"&gt;dolor &lt;/div&gt;&lt;div align="right" style="color: transparent"&gt;sit &lt;/div&gt;&lt;div align="left" style="color: transparent"&gt;amet &lt;/div&gt;&lt;div align="right" style="color: transparent"&gt;consectetur &lt;/div&gt;&lt;div align="left" style="color: transparent"&gt;adipisicing &lt;/div&gt;&lt;div align="right" style="color: transparent"&gt;elit &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
 &lt;/html&gt;</property>
       <property name="shotcut:usePointSize">1</property>
       <property name="shotcut:pointSize">60</property>
@@ -286,7 +286,7 @@
                 text-indent: 0px;
                 border: 2px solid #ffffff;
             "
-        &gt;&lt;div align="center"&gt;&lt;div&gt;&lt;span style="color: #fff"&gt;Lorem &lt;/span&gt;&lt;span style="color: #fff"&gt;ipsum &lt;/span&gt;&lt;span style="color: transparent"&gt;dolor &lt;/span&gt;&lt;span style="color: transparent"&gt;sit &lt;/span&gt;&lt;span style="color: transparent"&gt;amet &lt;/span&gt;&lt;span style="color: transparent"&gt;consectetur &lt;/span&gt;&lt;span style="color: transparent"&gt;adipisicing &lt;/span&gt;&lt;span style="color: transparent"&gt;elit &lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
+        &gt;&lt;div style="margin: 100px; font-size: 200px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;div align="left" style="color: #ff0000"&gt;Lorem &lt;/div&gt;&lt;div align="right" style="color: #00ff00"&gt;ipsum &lt;/div&gt;&lt;div align="left" style="color: transparent"&gt;dolor &lt;/div&gt;&lt;div align="right" style="color: transparent"&gt;sit &lt;/div&gt;&lt;div align="left" style="color: transparent"&gt;amet &lt;/div&gt;&lt;div align="right" style="color: transparent"&gt;consectetur &lt;/div&gt;&lt;div align="left" style="color: transparent"&gt;adipisicing &lt;/div&gt;&lt;div align="right" style="color: transparent"&gt;elit &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
 &lt;/html&gt;</property>
       <property name="shotcut:usePointSize">1</property>
       <property name="shotcut:pointSize">60</property>
@@ -364,7 +364,7 @@
                 text-indent: 0px;
                 border: 2px solid #ffffff;
             "
-        &gt;&lt;div align="center"&gt;&lt;div&gt;&lt;span style="color: #fff"&gt;Lorem &lt;/span&gt;&lt;span style="color: #fff"&gt;ipsum &lt;/span&gt;&lt;span style="color: #fff"&gt;dolor &lt;/span&gt;&lt;span style="color: transparent"&gt;sit &lt;/span&gt;&lt;span style="color: transparent"&gt;amet &lt;/span&gt;&lt;span style="color: transparent"&gt;consectetur &lt;/span&gt;&lt;span style="color: transparent"&gt;adipisicing &lt;/span&gt;&lt;span style="color: transparent"&gt;elit &lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
+        &gt;&lt;div style="margin: 100px; font-size: 200px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;div align="left" style="color: #ff0000"&gt;Lorem &lt;/div&gt;&lt;div align="right" style="color: #00ff00"&gt;ipsum &lt;/div&gt;&lt;div align="left" style="color: #0000ff"&gt;dolor &lt;/div&gt;&lt;div align="right" style="color: transparent"&gt;sit &lt;/div&gt;&lt;div align="left" style="color: transparent"&gt;amet &lt;/div&gt;&lt;div align="right" style="color: transparent"&gt;consectetur &lt;/div&gt;&lt;div align="left" style="color: transparent"&gt;adipisicing &lt;/div&gt;&lt;div align="right" style="color: transparent"&gt;elit &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
 &lt;/html&gt;</property>
       <property name="shotcut:usePointSize">1</property>
       <property name="shotcut:pointSize">60</property>
@@ -442,7 +442,7 @@
                 text-indent: 0px;
                 border: 2px solid #ffffff;
             "
-        &gt;&lt;div align="center"&gt;&lt;div&gt;&lt;span style="color: #fff"&gt;Lorem &lt;/span&gt;&lt;span style="color: #fff"&gt;ipsum &lt;/span&gt;&lt;span style="color: #fff"&gt;dolor &lt;/span&gt;&lt;span style="color: #fff"&gt;sit &lt;/span&gt;&lt;span style="color: transparent"&gt;amet &lt;/span&gt;&lt;span style="color: transparent"&gt;consectetur &lt;/span&gt;&lt;span style="color: transparent"&gt;adipisicing &lt;/span&gt;&lt;span style="color: transparent"&gt;elit &lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
+        &gt;&lt;div style="margin: 100px; font-size: 200px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;div align="left" style="color: #ff0000"&gt;Lorem &lt;/div&gt;&lt;div align="right" style="color: #00ff00"&gt;ipsum &lt;/div&gt;&lt;div align="left" style="color: #0000ff"&gt;dolor &lt;/div&gt;&lt;div align="right" style="color: #ffff00"&gt;sit &lt;/div&gt;&lt;div align="left" style="color: transparent"&gt;amet &lt;/div&gt;&lt;div align="right" style="color: transparent"&gt;consectetur &lt;/div&gt;&lt;div align="left" style="color: transparent"&gt;adipisicing &lt;/div&gt;&lt;div align="right" style="color: transparent"&gt;elit &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
 &lt;/html&gt;</property>
       <property name="shotcut:usePointSize">1</property>
       <property name="shotcut:pointSize">60</property>
@@ -520,7 +520,7 @@
                 text-indent: 0px;
                 border: 2px solid #ffffff;
             "
-        &gt;&lt;div align="center"&gt;&lt;div&gt;&lt;span style="color: #fff"&gt;Lorem &lt;/span&gt;&lt;span style="color: #fff"&gt;ipsum &lt;/span&gt;&lt;span style="color: #fff"&gt;dolor &lt;/span&gt;&lt;span style="color: #fff"&gt;sit &lt;/span&gt;&lt;span style="color: #fff"&gt;amet &lt;/span&gt;&lt;span style="color: transparent"&gt;consectetur &lt;/span&gt;&lt;span style="color: transparent"&gt;adipisicing &lt;/span&gt;&lt;span style="color: transparent"&gt;elit &lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
+        &gt;&lt;div style="margin: 100px; font-size: 200px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;div align="left" style="color: #ff0000"&gt;Lorem &lt;/div&gt;&lt;div align="right" style="color: #00ff00"&gt;ipsum &lt;/div&gt;&lt;div align="left" style="color: #0000ff"&gt;dolor &lt;/div&gt;&lt;div align="right" style="color: #ffff00"&gt;sit &lt;/div&gt;&lt;div align="left" style="color: #ff00ff"&gt;amet &lt;/div&gt;&lt;div align="right" style="color: transparent"&gt;consectetur &lt;/div&gt;&lt;div align="left" style="color: transparent"&gt;adipisicing &lt;/div&gt;&lt;div align="right" style="color: transparent"&gt;elit &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
 &lt;/html&gt;</property>
       <property name="shotcut:usePointSize">1</property>
       <property name="shotcut:pointSize">60</property>
@@ -598,7 +598,7 @@
                 text-indent: 0px;
                 border: 2px solid #ffffff;
             "
-        &gt;&lt;div align="center"&gt;&lt;div&gt;&lt;span style="color: #fff"&gt;Lorem &lt;/span&gt;&lt;span style="color: #fff"&gt;ipsum &lt;/span&gt;&lt;span style="color: #fff"&gt;dolor &lt;/span&gt;&lt;span style="color: #fff"&gt;sit &lt;/span&gt;&lt;span style="color: #fff"&gt;amet &lt;/span&gt;&lt;span style="color: #fff"&gt;consectetur &lt;/span&gt;&lt;span style="color: transparent"&gt;adipisicing &lt;/span&gt;&lt;span style="color: transparent"&gt;elit &lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
+        &gt;&lt;div style="margin: 100px; font-size: 200px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;div align="left" style="color: #ff0000"&gt;Lorem &lt;/div&gt;&lt;div align="right" style="color: #00ff00"&gt;ipsum &lt;/div&gt;&lt;div align="left" style="color: #0000ff"&gt;dolor &lt;/div&gt;&lt;div align="right" style="color: #ffff00"&gt;sit &lt;/div&gt;&lt;div align="left" style="color: #ff00ff"&gt;amet &lt;/div&gt;&lt;div align="right" style="color: #00ffff"&gt;consectetur &lt;/div&gt;&lt;div align="left" style="color: transparent"&gt;adipisicing &lt;/div&gt;&lt;div align="right" style="color: transparent"&gt;elit &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
 &lt;/html&gt;</property>
       <property name="shotcut:usePointSize">1</property>
       <property name="shotcut:pointSize">60</property>
@@ -676,7 +676,7 @@
                 text-indent: 0px;
                 border: 2px solid #ffffff;
             "
-        &gt;&lt;div align="center"&gt;&lt;div&gt;&lt;span style="color: #fff"&gt;Lorem &lt;/span&gt;&lt;span style="color: #fff"&gt;ipsum &lt;/span&gt;&lt;span style="color: #fff"&gt;dolor &lt;/span&gt;&lt;span style="color: #fff"&gt;sit &lt;/span&gt;&lt;span style="color: #fff"&gt;amet &lt;/span&gt;&lt;span style="color: #fff"&gt;consectetur &lt;/span&gt;&lt;span style="color: #fff"&gt;adipisicing &lt;/span&gt;&lt;span style="color: transparent"&gt;elit &lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
+        &gt;&lt;div style="margin: 100px; font-size: 200px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;div align="left" style="color: #ff0000"&gt;Lorem &lt;/div&gt;&lt;div align="right" style="color: #00ff00"&gt;ipsum &lt;/div&gt;&lt;div align="left" style="color: #0000ff"&gt;dolor &lt;/div&gt;&lt;div align="right" style="color: #ffff00"&gt;sit &lt;/div&gt;&lt;div align="left" style="color: #ff00ff"&gt;amet &lt;/div&gt;&lt;div align="right" style="color: #00ffff"&gt;consectetur &lt;/div&gt;&lt;div align="left" style="color: #ff8000"&gt;adipisicing &lt;/div&gt;&lt;div align="right" style="color: transparent"&gt;elit &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
 &lt;/html&gt;</property>
       <property name="shotcut:usePointSize">1</property>
       <property name="shotcut:pointSize">60</property>
@@ -754,7 +754,7 @@
                 text-indent: 0px;
                 border: 2px solid #ffffff;
             "
-        &gt;&lt;div align="center"&gt;&lt;div&gt;&lt;span style="color: #fff"&gt;Lorem &lt;/span&gt;&lt;span style="color: #fff"&gt;ipsum &lt;/span&gt;&lt;span style="color: #fff"&gt;dolor &lt;/span&gt;&lt;span style="color: #fff"&gt;sit &lt;/span&gt;&lt;span style="color: #fff"&gt;amet &lt;/span&gt;&lt;span style="color: #fff"&gt;consectetur &lt;/span&gt;&lt;span style="color: #fff"&gt;adipisicing &lt;/span&gt;&lt;span style="color: #fff"&gt;elit &lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
+        &gt;&lt;div style="margin: 100px; font-size: 200px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;div align="left" style="color: #ff0000"&gt;Lorem &lt;/div&gt;&lt;div align="right" style="color: #00ff00"&gt;ipsum &lt;/div&gt;&lt;div align="left" style="color: #0000ff"&gt;dolor &lt;/div&gt;&lt;div align="right" style="color: #ffff00"&gt;sit &lt;/div&gt;&lt;div align="left" style="color: #ff00ff"&gt;amet &lt;/div&gt;&lt;div align="right" style="color: #00ffff"&gt;consectetur &lt;/div&gt;&lt;div align="left" style="color: #ff8000"&gt;adipisicing &lt;/div&gt;&lt;div align="right" style="color: #8000ff"&gt;elit &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
 &lt;/html&gt;</property>
       <property name="shotcut:usePointSize">1</property>
       <property name="shotcut:pointSize">60</property>
@@ -832,7 +832,7 @@
                 text-indent: 0px;
                 border: 2px solid #ffffff;
             "
-        &gt;&lt;div align="center"&gt;&lt;div&gt;&lt;span style="color: #fff"&gt;Lorem &lt;/span&gt;&lt;span style="color: #fff"&gt;ipsum &lt;/span&gt;&lt;span style="color: #fff"&gt;dolor &lt;/span&gt;&lt;span style="color: #fff"&gt;sit &lt;/span&gt;&lt;span style="color: #fff"&gt;amet &lt;/span&gt;&lt;span style="color: #fff"&gt;consectetur &lt;/span&gt;&lt;span style="color: #fff"&gt;adipisicing &lt;/span&gt;&lt;span style="color: #fff"&gt;elit &lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
+        &gt;&lt;div style="margin: 100px; font-size: 200px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;div align="left" style="color: #ff0000"&gt;Lorem &lt;/div&gt;&lt;div align="right" style="color: #00ff00"&gt;ipsum &lt;/div&gt;&lt;div align="left" style="color: #0000ff"&gt;dolor &lt;/div&gt;&lt;div align="right" style="color: #ffff00"&gt;sit &lt;/div&gt;&lt;div align="left" style="color: #ff00ff"&gt;amet &lt;/div&gt;&lt;div align="right" style="color: #00ffff"&gt;consectetur &lt;/div&gt;&lt;div align="left" style="color: #ff8000"&gt;adipisicing &lt;/div&gt;&lt;div align="right" style="color: #8000ff"&gt;elit &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
 &lt;/html&gt;</property>
       <property name="shotcut:usePointSize">1</property>
       <property name="shotcut:pointSize">60</property>
@@ -910,7 +910,7 @@
                 text-indent: 0px;
                 border: 2px solid #ffffff;
             "
-        &gt;&lt;div align="center"&gt;&lt;div&gt;&lt;span style="color: #fff"&gt;Lorem &lt;/span&gt;&lt;span style="color: #fff"&gt;ipsum &lt;/span&gt;&lt;span style="color: #fff"&gt;dolor &lt;/span&gt;&lt;span style="color: #fff"&gt;sit &lt;/span&gt;&lt;span style="color: #fff"&gt;amet &lt;/span&gt;&lt;span style="color: #fff"&gt;consectetur &lt;/span&gt;&lt;span style="color: #fff"&gt;adipisicing &lt;/span&gt;&lt;span style="color: #fff"&gt;elit &lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
+        &gt;&lt;div style="margin: 100px; font-size: 200px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;div align="left" style="color: #ff0000"&gt;Lorem &lt;/div&gt;&lt;div align="right" style="color: #00ff00"&gt;ipsum &lt;/div&gt;&lt;div align="left" style="color: #0000ff"&gt;dolor &lt;/div&gt;&lt;div align="right" style="color: #ffff00"&gt;sit &lt;/div&gt;&lt;div align="left" style="color: #ff00ff"&gt;amet &lt;/div&gt;&lt;div align="right" style="color: #00ffff"&gt;consectetur &lt;/div&gt;&lt;div align="left" style="color: #ff8000"&gt;adipisicing &lt;/div&gt;&lt;div align="right" style="color: #8000ff"&gt;elit &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
 &lt;/html&gt;</property>
       <property name="shotcut:usePointSize">1</property>
       <property name="shotcut:pointSize">60</property>
@@ -988,7 +988,7 @@
                 text-indent: 0px;
                 border: 2px solid #ffffff;
             "
-        &gt;&lt;div align="center"&gt;&lt;div&gt;&lt;span style="color: #fff"&gt;Lorem &lt;/span&gt;&lt;span style="color: #fff"&gt;ipsum &lt;/span&gt;&lt;span style="color: #fff"&gt;dolor &lt;/span&gt;&lt;span style="color: #fff"&gt;sit &lt;/span&gt;&lt;span style="color: #fff"&gt;amet &lt;/span&gt;&lt;span style="color: #fff"&gt;consectetur &lt;/span&gt;&lt;span style="color: #fff"&gt;adipisicing &lt;/span&gt;&lt;span style="color: #fff"&gt;elit &lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
+        &gt;&lt;div style="margin: 100px; font-size: 200px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;div align="left" style="color: #ff0000"&gt;Lorem &lt;/div&gt;&lt;div align="right" style="color: #00ff00"&gt;ipsum &lt;/div&gt;&lt;div align="left" style="color: #0000ff"&gt;dolor &lt;/div&gt;&lt;div align="right" style="color: #ffff00"&gt;sit &lt;/div&gt;&lt;div align="left" style="color: #ff00ff"&gt;amet &lt;/div&gt;&lt;div align="right" style="color: #00ffff"&gt;consectetur &lt;/div&gt;&lt;div align="left" style="color: #ff8000"&gt;adipisicing &lt;/div&gt;&lt;div align="right" style="color: #8000ff"&gt;elit &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
 &lt;/html&gt;</property>
       <property name="shotcut:usePointSize">1</property>
       <property name="shotcut:pointSize">60</property>
@@ -1066,7 +1066,7 @@
                 text-indent: 0px;
                 border: 2px solid #ffffff;
             "
-        &gt;&lt;div align="center"&gt;&lt;div&gt;&lt;span style="color: #fff"&gt;Lorem &lt;/span&gt;&lt;span style="color: #fff"&gt;ipsum &lt;/span&gt;&lt;span style="color: #fff"&gt;dolor &lt;/span&gt;&lt;span style="color: #fff"&gt;sit &lt;/span&gt;&lt;span style="color: #fff"&gt;amet &lt;/span&gt;&lt;span style="color: #fff"&gt;consectetur &lt;/span&gt;&lt;span style="color: #fff"&gt;adipisicing &lt;/span&gt;&lt;span style="color: #fff"&gt;elit &lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
+        &gt;&lt;div style="margin: 100px; font-size: 200px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;div align="left" style="color: #ff0000"&gt;Lorem &lt;/div&gt;&lt;div align="right" style="color: #00ff00"&gt;ipsum &lt;/div&gt;&lt;div align="left" style="color: #0000ff"&gt;dolor &lt;/div&gt;&lt;div align="right" style="color: #ffff00"&gt;sit &lt;/div&gt;&lt;div align="left" style="color: #ff00ff"&gt;amet &lt;/div&gt;&lt;div align="right" style="color: #00ffff"&gt;consectetur &lt;/div&gt;&lt;div align="left" style="color: #ff8000"&gt;adipisicing &lt;/div&gt;&lt;div align="right" style="color: #8000ff"&gt;elit &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
 &lt;/html&gt;</property>
       <property name="shotcut:usePointSize">1</property>
       <property name="shotcut:pointSize">60</property>
@@ -1075,18 +1075,18 @@
   </producer>
   <playlist id="titles">
     <property name="shotcut:name">track</property>
-    <entry producer="text1_0" in="00:00:00.000" out="00:00:00.100"/>
-    <entry producer="text1_1" in="00:00:00.000" out="00:00:00.100"/>
-    <entry producer="text1_2" in="00:00:00.000" out="00:00:00.100"/>
-    <entry producer="text1_3" in="00:00:00.000" out="00:00:00.100"/>
-    <entry producer="text1_4" in="00:00:00.000" out="00:00:00.100"/>
-    <entry producer="text1_5" in="00:00:00.000" out="00:00:00.100"/>
-    <entry producer="text1_6" in="00:00:00.000" out="00:00:00.100"/>
-    <entry producer="text1_7" in="00:00:00.000" out="00:00:00.100"/>
-    <entry producer="text1_8" in="00:00:00.000" out="00:00:00.100"/>
-    <entry producer="text1_9" in="00:00:00.000" out="00:00:00.100"/>
-    <entry producer="text1_10" in="00:00:00.000" out="00:00:00.100"/>
-    <entry producer="text1_11" in="00:00:00.000" out="00:00:00.100"/>
+    <entry producer="text1_0" in="00:00:00.000" out="00:00:00.200"/>
+    <entry producer="text1_1" in="00:00:00.000" out="00:00:00.200"/>
+    <entry producer="text1_2" in="00:00:00.000" out="00:00:00.200"/>
+    <entry producer="text1_3" in="00:00:00.000" out="00:00:00.200"/>
+    <entry producer="text1_4" in="00:00:00.000" out="00:00:00.200"/>
+    <entry producer="text1_5" in="00:00:00.000" out="00:00:00.200"/>
+    <entry producer="text1_6" in="00:00:00.000" out="00:00:00.200"/>
+    <entry producer="text1_7" in="00:00:00.000" out="00:00:00.200"/>
+    <entry producer="text1_8" in="00:00:00.000" out="00:00:00.200"/>
+    <entry producer="text1_9" in="00:00:00.000" out="00:00:00.200"/>
+    <entry producer="text1_10" in="00:00:00.000" out="00:00:00.200"/>
+    <entry producer="text1_11" in="00:00:00.000" out="00:00:00.200"/>
   </playlist>
   <chain id="chain0" in="00:00:00.000" out="00:00:14.514">
     <property name="length">436</property>
