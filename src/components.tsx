@@ -269,6 +269,45 @@ export function Vignette({ id = 'vignette', aspect = 0.5, clearCenter = 0, soft 
     )
 }
 
+export function Transform({ 
+    id = 'qtblend', 
+    width, 
+    height, 
+    left = 0, 
+    top = 0, 
+    rotation = 0, 
+    compositing = 0, 
+    distort = 0 
+}: { 
+    id?: string; 
+    width?: number; 
+    height?: number; 
+    left?: number; 
+    top?: number; 
+    rotation?: number; 
+    compositing?: number; 
+    distort?: number; 
+}) {
+    const videoContext = useContext(videoRootContext)!;
+    const videoWidth = width || videoContext.width || 1920;
+    const videoHeight = height || videoContext.height || 1080;
+    const rect = `${left} ${top} ${videoWidth} ${videoHeight} 1.000000`;
+    
+    return (
+        <filter id={id}>
+            <property name='rotate_center'>1</property>
+            <property name='mlt_service'>qtblend</property>
+            <property name='kdenlive_id'>qtblend</property>
+            <property name='compositing'>{compositing}</property>
+            <property name='distort'>{distort}</property>
+            <property name='rect'>{`00:00:00.000=${rect}`}</property>
+            <property name='rotation'>{`00:00:00.000=${rotation}`}</property>
+            <property name='kdenlive:collapsed'>0</property>
+        </filter>
+    )
+}
+
+
 
 export function BlankSpace({ length }) {
     const context = useContext(renderingContext)

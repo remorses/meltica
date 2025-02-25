@@ -417,7 +417,7 @@
     <property name="kdenlive_id">qtblend</property>
     <property name="compositing">0</property>
     <property name="distort">0</property>
-    <property name="rect">00:00:00.000=142 141 1778 939 1.000000</property>
+    <property name="rect">00:00:00.000=252 197 1778 939 1.000000</property>
     <property name="rotation">00:00:00.000=0</property>
     <property name="kdenlive:collapsed">0</property>
    </filter>
