@@ -19,17 +19,13 @@
     <property name="shotcut:caption">page-000.jpg</property>
     <filter id="producer0transformFilter">
       <property name="background">color:#00000000</property>
-      <property name="mlt_service">affine</property>
-      <property name="shotcut:filter">affineSizePosition</property>
-      <property name="transition.fix_rotate_x">0</property>
-      <property name="transition.fill">1</property>
-      <property name="transition.distort">0</property>
-      <property name="transition.rect">00:00:00.000=-216 -351.3 1080 3513 1;00:00:10.000=0 -1593 1080 3513 1</property>
-      <property name="transition.valign">middle</property>
-      <property name="transition.halign">center</property>
-      <property name="shotcut:animIn">00:00:00.000</property>
-      <property name="shotcut:animOut">00:00:00.000</property>
-      <property name="transition.threads">0</property>
+      <property name="mlt_service">qtblend</property>
+      <property name="shotcut:filter">sizePosition</property>
+      <property name="compositing">0</property>
+      <property name="distort">0</property>
+      <property name="rect">00:00:00.000=-216 -351.3 1080 3513 1;00:00:10.000=0 -1593 1080 3513 1</property>
+      <property name="rotation">00:00:00.000=0</property>
+      <property name="kdenlive:collapsed">0</property>
     </filter>
   </producer>
   <producer id="producer1" in="00:00:00.000" out="00:08:20.487">
@@ -49,17 +45,13 @@
     <property name="shotcut:caption">page-001.jpg</property>
     <filter id="producer1transformFilter">
       <property name="background">color:#00000000</property>
-      <property name="mlt_service">affine</property>
-      <property name="shotcut:filter">affineSizePosition</property>
-      <property name="transition.fix_rotate_x">0</property>
-      <property name="transition.fill">1</property>
-      <property name="transition.distort">0</property>
-      <property name="transition.rect">00:00:00.000=-216 -351.3 1080 3513 1;00:00:10.000=0 -1593 1080 3513 1</property>
-      <property name="transition.valign">middle</property>
-      <property name="transition.halign">center</property>
-      <property name="shotcut:animIn">00:00:00.000</property>
-      <property name="shotcut:animOut">00:00:00.000</property>
-      <property name="transition.threads">0</property>
+      <property name="mlt_service">qtblend</property>
+      <property name="shotcut:filter">sizePosition</property>
+      <property name="compositing">0</property>
+      <property name="distort">0</property>
+      <property name="rect">00:00:00.000=-216 -351.3 1080 3513 1;00:00:10.000=0 -1593 1080 3513 1</property>
+      <property name="rotation">00:00:00.000=0</property>
+      <property name="kdenlive:collapsed">0</property>
     </filter>
   </producer>
   <producer id="producer2" in="00:00:00.000" out="00:08:20.487">
@@ -79,17 +71,13 @@
     <property name="shotcut:caption">page-002.jpg</property>
     <filter id="producer2transformFilter">
       <property name="background">color:#00000000</property>
-      <property name="mlt_service">affine</property>
-      <property name="shotcut:filter">affineSizePosition</property>
-      <property name="transition.fix_rotate_x">0</property>
-      <property name="transition.fill">1</property>
-      <property name="transition.distort">0</property>
-      <property name="transition.rect">00:00:00.000=-216 -346.95000000000005 1080 3469.5 1;00:00:10.000=0 -1549.5 1080 3469.5 1</property>
-      <property name="transition.valign">middle</property>
-      <property name="transition.halign">center</property>
-      <property name="shotcut:animIn">00:00:00.000</property>
-      <property name="shotcut:animOut">00:00:00.000</property>
-      <property name="transition.threads">0</property>
+      <property name="mlt_service">qtblend</property>
+      <property name="shotcut:filter">sizePosition</property>
+      <property name="compositing">0</property>
+      <property name="distort">0</property>
+      <property name="rect">00:00:00.000=-216 -346.95000000000005 1080 3469.5 1;00:00:10.000=0 -1549.5 1080 3469.5 1</property>
+      <property name="rotation">00:00:00.000=0</property>
+      <property name="kdenlive:collapsed">0</property>
     </filter>
   </producer>
   <producer id="producer3" in="00:00:00.000" out="00:08:20.487">
@@ -109,17 +97,13 @@
     <property name="shotcut:caption">page-003.jpg</property>
     <filter id="producer3transformFilter">
       <property name="background">color:#00000000</property>
-      <property name="mlt_service">affine</property>
-      <property name="shotcut:filter">affineSizePosition</property>
-      <property name="transition.fix_rotate_x">0</property>
-      <property name="transition.fill">1</property>
-      <property name="transition.distort">0</property>
-      <property name="transition.rect">00:00:00.000=-216 -346.95000000000005 1080 3469.5 1;00:00:10.000=0 -1549.5 1080 3469.5 1</property>
-      <property name="transition.valign">middle</property>
-      <property name="transition.halign">center</property>
-      <property name="shotcut:animIn">00:00:00.000</property>
-      <property name="shotcut:animOut">00:00:00.000</property>
-      <property name="transition.threads">0</property>
+      <property name="mlt_service">qtblend</property>
+      <property name="shotcut:filter">sizePosition</property>
+      <property name="compositing">0</property>
+      <property name="distort">0</property>
+      <property name="rect">00:00:00.000=-216 -346.95000000000005 1080 3469.5 1;00:00:10.000=0 -1549.5 1080 3469.5 1</property>
+      <property name="rotation">00:00:00.000=0</property>
+      <property name="kdenlive:collapsed">0</property>
     </filter>
   </producer>
   <producer id="producer4" in="00:00:00.000" out="00:08:20.487">
@@ -139,17 +123,13 @@
     <property name="shotcut:caption">page-004.jpg</property>
     <filter id="producer4transformFilter">
       <property name="background">color:#00000000</property>
-      <property name="mlt_service">affine</property>
-      <property name="shotcut:filter">affineSizePosition</property>
-      <property name="transition.fix_rotate_x">0</property>
-      <property name="transition.fill">1</property>
-      <property name="transition.distort">0</property>
-      <property name="transition.rect">00:00:00.000=-216 -395.70000000000005 1080 3957 1;00:00:10.000=0 -2037 1080 3957 1</property>
-      <property name="transition.valign">middle</property>
-      <property name="transition.halign">center</property>
-      <property name="shotcut:animIn">00:00:00.000</property>
-      <property name="shotcut:animOut">00:00:00.000</property>
-      <property name="transition.threads">0</property>
+      <property name="mlt_service">qtblend</property>
+      <property name="shotcut:filter">sizePosition</property>
+      <property name="compositing">0</property>
+      <property name="distort">0</property>
+      <property name="rect">00:00:00.000=-216 -395.70000000000005 1080 3957 1;00:00:10.000=0 -2037 1080 3957 1</property>
+      <property name="rotation">00:00:00.000=0</property>
+      <property name="kdenlive:collapsed">0</property>
     </filter>
   </producer>
   <producer id="producer5" in="00:00:00.000" out="00:08:20.487">
@@ -169,17 +149,13 @@
     <property name="shotcut:caption">page-005.jpg</property>
     <filter id="producer5transformFilter">
       <property name="background">color:#00000000</property>
-      <property name="mlt_service">affine</property>
-      <property name="shotcut:filter">affineSizePosition</property>
-      <property name="transition.fix_rotate_x">0</property>
-      <property name="transition.fill">1</property>
-      <property name="transition.distort">0</property>
-      <property name="transition.rect">00:00:00.000=-216 -395.70000000000005 1080 3957 1;00:00:10.000=0 -2037 1080 3957 1</property>
-      <property name="transition.valign">middle</property>
-      <property name="transition.halign">center</property>
-      <property name="shotcut:animIn">00:00:00.000</property>
-      <property name="shotcut:animOut">00:00:00.000</property>
-      <property name="transition.threads">0</property>
+      <property name="mlt_service">qtblend</property>
+      <property name="shotcut:filter">sizePosition</property>
+      <property name="compositing">0</property>
+      <property name="distort">0</property>
+      <property name="rect">00:00:00.000=-216 -395.70000000000005 1080 3957 1;00:00:10.000=0 -2037 1080 3957 1</property>
+      <property name="rotation">00:00:00.000=0</property>
+      <property name="kdenlive:collapsed">0</property>
     </filter>
   </producer>
   <producer id="producer6" in="00:00:00.000" out="00:08:20.487">
@@ -199,17 +175,13 @@
     <property name="shotcut:caption">page-006.jpg</property>
     <filter id="producer6transformFilter">
       <property name="background">color:#00000000</property>
-      <property name="mlt_service">affine</property>
-      <property name="shotcut:filter">affineSizePosition</property>
-      <property name="transition.fix_rotate_x">0</property>
-      <property name="transition.fill">1</property>
-      <property name="transition.distort">0</property>
-      <property name="transition.rect">00:00:00.000=-216 -400.65000000000003 1080 4006.5 1;00:00:10.000=0 -2086.5 1080 4006.5 1</property>
-      <property name="transition.valign">middle</property>
-      <property name="transition.halign">center</property>
-      <property name="shotcut:animIn">00:00:00.000</property>
-      <property name="shotcut:animOut">00:00:00.000</property>
-      <property name="transition.threads">0</property>
+      <property name="mlt_service">qtblend</property>
+      <property name="shotcut:filter">sizePosition</property>
+      <property name="compositing">0</property>
+      <property name="distort">0</property>
+      <property name="rect">00:00:00.000=-216 -400.65000000000003 1080 4006.5 1;00:00:10.000=0 -2086.5 1080 4006.5 1</property>
+      <property name="rotation">00:00:00.000=0</property>
+      <property name="kdenlive:collapsed">0</property>
     </filter>
   </producer>
   <producer id="producer7" in="00:00:00.000" out="00:08:20.487">
@@ -229,17 +201,13 @@
     <property name="shotcut:caption">page-007.jpg</property>
     <filter id="producer7transformFilter">
       <property name="background">color:#00000000</property>
-      <property name="mlt_service">affine</property>
-      <property name="shotcut:filter">affineSizePosition</property>
-      <property name="transition.fix_rotate_x">0</property>
-      <property name="transition.fill">1</property>
-      <property name="transition.distort">0</property>
-      <property name="transition.rect">00:00:00.000=-216 -400.65000000000003 1080 4006.5 1;00:00:10.000=0 -2086.5 1080 4006.5 1</property>
-      <property name="transition.valign">middle</property>
-      <property name="transition.halign">center</property>
-      <property name="shotcut:animIn">00:00:00.000</property>
-      <property name="shotcut:animOut">00:00:00.000</property>
-      <property name="transition.threads">0</property>
+      <property name="mlt_service">qtblend</property>
+      <property name="shotcut:filter">sizePosition</property>
+      <property name="compositing">0</property>
+      <property name="distort">0</property>
+      <property name="rect">00:00:00.000=-216 -400.65000000000003 1080 4006.5 1;00:00:10.000=0 -2086.5 1080 4006.5 1</property>
+      <property name="rotation">00:00:00.000=0</property>
+      <property name="kdenlive:collapsed">0</property>
     </filter>
   </producer>
   <producer id="producer8" in="00:00:00.000" out="00:08:20.487">
@@ -259,17 +227,13 @@
     <property name="shotcut:caption">page-008.jpg</property>
     <filter id="producer8transformFilter">
       <property name="background">color:#00000000</property>
-      <property name="mlt_service">affine</property>
-      <property name="shotcut:filter">affineSizePosition</property>
-      <property name="transition.fix_rotate_x">0</property>
-      <property name="transition.fill">1</property>
-      <property name="transition.distort">0</property>
-      <property name="transition.rect">00:00:00.000=-216 -342 1080 3420 1;00:00:10.000=0 -1500 1080 3420 1</property>
-      <property name="transition.valign">middle</property>
-      <property name="transition.halign">center</property>
-      <property name="shotcut:animIn">00:00:00.000</property>
-      <property name="shotcut:animOut">00:00:00.000</property>
-      <property name="transition.threads">0</property>
+      <property name="mlt_service">qtblend</property>
+      <property name="shotcut:filter">sizePosition</property>
+      <property name="compositing">0</property>
+      <property name="distort">0</property>
+      <property name="rect">00:00:00.000=-216 -342 1080 3420 1;00:00:10.000=0 -1500 1080 3420 1</property>
+      <property name="rotation">00:00:00.000=0</property>
+      <property name="kdenlive:collapsed">0</property>
     </filter>
   </producer>
   <producer id="producer9" in="00:00:00.000" out="00:08:20.487">
@@ -289,17 +253,13 @@
     <property name="shotcut:caption">page-009.jpg</property>
     <filter id="producer9transformFilter">
       <property name="background">color:#00000000</property>
-      <property name="mlt_service">affine</property>
-      <property name="shotcut:filter">affineSizePosition</property>
-      <property name="transition.fix_rotate_x">0</property>
-      <property name="transition.fill">1</property>
-      <property name="transition.distort">0</property>
-      <property name="transition.rect">00:00:00.000=-216 -342 1080 3420 1;00:00:10.000=0 -1500 1080 3420 1</property>
-      <property name="transition.valign">middle</property>
-      <property name="transition.halign">center</property>
-      <property name="shotcut:animIn">00:00:00.000</property>
-      <property name="shotcut:animOut">00:00:00.000</property>
-      <property name="transition.threads">0</property>
+      <property name="mlt_service">qtblend</property>
+      <property name="shotcut:filter">sizePosition</property>
+      <property name="compositing">0</property>
+      <property name="distort">0</property>
+      <property name="rect">00:00:00.000=-216 -342 1080 3420 1;00:00:10.000=0 -1500 1080 3420 1</property>
+      <property name="rotation">00:00:00.000=0</property>
+      <property name="kdenlive:collapsed">0</property>
     </filter>
   </producer>
   <producer id="producer10" in="00:00:00.000" out="00:08:20.487">
@@ -319,17 +279,13 @@
     <property name="shotcut:caption">page-010.jpg</property>
     <filter id="producer10transformFilter">
       <property name="background">color:#00000000</property>
-      <property name="mlt_service">affine</property>
-      <property name="shotcut:filter">affineSizePosition</property>
-      <property name="transition.fix_rotate_x">0</property>
-      <property name="transition.fill">1</property>
-      <property name="transition.distort">0</property>
-      <property name="transition.rect">00:00:00.000=-216 -360.6 1080 3606 1;00:00:10.000=0 -1686 1080 3606 1</property>
-      <property name="transition.valign">middle</property>
-      <property name="transition.halign">center</property>
-      <property name="shotcut:animIn">00:00:00.000</property>
-      <property name="shotcut:animOut">00:00:00.000</property>
-      <property name="transition.threads">0</property>
+      <property name="mlt_service">qtblend</property>
+      <property name="shotcut:filter">sizePosition</property>
+      <property name="compositing">0</property>
+      <property name="distort">0</property>
+      <property name="rect">00:00:00.000=-216 -360.6 1080 3606 1;00:00:10.000=0 -1686 1080 3606 1</property>
+      <property name="rotation">00:00:00.000=0</property>
+      <property name="kdenlive:collapsed">0</property>
     </filter>
   </producer>
   <producer id="producer11" in="00:00:00.000" out="00:08:20.487">
@@ -349,17 +305,13 @@
     <property name="shotcut:caption">page-011.jpg</property>
     <filter id="producer11transformFilter">
       <property name="background">color:#00000000</property>
-      <property name="mlt_service">affine</property>
-      <property name="shotcut:filter">affineSizePosition</property>
-      <property name="transition.fix_rotate_x">0</property>
-      <property name="transition.fill">1</property>
-      <property name="transition.distort">0</property>
-      <property name="transition.rect">00:00:00.000=-216 -360.6 1080 3606 1;00:00:10.000=0 -1686 1080 3606 1</property>
-      <property name="transition.valign">middle</property>
-      <property name="transition.halign">center</property>
-      <property name="shotcut:animIn">00:00:00.000</property>
-      <property name="shotcut:animOut">00:00:00.000</property>
-      <property name="transition.threads">0</property>
+      <property name="mlt_service">qtblend</property>
+      <property name="shotcut:filter">sizePosition</property>
+      <property name="compositing">0</property>
+      <property name="distort">0</property>
+      <property name="rect">00:00:00.000=-216 -360.6 1080 3606 1;00:00:10.000=0 -1686 1080 3606 1</property>
+      <property name="rotation">00:00:00.000=0</property>
+      <property name="kdenlive:collapsed">0</property>
     </filter>
   </producer>
   <producer id="producer12" in="00:00:00.000" out="00:08:20.487">
@@ -379,17 +331,13 @@
     <property name="shotcut:caption">page-012.jpg</property>
     <filter id="producer12transformFilter">
       <property name="background">color:#00000000</property>
-      <property name="mlt_service">affine</property>
-      <property name="shotcut:filter">affineSizePosition</property>
-      <property name="transition.fix_rotate_x">0</property>
-      <property name="transition.fill">1</property>
-      <property name="transition.distort">0</property>
-      <property name="transition.rect">00:00:00.000=-216 -370.95000000000005 1080 3709.5 1;00:00:10.000=0 -1789.5 1080 3709.5 1</property>
-      <property name="transition.valign">middle</property>
-      <property name="transition.halign">center</property>
-      <property name="shotcut:animIn">00:00:00.000</property>
-      <property name="shotcut:animOut">00:00:00.000</property>
-      <property name="transition.threads">0</property>
+      <property name="mlt_service">qtblend</property>
+      <property name="shotcut:filter">sizePosition</property>
+      <property name="compositing">0</property>
+      <property name="distort">0</property>
+      <property name="rect">00:00:00.000=-216 -370.95000000000005 1080 3709.5 1;00:00:10.000=0 -1789.5 1080 3709.5 1</property>
+      <property name="rotation">00:00:00.000=0</property>
+      <property name="kdenlive:collapsed">0</property>
     </filter>
   </producer>
   <producer id="producer13" in="00:00:00.000" out="00:08:20.487">
@@ -409,17 +357,13 @@
     <property name="shotcut:caption">page-013.jpg</property>
     <filter id="producer13transformFilter">
       <property name="background">color:#00000000</property>
-      <property name="mlt_service">affine</property>
-      <property name="shotcut:filter">affineSizePosition</property>
-      <property name="transition.fix_rotate_x">0</property>
-      <property name="transition.fill">1</property>
-      <property name="transition.distort">0</property>
-      <property name="transition.rect">00:00:00.000=-216 -370.95000000000005 1080 3709.5 1;00:00:10.000=0 -1789.5 1080 3709.5 1</property>
-      <property name="transition.valign">middle</property>
-      <property name="transition.halign">center</property>
-      <property name="shotcut:animIn">00:00:00.000</property>
-      <property name="shotcut:animOut">00:00:00.000</property>
-      <property name="transition.threads">0</property>
+      <property name="mlt_service">qtblend</property>
+      <property name="shotcut:filter">sizePosition</property>
+      <property name="compositing">0</property>
+      <property name="distort">0</property>
+      <property name="rect">00:00:00.000=-216 -370.95000000000005 1080 3709.5 1;00:00:10.000=0 -1789.5 1080 3709.5 1</property>
+      <property name="rotation">00:00:00.000=0</property>
+      <property name="kdenlive:collapsed">0</property>
     </filter>
   </producer>
   <producer id="producer14" in="00:00:00.000" out="00:08:20.487">
@@ -439,17 +383,13 @@
     <property name="shotcut:caption">page-014.jpg</property>
     <filter id="producer14transformFilter">
       <property name="background">color:#00000000</property>
-      <property name="mlt_service">affine</property>
-      <property name="shotcut:filter">affineSizePosition</property>
-      <property name="transition.fix_rotate_x">0</property>
-      <property name="transition.fill">1</property>
-      <property name="transition.distort">0</property>
-      <property name="transition.rect">00:00:00.000=-216 -346.05 1080 3460.5 1;00:00:10.000=0 -1540.5 1080 3460.5 1</property>
-      <property name="transition.valign">middle</property>
-      <property name="transition.halign">center</property>
-      <property name="shotcut:animIn">00:00:00.000</property>
-      <property name="shotcut:animOut">00:00:00.000</property>
-      <property name="transition.threads">0</property>
+      <property name="mlt_service">qtblend</property>
+      <property name="shotcut:filter">sizePosition</property>
+      <property name="compositing">0</property>
+      <property name="distort">0</property>
+      <property name="rect">00:00:00.000=-216 -346.05 1080 3460.5 1;00:00:10.000=0 -1540.5 1080 3460.5 1</property>
+      <property name="rotation">00:00:00.000=0</property>
+      <property name="kdenlive:collapsed">0</property>
     </filter>
   </producer>
   <producer id="producer15" in="00:00:00.000" out="00:08:20.487">
@@ -469,17 +409,13 @@
     <property name="shotcut:caption">page-015.jpg</property>
     <filter id="producer15transformFilter">
       <property name="background">color:#00000000</property>
-      <property name="mlt_service">affine</property>
-      <property name="shotcut:filter">affineSizePosition</property>
-      <property name="transition.fix_rotate_x">0</property>
-      <property name="transition.fill">1</property>
-      <property name="transition.distort">0</property>
-      <property name="transition.rect">00:00:00.000=-216 -346.05 1080 3460.5 1;00:00:10.000=0 -1540.5 1080 3460.5 1</property>
-      <property name="transition.valign">middle</property>
-      <property name="transition.halign">center</property>
-      <property name="shotcut:animIn">00:00:00.000</property>
-      <property name="shotcut:animOut">00:00:00.000</property>
-      <property name="transition.threads">0</property>
+      <property name="mlt_service">qtblend</property>
+      <property name="shotcut:filter">sizePosition</property>
+      <property name="compositing">0</property>
+      <property name="distort">0</property>
+      <property name="rect">00:00:00.000=-216 -346.05 1080 3460.5 1;00:00:10.000=0 -1540.5 1080 3460.5 1</property>
+      <property name="rotation">00:00:00.000=0</property>
+      <property name="kdenlive:collapsed">0</property>
     </filter>
   </producer>
   <producer id="producer16" in="00:00:00.000" out="00:08:20.487">
@@ -499,17 +435,13 @@
     <property name="shotcut:caption">page-016.jpg</property>
     <filter id="producer16transformFilter">
       <property name="background">color:#00000000</property>
-      <property name="mlt_service">affine</property>
-      <property name="shotcut:filter">affineSizePosition</property>
-      <property name="transition.fix_rotate_x">0</property>
-      <property name="transition.fill">1</property>
-      <property name="transition.distort">0</property>
-      <property name="transition.rect">00:00:00.000=-216 -303.6 1080 3036 1;00:00:10.000=0 -1116 1080 3036 1</property>
-      <property name="transition.valign">middle</property>
-      <property name="transition.halign">center</property>
-      <property name="shotcut:animIn">00:00:00.000</property>
-      <property name="shotcut:animOut">00:00:00.000</property>
-      <property name="transition.threads">0</property>
+      <property name="mlt_service">qtblend</property>
+      <property name="shotcut:filter">sizePosition</property>
+      <property name="compositing">0</property>
+      <property name="distort">0</property>
+      <property name="rect">00:00:00.000=-216 -303.6 1080 3036 1;00:00:10.000=0 -1116 1080 3036 1</property>
+      <property name="rotation">00:00:00.000=0</property>
+      <property name="kdenlive:collapsed">0</property>
     </filter>
   </producer>
   <producer id="producer17" in="00:00:00.000" out="00:08:20.487">
@@ -529,17 +461,13 @@
     <property name="shotcut:caption">page-017.jpg</property>
     <filter id="producer17transformFilter">
       <property name="background">color:#00000000</property>
-      <property name="mlt_service">affine</property>
-      <property name="shotcut:filter">affineSizePosition</property>
-      <property name="transition.fix_rotate_x">0</property>
-      <property name="transition.fill">1</property>
-      <property name="transition.distort">0</property>
-      <property name="transition.rect">00:00:00.000=-216 -303.6 1080 3036 1;00:00:10.000=0 -1116 1080 3036 1</property>
-      <property name="transition.valign">middle</property>
-      <property name="transition.halign">center</property>
-      <property name="shotcut:animIn">00:00:00.000</property>
-      <property name="shotcut:animOut">00:00:00.000</property>
-      <property name="transition.threads">0</property>
+      <property name="mlt_service">qtblend</property>
+      <property name="shotcut:filter">sizePosition</property>
+      <property name="compositing">0</property>
+      <property name="distort">0</property>
+      <property name="rect">00:00:00.000=-216 -303.6 1080 3036 1;00:00:10.000=0 -1116 1080 3036 1</property>
+      <property name="rotation">00:00:00.000=0</property>
+      <property name="kdenlive:collapsed">0</property>
     </filter>
   </producer>
   <producer id="producer18" in="00:00:00.000" out="00:08:20.487">
@@ -559,17 +487,13 @@
     <property name="shotcut:caption">page-018.jpg</property>
     <filter id="producer18transformFilter">
       <property name="background">color:#00000000</property>
-      <property name="mlt_service">affine</property>
-      <property name="shotcut:filter">affineSizePosition</property>
-      <property name="transition.fix_rotate_x">0</property>
-      <property name="transition.fill">1</property>
-      <property name="transition.distort">0</property>
-      <property name="transition.rect">00:00:00.000=-216 -324 1080 3240 1;00:00:10.000=0 -1320 1080 3240 1</property>
-      <property name="transition.valign">middle</property>
-      <property name="transition.halign">center</property>
-      <property name="shotcut:animIn">00:00:00.000</property>
-      <property name="shotcut:animOut">00:00:00.000</property>
-      <property name="transition.threads">0</property>
+      <property name="mlt_service">qtblend</property>
+      <property name="shotcut:filter">sizePosition</property>
+      <property name="compositing">0</property>
+      <property name="distort">0</property>
+      <property name="rect">00:00:00.000=-216 -324 1080 3240 1;00:00:10.000=0 -1320 1080 3240 1</property>
+      <property name="rotation">00:00:00.000=0</property>
+      <property name="kdenlive:collapsed">0</property>
     </filter>
   </producer>
   <producer id="producer19" in="00:00:00.000" out="00:08:20.487">
@@ -589,17 +513,13 @@
     <property name="shotcut:caption">page-019.jpg</property>
     <filter id="producer19transformFilter">
       <property name="background">color:#00000000</property>
-      <property name="mlt_service">affine</property>
-      <property name="shotcut:filter">affineSizePosition</property>
-      <property name="transition.fix_rotate_x">0</property>
-      <property name="transition.fill">1</property>
-      <property name="transition.distort">0</property>
-      <property name="transition.rect">00:00:00.000=-216 -324 1080 3240 1;00:00:10.000=0 -1320 1080 3240 1</property>
-      <property name="transition.valign">middle</property>
-      <property name="transition.halign">center</property>
-      <property name="shotcut:animIn">00:00:00.000</property>
-      <property name="shotcut:animOut">00:00:00.000</property>
-      <property name="transition.threads">0</property>
+      <property name="mlt_service">qtblend</property>
+      <property name="shotcut:filter">sizePosition</property>
+      <property name="compositing">0</property>
+      <property name="distort">0</property>
+      <property name="rect">00:00:00.000=-216 -324 1080 3240 1;00:00:10.000=0 -1320 1080 3240 1</property>
+      <property name="rotation">00:00:00.000=0</property>
+      <property name="kdenlive:collapsed">0</property>
     </filter>
   </producer>
   <producer id="producer20" in="00:00:00.000" out="00:08:20.487">
@@ -619,17 +539,13 @@
     <property name="shotcut:caption">page-020.jpg</property>
     <filter id="producer20transformFilter">
       <property name="background">color:#00000000</property>
-      <property name="mlt_service">affine</property>
-      <property name="shotcut:filter">affineSizePosition</property>
-      <property name="transition.fix_rotate_x">0</property>
-      <property name="transition.fill">1</property>
-      <property name="transition.distort">0</property>
-      <property name="transition.rect">00:00:00.000=-216 -325.35 1080 3253.5 1;00:00:10.000=0 -1333.5 1080 3253.5 1</property>
-      <property name="transition.valign">middle</property>
-      <property name="transition.halign">center</property>
-      <property name="shotcut:animIn">00:00:00.000</property>
-      <property name="shotcut:animOut">00:00:00.000</property>
-      <property name="transition.threads">0</property>
+      <property name="mlt_service">qtblend</property>
+      <property name="shotcut:filter">sizePosition</property>
+      <property name="compositing">0</property>
+      <property name="distort">0</property>
+      <property name="rect">00:00:00.000=-216 -325.35 1080 3253.5 1;00:00:10.000=0 -1333.5 1080 3253.5 1</property>
+      <property name="rotation">00:00:00.000=0</property>
+      <property name="kdenlive:collapsed">0</property>
     </filter>
   </producer>
   <producer id="producer21" in="00:00:00.000" out="00:08:20.487">
@@ -649,17 +565,13 @@
     <property name="shotcut:caption">page-021.jpg</property>
     <filter id="producer21transformFilter">
       <property name="background">color:#00000000</property>
-      <property name="mlt_service">affine</property>
-      <property name="shotcut:filter">affineSizePosition</property>
-      <property name="transition.fix_rotate_x">0</property>
-      <property name="transition.fill">1</property>
-      <property name="transition.distort">0</property>
-      <property name="transition.rect">00:00:00.000=-216 -325.35 1080 3253.5 1;00:00:10.000=0 -1333.5 1080 3253.5 1</property>
-      <property name="transition.valign">middle</property>
-      <property name="transition.halign">center</property>
-      <property name="shotcut:animIn">00:00:00.000</property>
-      <property name="shotcut:animOut">00:00:00.000</property>
-      <property name="transition.threads">0</property>
+      <property name="mlt_service">qtblend</property>
+      <property name="shotcut:filter">sizePosition</property>
+      <property name="compositing">0</property>
+      <property name="distort">0</property>
+      <property name="rect">00:00:00.000=-216 -325.35 1080 3253.5 1;00:00:10.000=0 -1333.5 1080 3253.5 1</property>
+      <property name="rotation">00:00:00.000=0</property>
+      <property name="kdenlive:collapsed">0</property>
     </filter>
   </producer>
   <producer id="producer22" in="00:00:00.000" out="00:08:20.487">
@@ -679,17 +591,13 @@
     <property name="shotcut:caption">page-022.jpg</property>
     <filter id="producer22transformFilter">
       <property name="background">color:#00000000</property>
-      <property name="mlt_service">affine</property>
-      <property name="shotcut:filter">affineSizePosition</property>
-      <property name="transition.fix_rotate_x">0</property>
-      <property name="transition.fill">1</property>
-      <property name="transition.distort">0</property>
-      <property name="transition.rect">00:00:00.000=-216 -321.3 1080 3213 1;00:00:10.000=0 -1293 1080 3213 1</property>
-      <property name="transition.valign">middle</property>
-      <property name="transition.halign">center</property>
-      <property name="shotcut:animIn">00:00:00.000</property>
-      <property name="shotcut:animOut">00:00:00.000</property>
-      <property name="transition.threads">0</property>
+      <property name="mlt_service">qtblend</property>
+      <property name="shotcut:filter">sizePosition</property>
+      <property name="compositing">0</property>
+      <property name="distort">0</property>
+      <property name="rect">00:00:00.000=-216 -321.3 1080 3213 1;00:00:10.000=0 -1293 1080 3213 1</property>
+      <property name="rotation">00:00:00.000=0</property>
+      <property name="kdenlive:collapsed">0</property>
     </filter>
   </producer>
   <producer id="producer23" in="00:00:00.000" out="00:08:20.487">
@@ -709,17 +617,13 @@
     <property name="shotcut:caption">page-023.jpg</property>
     <filter id="producer23transformFilter">
       <property name="background">color:#00000000</property>
-      <property name="mlt_service">affine</property>
-      <property name="shotcut:filter">affineSizePosition</property>
-      <property name="transition.fix_rotate_x">0</property>
-      <property name="transition.fill">1</property>
-      <property name="transition.distort">0</property>
-      <property name="transition.rect">00:00:00.000=-216 -321.3 1080 3213 1;00:00:10.000=0 -1293 1080 3213 1</property>
-      <property name="transition.valign">middle</property>
-      <property name="transition.halign">center</property>
-      <property name="shotcut:animIn">00:00:00.000</property>
-      <property name="shotcut:animOut">00:00:00.000</property>
-      <property name="transition.threads">0</property>
+      <property name="mlt_service">qtblend</property>
+      <property name="shotcut:filter">sizePosition</property>
+      <property name="compositing">0</property>
+      <property name="distort">0</property>
+      <property name="rect">00:00:00.000=-216 -321.3 1080 3213 1;00:00:10.000=0 -1293 1080 3213 1</property>
+      <property name="rotation">00:00:00.000=0</property>
+      <property name="kdenlive:collapsed">0</property>
     </filter>
   </producer>
   <producer id="producer24" in="00:00:00.000" out="00:08:20.487">
@@ -739,17 +643,13 @@
     <property name="shotcut:caption">page-024.jpg</property>
     <filter id="producer24transformFilter">
       <property name="background">color:#00000000</property>
-      <property name="mlt_service">affine</property>
-      <property name="shotcut:filter">affineSizePosition</property>
-      <property name="transition.fix_rotate_x">0</property>
-      <property name="transition.fill">1</property>
-      <property name="transition.distort">0</property>
-      <property name="transition.rect">00:00:00.000=-216 -398.25 1080 3982.5 1;00:00:10.000=0 -2062.5 1080 3982.5 1</property>
-      <property name="transition.valign">middle</property>
-      <property name="transition.halign">center</property>
-      <property name="shotcut:animIn">00:00:00.000</property>
-      <property name="shotcut:animOut">00:00:00.000</property>
-      <property name="transition.threads">0</property>
+      <property name="mlt_service">qtblend</property>
+      <property name="shotcut:filter">sizePosition</property>
+      <property name="compositing">0</property>
+      <property name="distort">0</property>
+      <property name="rect">00:00:00.000=-216 -398.25 1080 3982.5 1;00:00:10.000=0 -2062.5 1080 3982.5 1</property>
+      <property name="rotation">00:00:00.000=0</property>
+      <property name="kdenlive:collapsed">0</property>
     </filter>
   </producer>
   <producer id="producer25" in="00:00:00.000" out="00:08:20.487">
@@ -769,17 +669,13 @@
     <property name="shotcut:caption">page-025.jpg</property>
     <filter id="producer25transformFilter">
       <property name="background">color:#00000000</property>
-      <property name="mlt_service">affine</property>
-      <property name="shotcut:filter">affineSizePosition</property>
-      <property name="transition.fix_rotate_x">0</property>
-      <property name="transition.fill">1</property>
-      <property name="transition.distort">0</property>
-      <property name="transition.rect">00:00:00.000=-216 -398.25 1080 3982.5 1;00:00:10.000=0 -2062.5 1080 3982.5 1</property>
-      <property name="transition.valign">middle</property>
-      <property name="transition.halign">center</property>
-      <property name="shotcut:animIn">00:00:00.000</property>
-      <property name="shotcut:animOut">00:00:00.000</property>
-      <property name="transition.threads">0</property>
+      <property name="mlt_service">qtblend</property>
+      <property name="shotcut:filter">sizePosition</property>
+      <property name="compositing">0</property>
+      <property name="distort">0</property>
+      <property name="rect">00:00:00.000=-216 -398.25 1080 3982.5 1;00:00:10.000=0 -2062.5 1080 3982.5 1</property>
+      <property name="rotation">00:00:00.000=0</property>
+      <property name="kdenlive:collapsed">0</property>
     </filter>
   </producer>
   <playlist id="images">

@@ -147,7 +147,6 @@ function renderRectKeyframe({ time, top, left, width, height }) {
     // format is keyframes delimited by semicolons, with keyframes in format {start}={left} {top} {width} {height} 1
     return `${formatSecondsToTime(time)}=${left} ${top} ${width} ${height} 1`
 }
-
 export function PanningAnimation({}) {
     const { producer, in: inTime, out: outTime } = useProducerContext()
 
@@ -202,17 +201,13 @@ export function PanningAnimation({}) {
     return (
         <filter id={id + 'transformFilter'}>
             <property name='background'>color:#00000000</property>
-            <property name='mlt_service'>affine</property>
-            <property name='shotcut:filter'>affineSizePosition</property>
-            <property name='transition.fix_rotate_x'>0</property>
-            <property name='transition.fill'>1</property>
-            <property name='transition.distort'>0</property>
-            <property name='transition.rect'>{rect}</property>
-            <property name='transition.valign'>middle</property>
-            <property name='transition.halign'>center</property>
-            <property name='shotcut:animIn'>00:00:00.000</property>
-            <property name='shotcut:animOut'>00:00:00.000</property>
-            <property name='transition.threads'>0</property>
+            <property name='mlt_service'>qtblend</property>
+            <property name='shotcut:filter'>sizePosition</property>
+            <property name='compositing'>0</property>
+            <property name='distort'>0</property>
+            <property name='rect'>{rect}</property>
+            <property name='rotation'>00:00:00.000=0</property>
+            <property name='kdenlive:collapsed'>0</property>
         </filter>
     )
 }

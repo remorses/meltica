@@ -401,23 +401,14 @@
   </entry>
   <entry in="00:00:00.000" out="00:00:03.200" producer="chain1">
    <property name="kdenlive:id">6</property>
-   <property name="kdenlive:activeeffect">1</property>
+   <property name="kdenlive:activeeffect">0</property>
    <filter id="filter7">
-    <property name="version">0.2</property>
-    <property name="mlt_service">frei0r.vignette</property>
-    <property name="kdenlive_id">frei0r.vignette</property>
-    <property name="aspect">00:00:00.000=0.5</property>
-    <property name="clearCenter">00:00:00.000=0</property>
-    <property name="soft">00:00:00.000=0.6</property>
-    <property name="kdenlive:collapsed">0</property>
-   </filter>
-   <filter id="filter8">
     <property name="rotate_center">1</property>
     <property name="mlt_service">qtblend</property>
     <property name="kdenlive_id">qtblend</property>
     <property name="compositing">0</property>
     <property name="distort">0</property>
-    <property name="rect">00:00:00.000=252 197 1778 939 1.000000</property>
+    <property name="rect">00:00:00.000=-701 -207 3333 1522 1.000000</property>
     <property name="rotation">00:00:00.000=0</property>
     <property name="kdenlive:collapsed">0</property>
    </filter>
@@ -463,7 +454,7 @@
   <property name="kdenlive:sequenceproperties.hasAudio">1</property>
   <property name="kdenlive:sequenceproperties.hasVideo">1</property>
   <property name="kdenlive:sequenceproperties.lastUsedFrame">0</property>
-  <property name="kdenlive:sequenceproperties.position">154</property>
+  <property name="kdenlive:sequenceproperties.position">150</property>
   <property name="kdenlive:sequenceproperties.scrollPos">164</property>
   <property name="kdenlive:sequenceproperties.tracks">4</property>
   <property name="kdenlive:sequenceproperties.tracksCount">4</property>
@@ -540,14 +531,14 @@
    <property name="internal_added">237</property>
    <property name="always_active">1</property>
   </transition>
-  <filter id="filter9">
+  <filter id="filter8">
    <property name="window">75</property>
    <property name="max_gain">20dB</property>
    <property name="mlt_service">volume</property>
    <property name="internal_added">237</property>
    <property name="disable">1</property>
   </filter>
-  <filter id="filter10">
+  <filter id="filter9">
    <property name="channel">-1</property>
    <property name="mlt_service">panner</property>
    <property name="internal_added">237</property>

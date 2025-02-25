@@ -7,7 +7,7 @@ import {
     Track,
     VideoRoot,
 } from '@/components'
-import { formatSecondsToTime, renderToVideo, renderToXml } from '@/rendering'
+import { formatSecondsToTime, renderToPreview, renderToVideo, renderToXml } from '@/rendering'
 import { writeFileSync } from 'fs'
 import path from 'path'
 
@@ -65,5 +65,6 @@ function Video({}) {
     )
 }
 
-writeFileSync('sololevelling.mlt', renderToXml(<Video />))
-renderToVideo(<Video />)
+// writeFileSync('sololevelling.mlt', renderToXml(<Video />))
+renderToPreview(<Video />)
+// renderToVideo(<Video />)
