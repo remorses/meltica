@@ -166,3 +166,36 @@ ffplay rtmp://localhost:1935/live/test
 
 - the server seems to buffer the full stream, meaning i cannot use it as a playback for melt
 - if you try to seek using melt, it breaks with `Failed to update header with correct duration` coming from flv it seems
+
+
+## preview during jsx render
+
+## Preview during JSX render
+
+After exploring various preview options, I've settled on using the CBRTS demuxer for real-time previewing:
+
+* **Solution**: Use CBRTS demuxer to output a stream that can be played by FFPlay
+* **Benefits**:
+  * Preview video without Shotcut or SDL
+  * See changes in real-time as they're generated
+  * Specify starting position to preview specific sections
+  * No need to wait for full video rendering before seeing results
+
+* **Previous challenges**:
+  * SDL doesn't work properly on Mac
+  * Had to open Shotcut after each change to see results
+  * Needed to wait for full video output before seeing changes
+
+This approach solves the workflow problem of constantly switching between editing and previewing, making the development process much more efficient.
+
+```bash
+/Applications/Shotcut.app/Contents/MacOS/melt video.mlt -consumer cbrts muxrate=10000000 | ffplay -i -
+```
+
+to start from a random point in the video:
+
+```bash
+/Applications/Shotcut.app/Contents/MacOS/melt video.mlt -consumer cbrts in=start out=-1 muxrate=10000000 | ffplay -i -
+```
+
+Which is still the problem that if you use a different mux rate, it doesn't work for some reason. Big enough, mux rate is necessary to make this work.

@@ -65,5 +65,5 @@ function Video({}) {
     )
 }
 
-writeFileSync('slideshow-shotcut.mlt', renderToXml(<Video />))
+writeFileSync('sololevelling.mlt', renderToXml(<Video />))
 renderToVideo(<Video />)
