@@ -197,8 +197,13 @@
       <property name="shotcut:pointSize">60</property>
       <property name="overflow-y">1</property>
     </filter>
+    <filter id="producer1blendMode">
+      <property name="mode">difference</property>
+      <property name="mlt_service">cairoblend_mode</property>
+      <property name="shotcut:filter">blendMode</property>
+    </filter>
   </producer>
-  <playlist id="moretitles">
+  <playlist id="moreTitles">
     <property name="shotcut:name">track</property>
     <entry producer="greeting" in="00:00:00.000" out="00:00:04.000"/>
   </playlist>
@@ -1110,7 +1115,7 @@
     <property name="shotcut:skipConvert">0</property>
     <track producer="background"/>
     <track producer="video1"/>
-    <track producer="moretitles"/>
+    <track producer="moreTitles"/>
     <track producer="titles"/>
     <track producer="audio1" hide="video"/>
     <track producer="audio2" hide="video"/>

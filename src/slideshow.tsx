@@ -2,13 +2,19 @@ import {
     Asset,
     AudioGain,
     BlankSpace,
+    BlendMode,
     PanningAnimation,
     Track,
     VideoRoot,
     RichText,
     CropRect,
 } from '@/components'
-import { formatSecondsToTime, previewVideo, renderToVideo, renderToXml } from '@/rendering'
+import {
+    formatSecondsToTime,
+    previewVideo,
+    renderToVideo,
+    renderToXml,
+} from '@/rendering'
 import { writeFileSync } from 'fs'
 import { Fragment } from 'jsx-xml'
 
@@ -57,13 +63,15 @@ function Video({}) {
                     id={'greeting'}
                     html={
                         <div
-                            style="font-size: 120px; font-family: Arial, sans-serif; color: #ffffff;"
-                            align="center"
+                            style='font-size: 120px; font-family: Arial, sans-serif; color: #ffffff;'
+                            align='center'
                         >
                             Hello Everyone
                         </div>
                     }
-                />
+                >
+                    <BlendMode mode='difference' />
+                </RichText>
             </Track>
             <Track id={'titles'}>
                 {[...Array(12)].map((_, i) => {

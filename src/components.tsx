@@ -620,3 +620,24 @@ export function CropRect({
         </filter>
     )
 }
+export function BlendMode({
+    mode = 'normal',
+}: {
+    /** 
+     * The blend mode to apply.
+     */
+    mode?: 'normal' | 'multiply' | 'screen' | 'overlay' | 'darken' | 'lighten' | 'colordodge' |
+          'colorburn' | 'hardlight' | 'softlight' | 'difference' | 'exclusion' | 'hue' |
+          'saturation' | 'color' | 'luminosity' | 'addition' | 'divide' | 'subtract'
+}) {
+    const { producer } = useProducerContext()
+    const id = producer.id
+
+    return (
+        <filter id={id + 'blendMode'}>
+            <property name='mode'>{mode}</property>
+            <property name='mlt_service'>cairoblend_mode</property>
+            <property name='shotcut:filter'>blendMode</property>
+        </filter>
+    )
+}
