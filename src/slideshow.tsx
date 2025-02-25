@@ -51,6 +51,20 @@ function Video({}) {
                     <PanningAnimation />
                 </Asset>
             </Track>
+            <Track id={'moreTitles'}>
+                <RichText
+                    duration={4}
+                    id={'greeting'}
+                    html={
+                        <div
+                            style="font-size: 120px; font-family: Arial, sans-serif; color: #ffffff;"
+                            align="center"
+                        >
+                            Hello Everyone
+                        </div>
+                    }
+                />
+            </Track>
             <Track id={'titles'}>
                 {[...Array(12)].map((_, i) => {
                     const words =
@@ -124,6 +138,6 @@ function Video({}) {
 
 // writeFileSync('slideshow-shotcut.mlt', renderToXml(<Video />))
 if (!process.env.DISABLE_VIDEO) {
-    renderToVideo(<Video />, 'slideshow-shotcut.mlt')
+    // renderToVideo(<Video />, 'slideshow-shotcut.mlt')
 }
-// previewVideo(<Video />, 'slideshow-shotcut.mlt')
+previewVideo(<Video />, 'slideshow-shotcut.mlt')
