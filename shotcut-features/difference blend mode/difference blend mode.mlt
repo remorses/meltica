@@ -141,6 +141,11 @@
     <property name="shotcut:bins">All</property>
     <property name="xml">was here</property>
     <property name="shotcut:caption">10 Tips for Better DRONE FOOTAGE ｜ Filmmaking with Aidin Robbins [QrOBh2aKt4w].mp4</property>
+    <filter id="filter0" out="00:00:19.853">
+      <property name="hradius">32.9</property>
+      <property name="vradius">33.4</property>
+      <property name="mlt_service">box_blur</property>
+    </filter>
   </chain>
   <producer id="producer0" in="00:00:00.000" out="03:59:59.977">
     <property name="length">04:00:00.042</property>
@@ -175,7 +180,7 @@
     <property name="xml">was here</property>
     <property name="seekable">1</property>
     <property name="meta.shotcut.vui">1</property>
-    <filter id="filter0" out="00:00:19.853">
+    <filter id="filter1" out="00:00:19.853">
       <property name="argument"></property>
       <property name="geometry">192 365 1536 276 1</property>
       <property name="family">Sans</property>
@@ -204,17 +209,18 @@ li.checked::marker { content: &quot;\2612&quot;; }
       <property name="shotcut:animIn">00:00:00.000</property>
       <property name="shotcut:animOut">00:00:00.000</property>
     </filter>
-    <filter id="filter1" out="00:00:19.853">
+    <filter id="filter2" out="00:00:19.853">
       <property name="mode">difference</property>
       <property name="mlt_service">cairoblend_mode</property>
       <property name="shotcut:filter">blendMode</property>
     </filter>
-    <filter id="filter2" out="00:00:19.853">
+    <filter id="filter3" out="00:00:19.853">
       <property name="mlt_service">avfilter.gblur</property>
       <property name="shotcut:filter">blur_gaussian_av</property>
       <property name="av.sigma">27.3</property>
       <property name="av.sigmaV">27.3</property>
       <property name="av.planes">0xf</property>
+      <property name="disable">1</property>
     </filter>
   </producer>
   <playlist id="playlist1">

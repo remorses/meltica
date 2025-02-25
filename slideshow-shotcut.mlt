@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <mlt LC_NUMERIC="C" version="7.30.0" title="Shotcut version 25.01.25" producer="main_bin">
-  <consumer ab="160k" acodec="aac" channels="2" crf="23" deinterlacer="onefield" f="mp4" g="15" in="0" out="00:00:30.000" mlt_service="avformat" movflags="+faststart" preset="veryfast" real_time="-1" rescale="bilinear" target="slideshow.mp4" threads="0" vcodec="libx264"/>
+  <consumer ab="160k" acodec="aac" channels="2" crf="23" deinterlacer="onefield" f="mp4" g="15" in="0" out="00:00:03.000" mlt_service="avformat" movflags="+faststart" preset="veryfast" real_time="-1" rescale="bilinear" target="slideshow.mp4" threads="0" vcodec="libx264"/>
   <profile description="PAL 4:3 DV or DVD" width="1080" height="1920" progressive="1" sample_aspect_num="1" sample_aspect_den="1" display_aspect_num="9" display_aspect_den="16" frame_rate_num="30" frame_rate_den="1" colorspace="709"/>
   <chain id="videoExample" in="00:00:00.000" out="00:00:15.949">
     <property name="length">479</property>
@@ -197,12 +197,10 @@
       <property name="shotcut:pointSize">60</property>
       <property name="overflow-y">1</property>
     </filter>
-    <filter id="producer1gaussianBlur">
-      <property name="mlt_service">avfilter.gblur</property>
-      <property name="shotcut:filter">blur_gaussian_av</property>
-      <property name="av.sigma">10</property>
-      <property name="av.sigmaV">10</property>
-      <property name="av.planes">0xf</property>
+    <filter id="producer1blur">
+      <property name="hradius">10</property>
+      <property name="vradius">10</property>
+      <property name="mlt_service">box_blur</property>
     </filter>
     <filter id="producer1blendMode">
       <property name="mode">difference</property>

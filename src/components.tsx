@@ -642,6 +642,25 @@ export function GaussianBlur({
     )
 }
 
+export function Blur({
+    amount = 10,
+}: {
+    /** The blur amount (default 32.9) */
+    amount?: number,
+    
+}) {
+    const { producer } = useProducerContext()
+    const id = producer.id
+    
+    return (
+        <filter id={id + 'blur'}>
+            <property name="hradius">{amount.toString()}</property>
+            <property name="vradius">{amount.toString()}</property>
+            <property name="mlt_service">box_blur</property>
+        </filter>
+    )
+}
+
 
 export function BlendMode({
     mode = 'normal',

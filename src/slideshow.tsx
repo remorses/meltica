@@ -9,6 +9,7 @@ import {
     RichText,
     CropRect,
     GaussianBlur,
+    Blur,
 } from '@/components'
 import {
     formatSecondsToTime,
@@ -25,7 +26,7 @@ function Video({}) {
             fps={30}
             width={1080}
             height={1920}
-            duration={30}
+            duration={3}
             resultFilePath={'slideshow.mp4'}
         >
             <Track id={'video1'}>
@@ -71,7 +72,7 @@ function Video({}) {
                         </div>
                     }
                 >
-                    <GaussianBlur />
+                    <Blur />
                     <BlendMode mode='difference' />
                 </RichText>
             </Track>
@@ -147,7 +148,9 @@ function Video({}) {
 }
 
 // writeFileSync('slideshow-shotcut.mlt', renderToXml(<Video />))
-if (!process.env.DISABLE_VIDEO) {
-    // renderToVideo(<Video />, 'slideshow-shotcut.mlt')
+if (process.env.RENDER) {
+    renderToVideo(<Video />, 'slideshow-shotcut.mlt')
+} else {
+    
+    previewVideo(<Video />, 'slideshow-shotcut.mlt')
 }
-previewVideo(<Video />, 'slideshow-shotcut.mlt')
