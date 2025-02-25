@@ -1,0 +1,13 @@
+{
+  "name": "cpp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "compile": "g++ -o play play.cpp -I/usr/local/include/mlt-7 -I/usr/local/include/mlt-7/mlt++ -L/usr/local/lib -lmlt++-7 -lmlt-7 -std=c++11 -Wl,-rpath,/usr/local/lib"
+  },
+  "keywords": [],
+  "author": "remorses <beats.by.morse@gmail.com>",
+  "license": "ISC",
+  "packageManager": "pnpm@10.4.1"
+}
