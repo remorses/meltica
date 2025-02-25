@@ -1,15 +1,36 @@
 {
-  "name": "cpp",
+  "name": "kdenlive",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "compile": "g++ -o play play.cpp -I/usr/local/include/mlt-7 -I/usr/local/include/mlt-7/mlt++ -L/usr/local/lib -lmlt++-7 -lmlt-7 -std=c++11 -Wl,-rpath,/usr/local/lib",
-    "play": "./play ../video.mp4",
-    "compile:sdl": "g++ -o play play.cpp -I/usr/local/include/mlt-7 -I/usr/local/include/mlt-7/mlt++ -I/opt/homebrew/include -L/usr/local/lib -L/opt/homebrew/lib -lmlt++-7 -lmlt-7 -lSDL2 -std=c++11 -Wl,-rpath,/usr/local/lib -Wl,-rpath,/opt/homebrew/lib"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "remorses <beats.by.morse@gmail.com>",
   "license": "ISC",
-  "packageManager": "pnpm@10.4.1"
+  "pnpm": {
+    "neverBuiltDependencies": []
+  },
+  "trustedDependencies": [
+    "@kmamal/sdl"
+  ],
+  "dependencies": {
+    "@kmamal/sdl": "^0.10.14",
+    "@types/node": "^22.13.5",
+    "@types/node-media-server": "^2.3.7",
+    "@types/uuid": "^10.0.0",
+    "dedent": "^1.5.3",
+    "dom-serializer": "^2.0.0",
+    "domhandler": "^5.0.3",
+    "htmlparser2": "^10.0.0",
+    "jsx-xml": "0.3.0",
+    "node-media-server": "^4.0.7",
+    "prettier": "^3.5.2",
+    "typescript": "^5.7.3",
+    "uuid": "^11.1.0",
+    "vite": "^6.1.1",
+    "vite-tsconfig-paths": "^5.1.4",
+    "vitest": "^3.0.6"
+  }
 }
