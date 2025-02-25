@@ -26,5 +26,5 @@
             "website/*": ["./*"],
         },
     },
-    "include": ["src", "scripts"],
+    "include": ["src", "scripts", "kdenlive-old/generate-mlt.ts", "kdenlive-old/render.tsx", "kdenlive-old/render-slideshow.tsx", "kdenlive-old/melt.ts", "kdenlive-old/slideshow-old.tsx"],
 }

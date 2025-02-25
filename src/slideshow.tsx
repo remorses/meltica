@@ -18,7 +18,7 @@ function Video({}) {
             fps={30}
             width={1080}
             height={1920}
-            duration={1}
+            duration={30}
             resultFilePath={'slideshow.mp4'}
         >
             <Track id={'video1'}>
@@ -124,5 +124,6 @@ function Video({}) {
 
 // writeFileSync('slideshow-shotcut.mlt', renderToXml(<Video />))
 if (!process.env.DISABLE_VIDEO) {
-    previewVideo(<Video />, 'slideshow-shotcut.mlt')
+    renderToVideo(<Video />, 'slideshow-shotcut.mlt')
 }
+// previewVideo(<Video />, 'slideshow-shotcut.mlt')

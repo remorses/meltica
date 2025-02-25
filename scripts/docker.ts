@@ -1,5 +1,5 @@
 import { execSync } from 'child_process';
-import './generate-mlt'
+import '../kdenlive-old/generate-mlt'
 try {
   // Build the Docker image
   console.log('Building Docker image...');
