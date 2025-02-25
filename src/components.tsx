@@ -626,18 +626,19 @@ export function GaussianBlur({
 }: {
     /** The horizontal blur amount from 0 to 100 (default 10) */
     amount?: number
-    
 }) {
     const { producer } = useProducerContext()
     const id = producer.id
-    
+
     return (
         <filter id={id + 'gaussianBlur'}>
-            <property name="mlt_service">avfilter.gblur</property>
-            <property name="shotcut:filter">blur_gaussian_av</property>
-            <property name="av.sigma">{amount.toString()}</property>
-            <property name="av.sigmaV">{amount?.toString() ?? amount.toString()}</property>
-            <property name="av.planes">0xf</property>
+            <property name='mlt_service'>avfilter.gblur</property>
+            <property name='shotcut:filter'>blur_gaussian_av</property>
+            <property name='av.sigma'>{amount.toString()}</property>
+            <property name='av.sigmaV'>
+                {amount?.toString() ?? amount.toString()}
+            </property>
+            <property name='av.planes'>0xf</property>
         </filter>
     )
 }
@@ -646,31 +647,70 @@ export function Blur({
     amount = 10,
 }: {
     /** The blur amount (default 32.9) */
-    amount?: number,
-    
+    amount?: number
 }) {
     const { producer } = useProducerContext()
     const id = producer.id
-    
+
     return (
         <filter id={id + 'blur'}>
-            <property name="hradius">{amount.toString()}</property>
-            <property name="vradius">{amount.toString()}</property>
-            <property name="mlt_service">box_blur</property>
+            <property name='hradius'>{amount.toString()}</property>
+            <property name='vradius'>{amount.toString()}</property>
+            <property name='mlt_service'>box_blur</property>
         </filter>
     )
 }
 
+export function SimpleChromaKey({
+    color = '#00ff00',
+    distance = 0.1,
+}: {
+    /** The color to key out (default green) */
+    color?: string;
+    /** The distance threshold for the chroma key from 0 to 1 (default 0.169) */
+    distance?: number;
+}) {
+    const { producer } = useProducerContext();
+    const id = producer.id;
+
+    return (
+        <filter id={id + 'simpleChromaKey'}>
+            <property name='version'>0.4</property>
+            <property name='mlt_service'>frei0r.bluescreen0r</property>
+            <property name='threads'>0</property>
+            <property name='0'>{color}</property>
+            <property name='1'>{distance.toString()}</property>
+            <property name='disable'>0</property>
+        </filter>
+    )
+}
 
 export function BlendMode({
     mode = 'normal',
 }: {
-    /** 
+    /**
      * The blend mode to apply.
      */
-    mode?: 'normal' | 'multiply' | 'screen' | 'overlay' | 'darken' | 'lighten' | 'colordodge' |
-          'colorburn' | 'hardlight' | 'softlight' | 'difference' | 'exclusion' | 'hue' |
-          'saturation' | 'color' | 'luminosity' | 'addition' | 'divide' | 'subtract'
+    mode?:
+        | 'normal'
+        | 'multiply'
+        | 'screen'
+        | 'overlay'
+        | 'darken'
+        | 'lighten'
+        | 'colordodge'
+        | 'colorburn'
+        | 'hardlight'
+        | 'softlight'
+        | 'difference'
+        | 'exclusion'
+        | 'hue'
+        | 'saturation'
+        | 'color'
+        | 'luminosity'
+        | 'addition'
+        | 'divide'
+        | 'subtract'
 }) {
     const { producer } = useProducerContext()
     const id = producer.id

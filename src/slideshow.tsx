@@ -10,6 +10,7 @@ import {
     CropRect,
     GaussianBlur,
     Blur,
+    SimpleChromaKey,
 } from '@/components'
 import {
     formatSecondsToTime,
@@ -38,6 +39,7 @@ function Video({}) {
                     out='3'
                 >
                     <CropRect radius={0.3} id={'crop'} />
+                    <SimpleChromaKey color='#2F2F2F' />
                     {/* <PanningAnimation /> */}
                 </Asset>
                 <Asset
@@ -151,6 +153,5 @@ function Video({}) {
 if (process.env.RENDER) {
     renderToVideo(<Video />, 'slideshow-shotcut.mlt')
 } else {
-    
     previewVideo(<Video />, 'slideshow-shotcut.mlt')
 }

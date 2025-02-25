@@ -63,6 +63,14 @@
       <property name="mlt_service">qtcrop</property>
       <property name="shotcut:filter">cropRectangle</property>
     </filter>
+    <filter id="videoExamplesimpleChromaKey">
+      <property name="version">0.4</property>
+      <property name="mlt_service">frei0r.bluescreen0r</property>
+      <property name="threads">0</property>
+      <property name="0">#2F2F2F</property>
+      <property name="1">0.1</property>
+      <property name="disable">0</property>
+    </filter>
   </chain>
   <producer id="producer0" in="00:00:00.000" out="00:08:20.487">
     <property name="length">15000</property>
