@@ -620,6 +620,29 @@ export function CropRect({
         </filter>
     )
 }
+
+export function GaussianBlur({
+    amount = 10,
+}: {
+    /** The horizontal blur amount from 0 to 100 (default 10) */
+    amount?: number
+    
+}) {
+    const { producer } = useProducerContext()
+    const id = producer.id
+    
+    return (
+        <filter id={id + 'gaussianBlur'}>
+            <property name="mlt_service">avfilter.gblur</property>
+            <property name="shotcut:filter">blur_gaussian_av</property>
+            <property name="av.sigma">{amount.toString()}</property>
+            <property name="av.sigmaV">{amount?.toString() ?? amount.toString()}</property>
+            <property name="av.planes">0xf</property>
+        </filter>
+    )
+}
+
+
 export function BlendMode({
     mode = 'normal',
 }: {

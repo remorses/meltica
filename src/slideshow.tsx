@@ -8,6 +8,7 @@ import {
     VideoRoot,
     RichText,
     CropRect,
+    GaussianBlur,
 } from '@/components'
 import {
     formatSecondsToTime,
@@ -70,6 +71,7 @@ function Video({}) {
                         </div>
                     }
                 >
+                    <GaussianBlur />
                     <BlendMode mode='difference' />
                 </RichText>
             </Track>

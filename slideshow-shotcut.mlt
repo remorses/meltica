@@ -197,6 +197,13 @@
       <property name="shotcut:pointSize">60</property>
       <property name="overflow-y">1</property>
     </filter>
+    <filter id="producer1gaussianBlur">
+      <property name="mlt_service">avfilter.gblur</property>
+      <property name="shotcut:filter">blur_gaussian_av</property>
+      <property name="av.sigma">10</property>
+      <property name="av.sigmaV">10</property>
+      <property name="av.planes">0xf</property>
+    </filter>
     <filter id="producer1blendMode">
       <property name="mode">difference</property>
       <property name="mlt_service">cairoblend_mode</property>

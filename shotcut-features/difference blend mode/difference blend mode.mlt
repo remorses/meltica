@@ -209,6 +209,13 @@ li.checked::marker { content: &quot;\2612&quot;; }
       <property name="mlt_service">cairoblend_mode</property>
       <property name="shotcut:filter">blendMode</property>
     </filter>
+    <filter id="filter2" out="00:00:19.853">
+      <property name="mlt_service">avfilter.gblur</property>
+      <property name="shotcut:filter">blur_gaussian_av</property>
+      <property name="av.sigma">27.3</property>
+      <property name="av.sigmaV">27.3</property>
+      <property name="av.planes">0xf</property>
+    </filter>
   </producer>
   <playlist id="playlist1">
     <property name="shotcut:video">1</property>
