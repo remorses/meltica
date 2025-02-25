@@ -5,7 +5,9 @@
             "includePath": [
                 "${workspaceFolder}/**",
                 "/usr/local/include/mlt-7/**",
-                "/usr/local/include/mlt-7/mlt++/**"
+                "/usr/local/include/mlt-7/mlt++/**",
+                "/opt/homebrew/include/**",
+                "/opt/homebrew/include/SDL2/**"
             ],
             "defines": [],
             "macFrameworkPath": [
