@@ -1,7 +1,9 @@
 #include <Mlt.h>
+#include <iostream>
 
 void play(const char *filename)
 {
+    std::cout << "Starting to play file: " << filename << std::endl;
     Mlt::Profile profile; // defaults to dv_pal
     Mlt::Producer producer(profile, filename);
     Mlt::Consumer consumer(profile); // defaults to sdl
