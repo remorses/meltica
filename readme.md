@@ -168,8 +168,6 @@ ffplay rtmp://localhost:1935/live/test
 - if you try to seek using melt, it breaks with `Failed to update header with correct duration` coming from flv it seems
 
 
-## preview during jsx render
-
 ## Preview during JSX render
 
 After exploring various preview options, I've settled on using the CBRTS demuxer for real-time previewing:

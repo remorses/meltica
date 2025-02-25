@@ -8,7 +8,7 @@ import {
     RichText,
     CropRect,
 } from '@/components'
-import { formatSecondsToTime, renderToVideo, renderToXml } from '@/rendering'
+import { formatSecondsToTime, previewVideo, renderToVideo, renderToXml } from '@/rendering'
 import { writeFileSync } from 'fs'
 import { Fragment } from 'jsx-xml'
 
@@ -122,7 +122,7 @@ function Video({}) {
     )
 }
 
-writeFileSync('slideshow-shotcut.mlt', renderToXml(<Video />))
+// writeFileSync('slideshow-shotcut.mlt', renderToXml(<Video />))
 if (!process.env.DISABLE_VIDEO) {
-    renderToVideo(<Video />)
+    previewVideo(<Video />, 'slideshow-shotcut.mlt')
 }

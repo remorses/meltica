@@ -1,45 +1,11 @@
-<?xml version="1.0" standalone="no"?>
+<?xml version="1.0"?>
 <mlt LC_NUMERIC="C" version="7.30.0" title="Shotcut version 25.01.25" producer="main_bin">
+  <consumer ab="160k" acodec="aac" channels="2" crf="23" deinterlacer="onefield" f="mp4" g="15" in="0" out="00:00:01.000" mlt_service="avformat" movflags="+faststart" preset="veryfast" real_time="-1" rescale="bilinear" target="slideshow.mp4" threads="0" vcodec="libx264"/>
   <profile description="PAL 4:3 DV or DVD" width="1080" height="1920" progressive="1" sample_aspect_num="1" sample_aspect_den="1" display_aspect_num="9" display_aspect_den="16" frame_rate_num="30" frame_rate_den="1" colorspace="709"/>
-  <producer id="producer0" in="00:00:00.000" out="03:59:59.967">
-    <property name="length">04:00:00.000</property>
-    <property name="eof">pause</property>
-    <property name="resource">/Users/morse/Downloads/MdiGithub.svg</property>
-    <property name="ttl">1</property>
-    <property name="aspect_ratio">1</property>
-    <property name="meta.media.progressive">1</property>
-    <property name="seekable">1</property>
-    <property name="format">2</property>
-    <property name="meta.media.width">32</property>
-    <property name="meta.media.height">32</property>
-    <property name="mlt_service">qimage</property>
-    <property name="creation_time">2025-02-25T09:45:04</property>
-    <property name="shotcut:skipConvert">1</property>
-    <property name="shotcut:bins">All</property>
-    <property name="xml">was here</property>
-    <property name="shotcut:hash">143bca1b05afa5669fbc6037a27dc8ab</property>
-  </producer>
-  <playlist id="main_bin">
-    <property name="xml_retain">1</property>
-    <entry producer="producer0" in="00:00:00.000" out="00:00:03.967"/>
-  </playlist>
-  <producer id="black" in="00:00:00.000" out="00:02:14.967">
-    <property name="length">00:02:15.000</property>
-    <property name="eof">pause</property>
-    <property name="resource">0</property>
-    <property name="aspect_ratio">1</property>
-    <property name="mlt_service">color</property>
-    <property name="mlt_image_format">rgba</property>
-    <property name="set.test_audio">0</property>
-  </producer>
-  <playlist id="background">
-    <entry producer="black" in="00:00:00.000" out="00:02:14.967"/>
-  </playlist>
-  <chain id="videoExample" out="00:00:15.933">
+  <chain id="videoExample" in="00:00:00.000" out="00:00:15.949">
     <property name="length">479</property>
     <property name="eof">pause</property>
     <property name="resource">recording.mov</property>
-    <property name="mlt_service">avformat</property>
     <property name="meta.media.nb_streams">2</property>
     <property name="meta.media.0.stream.type">video</property>
     <property name="meta.media.0.stream.frame_rate">60</property>
@@ -85,53 +51,24 @@
     <property name="audio_index">1</property>
     <property name="video_index">0</property>
     <property name="mute_on_pause">0</property>
+    <property name="mlt_service">avformat</property>
+    <property name="resource">recording.mov</property>
     <property name="shotcut:skipConvert">1</property>
     <property name="shotcut:caption">recording.mov</property>
-    <property name="vstream">0</property>
-    <property name="meta.media.frame_rate_num">60</property>
-    <property name="meta.media.frame_rate_den">1</property>
-    <property name="meta.media.colorspace">709</property>
-    <property name="meta.media.color_trc">1</property>
-    <property name="meta.media.has_b_frames">1</property>
-    <property name="meta.media.width">1716</property>
-    <property name="meta.media.height">1260</property>
-    <property name="meta.media.aspect_ratio">1</property>
-    <property name="meta.media.color_range">mpeg</property>
-    <property name="astream">0</property>
-    <property name="shotcut:hash">e3ea0362242ba1d851356af0f63e7188</property>
-    <property name="meta.media.top_field_first">0</property>
-    <property name="meta.media.progressive">1</property>
-    <property name="meta.shotcut.vui">1</property>
     <filter id="crop">
-      <property name="rect">0 0 1080 1924 1</property>
+      <property name="rect">0 0 1080 1920 1</property>
       <property name="circle">0</property>
       <property name="color">#ff000000</property>
       <property name="radius">0.3</property>
       <property name="mlt_service">qtcrop</property>
       <property name="shotcut:filter">cropRectangle</property>
-      <property name="disable">1</property>
-    </filter>
-    <filter id="filter0" out="00:00:03.000">
-      <property name="background">color:#00000000</property>
-      <property name="mlt_service">affine</property>
-      <property name="shotcut:filter">affineSizePosition</property>
-      <property name="transition.fix_rotate_x">00:00:02.200=0;00:00:03.000=0</property>
-      <property name="transition.fill">0</property>
-      <property name="transition.distort">0</property>
-      <property name="transition.rect">00:00:02.200=0 0 1080 1920 1;00:00:03.000=0 1920 1080 1920 1</property>
-      <property name="transition.valign">middle</property>
-      <property name="transition.halign">center</property>
-      <property name="shotcut:animIn">00:00:00.000</property>
-      <property name="shotcut:animOut">00:00:00.833</property>
-      <property name="transition.threads">0</property>
-      <property name="disable">0</property>
     </filter>
   </chain>
-  <producer id="producer1" in="00:00:00.000" out="00:08:19.967">
+  <producer id="producer0" in="00:00:00.000" out="00:08:20.487">
     <property name="length">15000</property>
     <property name="eof">pause</property>
     <property name="resource">sololevelling/page-000.jpg</property>
-    <property name="ttl">1</property>
+    <property name="ttl">25</property>
     <property name="aspect_ratio">1</property>
     <property name="meta.media.progressive">1</property>
     <property name="seekable">1</property>
@@ -139,10 +76,9 @@
     <property name="meta.media.width">720</property>
     <property name="meta.media.height">2342</property>
     <property name="mlt_service">qimage</property>
+    <property name="resource">sololevelling/page-000.jpg</property>
     <property name="shotcut:skipConvert">1</property>
     <property name="shotcut:caption">page-000.jpg</property>
-    <property name="shotcut:hash">8b8fffbe9073241a87a1a2eecb8a1893</property>
-    <property name="meta.shotcut.vui">1</property>
     <filter id="producer0transformFilter">
       <property name="background">color:#00000000</property>
       <property name="mlt_service">affine</property>
@@ -150,7 +86,7 @@
       <property name="transition.fix_rotate_x">0</property>
       <property name="transition.fill">1</property>
       <property name="transition.distort">0</property>
-      <property name="transition.rect">00:00:00.000=18.4375 -979.628 1080 3513 1;00:00:04.000=0 -1593 1080 3513 1</property>
+      <property name="transition.rect">00:00:00.000=-216 -351.3 1080 3513 1;00:00:04.000=0 -1593 1080 3513 1</property>
       <property name="transition.valign">middle</property>
       <property name="transition.halign">center</property>
       <property name="shotcut:animIn">00:00:00.000</property>
@@ -158,7 +94,7 @@
       <property name="transition.threads">0</property>
     </filter>
   </producer>
-  <producer id="producer2" in="00:00:00.000" out="00:08:19.967">
+  <producer id="producer1" in="00:00:00.000" out="00:08:20.487">
     <property name="length">15000</property>
     <property name="eof">pause</property>
     <property name="resource">sololevelling/page-001.jpg</property>
@@ -170,9 +106,9 @@
     <property name="meta.media.width">720</property>
     <property name="meta.media.height">2342</property>
     <property name="mlt_service">qimage</property>
+    <property name="resource">sololevelling/page-001.jpg</property>
     <property name="shotcut:skipConvert">1</property>
     <property name="shotcut:caption">page-001.jpg</property>
-    <property name="shotcut:hash">5aeaca4c95cfefd0c7e5bf1a0744bd2a</property>
     <filter id="producer1transformFilter">
       <property name="background">color:#00000000</property>
       <property name="mlt_service">affine</property>
@@ -192,10 +128,10 @@
     <property name="shotcut:video">1</property>
     <property name="shotcut:name">track</property>
     <entry producer="videoExample" in="00:00:00.000" out="00:00:03.000"/>
+    <entry producer="producer0" in="00:00:00.000" out="00:00:04.000"/>
     <entry producer="producer1" in="00:00:00.000" out="00:00:04.000"/>
-    <entry producer="producer2" in="00:00:00.000" out="00:00:04.000"/>
   </playlist>
-  <producer id="text1_0" in="00:00:00.000" out="03:59:59.967">
+  <producer id="text1_0" in="00:00:00.000" out="03:59:59.960">
     <property name="length">04:00:00.000</property>
     <property name="eof">pause</property>
     <property name="resource">#00000000</property>
@@ -207,7 +143,7 @@
     <property name="ignore_points">0</property>
     <property name="seekable">1</property>
     <property name="meta.shotcut.vui">1</property>
-    <filter id="text1_0Filter" out="00:00:03.967">
+    <filter id="text1_0Filter" out="00:00:03.960">
       <property name="argument">text</property>
       <property name="geometry">0 200 1080 100 1</property>
       <property name="family">Helvetica</property>
@@ -225,12 +161,12 @@
       <property name="opacity">1</property>
       <property name="mlt_service">qtext</property>
       <property name="shotcut:filter">richText</property>
-      <property name="html">&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+      <property name="html">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"&gt;
 &lt;html&gt;
     &lt;head&gt;
-        &lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;
-        &lt;meta charset=&quot;utf-8&quot; /&gt;
-        &lt;style type=&quot;text/css&quot;&gt;
+        &lt;meta name="qrichtext" content="1" /&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;style type="text/css"&gt;
             p,
             li {
                 white-space: pre-wrap;
@@ -248,21 +184,21 @@
         &lt;/style&gt;
     &lt;/head&gt;
     &lt;body
-        style=&quot;
+        style="
             font-family: 'Inter', '.AppleSystemUIFont', sans-serif;
             font-size: 70;
             color: #fff;
             font-weight: 400;
             font-style: normal;
-        &quot;
-    &gt;&lt;div style=&quot;margin: 100px; font-size: 150px; font-family: 'Times New Roman', serif;&quot; align=&quot;center&quot;&gt;&lt;div align=&quot;left&quot; style=&quot;color: #ff0000&quot;&gt;Lorem &lt;/div&gt;&lt;div align=&quot;right&quot; style=&quot;color: transparent&quot;&gt;ipsum &lt;/div&gt;&lt;div align=&quot;left&quot; style=&quot;color: transparent&quot;&gt;dolor &lt;/div&gt;&lt;div align=&quot;right&quot; style=&quot;color: transparent&quot;&gt;sit &lt;/div&gt;&lt;div align=&quot;left&quot; style=&quot;color: transparent&quot;&gt;amet &lt;/div&gt;&lt;div align=&quot;right&quot; style=&quot;color: transparent&quot;&gt;consectetur &lt;/div&gt;&lt;div align=&quot;left&quot; style=&quot;color: transparent&quot;&gt;adipisicing &lt;/div&gt;&lt;div align=&quot;right&quot; style=&quot;color: transparent&quot;&gt;elit &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
+        "
+    &gt;&lt;div style="margin: 100px; font-size: 150px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;div align="left" style="color: #ff0000"&gt;Lorem &lt;/div&gt;&lt;div align="right" style="color: transparent"&gt;ipsum &lt;/div&gt;&lt;div align="left" style="color: transparent"&gt;dolor &lt;/div&gt;&lt;div align="right" style="color: transparent"&gt;sit &lt;/div&gt;&lt;div align="left" style="color: transparent"&gt;amet &lt;/div&gt;&lt;div align="right" style="color: transparent"&gt;consectetur &lt;/div&gt;&lt;div align="left" style="color: transparent"&gt;adipisicing &lt;/div&gt;&lt;div align="right" style="color: transparent"&gt;elit &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
 &lt;/html&gt;</property>
       <property name="shotcut:usePointSize">1</property>
       <property name="shotcut:pointSize">60</property>
       <property name="overflow-y">1</property>
     </filter>
   </producer>
-  <producer id="text1_1" in="00:00:00.000" out="03:59:59.967">
+  <producer id="text1_1" in="00:00:00.000" out="03:59:59.960">
     <property name="length">04:00:00.000</property>
     <property name="eof">pause</property>
     <property name="resource">#00000000</property>
@@ -274,7 +210,7 @@
     <property name="ignore_points">0</property>
     <property name="seekable">1</property>
     <property name="meta.shotcut.vui">1</property>
-    <filter id="text1_1Filter" out="00:00:03.967">
+    <filter id="text1_1Filter" out="00:00:03.960">
       <property name="argument">text</property>
       <property name="geometry">0 200 1080 100 1</property>
       <property name="family">Helvetica</property>
@@ -292,12 +228,12 @@
       <property name="opacity">1</property>
       <property name="mlt_service">qtext</property>
       <property name="shotcut:filter">richText</property>
-      <property name="html">&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+      <property name="html">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"&gt;
 &lt;html&gt;
     &lt;head&gt;
-        &lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;
-        &lt;meta charset=&quot;utf-8&quot; /&gt;
-        &lt;style type=&quot;text/css&quot;&gt;
+        &lt;meta name="qrichtext" content="1" /&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;style type="text/css"&gt;
             p,
             li {
                 white-space: pre-wrap;
@@ -315,21 +251,21 @@
         &lt;/style&gt;
     &lt;/head&gt;
     &lt;body
-        style=&quot;
+        style="
             font-family: 'Inter', '.AppleSystemUIFont', sans-serif;
             font-size: 70;
             color: #fff;
             font-weight: 400;
             font-style: normal;
-        &quot;
-    &gt;&lt;div style=&quot;margin: 100px; font-size: 150px; font-family: 'Times New Roman', serif;&quot; align=&quot;center&quot;&gt;&lt;div align=&quot;left&quot; style=&quot;color: #ff0000&quot;&gt;Lorem &lt;/div&gt;&lt;div align=&quot;right&quot; style=&quot;color: #00ff00&quot;&gt;ipsum &lt;/div&gt;&lt;div align=&quot;left&quot; style=&quot;color: transparent&quot;&gt;dolor &lt;/div&gt;&lt;div align=&quot;right&quot; style=&quot;color: transparent&quot;&gt;sit &lt;/div&gt;&lt;div align=&quot;left&quot; style=&quot;color: transparent&quot;&gt;amet &lt;/div&gt;&lt;div align=&quot;right&quot; style=&quot;color: transparent&quot;&gt;consectetur &lt;/div&gt;&lt;div align=&quot;left&quot; style=&quot;color: transparent&quot;&gt;adipisicing &lt;/div&gt;&lt;div align=&quot;right&quot; style=&quot;color: transparent&quot;&gt;elit &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
+        "
+    &gt;&lt;div style="margin: 100px; font-size: 150px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;div align="left" style="color: #ff0000"&gt;Lorem &lt;/div&gt;&lt;div align="right" style="color: #00ff00"&gt;ipsum &lt;/div&gt;&lt;div align="left" style="color: transparent"&gt;dolor &lt;/div&gt;&lt;div align="right" style="color: transparent"&gt;sit &lt;/div&gt;&lt;div align="left" style="color: transparent"&gt;amet &lt;/div&gt;&lt;div align="right" style="color: transparent"&gt;consectetur &lt;/div&gt;&lt;div align="left" style="color: transparent"&gt;adipisicing &lt;/div&gt;&lt;div align="right" style="color: transparent"&gt;elit &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
 &lt;/html&gt;</property>
       <property name="shotcut:usePointSize">1</property>
       <property name="shotcut:pointSize">60</property>
       <property name="overflow-y">1</property>
     </filter>
   </producer>
-  <producer id="text1_2" in="00:00:00.000" out="03:59:59.967">
+  <producer id="text1_2" in="00:00:00.000" out="03:59:59.960">
     <property name="length">04:00:00.000</property>
     <property name="eof">pause</property>
     <property name="resource">#00000000</property>
@@ -341,7 +277,7 @@
     <property name="ignore_points">0</property>
     <property name="seekable">1</property>
     <property name="meta.shotcut.vui">1</property>
-    <filter id="text1_2Filter" out="00:00:03.967">
+    <filter id="text1_2Filter" out="00:00:03.960">
       <property name="argument">text</property>
       <property name="geometry">0 200 1080 100 1</property>
       <property name="family">Helvetica</property>
@@ -359,12 +295,12 @@
       <property name="opacity">1</property>
       <property name="mlt_service">qtext</property>
       <property name="shotcut:filter">richText</property>
-      <property name="html">&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+      <property name="html">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"&gt;
 &lt;html&gt;
     &lt;head&gt;
-        &lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;
-        &lt;meta charset=&quot;utf-8&quot; /&gt;
-        &lt;style type=&quot;text/css&quot;&gt;
+        &lt;meta name="qrichtext" content="1" /&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;style type="text/css"&gt;
             p,
             li {
                 white-space: pre-wrap;
@@ -382,21 +318,21 @@
         &lt;/style&gt;
     &lt;/head&gt;
     &lt;body
-        style=&quot;
+        style="
             font-family: 'Inter', '.AppleSystemUIFont', sans-serif;
             font-size: 70;
             color: #fff;
             font-weight: 400;
             font-style: normal;
-        &quot;
-    &gt;&lt;div style=&quot;margin: 100px; font-size: 150px; font-family: 'Times New Roman', serif;&quot; align=&quot;center&quot;&gt;&lt;div align=&quot;left&quot; style=&quot;color: #ff0000&quot;&gt;Lorem &lt;/div&gt;&lt;div align=&quot;right&quot; style=&quot;color: #00ff00&quot;&gt;ipsum &lt;/div&gt;&lt;div align=&quot;left&quot; style=&quot;color: #0000ff&quot;&gt;dolor &lt;/div&gt;&lt;div align=&quot;right&quot; style=&quot;color: transparent&quot;&gt;sit &lt;/div&gt;&lt;div align=&quot;left&quot; style=&quot;color: transparent&quot;&gt;amet &lt;/div&gt;&lt;div align=&quot;right&quot; style=&quot;color: transparent&quot;&gt;consectetur &lt;/div&gt;&lt;div align=&quot;left&quot; style=&quot;color: transparent&quot;&gt;adipisicing &lt;/div&gt;&lt;div align=&quot;right&quot; style=&quot;color: transparent&quot;&gt;elit &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
+        "
+    &gt;&lt;div style="margin: 100px; font-size: 150px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;div align="left" style="color: #ff0000"&gt;Lorem &lt;/div&gt;&lt;div align="right" style="color: #00ff00"&gt;ipsum &lt;/div&gt;&lt;div align="left" style="color: #0000ff"&gt;dolor &lt;/div&gt;&lt;div align="right" style="color: transparent"&gt;sit &lt;/div&gt;&lt;div align="left" style="color: transparent"&gt;amet &lt;/div&gt;&lt;div align="right" style="color: transparent"&gt;consectetur &lt;/div&gt;&lt;div align="left" style="color: transparent"&gt;adipisicing &lt;/div&gt;&lt;div align="right" style="color: transparent"&gt;elit &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
 &lt;/html&gt;</property>
       <property name="shotcut:usePointSize">1</property>
       <property name="shotcut:pointSize">60</property>
       <property name="overflow-y">1</property>
     </filter>
   </producer>
-  <producer id="text1_3" in="00:00:00.000" out="03:59:59.967">
+  <producer id="text1_3" in="00:00:00.000" out="03:59:59.960">
     <property name="length">04:00:00.000</property>
     <property name="eof">pause</property>
     <property name="resource">#00000000</property>
@@ -408,7 +344,7 @@
     <property name="ignore_points">0</property>
     <property name="seekable">1</property>
     <property name="meta.shotcut.vui">1</property>
-    <filter id="text1_3Filter" out="00:00:03.967">
+    <filter id="text1_3Filter" out="00:00:03.960">
       <property name="argument">text</property>
       <property name="geometry">0 200 1080 100 1</property>
       <property name="family">Helvetica</property>
@@ -426,12 +362,12 @@
       <property name="opacity">1</property>
       <property name="mlt_service">qtext</property>
       <property name="shotcut:filter">richText</property>
-      <property name="html">&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+      <property name="html">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"&gt;
 &lt;html&gt;
     &lt;head&gt;
-        &lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;
-        &lt;meta charset=&quot;utf-8&quot; /&gt;
-        &lt;style type=&quot;text/css&quot;&gt;
+        &lt;meta name="qrichtext" content="1" /&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;style type="text/css"&gt;
             p,
             li {
                 white-space: pre-wrap;
@@ -449,21 +385,21 @@
         &lt;/style&gt;
     &lt;/head&gt;
     &lt;body
-        style=&quot;
+        style="
             font-family: 'Inter', '.AppleSystemUIFont', sans-serif;
             font-size: 70;
             color: #fff;
             font-weight: 400;
             font-style: normal;
-        &quot;
-    &gt;&lt;div style=&quot;margin: 100px; font-size: 150px; font-family: 'Times New Roman', serif;&quot; align=&quot;center&quot;&gt;&lt;div align=&quot;left&quot; style=&quot;color: #ff0000&quot;&gt;Lorem &lt;/div&gt;&lt;div align=&quot;right&quot; style=&quot;color: #00ff00&quot;&gt;ipsum &lt;/div&gt;&lt;div align=&quot;left&quot; style=&quot;color: #0000ff&quot;&gt;dolor &lt;/div&gt;&lt;div align=&quot;right&quot; style=&quot;color: #ffff00&quot;&gt;sit &lt;/div&gt;&lt;div align=&quot;left&quot; style=&quot;color: transparent&quot;&gt;amet &lt;/div&gt;&lt;div align=&quot;right&quot; style=&quot;color: transparent&quot;&gt;consectetur &lt;/div&gt;&lt;div align=&quot;left&quot; style=&quot;color: transparent&quot;&gt;adipisicing &lt;/div&gt;&lt;div align=&quot;right&quot; style=&quot;color: transparent&quot;&gt;elit &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
+        "
+    &gt;&lt;div style="margin: 100px; font-size: 150px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;div align="left" style="color: #ff0000"&gt;Lorem &lt;/div&gt;&lt;div align="right" style="color: #00ff00"&gt;ipsum &lt;/div&gt;&lt;div align="left" style="color: #0000ff"&gt;dolor &lt;/div&gt;&lt;div align="right" style="color: #ffff00"&gt;sit &lt;/div&gt;&lt;div align="left" style="color: transparent"&gt;amet &lt;/div&gt;&lt;div align="right" style="color: transparent"&gt;consectetur &lt;/div&gt;&lt;div align="left" style="color: transparent"&gt;adipisicing &lt;/div&gt;&lt;div align="right" style="color: transparent"&gt;elit &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
 &lt;/html&gt;</property>
       <property name="shotcut:usePointSize">1</property>
       <property name="shotcut:pointSize">60</property>
       <property name="overflow-y">1</property>
     </filter>
   </producer>
-  <producer id="text1_4" in="00:00:00.000" out="03:59:59.967">
+  <producer id="text1_4" in="00:00:00.000" out="03:59:59.960">
     <property name="length">04:00:00.000</property>
     <property name="eof">pause</property>
     <property name="resource">#00000000</property>
@@ -475,7 +411,7 @@
     <property name="ignore_points">0</property>
     <property name="seekable">1</property>
     <property name="meta.shotcut.vui">1</property>
-    <filter id="text1_4Filter" out="00:00:03.967">
+    <filter id="text1_4Filter" out="00:00:03.960">
       <property name="argument">text</property>
       <property name="geometry">0 200 1080 100 1</property>
       <property name="family">Helvetica</property>
@@ -493,12 +429,12 @@
       <property name="opacity">1</property>
       <property name="mlt_service">qtext</property>
       <property name="shotcut:filter">richText</property>
-      <property name="html">&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+      <property name="html">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"&gt;
 &lt;html&gt;
     &lt;head&gt;
-        &lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;
-        &lt;meta charset=&quot;utf-8&quot; /&gt;
-        &lt;style type=&quot;text/css&quot;&gt;
+        &lt;meta name="qrichtext" content="1" /&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;style type="text/css"&gt;
             p,
             li {
                 white-space: pre-wrap;
@@ -516,21 +452,21 @@
         &lt;/style&gt;
     &lt;/head&gt;
     &lt;body
-        style=&quot;
+        style="
             font-family: 'Inter', '.AppleSystemUIFont', sans-serif;
             font-size: 70;
             color: #fff;
             font-weight: 400;
             font-style: normal;
-        &quot;
-    &gt;&lt;div style=&quot;margin: 100px; font-size: 150px; font-family: 'Times New Roman', serif;&quot; align=&quot;center&quot;&gt;&lt;div align=&quot;left&quot; style=&quot;color: #ff0000&quot;&gt;Lorem &lt;/div&gt;&lt;div align=&quot;right&quot; style=&quot;color: #00ff00&quot;&gt;ipsum &lt;/div&gt;&lt;div align=&quot;left&quot; style=&quot;color: #0000ff&quot;&gt;dolor &lt;/div&gt;&lt;div align=&quot;right&quot; style=&quot;color: #ffff00&quot;&gt;sit &lt;/div&gt;&lt;div align=&quot;left&quot; style=&quot;color: #ff00ff&quot;&gt;amet &lt;/div&gt;&lt;div align=&quot;right&quot; style=&quot;color: transparent&quot;&gt;consectetur &lt;/div&gt;&lt;div align=&quot;left&quot; style=&quot;color: transparent&quot;&gt;adipisicing &lt;/div&gt;&lt;div align=&quot;right&quot; style=&quot;color: transparent&quot;&gt;elit &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
+        "
+    &gt;&lt;div style="margin: 100px; font-size: 150px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;div align="left" style="color: #ff0000"&gt;Lorem &lt;/div&gt;&lt;div align="right" style="color: #00ff00"&gt;ipsum &lt;/div&gt;&lt;div align="left" style="color: #0000ff"&gt;dolor &lt;/div&gt;&lt;div align="right" style="color: #ffff00"&gt;sit &lt;/div&gt;&lt;div align="left" style="color: #ff00ff"&gt;amet &lt;/div&gt;&lt;div align="right" style="color: transparent"&gt;consectetur &lt;/div&gt;&lt;div align="left" style="color: transparent"&gt;adipisicing &lt;/div&gt;&lt;div align="right" style="color: transparent"&gt;elit &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
 &lt;/html&gt;</property>
       <property name="shotcut:usePointSize">1</property>
       <property name="shotcut:pointSize">60</property>
       <property name="overflow-y">1</property>
     </filter>
   </producer>
-  <producer id="text1_5" in="00:00:00.000" out="03:59:59.967">
+  <producer id="text1_5" in="00:00:00.000" out="03:59:59.960">
     <property name="length">04:00:00.000</property>
     <property name="eof">pause</property>
     <property name="resource">#00000000</property>
@@ -542,7 +478,7 @@
     <property name="ignore_points">0</property>
     <property name="seekable">1</property>
     <property name="meta.shotcut.vui">1</property>
-    <filter id="text1_5Filter" out="00:00:03.967">
+    <filter id="text1_5Filter" out="00:00:03.960">
       <property name="argument">text</property>
       <property name="geometry">0 200 1080 100 1</property>
       <property name="family">Helvetica</property>
@@ -560,12 +496,12 @@
       <property name="opacity">1</property>
       <property name="mlt_service">qtext</property>
       <property name="shotcut:filter">richText</property>
-      <property name="html">&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+      <property name="html">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"&gt;
 &lt;html&gt;
     &lt;head&gt;
-        &lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;
-        &lt;meta charset=&quot;utf-8&quot; /&gt;
-        &lt;style type=&quot;text/css&quot;&gt;
+        &lt;meta name="qrichtext" content="1" /&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;style type="text/css"&gt;
             p,
             li {
                 white-space: pre-wrap;
@@ -583,21 +519,21 @@
         &lt;/style&gt;
     &lt;/head&gt;
     &lt;body
-        style=&quot;
+        style="
             font-family: 'Inter', '.AppleSystemUIFont', sans-serif;
             font-size: 70;
             color: #fff;
             font-weight: 400;
             font-style: normal;
-        &quot;
-    &gt;&lt;div style=&quot;margin: 100px; font-size: 150px; font-family: 'Times New Roman', serif;&quot; align=&quot;center&quot;&gt;&lt;div align=&quot;left&quot; style=&quot;color: #ff0000&quot;&gt;Lorem &lt;/div&gt;&lt;div align=&quot;right&quot; style=&quot;color: #00ff00&quot;&gt;ipsum &lt;/div&gt;&lt;div align=&quot;left&quot; style=&quot;color: #0000ff&quot;&gt;dolor &lt;/div&gt;&lt;div align=&quot;right&quot; style=&quot;color: #ffff00&quot;&gt;sit &lt;/div&gt;&lt;div align=&quot;left&quot; style=&quot;color: #ff00ff&quot;&gt;amet &lt;/div&gt;&lt;div align=&quot;right&quot; style=&quot;color: #00ffff&quot;&gt;consectetur &lt;/div&gt;&lt;div align=&quot;left&quot; style=&quot;color: transparent&quot;&gt;adipisicing &lt;/div&gt;&lt;div align=&quot;right&quot; style=&quot;color: transparent&quot;&gt;elit &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
+        "
+    &gt;&lt;div style="margin: 100px; font-size: 150px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;div align="left" style="color: #ff0000"&gt;Lorem &lt;/div&gt;&lt;div align="right" style="color: #00ff00"&gt;ipsum &lt;/div&gt;&lt;div align="left" style="color: #0000ff"&gt;dolor &lt;/div&gt;&lt;div align="right" style="color: #ffff00"&gt;sit &lt;/div&gt;&lt;div align="left" style="color: #ff00ff"&gt;amet &lt;/div&gt;&lt;div align="right" style="color: #00ffff"&gt;consectetur &lt;/div&gt;&lt;div align="left" style="color: transparent"&gt;adipisicing &lt;/div&gt;&lt;div align="right" style="color: transparent"&gt;elit &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
 &lt;/html&gt;</property>
       <property name="shotcut:usePointSize">1</property>
       <property name="shotcut:pointSize">60</property>
       <property name="overflow-y">1</property>
     </filter>
   </producer>
-  <producer id="text1_6" in="00:00:00.000" out="03:59:59.967">
+  <producer id="text1_6" in="00:00:00.000" out="03:59:59.960">
     <property name="length">04:00:00.000</property>
     <property name="eof">pause</property>
     <property name="resource">#00000000</property>
@@ -609,7 +545,7 @@
     <property name="ignore_points">0</property>
     <property name="seekable">1</property>
     <property name="meta.shotcut.vui">1</property>
-    <filter id="text1_6Filter" out="00:00:03.967">
+    <filter id="text1_6Filter" out="00:00:03.960">
       <property name="argument">text</property>
       <property name="geometry">0 200 1080 100 1</property>
       <property name="family">Helvetica</property>
@@ -627,12 +563,12 @@
       <property name="opacity">1</property>
       <property name="mlt_service">qtext</property>
       <property name="shotcut:filter">richText</property>
-      <property name="html">&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+      <property name="html">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"&gt;
 &lt;html&gt;
     &lt;head&gt;
-        &lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;
-        &lt;meta charset=&quot;utf-8&quot; /&gt;
-        &lt;style type=&quot;text/css&quot;&gt;
+        &lt;meta name="qrichtext" content="1" /&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;style type="text/css"&gt;
             p,
             li {
                 white-space: pre-wrap;
@@ -650,21 +586,21 @@
         &lt;/style&gt;
     &lt;/head&gt;
     &lt;body
-        style=&quot;
+        style="
             font-family: 'Inter', '.AppleSystemUIFont', sans-serif;
             font-size: 70;
             color: #fff;
             font-weight: 400;
             font-style: normal;
-        &quot;
-    &gt;&lt;div style=&quot;margin: 100px; font-size: 150px; font-family: 'Times New Roman', serif;&quot; align=&quot;center&quot;&gt;&lt;div align=&quot;left&quot; style=&quot;color: #ff0000&quot;&gt;Lorem &lt;/div&gt;&lt;div align=&quot;right&quot; style=&quot;color: #00ff00&quot;&gt;ipsum &lt;/div&gt;&lt;div align=&quot;left&quot; style=&quot;color: #0000ff&quot;&gt;dolor &lt;/div&gt;&lt;div align=&quot;right&quot; style=&quot;color: #ffff00&quot;&gt;sit &lt;/div&gt;&lt;div align=&quot;left&quot; style=&quot;color: #ff00ff&quot;&gt;amet &lt;/div&gt;&lt;div align=&quot;right&quot; style=&quot;color: #00ffff&quot;&gt;consectetur &lt;/div&gt;&lt;div align=&quot;left&quot; style=&quot;color: #ff8000&quot;&gt;adipisicing &lt;/div&gt;&lt;div align=&quot;right&quot; style=&quot;color: transparent&quot;&gt;elit &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
+        "
+    &gt;&lt;div style="margin: 100px; font-size: 150px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;div align="left" style="color: #ff0000"&gt;Lorem &lt;/div&gt;&lt;div align="right" style="color: #00ff00"&gt;ipsum &lt;/div&gt;&lt;div align="left" style="color: #0000ff"&gt;dolor &lt;/div&gt;&lt;div align="right" style="color: #ffff00"&gt;sit &lt;/div&gt;&lt;div align="left" style="color: #ff00ff"&gt;amet &lt;/div&gt;&lt;div align="right" style="color: #00ffff"&gt;consectetur &lt;/div&gt;&lt;div align="left" style="color: #ff8000"&gt;adipisicing &lt;/div&gt;&lt;div align="right" style="color: transparent"&gt;elit &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
 &lt;/html&gt;</property>
       <property name="shotcut:usePointSize">1</property>
       <property name="shotcut:pointSize">60</property>
       <property name="overflow-y">1</property>
     </filter>
   </producer>
-  <producer id="text1_7" in="00:00:00.000" out="03:59:59.967">
+  <producer id="text1_7" in="00:00:00.000" out="03:59:59.960">
     <property name="length">04:00:00.000</property>
     <property name="eof">pause</property>
     <property name="resource">#00000000</property>
@@ -676,7 +612,7 @@
     <property name="ignore_points">0</property>
     <property name="seekable">1</property>
     <property name="meta.shotcut.vui">1</property>
-    <filter id="text1_7Filter" out="00:00:03.967">
+    <filter id="text1_7Filter" out="00:00:03.960">
       <property name="argument">text</property>
       <property name="geometry">0 200 1080 100 1</property>
       <property name="family">Helvetica</property>
@@ -694,12 +630,12 @@
       <property name="opacity">1</property>
       <property name="mlt_service">qtext</property>
       <property name="shotcut:filter">richText</property>
-      <property name="html">&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+      <property name="html">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"&gt;
 &lt;html&gt;
     &lt;head&gt;
-        &lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;
-        &lt;meta charset=&quot;utf-8&quot; /&gt;
-        &lt;style type=&quot;text/css&quot;&gt;
+        &lt;meta name="qrichtext" content="1" /&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;style type="text/css"&gt;
             p,
             li {
                 white-space: pre-wrap;
@@ -717,21 +653,21 @@
         &lt;/style&gt;
     &lt;/head&gt;
     &lt;body
-        style=&quot;
+        style="
             font-family: 'Inter', '.AppleSystemUIFont', sans-serif;
             font-size: 70;
             color: #fff;
             font-weight: 400;
             font-style: normal;
-        &quot;
-    &gt;&lt;div style=&quot;margin: 100px; font-size: 150px; font-family: 'Times New Roman', serif;&quot; align=&quot;center&quot;&gt;&lt;div align=&quot;left&quot; style=&quot;color: #ff0000&quot;&gt;Lorem &lt;/div&gt;&lt;div align=&quot;right&quot; style=&quot;color: #00ff00&quot;&gt;ipsum &lt;/div&gt;&lt;div align=&quot;left&quot; style=&quot;color: #0000ff&quot;&gt;dolor &lt;/div&gt;&lt;div align=&quot;right&quot; style=&quot;color: #ffff00&quot;&gt;sit &lt;/div&gt;&lt;div align=&quot;left&quot; style=&quot;color: #ff00ff&quot;&gt;amet &lt;/div&gt;&lt;div align=&quot;right&quot; style=&quot;color: #00ffff&quot;&gt;consectetur &lt;/div&gt;&lt;div align=&quot;left&quot; style=&quot;color: #ff8000&quot;&gt;adipisicing &lt;/div&gt;&lt;div align=&quot;right&quot; style=&quot;color: #8000ff&quot;&gt;elit &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
+        "
+    &gt;&lt;div style="margin: 100px; font-size: 150px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;div align="left" style="color: #ff0000"&gt;Lorem &lt;/div&gt;&lt;div align="right" style="color: #00ff00"&gt;ipsum &lt;/div&gt;&lt;div align="left" style="color: #0000ff"&gt;dolor &lt;/div&gt;&lt;div align="right" style="color: #ffff00"&gt;sit &lt;/div&gt;&lt;div align="left" style="color: #ff00ff"&gt;amet &lt;/div&gt;&lt;div align="right" style="color: #00ffff"&gt;consectetur &lt;/div&gt;&lt;div align="left" style="color: #ff8000"&gt;adipisicing &lt;/div&gt;&lt;div align="right" style="color: #8000ff"&gt;elit &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
 &lt;/html&gt;</property>
       <property name="shotcut:usePointSize">1</property>
       <property name="shotcut:pointSize">60</property>
       <property name="overflow-y">1</property>
     </filter>
   </producer>
-  <producer id="text1_8" in="00:00:00.000" out="03:59:59.967">
+  <producer id="text1_8" in="00:00:00.000" out="03:59:59.960">
     <property name="length">04:00:00.000</property>
     <property name="eof">pause</property>
     <property name="resource">#00000000</property>
@@ -743,7 +679,7 @@
     <property name="ignore_points">0</property>
     <property name="seekable">1</property>
     <property name="meta.shotcut.vui">1</property>
-    <filter id="text1_8Filter" out="00:00:03.967">
+    <filter id="text1_8Filter" out="00:00:03.960">
       <property name="argument">text</property>
       <property name="geometry">0 200 1080 100 1</property>
       <property name="family">Helvetica</property>
@@ -761,12 +697,12 @@
       <property name="opacity">1</property>
       <property name="mlt_service">qtext</property>
       <property name="shotcut:filter">richText</property>
-      <property name="html">&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+      <property name="html">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"&gt;
 &lt;html&gt;
     &lt;head&gt;
-        &lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;
-        &lt;meta charset=&quot;utf-8&quot; /&gt;
-        &lt;style type=&quot;text/css&quot;&gt;
+        &lt;meta name="qrichtext" content="1" /&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;style type="text/css"&gt;
             p,
             li {
                 white-space: pre-wrap;
@@ -784,21 +720,21 @@
         &lt;/style&gt;
     &lt;/head&gt;
     &lt;body
-        style=&quot;
+        style="
             font-family: 'Inter', '.AppleSystemUIFont', sans-serif;
             font-size: 70;
             color: #fff;
             font-weight: 400;
             font-style: normal;
-        &quot;
-    &gt;&lt;div style=&quot;margin: 100px; font-size: 150px; font-family: 'Times New Roman', serif;&quot; align=&quot;center&quot;&gt;&lt;div align=&quot;left&quot; style=&quot;color: #ff0000&quot;&gt;Lorem &lt;/div&gt;&lt;div align=&quot;right&quot; style=&quot;color: #00ff00&quot;&gt;ipsum &lt;/div&gt;&lt;div align=&quot;left&quot; style=&quot;color: #0000ff&quot;&gt;dolor &lt;/div&gt;&lt;div align=&quot;right&quot; style=&quot;color: #ffff00&quot;&gt;sit &lt;/div&gt;&lt;div align=&quot;left&quot; style=&quot;color: #ff00ff&quot;&gt;amet &lt;/div&gt;&lt;div align=&quot;right&quot; style=&quot;color: #00ffff&quot;&gt;consectetur &lt;/div&gt;&lt;div align=&quot;left&quot; style=&quot;color: #ff8000&quot;&gt;adipisicing &lt;/div&gt;&lt;div align=&quot;right&quot; style=&quot;color: #8000ff&quot;&gt;elit &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
+        "
+    &gt;&lt;div style="margin: 100px; font-size: 150px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;div align="left" style="color: #ff0000"&gt;Lorem &lt;/div&gt;&lt;div align="right" style="color: #00ff00"&gt;ipsum &lt;/div&gt;&lt;div align="left" style="color: #0000ff"&gt;dolor &lt;/div&gt;&lt;div align="right" style="color: #ffff00"&gt;sit &lt;/div&gt;&lt;div align="left" style="color: #ff00ff"&gt;amet &lt;/div&gt;&lt;div align="right" style="color: #00ffff"&gt;consectetur &lt;/div&gt;&lt;div align="left" style="color: #ff8000"&gt;adipisicing &lt;/div&gt;&lt;div align="right" style="color: #8000ff"&gt;elit &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
 &lt;/html&gt;</property>
       <property name="shotcut:usePointSize">1</property>
       <property name="shotcut:pointSize">60</property>
       <property name="overflow-y">1</property>
     </filter>
   </producer>
-  <producer id="text1_9" in="00:00:00.000" out="03:59:59.967">
+  <producer id="text1_9" in="00:00:00.000" out="03:59:59.960">
     <property name="length">04:00:00.000</property>
     <property name="eof">pause</property>
     <property name="resource">#00000000</property>
@@ -810,7 +746,7 @@
     <property name="ignore_points">0</property>
     <property name="seekable">1</property>
     <property name="meta.shotcut.vui">1</property>
-    <filter id="text1_9Filter" out="00:00:03.967">
+    <filter id="text1_9Filter" out="00:00:03.960">
       <property name="argument">text</property>
       <property name="geometry">0 200 1080 100 1</property>
       <property name="family">Helvetica</property>
@@ -828,12 +764,12 @@
       <property name="opacity">1</property>
       <property name="mlt_service">qtext</property>
       <property name="shotcut:filter">richText</property>
-      <property name="html">&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+      <property name="html">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"&gt;
 &lt;html&gt;
     &lt;head&gt;
-        &lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;
-        &lt;meta charset=&quot;utf-8&quot; /&gt;
-        &lt;style type=&quot;text/css&quot;&gt;
+        &lt;meta name="qrichtext" content="1" /&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;style type="text/css"&gt;
             p,
             li {
                 white-space: pre-wrap;
@@ -851,21 +787,21 @@
         &lt;/style&gt;
     &lt;/head&gt;
     &lt;body
-        style=&quot;
+        style="
             font-family: 'Inter', '.AppleSystemUIFont', sans-serif;
             font-size: 70;
             color: #fff;
             font-weight: 400;
             font-style: normal;
-        &quot;
-    &gt;&lt;div style=&quot;margin: 100px; font-size: 150px; font-family: 'Times New Roman', serif;&quot; align=&quot;center&quot;&gt;&lt;div align=&quot;left&quot; style=&quot;color: #ff0000&quot;&gt;Lorem &lt;/div&gt;&lt;div align=&quot;right&quot; style=&quot;color: #00ff00&quot;&gt;ipsum &lt;/div&gt;&lt;div align=&quot;left&quot; style=&quot;color: #0000ff&quot;&gt;dolor &lt;/div&gt;&lt;div align=&quot;right&quot; style=&quot;color: #ffff00&quot;&gt;sit &lt;/div&gt;&lt;div align=&quot;left&quot; style=&quot;color: #ff00ff&quot;&gt;amet &lt;/div&gt;&lt;div align=&quot;right&quot; style=&quot;color: #00ffff&quot;&gt;consectetur &lt;/div&gt;&lt;div align=&quot;left&quot; style=&quot;color: #ff8000&quot;&gt;adipisicing &lt;/div&gt;&lt;div align=&quot;right&quot; style=&quot;color: #8000ff&quot;&gt;elit &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
+        "
+    &gt;&lt;div style="margin: 100px; font-size: 150px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;div align="left" style="color: #ff0000"&gt;Lorem &lt;/div&gt;&lt;div align="right" style="color: #00ff00"&gt;ipsum &lt;/div&gt;&lt;div align="left" style="color: #0000ff"&gt;dolor &lt;/div&gt;&lt;div align="right" style="color: #ffff00"&gt;sit &lt;/div&gt;&lt;div align="left" style="color: #ff00ff"&gt;amet &lt;/div&gt;&lt;div align="right" style="color: #00ffff"&gt;consectetur &lt;/div&gt;&lt;div align="left" style="color: #ff8000"&gt;adipisicing &lt;/div&gt;&lt;div align="right" style="color: #8000ff"&gt;elit &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
 &lt;/html&gt;</property>
       <property name="shotcut:usePointSize">1</property>
       <property name="shotcut:pointSize">60</property>
       <property name="overflow-y">1</property>
     </filter>
   </producer>
-  <producer id="text1_10" in="00:00:00.000" out="03:59:59.967">
+  <producer id="text1_10" in="00:00:00.000" out="03:59:59.960">
     <property name="length">04:00:00.000</property>
     <property name="eof">pause</property>
     <property name="resource">#00000000</property>
@@ -877,7 +813,7 @@
     <property name="ignore_points">0</property>
     <property name="seekable">1</property>
     <property name="meta.shotcut.vui">1</property>
-    <filter id="text1_10Filter" out="00:00:03.967">
+    <filter id="text1_10Filter" out="00:00:03.960">
       <property name="argument">text</property>
       <property name="geometry">0 200 1080 100 1</property>
       <property name="family">Helvetica</property>
@@ -895,12 +831,12 @@
       <property name="opacity">1</property>
       <property name="mlt_service">qtext</property>
       <property name="shotcut:filter">richText</property>
-      <property name="html">&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+      <property name="html">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"&gt;
 &lt;html&gt;
     &lt;head&gt;
-        &lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;
-        &lt;meta charset=&quot;utf-8&quot; /&gt;
-        &lt;style type=&quot;text/css&quot;&gt;
+        &lt;meta name="qrichtext" content="1" /&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;style type="text/css"&gt;
             p,
             li {
                 white-space: pre-wrap;
@@ -918,21 +854,21 @@
         &lt;/style&gt;
     &lt;/head&gt;
     &lt;body
-        style=&quot;
+        style="
             font-family: 'Inter', '.AppleSystemUIFont', sans-serif;
             font-size: 70;
             color: #fff;
             font-weight: 400;
             font-style: normal;
-        &quot;
-    &gt;&lt;div style=&quot;margin: 100px; font-size: 150px; font-family: 'Times New Roman', serif;&quot; align=&quot;center&quot;&gt;&lt;div align=&quot;left&quot; style=&quot;color: #ff0000&quot;&gt;Lorem &lt;/div&gt;&lt;div align=&quot;right&quot; style=&quot;color: #00ff00&quot;&gt;ipsum &lt;/div&gt;&lt;div align=&quot;left&quot; style=&quot;color: #0000ff&quot;&gt;dolor &lt;/div&gt;&lt;div align=&quot;right&quot; style=&quot;color: #ffff00&quot;&gt;sit &lt;/div&gt;&lt;div align=&quot;left&quot; style=&quot;color: #ff00ff&quot;&gt;amet &lt;/div&gt;&lt;div align=&quot;right&quot; style=&quot;color: #00ffff&quot;&gt;consectetur &lt;/div&gt;&lt;div align=&quot;left&quot; style=&quot;color: #ff8000&quot;&gt;adipisicing &lt;/div&gt;&lt;div align=&quot;right&quot; style=&quot;color: #8000ff&quot;&gt;elit &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
+        "
+    &gt;&lt;div style="margin: 100px; font-size: 150px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;div align="left" style="color: #ff0000"&gt;Lorem &lt;/div&gt;&lt;div align="right" style="color: #00ff00"&gt;ipsum &lt;/div&gt;&lt;div align="left" style="color: #0000ff"&gt;dolor &lt;/div&gt;&lt;div align="right" style="color: #ffff00"&gt;sit &lt;/div&gt;&lt;div align="left" style="color: #ff00ff"&gt;amet &lt;/div&gt;&lt;div align="right" style="color: #00ffff"&gt;consectetur &lt;/div&gt;&lt;div align="left" style="color: #ff8000"&gt;adipisicing &lt;/div&gt;&lt;div align="right" style="color: #8000ff"&gt;elit &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
 &lt;/html&gt;</property>
       <property name="shotcut:usePointSize">1</property>
       <property name="shotcut:pointSize">60</property>
       <property name="overflow-y">1</property>
     </filter>
   </producer>
-  <producer id="text1_11" in="00:00:00.000" out="03:59:59.967">
+  <producer id="text1_11" in="00:00:00.000" out="03:59:59.960">
     <property name="length">04:00:00.000</property>
     <property name="eof">pause</property>
     <property name="resource">#00000000</property>
@@ -944,7 +880,7 @@
     <property name="ignore_points">0</property>
     <property name="seekable">1</property>
     <property name="meta.shotcut.vui">1</property>
-    <filter id="text1_11Filter" out="00:00:03.967">
+    <filter id="text1_11Filter" out="00:00:03.960">
       <property name="argument">text</property>
       <property name="geometry">0 200 1080 100 1</property>
       <property name="family">Helvetica</property>
@@ -962,12 +898,12 @@
       <property name="opacity">1</property>
       <property name="mlt_service">qtext</property>
       <property name="shotcut:filter">richText</property>
-      <property name="html">&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+      <property name="html">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"&gt;
 &lt;html&gt;
     &lt;head&gt;
-        &lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;
-        &lt;meta charset=&quot;utf-8&quot; /&gt;
-        &lt;style type=&quot;text/css&quot;&gt;
+        &lt;meta name="qrichtext" content="1" /&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;style type="text/css"&gt;
             p,
             li {
                 white-space: pre-wrap;
@@ -985,38 +921,19 @@
         &lt;/style&gt;
     &lt;/head&gt;
     &lt;body
-        style=&quot;
+        style="
             font-family: 'Inter', '.AppleSystemUIFont', sans-serif;
             font-size: 70;
             color: #fff;
             font-weight: 400;
             font-style: normal;
-        &quot;
-    &gt;&lt;div style=&quot;margin: 100px; font-size: 150px; font-family: 'Times New Roman', serif;&quot; align=&quot;center&quot;&gt;&lt;div align=&quot;left&quot; style=&quot;color: #ff0000&quot;&gt;Lorem &lt;/div&gt;&lt;div align=&quot;right&quot; style=&quot;color: #00ff00&quot;&gt;ipsum &lt;/div&gt;&lt;div align=&quot;left&quot; style=&quot;color: #0000ff&quot;&gt;dolor &lt;/div&gt;&lt;div align=&quot;right&quot; style=&quot;color: #ffff00&quot;&gt;sit &lt;/div&gt;&lt;div align=&quot;left&quot; style=&quot;color: #ff00ff&quot;&gt;amet &lt;/div&gt;&lt;div align=&quot;right&quot; style=&quot;color: #00ffff&quot;&gt;consectetur &lt;/div&gt;&lt;div align=&quot;left&quot; style=&quot;color: #ff8000&quot;&gt;adipisicing &lt;/div&gt;&lt;div align=&quot;right&quot; style=&quot;color: #8000ff&quot;&gt;elit &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
+        "
+    &gt;&lt;div style="margin: 100px; font-size: 150px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;div align="left" style="color: #ff0000"&gt;Lorem &lt;/div&gt;&lt;div align="right" style="color: #00ff00"&gt;ipsum &lt;/div&gt;&lt;div align="left" style="color: #0000ff"&gt;dolor &lt;/div&gt;&lt;div align="right" style="color: #ffff00"&gt;sit &lt;/div&gt;&lt;div align="left" style="color: #ff00ff"&gt;amet &lt;/div&gt;&lt;div align="right" style="color: #00ffff"&gt;consectetur &lt;/div&gt;&lt;div align="left" style="color: #ff8000"&gt;adipisicing &lt;/div&gt;&lt;div align="right" style="color: #8000ff"&gt;elit &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
 &lt;/html&gt;</property>
       <property name="shotcut:usePointSize">1</property>
       <property name="shotcut:pointSize">60</property>
       <property name="overflow-y">1</property>
     </filter>
-  </producer>
-  <producer id="producer3" in="00:00:00.000" out="03:59:59.967">
-    <property name="length">04:00:00.000</property>
-    <property name="eof">pause</property>
-    <property name="resource">/Users/morse/Downloads/MdiGithub.svg</property>
-    <property name="ttl">1</property>
-    <property name="aspect_ratio">1</property>
-    <property name="meta.media.progressive">1</property>
-    <property name="seekable">1</property>
-    <property name="format">2</property>
-    <property name="meta.media.width">32</property>
-    <property name="meta.media.height">32</property>
-    <property name="mlt_service">qimage</property>
-    <property name="creation_time">2025-02-25T09:45:04</property>
-    <property name="shotcut:skipConvert">1</property>
-    <property name="shotcut:bins">All</property>
-    <property name="xml">was here</property>
-    <property name="shotcut:hash">143bca1b05afa5669fbc6037a27dc8ab</property>
-    <property name="shotcut:caption">MdiGithub.svg</property>
   </producer>
   <playlist id="titles">
     <property name="shotcut:name">track</property>
@@ -1032,14 +949,11 @@
     <entry producer="text1_9" in="00:00:00.000" out="00:00:00.200"/>
     <entry producer="text1_10" in="00:00:00.000" out="00:00:00.200"/>
     <entry producer="text1_11" in="00:00:00.000" out="00:00:00.200"/>
-    <blank length="00:00:00.233"/>
-    <entry producer="producer3" in="00:00:00.000" out="00:00:03.967"/>
   </playlist>
-  <chain id="chain0" out="00:00:14.500">
+  <chain id="chain0" in="00:00:00.000" out="00:00:14.514">
     <property name="length">436</property>
     <property name="eof">pause</property>
     <property name="resource">narrator.wav</property>
-    <property name="mlt_service">avformat</property>
     <property name="meta.media.nb_streams">1</property>
     <property name="meta.media.0.stream.type">audio</property>
     <property name="meta.media.0.codec.sample_fmt">s16</property>
@@ -1053,22 +967,21 @@
     <property name="audio_index">0</property>
     <property name="video_index">-1</property>
     <property name="mute_on_pause">0</property>
+    <property name="mlt_service">avformat</property>
+    <property name="resource">narrator.wav</property>
     <property name="shotcut:skipConvert">1</property>
     <property name="shotcut:caption">narrator.wav</property>
-    <property name="astream">0</property>
-    <property name="shotcut:hash">69466ddf6841801c8e1e00e775299ad7</property>
   </chain>
   <playlist id="audio1">
     <property name="shotcut:audio">1</property>
     <property name="shotcut:name">track</property>
-    <blank length="00:00:00.033"/>
-    <entry producer="chain0" in="00:00:00.000" out="00:00:14.500"/>
+    <blank length="1"/>
+    <entry producer="chain0" in="00:00:00.000" out="00:00:14.514"/>
   </playlist>
-  <chain id="chain1" out="00:02:15.100">
+  <chain id="chain1" in="00:00:00.000" out="00:02:15.115">
     <property name="length">4050</property>
     <property name="eof">pause</property>
     <property name="resource">edapollo - Let It Go [bQ5glYCsv94].mp3</property>
-    <property name="mlt_service">avformat</property>
     <property name="meta.media.nb_streams">1</property>
     <property name="meta.media.0.stream.type">audio</property>
     <property name="meta.media.0.codec.sample_fmt">fltp</property>
@@ -1087,10 +1000,10 @@
     <property name="audio_index">0</property>
     <property name="video_index">-1</property>
     <property name="mute_on_pause">0</property>
+    <property name="mlt_service">avformat</property>
+    <property name="resource">edapollo - Let It Go [bQ5glYCsv94].mp3</property>
     <property name="shotcut:skipConvert">1</property>
     <property name="shotcut:caption">edapollo - Let It Go [bQ5glYCsv94].mp3</property>
-    <property name="astream">0</property>
-    <property name="shotcut:hash">f7ad7c6a1d2cc517ae39ebe6b5f4502a</property>
     <filter id="chain1gain">
       <property name="window">75</property>
       <property name="max_gain">20dB</property>
@@ -1101,15 +1014,29 @@
   <playlist id="audio2">
     <property name="shotcut:audio">1</property>
     <property name="shotcut:name">track</property>
-    <entry producer="chain1" in="00:00:00.000" out="00:02:14.967"/>
+    <entry producer="chain1" in="00:00:00.000" out="00:02:15.067"/>
   </playlist>
-  <tractor id="mainTractor" title="Shotcut version 25.01.25" in="00:00:00.000" out="00:02:14.967">
+  <playlist id="main_bin">
+    <property name="xml_retain">1</property>
+  </playlist>
+  <producer id="black" in="00:00:00.000" out="2777:46:39.000">
+    <property name="length">2777:46:39.000</property>
+    <property name="eof">pause</property>
+    <property name="resource">0</property>
+    <property name="aspect_ratio">1</property>
+    <property name="mlt_service">color</property>
+    <property name="mlt_image_format">rgba</property>
+    <property name="set.test_audio">0</property>
+  </producer>
+  <playlist id="background">
+    <entry producer="black" in="00:00:00.000" out="2777:46:39.000"/>
+  </playlist>
+  <tractor id="mainTractor" title="Shotcut version 25.01.25" in="00:00:00.000">
     <property name="shotcut">1</property>
     <property name="shotcut:projectAudioChannels">2</property>
     <property name="shotcut:projectFolder">0</property>
     <property name="shotcut:trackHeight">50</property>
     <property name="shotcut:skipConvert">0</property>
-    <property name="shotcut:scaleFactor">2.207</property>
     <track producer="background"/>
     <track producer="video1"/>
     <track producer="titles"/>
@@ -1149,7 +1076,7 @@
       <property name="version">0.1</property>
       <property name="mlt_service">frei0r.cairoblend</property>
       <property name="threads">0</property>
-      <property name="disable">1</property>
+      <property name="disable">0</property>
     </transition>
     <transition id="transitionCairo1">
       <property name="a_track">1</property>

@@ -211,6 +211,25 @@ export function renderToVideo(jsx: any, xmlFilename = 'video.mlt') {
     execSync(`"${meltPath}" ${tempXmlFile}`, { stdio: 'inherit' })
     console.timeEnd(`${renderId} melt processing`)
 }
+export function previewVideo(jsx: any, xmlFilename = 'video.mlt') {
+    // Generate unique ID for this render
+    const renderId = `render_${Date.now().toString(36)}`
+
+    // Task 1: Generate XML
+    console.time(`${renderId} generate xml`)
+    const xml = renderToXml(jsx)
+    console.timeEnd(`${renderId} generate xml`)
+
+    // Task 2: Run melt command
+    console.time(`${renderId} melt processing`)
+    const timestamp = Date.now()
+    // const tempXmlFile = path.join(os.tmpdir(), `video-${timestamp}.mlt`)
+    const tempXmlFile = xmlFilename
+    fs.writeFileSync(tempXmlFile, xml)
+    const meltPath = '/Applications/Shotcut.app/Contents/MacOS/melt'
+    execSync(`"${meltPath}" ${tempXmlFile} -consumer cbrts in=0 out=-1 muxrate=10000000 | ffplay -i -`, { stdio: 'inherit' })
+    console.timeEnd(`${renderId} melt processing`)
+}
 
 export function parseXml(xml: string) {
     const handler = new DomHandler()
