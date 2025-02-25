@@ -202,6 +202,18 @@ Which is still the problem that if you use a different mux rate, it doesn't work
 ## transform effects
 
 - kdenlive uses qtblend for the transfrom effect and seems more reliable than the shotcut one
+- kdenlive uses affine when you use the position and zoom effect, this 
 - shotcut uses affine, which is bugged in every way imaginable, difficult to understand too
-- 
+- kdenlive also has a avfilter.zoompan filter for the zoom pan effect, which is just probably a bit more performant
+
+
+keyframe interpolation:
+
+- smooth: $=
+- linear: =
+- step |=
+- cubic in g=
+- cubic out h=
+- exponential in p=
+- exponential out q=
 

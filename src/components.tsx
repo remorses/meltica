@@ -217,6 +217,59 @@ export function PanningAnimation({}) {
     )
 }
 
+export function FlipHorizontally({ id = 'flip' }) {
+    return (
+        <filter id={id}>
+            <property name='mlt_service'>avfilter.hflip</property>
+            <property name='kdenlive_id'>avfilter.hflip</property>
+            <property name='kdenlive:collapsed'>0</property>
+        </filter>
+    )
+}
+
+export function FlipVertically({ id = 'vflip' }) {
+    return (
+        <filter id={id}>
+            <property name='mlt_service'>avfilter.vflip</property>
+            <property name='kdenlive_id'>avfilter.vflip</property>
+            <property name='kdenlive:collapsed'>0</property>
+        </filter>
+    )
+}
+
+export function StereoToMono({ id = 'stereoToMono', keep = 'left', swap = 0 }) {
+    // For left channel: from=0, to=1
+    // For right channel: from=1, to=0
+    const from = keep === 'left' ? 0 : 1
+    const to = keep === 'left' ? 1 : 0
+
+    return (
+        <filter id={id}>
+            <property name='to'>{to}</property>
+            <property name='mlt_service'>channelcopy</property>
+            <property name='kdenlive_id'>channelcopy</property>
+            <property name='from'>{from}</property>
+            <property name='swap'>{swap}</property>
+            <property name='kdenlive:collapsed'>0</property>
+        </filter>
+    )
+}
+
+export function Vignette({ id = 'vignette', aspect = 0.5, clearCenter = 0, soft = 0.6 }) {
+    return (
+        <filter id={id}>
+            <property name='version'>0.2</property>
+            <property name='mlt_service'>frei0r.vignette</property>
+            <property name='kdenlive_id'>frei0r.vignette</property>
+            <property name='aspect'>{`00:00:00.000=${aspect}`}</property>
+            <property name='clearCenter'>{`00:00:00.000=${clearCenter}`}</property>
+            <property name='soft'>{`00:00:00.000=${soft}`}</property>
+            <property name='kdenlive:collapsed'>0</property>
+        </filter>
+    )
+}
+
+
 export function BlankSpace({ length }) {
     const context = useContext(renderingContext)
     const { trackId } = useTrackContext()
@@ -907,9 +960,6 @@ export function FadeInBrightness({
     )
 }
 
-
-
-
 export function FadeOutBrightness({
     duration = 1,
     startLevel = 1,
@@ -937,7 +987,6 @@ export function FadeOutBrightness({
         </filter>
     )
 }
-
 
 export function FadeInAudio({
     duration = 1,
@@ -983,7 +1032,7 @@ export function FadeOutAudio({
     const { producer } = useProducerContext()
     const id = producer.id
     let durationTime = formatSecondsToTime(duration)
-    
+
     return (
         <filter id={id + 'fadeOutVolume'}>
             <property name='window'>75</property>
@@ -996,7 +1045,6 @@ export function FadeOutAudio({
         </filter>
     )
 }
-
 
 export function SimpleChromaKey({
     color = '#00ff00',
