@@ -41,9 +41,9 @@ function Video({}) {
                     out='3'
                 >
                     <CropRect radius={0.3} id={'crop'} />
+                    <PanningAnimation />
                     {/* <SimpleChromaKey color='#2F2F2F' /> */}
                     <Glow />
-                    {/* <PanningAnimation /> */}
                 </Asset>
                 <Asset
                     type='image'
