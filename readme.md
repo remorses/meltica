@@ -197,3 +197,11 @@ to start from a random point in the video:
 ```
 
 Which is still the problem that if you use a different mux rate, it doesn't work for some reason. Big enough, mux rate is necessary to make this work.
+
+
+## transform effects
+
+- kdenlive uses qtblend for the transfrom effect and seems more reliable than the shotcut one
+- shotcut uses affine, which is bugged in every way imaginable, difficult to understand too
+- 
+
