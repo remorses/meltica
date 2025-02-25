@@ -227,7 +227,7 @@ export function previewVideo(jsx: any, xmlFilename = 'video.mlt') {
     const tempXmlFile = xmlFilename
     fs.writeFileSync(tempXmlFile, xml)
     const meltPath = '/Applications/Shotcut.app/Contents/MacOS/melt'
-    execSync(`"${meltPath}" ${tempXmlFile} -consumer cbrts in=0 out=-1 muxrate=10000000 | ffplay -i -`, { stdio: 'inherit' })
+    execSync(`"${meltPath}" ${tempXmlFile} -consumer cbrts in=0 out=-1 muxrate=10000000 | mpv -`, { stdio: 'inherit' })
     console.timeEnd(`${renderId} melt processing`)
 }
 
