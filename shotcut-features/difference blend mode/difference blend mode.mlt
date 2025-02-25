@@ -226,19 +226,25 @@
     <property name="xml">was here</property>
     <property name="shotcut:caption">10 Tips for Better DRONE FOOTAGE ｜ Filmmaking with Aidin Robbins [QrOBh2aKt4w].mp4</property>
     <property name="meta.shotcut.vui">1</property>
-    <filter id="filter2" out="00:00:19.853">
+    <filter id="filter2" out="00:02:25.525">
       <property name="version">0.4</property>
       <property name="mlt_service">frei0r.bluescreen0r</property>
       <property name="threads">0</property>
       <property name="0">#ff253c39</property>
       <property name="1">0.169</property>
+      <property name="disable">1</property>
+    </filter>
+    <filter id="filter1" out="00:02:25.525">
+      <property name="version">0.1</property>
+      <property name="mlt_service">frei0r.glow</property>
+      <property name="0">0.23</property>
       <property name="disable">0</property>
     </filter>
   </chain>
   <playlist id="playlist1">
     <property name="shotcut:video">1</property>
     <property name="shotcut:name">V2</property>
-    <entry producer="chain2" in="00:00:00.000" out="00:00:19.853"/>
+    <entry producer="chain2" in="00:00:00.000" out="00:02:25.525"/>
   </playlist>
   <producer id="producer1" in="00:00:00.000" out="03:59:59.977">
     <property name="length">04:00:00.042</property>
@@ -282,12 +288,12 @@ li.checked::marker { content: &quot;\2612&quot;; }
       <property name="shotcut:animIn">00:00:00.000</property>
       <property name="shotcut:animOut">00:00:00.000</property>
     </filter>
-    <filter id="filter1" out="00:00:19.853">
+    <filter id="filter3" out="00:00:19.853">
       <property name="mode">difference</property>
       <property name="mlt_service">cairoblend_mode</property>
       <property name="shotcut:filter">blendMode</property>
     </filter>
-    <filter id="filter3" out="00:00:19.853">
+    <filter id="filter4" out="00:00:19.853">
       <property name="mlt_service">avfilter.gblur</property>
       <property name="shotcut:filter">blur_gaussian_av</property>
       <property name="av.sigma">27.3</property>

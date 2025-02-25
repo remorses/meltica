@@ -211,7 +211,7 @@ export function renderToVideo(jsx: any, xmlFilename = 'video.mlt') {
     execSync(`"${meltPath}" ${tempXmlFile}`, { stdio: 'inherit' })
     console.timeEnd(`${renderId} melt processing`)
 }
-export function previewVideo(jsx: any, xmlFilename = 'video.mlt') {
+export function renderToPreview(jsx: any, xmlFilename = 'video.mlt') {
     // Generate unique ID for this render
     const renderId = `render_${Date.now().toString(36)}`
 
@@ -227,7 +227,7 @@ export function previewVideo(jsx: any, xmlFilename = 'video.mlt') {
     const tempXmlFile = xmlFilename
     fs.writeFileSync(tempXmlFile, xml)
     const meltPath = '/Applications/Shotcut.app/Contents/MacOS/melt'
-    execSync(`"${meltPath}" ${tempXmlFile} -consumer cbrts in=0 out=-1 muxrate=10000000 | mpv -`, { stdio: 'inherit' })
+    execSync(`"${meltPath}" ${tempXmlFile} -consumer cbrts in=0 out=-1 muxrate=20000000 | mpv -`, { stdio: 'inherit' })
     console.timeEnd(`${renderId} melt processing`)
 }
 

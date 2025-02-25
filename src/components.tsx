@@ -660,18 +660,36 @@ export function Blur({
         </filter>
     )
 }
+export function Glow({
+    amount = 0.2,
+}: {
+    /** The glow amount from 0 to 1 (default 0.23) */
+    amount?: number
+}) {
+    const { producer } = useProducerContext()
+    const id = producer.id
+
+    return (
+        <filter id={id + 'glow'}>
+            <property name='version'>0.1</property>
+            <property name='mlt_service'>frei0r.glow</property>
+            <property name='0'>{amount.toString()}</property>
+            <property name='disable'>0</property>
+        </filter>
+    )
+}
 
 export function SimpleChromaKey({
     color = '#00ff00',
     distance = 0.1,
 }: {
     /** The color to key out (default green) */
-    color?: string;
+    color?: string
     /** The distance threshold for the chroma key from 0 to 1 (default 0.169) */
-    distance?: number;
+    distance?: number
 }) {
-    const { producer } = useProducerContext();
-    const id = producer.id;
+    const { producer } = useProducerContext()
+    const id = producer.id
 
     return (
         <filter id={id + 'simpleChromaKey'}>
