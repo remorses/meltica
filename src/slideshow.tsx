@@ -6,6 +6,7 @@ import {
     Track,
     VideoRoot,
     RichText,
+    CropRect,
 } from '@/components'
 import { formatSecondsToTime, renderToVideo, renderToXml } from '@/rendering'
 import { writeFileSync } from 'fs'
@@ -17,7 +18,7 @@ function Video({}) {
             fps={30}
             width={1080}
             height={1920}
-            duration={6}
+            duration={1}
             resultFilePath={'slideshow.mp4'}
         >
             <Track id={'video1'}>
@@ -28,7 +29,8 @@ function Video({}) {
                     in='00:00:00.000'
                     out='3'
                 >
-                    <PanningAnimation />
+                    <CropRect radius={0.3} id={'crop'} />
+                    {/* <PanningAnimation /> */}
                 </Asset>
                 <Asset
                     type='image'

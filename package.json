@@ -9,14 +9,23 @@
   "keywords": [],
   "author": "remorses <beats.by.morse@gmail.com>",
   "license": "ISC",
+  "pnpm": {
+    "neverBuiltDependencies": []
+  },
+  "trustedDependencies": [
+    "@kmamal/sdl"
+  ],
   "dependencies": {
+    "@kmamal/sdl": "^0.10.14",
     "@types/node": "^22.13.5",
+    "@types/node-media-server": "^2.3.7",
     "@types/uuid": "^10.0.0",
     "dedent": "^1.5.3",
     "dom-serializer": "^2.0.0",
     "domhandler": "^5.0.3",
     "htmlparser2": "^10.0.0",
     "jsx-xml": "0.3.0",
+    "node-media-server": "^4.0.7",
     "prettier": "^3.5.2",
     "uuid": "^11.1.0",
     "vite": "^6.1.1",

@@ -119,3 +119,50 @@ when in the timeline these are the tracks:
 - 3, empty video track
 - 4, audio track
 - 5, empty video track
+
+
+## weird mlt things
+
+- if you apply a crop with full video screen rect and then a position filter which changes the video position, the crop rect will be resized too, if it comes before, putting the edges around the video
+
+## live playback via server
+
+start a media server that will get the video live stream and expose it for consumers like ffplay, vlc, etc.
+
+```ts
+import NodeMediaServer from 'node-media-server'
+
+const nms = new NodeMediaServer({
+    rtmp: {
+        port: 1935,
+        chunk_size: 60000,
+        gop_cache: false,
+        ping: 30,
+
+        ping_timeout: 60,
+    },
+    http: {
+        port: 8000,
+        allow_origin: '*',
+        mediaroot: './live', // Added required mediaroot property
+    },
+})
+nms.run()
+```
+
+start melt with a consumer that is a the url of the media server:
+
+```bash
+/Applications/kdenlive.app/Contents/MacOS/melt video.mlt -profile atsc_720p_30 -consumer avformat:rtmp://localhost:1935/live/test vcodec=libx264 preset=veryfast vb=1984k maxrate=1984k bufsize=3968k g=60 acodec=aac ab=128k f=flv
+```
+
+consume the video stream with ffplay:
+
+```bash
+ffplay rtmp://localhost:1935/live/test
+```
+
+## problems with this approach
+
+- the server seems to buffer the full stream, meaning i cannot use it as a playback for melt
+- if you try to seek using melt, it breaks with `Failed to update header with correct duration` coming from flv it seems

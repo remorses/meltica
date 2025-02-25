@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <mlt LC_NUMERIC="C" version="7.30.0" title="Shotcut version 25.01.25" producer="main_bin">
-  <consumer ab="160k" acodec="aac" channels="2" crf="23" deinterlacer="onefield" f="mp4" g="15" in="0" out="00:00:06.000" mlt_service="avformat" movflags="+faststart" preset="veryfast" real_time="-1" rescale="bilinear" target="slideshow.mp4" threads="0" vcodec="libx264"/>
-  <profile description="PAL 4:3 DV or DVD" width="1080" height="1920" progressive="1" sample_aspect_num="1" sample_aspect_den="1" display_aspect_num="9" display_aspect_den="16" frame_rate_num="30" frame_rate_den="1" colorspace="709"/>
+  
+  
   <chain id="videoExample" in="00:00:00.000" out="00:00:15.949">
     <property name="length">479</property>
     <property name="eof">pause</property>
@@ -55,19 +55,13 @@
     <property name="resource">recording.mov</property>
     <property name="shotcut:skipConvert">1</property>
     <property name="shotcut:caption">recording.mov</property>
-    <filter id="videoExampletransformFilter">
-      <property name="background">color:#00000000</property>
-      <property name="mlt_service">affine</property>
-      <property name="shotcut:filter">affineSizePosition</property>
-      <property name="transition.fix_rotate_x">0</property>
-      <property name="transition.fill">1</property>
-      <property name="transition.distort">0</property>
-      <property name="transition.rect">00:00:00.000=-514.8000000000001 -189 2574 1890 1;00:00:03.000=-1494 30 2574 1890 1</property>
-      <property name="transition.valign">middle</property>
-      <property name="transition.halign">center</property>
-      <property name="shotcut:animIn">00:00:00.000</property>
-      <property name="shotcut:animOut">00:00:00.000</property>
-      <property name="transition.threads">0</property>
+    <filter id="crop">
+      <property name="rect">0 0 1716 1260 1</property>
+      <property name="circle">0</property>
+      <property name="color">#ff000000</property>
+      <property name="radius">0.3</property>
+      <property name="mlt_service">qtcrop</property>
+      <property name="shotcut:filter">cropRectangle</property>
     </filter>
   </chain>
   <producer id="producer0" in="00:00:00.000" out="00:08:20.487">

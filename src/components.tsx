@@ -125,6 +125,24 @@ function useProducerContext() {
     return producer
 }
 
+function useAssetSize() {
+    const { producer } = useProducerContext()
+    const width = parseInt(
+        producer.properties['meta.media.width'] ||
+            producer.properties['meta.media.0.codec.width'] ||
+            '0',
+    )
+    const height = parseInt(
+        producer.properties['meta.media.height'] ||
+            producer.properties['meta.media.0.codec.height'] ||
+            '0',
+    )
+    return {
+        height,
+        width,
+    }
+}
+
 function renderRectKeyframe({ time, top, left, width, height }) {
     // format is keyframes delimited by semicolons, with keyframes in format {start}={left} {top} {width} {height} 1
     return `${formatSecondsToTime(time)}=${left} ${top} ${width} ${height} 1`
@@ -135,22 +153,16 @@ export function PanningAnimation({}) {
 
     const { height: videoHeight, width: videoWidth } =
         useContext(videoRootContext)!
-    const width =
-        producer.properties['meta.media.width'] ||
-        producer.properties['meta.media.0.codec.width']
-    const height =
-        producer.properties['meta.media.height'] ||
-        producer.properties['meta.media.0.codec.height']
+
     const out = producer.attributes.out
     const id = producer.id
+    const { height, width } = useAssetSize()
 
     // Assert and convert image dimensions to numbers
     if (!width || !height) {
         console.log(producer)
         throw new Error('Media width and height must be defined')
     }
-    const imageWidth = parseInt(width)
-    const imageHeight = parseInt(height)
 
     // This effect creates a dynamic pan and zoom effect across images
     // Uses negative positioning to allow movement from outside the frame
@@ -159,8 +171,8 @@ export function PanningAnimation({}) {
 
     // Calculate initial zoom level (slightly zoomed in)
     const zoomFactor = 1.5
-    const scaledWidth = imageWidth * zoomFactor
-    const scaledHeight = imageHeight * zoomFactor
+    const scaledWidth = width * zoomFactor
+    const scaledHeight = height * zoomFactor
 
     // Calculate random starting and ending positions
     // Using negative values allows the image to move from outside the frame
@@ -254,7 +266,7 @@ export function Track({ id: trackId, name = 'track', children }) {
                     let inTime = formatSecondsToTime(
                         x.in ?? producer?.attributes.in,
                     )
-                    
+
                     return (
                         <entry
                             producer={x.id}
@@ -570,4 +582,41 @@ function getTrackType(assets: AssetRegistration[]) {
         return acc
     }, '')
     return type
+}
+
+export function CropRect({
+    id,
+    left = 0,
+    top = 0,
+    width: cropWidth,
+    height: cropHeight,
+    radius = 0,
+}: {
+    /** The unique identifier for the filter */
+    id: string
+    /** The x coordinate of the crop rectangle (default 0) */
+    left?: number
+    /** The y coordinate of the crop rectangle (default 0) */
+    top?: number
+    /** The width of the crop rectangle (defaults to asset width) */
+    width?: number
+    /** The height of the crop rectangle (defaults to asset height) */
+    height?: number
+    /** The corner radius of the crop rectangle, from 0 to 1 where 0 is sharp corners and 1 is maximum rounding */
+    radius?: number
+}) {
+    const { height: videoHeight, width: videoWidth } =
+        useContext(videoRootContext)!
+    const { height, width } = useAssetSize()
+    const rect = `${left} ${top} ${cropWidth ?? videoWidth} ${cropHeight ?? videoHeight} 1`
+    return (
+        <filter id={id}>
+            <property name='rect'>{rect}</property>
+            <property name='circle'>0</property>
+            <property name='color'>#ff000000</property>
+            <property name='radius'>{radius.toString()}</property>
+            <property name='mlt_service'>qtcrop</property>
+            <property name='shotcut:filter'>cropRectangle</property>
+        </filter>
+    )
 }
