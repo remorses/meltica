@@ -1058,6 +1058,11 @@
     <property name="resource">narrator.wav</property>
     <property name="shotcut:skipConvert">1</property>
     <property name="shotcut:caption">narrator.wav</property>
+    <filter id="chain0pitch">
+      <property name="mlt_service">rbpitch</property>
+      <property name="octaveshift">-0.1</property>
+      <property name="latency">85</property>
+    </filter>
   </chain>
   <playlist id="audio1">
     <property name="shotcut:audio">1</property>

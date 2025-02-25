@@ -679,6 +679,322 @@ export function Glow({
     )
 }
 
+export function Pitch({
+    octaveshift = 0,
+    latency = 85,
+}: {
+    /** The octave shift amount from -2 to 2 (default 0) */
+    octaveshift?: number
+    /** The latency in milliseconds (default 85) */
+    latency?: number
+}) {
+    const { producer } = useProducerContext()
+    const id = producer.id
+
+    return (
+        <filter id={id + 'pitch'}>
+            <property name='mlt_service'>rbpitch</property>
+            <property name='octaveshift'>{octaveshift.toString()}</property>
+            <property name='latency'>{latency.toString()}</property>
+        </filter>
+    )
+}
+
+export function DynamicLoudness({
+    targetLoudness = -23.0,
+    window = 10,
+    maxGain = 15.0,
+    minGain = -15.0,
+    maxRate = 3.0,
+    discontinuityReset = 1,
+}: {
+    /** The target loudness in dB (default -23.0) */
+    targetLoudness?: number
+    /** The window size in seconds (default 10) */
+    window?: number
+    /** The maximum gain in dB (default 15.0) */
+    maxGain?: number
+    /** The minimum gain in dB (default -15.0) */
+    minGain?: number
+    /** The maximum rate of change (default 3.0) */
+    maxRate?: number
+    /** Whether to reset on discontinuity (default 1) */
+    discontinuityReset?: number
+}) {
+    const { producer } = useProducerContext()
+    const id = producer.id
+
+    return (
+        <filter id={id + 'dynamicLoudness'}>
+            <property name='target_loudness'>
+                {targetLoudness.toString()}
+            </property>
+            <property name='window'>{window.toString()}</property>
+            <property name='max_gain'>{maxGain.toString()}</property>
+            <property name='min_gain'>{minGain.toString()}</property>
+            <property name='max_rate'>{maxRate.toString()}</property>
+            <property name='discontinuity_reset'>
+                {discontinuityReset.toString()}
+            </property>
+            <property name='mlt_service'>dynamic_loudness</property>
+        </filter>
+    )
+}
+
+export function Reverb({
+    roomSize = 30,
+    reverbTime = 7.5,
+    damping = 50.0,
+    inputBandwidth = 75.0,
+    drySignalLevel = 0.0,
+    earlyReflectionLevel = -10,
+    tailLevel = -17.5,
+}: {
+    /** Room size in meters (default 30) */
+    roomSize?: number
+    /** Reverb time in seconds (default 7.5) */
+    reverbTime?: number
+    /** Damping percentage (default 50.0) */
+    damping?: number
+    /** Input bandwidth percentage (default 75.0) */
+    inputBandwidth?: number
+    /** Dry signal level in dB (default 0.0) */
+    drySignalLevel?: number
+    /** Early reflection level in dB (default -10) */
+    earlyReflectionLevel?: number
+    /** Tail level in dB (default -17.5) */
+    tailLevel?: number
+}) {
+    const { producer } = useProducerContext()
+    const id = producer.id
+
+    return (
+        <filter id={id + 'reverb'}>
+            <property name='mlt_service'>ladspa.1216</property>
+            <property name='0'>{roomSize.toString()}</property>
+            <property name='1'>{reverbTime.toString()}</property>
+            <property name='2'>{damping / 100}</property>
+            <property name='3'>{inputBandwidth / 100}</property>
+            <property name='4'>{drySignalLevel}</property>
+            <property name='5'>{earlyReflectionLevel}</property>
+            <property name='6'>{tailLevel}</property>
+            <property name='instances'>2</property>
+        </filter>
+    )
+}
+
+export function AudioPan({
+    channel = 'right',
+    amount = 1,
+}: {
+    /** The audio channel to pan: 'left' or 'right' */
+    channel?: 'left' | 'right'
+    /** Amount of panning from 0 to 1 (default 1) */
+    amount?: number
+}) {
+    const { producer } = useProducerContext()
+    const id = producer.id
+
+    // Convert channel string to numeric value (0 for left, 1 for right)
+    const channelValue = channel === 'left' ? 0 : 1
+
+    return (
+        <filter id={id + 'audioPan'}>
+            <property name='channel'>{channelValue.toString()}</property>
+            <property name='split'>{amount.toString()}</property>
+            <property name='mlt_service'>panner</property>
+            <property name='shotcut:filter'>audioPan</property>
+            <property name='start'>0</property>
+        </filter>
+    )
+}
+
+export function Speed({
+    speed = 1,
+    pitchCompensation = false,
+    imageMode = 'nearest',
+}: {
+    /** The playback speed (default 1) */
+    speed?: number
+    /** Whether to compensate for pitch changes (default false) */
+    pitchCompensation?: boolean
+    /** The image interpolation mode: 'nearest' or 'blend' (default 'nearest') */
+    imageMode?: 'nearest' | 'blend'
+    // /** Optional speed map in format "00:00:01.919=0.54" */
+    // speedMap?: string
+}) {
+    const { producer } = useProducerContext()
+    const id = producer.id
+
+    return (
+        <filter id={id + 'speed'}>
+            <property name='mlt_service'>timeremap</property>
+            <property name='shotcut:filter'>speedForward</property>
+
+            <property name='image_mode'>{imageMode}</property>
+            <property name='pitch'>{pitchCompensation ? '1' : '0'}</property>
+            <property name='speed'>{speed.toString()}</property>
+            {/* TODO speed map is speed value with keyframes you can animate, format is similar to size rect */}
+            {/* <property name="speed_map">00:00:01.919=0.54</property> */}
+        </filter>
+    )
+}
+export function ChromaHold({
+    color,
+    similarity = 0.05,
+}: {
+    /** The color to hold - makes everything grayscale except this color */
+    color: string
+    /** The similarity threshold from 0 to 1 (default 0.059) */
+    similarity?: number
+}) {
+    const { producer } = useProducerContext()
+    const id = producer.id
+
+    return (
+        <filter id={id + 'chromaHold'}>
+            <property name='mlt_service'>avfilter.chromahold</property>
+            <property name='av.color'>{color}</property>
+            <property name='av.similarity'>{similarity.toString()}</property>
+            <property name='disable'>0</property>
+        </filter>
+    )
+}
+
+export function Brightness({
+    level = 1.0,
+}: {
+    /** The brightness level (default 1.0, where 1.0 is normal brightness) */
+    level?: number
+}) {
+    const { producer } = useProducerContext()
+    const id = producer.id
+
+    return (
+        <filter id={id + 'brightness'}>
+            <property name='mlt_service'>brightness</property>
+            <property name='level'>{level.toString()}</property>
+            <property name='disable'>0</property>
+        </filter>
+    )
+}
+export function FadeInBrightness({
+    duration = 1,
+    startLevel = 0,
+    endLevel = 1,
+}: {
+    /** The duration of the fade in animation in seconds (as a number) */
+    duration: number
+    /** The starting brightness level (default 0) */
+    startLevel?: number
+    /** The ending brightness level (default 1) */
+    endLevel?: number
+}) {
+    const { producer } = useProducerContext()
+    const id = producer.id
+    let durationTime = formatSecondsToTime(duration)
+
+    return (
+        <filter id={id + 'fadeInBrightness'}>
+            <property name='start'>1</property>
+            <property name='level'>{`00:00:00.000=${startLevel};${durationTime}=${endLevel}`}</property>
+            <property name='mlt_service'>brightness</property>
+            <property name='shotcut:filter'>fadeInBrightness</property>
+            <property name='alpha'>1</property>
+            <property name='shotcut:animIn'>{durationTime}</property>
+            <property name='disable'>0</property>
+        </filter>
+    )
+}
+
+export function FadeOutBrightness({
+    duration = 1,
+    startLevel = 1,
+    endLevel = 0,
+}: {
+    /** The duration of the fade out animation in seconds (as a number) */
+    duration: number
+    /** The starting brightness level (default 1) */
+    startLevel?: number
+    /** The ending brightness level (default 0) */
+    endLevel?: number
+}) {
+    const { producer } = useProducerContext()
+    const id = producer.id
+    let durationTime = formatSecondsToTime(duration)
+    return (
+        <filter id={id + 'fadeOutBrightness'}>
+            <property name='start'>1</property>
+            <property name='level'>{`00:00:00.000=${startLevel};-${durationTime}=${endLevel}`}</property>
+            <property name='mlt_service'>brightness</property>
+            <property name='shotcut:filter'>fadeOutBrightness</property>
+            <property name='alpha'>1</property>
+            <property name='shotcut:animOut'>{durationTime}</property>
+            <property name='disable'>0</property>
+        </filter>
+    )
+}
+
+
+export function FadeInAudio({
+    duration = 1,
+    startLevel = -60,
+    endLevel = 0,
+}: {
+    /** The duration of the fade in animation in seconds (as a number) */
+    duration: number
+    /** The starting volume level in dB (default -60) */
+    startLevel?: number
+    /** The ending volume level in dB (default 0) */
+    endLevel?: number
+}) {
+    const { producer } = useProducerContext()
+    const id = producer.id
+    let durationTime = formatSecondsToTime(duration)
+
+    return (
+        <filter id={id + 'fadeInVolume'}>
+            <property name='window'>75</property>
+            <property name='max_gain'>20dB</property>
+            <property name='level'>{`00:00:00.000=${startLevel};${durationTime}=${endLevel}`}</property>
+            <property name='mlt_service'>volume</property>
+            <property name='shotcut:filter'>fadeInVolume</property>
+            <property name='shotcut:animIn'>{durationTime}</property>
+            <property name='disable'>0</property>
+        </filter>
+    )
+}
+
+export function FadeOutAudio({
+    duration = 1,
+    startLevel = 0,
+    endLevel = -60,
+}: {
+    /** The duration of the fade out animation in seconds (as a number) */
+    duration: number
+    /** The starting volume level in dB (default 0) */
+    startLevel?: number
+    /** The ending volume level in dB (default -60) */
+    endLevel?: number
+}) {
+    const { producer } = useProducerContext()
+    const id = producer.id
+    let durationTime = formatSecondsToTime(duration)
+    
+    return (
+        <filter id={id + 'fadeOutVolume'}>
+            <property name='window'>75</property>
+            <property name='max_gain'>20dB</property>
+            <property name='level'>{`00:00:00.000=${startLevel};-${durationTime}=${endLevel}`}</property>
+            <property name='mlt_service'>volume</property>
+            <property name='shotcut:filter'>fadeOutVolume</property>
+            <property name='shotcut:animOut'>{durationTime}</property>
+            <property name='disable'>0</property>
+        </filter>
+    )
+}
+
+
 export function SimpleChromaKey({
     color = '#00ff00',
     distance = 0.1,

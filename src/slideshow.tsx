@@ -12,6 +12,7 @@ import {
     Blur,
     SimpleChromaKey,
     Glow,
+    Pitch,
 } from '@/components'
 import {
     formatSecondsToTime,
@@ -134,7 +135,9 @@ function Video({}) {
                     id={'chain0'}
                     // in='00:00:00.000'
                     // out='00:00:14.467'
-                />
+                >
+                    <Pitch octaveshift={-0.1} />
+                </Asset>
             </Track>
             <Track id={'audio2'}>
                 <Asset
