@@ -57,11 +57,12 @@ describe('objectfit', () => {
                         context.clearRect(0, 0, canvas.width, canvas.height)
                         // Then draw using custom API
                         const dimensions = calculateBasicImageDimensions({
-                            image,
+                            objectWidth: image.width,
+                            objectHeight: image.height,
                             x: 0,
                             y: 0,
-                            width: canvas.width,
-                            height: canvas.height,
+                            containerWidth: canvas.width,
+                            containerHeight: canvas.height,
                             objectFit: 'none',
                             xObjectPosition: position.x,
                             yObjectPosition: position.y,
@@ -86,11 +87,12 @@ describe('objectfit', () => {
                             `${fixturesPath}/${horizontalImageFile}`,
                         )
                         const dimensions = calculateBasicImageDimensions({
-                            image,
+                            objectWidth: image.width,
+                            objectHeight: image.height,
                             x: 0,
                             y: 0,
-                            width: canvas.width,
-                            height: canvas.height,
+                            containerWidth: canvas.width,
+                            containerHeight: canvas.height,
                             objectFit: 'cover',
                             xObjectPosition: position.x,
                             yObjectPosition: position.y,
@@ -115,11 +117,12 @@ describe('objectfit', () => {
                             `${fixturesPath}/${horizontalImageFile}`,
                         )
                         const dimensions = calculateBasicImageDimensions({
-                            image,
+                            objectWidth: image.width,
+                            objectHeight: image.height,
                             x: 0,
                             y: 0,
-                            width: canvas.width,
-                            height: canvas.height,
+                            containerWidth: canvas.width,
+                            containerHeight: canvas.height,
                             objectFit: 'contain',
                             xObjectPosition: position.x,
                             yObjectPosition: position.y,
@@ -144,11 +147,12 @@ describe('objectfit', () => {
                             `${fixturesPath}/${horizontalImageFile}`,
                         )
                         const dimensions = calculateBasicImageDimensions({
-                            image,
+                            objectWidth: image.width,
+                            objectHeight: image.height,
                             x: 0,
                             y: 0,
-                            width: canvas.width,
-                            height: canvas.height,
+                            containerWidth: canvas.width,
+                            containerHeight: canvas.height,
                             objectFit: 'fill',
                             xObjectPosition: position.x,
                             yObjectPosition: position.y,
@@ -183,11 +187,12 @@ describe('objectfit', () => {
                         context.clearRect(0, 0, canvas.width, canvas.height)
                         // Then draw using custom API
                         const dimensions = calculateBasicImageDimensions({
-                            image,
+                            objectWidth: image.width,
+                            objectHeight: image.height,
                             x: 0,
                             y: 0,
-                            width: canvas.width,
-                            height: canvas.height,
+                            containerWidth: canvas.width,
+                            containerHeight: canvas.height,
                             objectFit: 'none',
                             xObjectPosition: position.x,
                             yObjectPosition: position.y,
@@ -212,11 +217,12 @@ describe('objectfit', () => {
                             `${fixturesPath}/${verticalImageFile}`,
                         )
                         const dimensions = calculateBasicImageDimensions({
-                            image,
+                            objectWidth: image.width,
+                            objectHeight: image.height,
                             x: 0,
                             y: 0,
-                            width: canvas.width,
-                            height: canvas.height,
+                            containerWidth: canvas.width,
+                            containerHeight: canvas.height,
                             objectFit: 'cover',
                             xObjectPosition: position.x,
                             yObjectPosition: position.y,
@@ -241,11 +247,12 @@ describe('objectfit', () => {
                             `${fixturesPath}/${verticalImageFile}`,
                         )
                         const dimensions = calculateBasicImageDimensions({
-                            image,
+                            objectWidth: image.width,
+                            objectHeight: image.height,
                             x: 0,
                             y: 0,
-                            width: canvas.width,
-                            height: canvas.height,
+                            containerWidth: canvas.width,
+                            containerHeight: canvas.height,
                             objectFit: 'contain',
                             xObjectPosition: position.x,
                             yObjectPosition: position.y,
@@ -270,11 +277,12 @@ describe('objectfit', () => {
                             `${fixturesPath}/${verticalImageFile}`,
                         )
                         const dimensions = calculateBasicImageDimensions({
-                            image,
+                            objectWidth: image.width,
+                            objectHeight: image.height,
                             x: 0,
                             y: 0,
-                            width: canvas.width,
-                            height: canvas.height,
+                            containerWidth: canvas.width,
+                            containerHeight: canvas.height,
                             objectFit: 'fill',
                             xObjectPosition: position.x,
                             yObjectPosition: position.y,

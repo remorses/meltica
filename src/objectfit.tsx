@@ -52,55 +52,53 @@ const convertObjectPositionToPixels = (
  * - Can be specified using percentages or direct pixel values
  * - Controls positioning of the image within its container
  */
-
 export const calculateBasicImageDimensions = ({
-    image,
     x,
     y,
-    width,
-    height,
+    containerWidth,
+    containerHeight,
+    objectWidth,
+    objectHeight,
     objectFit = 'none',
     xObjectPosition = 'center',
     yObjectPosition = 'center',
 }: {
-    image: { width: number; height: number }
     x: number
     y: number
-    width: number
-    height: number
+    containerWidth: number
+    containerHeight: number
+    objectWidth: number
+    objectHeight: number
     objectFit?: 'none' | 'cover' | 'contain' | 'fill'
     xObjectPosition?: ObjectPositionValue
     yObjectPosition?: ObjectPositionValue
 }) => {
-    const imageWidth = image.width
-    const imageHeight = image.height
-
     if (objectFit === 'none') {
         // For 'none', we still need to apply object-position
-        const xOffset = convertObjectPositionToPixels(xObjectPosition, width, imageWidth);
-        const yOffset = convertObjectPositionToPixels(yObjectPosition, height, imageHeight);
-        return { left: x + xOffset, top: y + yOffset, width: imageWidth, height: imageHeight }
+        const xOffset = convertObjectPositionToPixels(xObjectPosition, containerWidth, objectWidth);
+        const yOffset = convertObjectPositionToPixels(yObjectPosition, containerHeight, objectHeight);
+        return { left: x + xOffset, top: y + yOffset, width: objectWidth, height: objectHeight }
     }
 
     if (objectFit === 'fill') {
         // For 'fill', we still need to apply object-position, but since the image
         // fills the entire container, object-position has no visible effect
-        return { left: x, top: y, width: width, height: height }
+        return { left: x, top: y, width: containerWidth, height: containerHeight }
     }
 
     // Calculate scaling ratio based on objectFit
     const resizeRatio = Math[objectFit === 'cover' ? 'max' : 'min'](
-        width / imageWidth,
-        height / imageHeight,
+        containerWidth / objectWidth,
+        containerHeight / objectHeight,
     )
 
     // Calculate new dimensions
-    const newWidth = imageWidth * resizeRatio
-    const newHeight = imageHeight * resizeRatio
+    const newWidth = objectWidth * resizeRatio
+    const newHeight = objectHeight * resizeRatio
 
     // Convert object-position values to pixels
-    const xOffset = convertObjectPositionToPixels(xObjectPosition, width, newWidth);
-    const yOffset = convertObjectPositionToPixels(yObjectPosition, height, newHeight);
+    const xOffset = convertObjectPositionToPixels(xObjectPosition, containerWidth, newWidth);
+    const yOffset = convertObjectPositionToPixels(yObjectPosition, containerHeight, newHeight);
 
     // Calculate final position
     const left = x + xOffset;
