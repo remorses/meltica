@@ -29,26 +29,32 @@ export const EXIF_ORIENTATIONS = [
 export const isExifRotated = (orientation) => [5, 6, 7, 8].includes(orientation)
 
 // Without rotation handling
-export const drawBasicImage = (
-    ctx,
+export const calculateBasicImageDimensions = ({
     image,
     x,
     y,
     width,
     height,
-    {
-        objectFit = 'none',
-        orientation = 0,
-        offsetX = 1 / 2,
-        offsetY = 1 / 2,
-    } = {},
-) => {
+    objectFit = 'none',
+    orientation = 0,
+    offsetX = 1 / 2,
+    offsetY = 1 / 2,
+}: {
+    image: { width: number; height: number };
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+    objectFit?: 'none' | 'cover' | 'contain';
+    orientation?: number;
+    offsetX?: number;
+    offsetY?: number;
+}) => {
     const imageWidth = image.width
     const imageHeight = image.height
     
     if (objectFit === 'none') {
-        ctx.drawImage(image, x, y, width, height)
-        return
+        return { left: x, top: y, width, height }
     }
     
     // Calculate scaling ratio based on objectFit
@@ -62,27 +68,33 @@ export const drawBasicImage = (
     const newHeight = imageHeight * resizeRatio
     
     // Calculate position to center the image
-    const posX = x - (newWidth - width) * offsetX
-    const posY = y - (newHeight - height) * offsetY
+    const left = x - (newWidth - width) * offsetX
+    const top = y - (newHeight - height) * offsetY
     
-    // Draw image with the calculated dimensions and position
-    ctx.drawImage(image, posX, posY, newWidth, newHeight)
+    return { left, top, width: newWidth, height: newHeight }
 }
 
-export const drawImage = (
-    ctx,
+ const calculateImageDimensions = ({
     image,
     x,
     y,
     width,
     height,
-    {
-        objectFit = 'cover',
-        orientation = 0,
-        offsetX = 1 / 2,
-        offsetY = 1 / 2,
-    } = {},
-) => {
+    objectFit = 'cover',
+    orientation = 0,
+    offsetX = 1 / 2,
+    offsetY = 1 / 2,
+}: {
+    image: { width: number; height: number };
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+    objectFit?: 'none' | 'cover' | 'contain';
+    orientation?: number;
+    offsetX?: number;
+    offsetY?: number;
+}) => {
     // Orientation value
     const rotation = EXIF_ORIENTATIONS[orientation].radians
     const isHalfRotated = rotation !== 0 && rotation % Math.PI === 0
@@ -112,8 +124,6 @@ export const drawImage = (
     
     // Apply rotation if needed
     if (rotation) {
-        ctx.rotate(rotation)
-        
         if (isHalfRotated) {
             targetX = -width - x
             targetY = -height - y
@@ -148,11 +158,11 @@ export const drawImage = (
         drawHeight = targetHeight
     }
     
-    // Draw image with the calculated dimensions and position
-    ctx.drawImage(image, drawX, drawY, drawWidth, drawHeight)
-    
-    // Restore rotation if needed
-    if (rotation) {
-        ctx.rotate(-rotation)
+    return {
+        left: drawX,
+        top: drawY,
+        width: drawWidth,
+        height: drawHeight,
+        rotation
     }
 }
