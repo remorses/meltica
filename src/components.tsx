@@ -1,8 +1,9 @@
 import { createContext, useContext } from '@/context'
+import fs from 'fs'
 import {
     AssetProducer,
     AssetRegistration,
-    AssetType,
+    AssetTypeWithPath,
     formatSecondsToTime,
     renderingContext,
 } from '@/rendering'
@@ -41,6 +42,72 @@ export function AudioGain({ volume = 0 }) {
     )
 }
 
+const melticaFolder = '.meltica'
+
+export function InlineSvg({
+    svg: svgContent,
+    id,
+    duration,
+    children,
+}: {
+    svg: any
+    id: string
+    duration: number
+    children?: any
+}) {
+    const context = useContext(renderingContext)
+    const { trackId } = useTrackContext()
+
+    let filepath = path.resolve(melticaFolder, `${id}.svg`)
+
+    if (context.isRegistrationStep) {
+        // Render the SVG content
+        const renderedSvgContent = render(svgContent).end({
+            headless: true,
+            allowEmptyTags: true,
+            indentTextOnlyNodes: false,
+            prettyPrint: true,
+        })
+        fs.mkdirSync(melticaFolder, { recursive: true })
+        fs.writeFileSync(filepath, renderedSvgContent)
+        context.assets.push({
+            id,
+            type: 'image',
+            filepath,
+            parentTrackId: trackId,
+            in: 0,
+            out: duration,
+            // svgContent
+        })
+        return null
+    }
+    const producer = context.producers.find((p) => p.id === id)
+
+    if (!producer) {
+        throw new Error(`Producer for SVG with id ${id} not found`)
+    }
+
+    const assetCtx: AssetContext = {
+        producer,
+        in: producer?.attributes?.in,
+        out: producer?.attributes?.out,
+    }
+
+    return (
+        <assetContext.Provider value={assetCtx}>
+            <producer {...producer?.attributes} id={id}>
+                {producer?.children}
+                <property name='resource'>{filepath}</property>
+                <property name='mlt_service'>qimage</property>
+                <property name='format'>2</property>
+                <property name='shotcut:skipConvert'>1</property>
+                <property name='shotcut:caption'>Inline SVG</property>
+                {children}
+            </producer>
+        </assetContext.Provider>
+    )
+}
+
 export function Asset({
     id,
     filepath,
@@ -53,7 +120,7 @@ export function Asset({
     filepath: string
     in?: number | string
     out?: number | string
-    type: AssetType
+    type: AssetTypeWithPath
     children?: any
 }) {
     const context = useContext(renderingContext)
@@ -250,7 +317,12 @@ export function StereoToMono({ id = 'stereoToMono', keep = 'left', swap = 0 }) {
     )
 }
 
-export function Vignette({ id = 'vignette', aspect = 0.5, clearCenter = 0, soft = 0.6 }) {
+export function Vignette({
+    id = 'vignette',
+    aspect = 0.5,
+    clearCenter = 0,
+    soft = 0.6,
+}) {
     return (
         <filter id={id}>
             <property name='version'>0.2</property>
@@ -264,30 +336,30 @@ export function Vignette({ id = 'vignette', aspect = 0.5, clearCenter = 0, soft 
     )
 }
 
-export function Transform({ 
-    id = 'qtblend', 
-    width, 
-    height, 
-    left = 0, 
-    top = 0, 
-    rotation = 0, 
-    compositing = 0, 
-    distort = 0 
-}: { 
-    id?: string; 
-    width?: number; 
-    height?: number; 
-    left?: number; 
-    top?: number; 
-    rotation?: number; 
-    compositing?: number; 
-    distort?: number; 
+export function Transform({
+    id = 'qtblend',
+    width,
+    height,
+    left = 0,
+    top = 0,
+    rotation = 0,
+    compositing = 0,
+    distort = 0,
+}: {
+    id?: string
+    width?: number
+    height?: number
+    left?: number
+    top?: number
+    rotation?: number
+    compositing?: number
+    distort?: number
 }) {
-    const videoContext = useContext(videoRootContext)!;
-    const videoWidth = width || videoContext.width || 1920;
-    const videoHeight = height || videoContext.height || 1080;
-    const rect = `${left} ${top} ${videoWidth} ${videoHeight} 1.000000`;
-    
+    const videoContext = useContext(videoRootContext)!
+    const videoWidth = width || videoContext.width || 1920
+    const videoHeight = height || videoContext.height || 1080
+    const rect = `${left} ${top} ${videoWidth} ${videoHeight} 1.000000`
+
     return (
         <filter id={id}>
             <property name='rotate_center'>1</property>
@@ -301,8 +373,6 @@ export function Transform({
         </filter>
     )
 }
-
-
 
 export function BlankSpace({ length }) {
     const context = useContext(renderingContext)
@@ -659,7 +729,7 @@ export function RichText({
 }
 
 function getTrackType(assets: AssetRegistration[]) {
-    const type = assets.reduce<AssetType | ''>((acc, i) => {
+    const type = assets.reduce<AssetTypeWithPath | ''>((acc, i) => {
         if (i.type === 'video') {
             return 'video'
         }

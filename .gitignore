@@ -9,3 +9,4 @@ node_modules
 *.mov
 *.flv
 !src/fixtures/*
+.meltica

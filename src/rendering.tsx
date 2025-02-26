@@ -8,7 +8,7 @@ import { Parser } from 'htmlparser2'
 import os from 'os'
 import path from 'path'
 
-export type AssetType = 'audio' | 'image' | 'video'
+export type AssetTypeWithPath = 'audio' | 'image' | 'video'
 
 type NumberLike = string | number
 
@@ -19,7 +19,7 @@ export type AssetRegistration =
           parentTrackId: string
           in?: NumberLike
           out?: NumberLike
-          type: AssetType
+          type: AssetTypeWithPath
       }
     | {
           parentTrackId: string
@@ -33,6 +33,8 @@ export type AssetRegistration =
           in: NumberLike
           out: NumberLike
       }
+
+export type AssetType = AssetRegistration['type']
 
 export type AssetProducer = {
     id: string
@@ -227,7 +229,10 @@ export function renderToPreview(jsx: any, xmlFilename = 'video.mlt') {
     const tempXmlFile = xmlFilename
     fs.writeFileSync(tempXmlFile, xml)
     const meltPath = '/Applications/Shotcut.app/Contents/MacOS/melt'
-    execSync(`"${meltPath}" ${tempXmlFile} -consumer cbrts in=0 out=-1 muxrate=20000000 | mpv -`, { stdio: 'inherit' })
+    execSync(
+        `"${meltPath}" ${tempXmlFile} -consumer cbrts in=0 out=-1 muxrate=20000000 | mpv -`,
+        { stdio: 'inherit' },
+    )
     console.timeEnd(`${renderId} melt processing`)
 }
 

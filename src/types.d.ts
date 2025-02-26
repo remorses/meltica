@@ -360,3 +360,164 @@ declare global {
         }
     }
 }
+
+declare global {
+    // SVG Element Types
+    declare namespace JSX {
+        interface IntrinsicElements {
+            // Basic SVG elements
+            svg: {
+                width?: string | number
+                height?: string | number
+                viewBox?: string
+                xmlns?: string
+                version?: string
+                preserveAspectRatio?: string
+                children?: ReactNode
+            }
+            rect: {
+                x?: string | number
+                y?: string | number
+                width?: string | number
+                height?: string | number
+                rx?: string | number
+                ry?: string | number
+                fill?: string
+                stroke?: string
+                strokeWidth?: string | number
+                opacity?: string | number
+                children?: ReactNode
+            }
+            circle: {
+                cx?: string | number
+                cy?: string | number
+                r?: string | number
+                fill?: string
+                stroke?: string
+                strokeWidth?: string | number
+                opacity?: string | number
+                children?: ReactNode
+            }
+            ellipse: {
+                cx?: string | number
+                cy?: string | number
+                rx?: string | number
+                ry?: string | number
+                fill?: string
+                stroke?: string
+                strokeWidth?: string | number
+                opacity?: string | number
+                children?: ReactNode
+            }
+            line: {
+                x1?: string | number
+                y1?: string | number
+                x2?: string | number
+                y2?: string | number
+                stroke?: string
+                strokeWidth?: string | number
+                opacity?: string | number
+                children?: ReactNode
+            }
+            polyline: {
+                points?: string
+                fill?: string
+                stroke?: string
+                strokeWidth?: string | number
+                opacity?: string | number
+                children?: ReactNode
+            }
+            polygon: {
+                points?: string
+                fill?: string
+                stroke?: string
+                strokeWidth?: string | number
+                opacity?: string | number
+                children?: ReactNode
+            }
+            path: {
+                d?: string
+                fill?: string
+                stroke?: string
+                strokeWidth?: string | number
+                opacity?: string | number
+                children?: ReactNode
+            }
+            text: {
+                x?: string | number
+                y?: string | number
+                dx?: string | number
+                dy?: string | number
+                textAnchor?: string
+                fontFamily?: string
+                fontSize?: string | number
+                fontWeight?: string | number
+                fill?: string
+                stroke?: string
+                children?: ReactNode
+            }
+            g: {
+                id?: string
+                transform?: string
+                fill?: string
+                stroke?: string
+                opacity?: string | number
+                children?: ReactNode
+            }
+            defs: {
+                children?: ReactNode
+            }
+            use: {
+                href?: string
+                x?: string | number
+                y?: string | number
+                width?: string | number
+                height?: string | number
+                children?: ReactNode
+            }
+            linearGradient: {
+                id?: string
+                x1?: string | number
+                y1?: string | number
+                x2?: string | number
+                y2?: string | number
+                gradientUnits?: string
+                children?: ReactNode
+            }
+            radialGradient: {
+                id?: string
+                cx?: string | number
+                cy?: string | number
+                r?: string | number
+                fx?: string | number
+                fy?: string | number
+                gradientUnits?: string
+                children?: ReactNode
+            }
+            stop: {
+                offset?: string | number
+                stopColor?: string
+                stopOpacity?: string | number
+                children?: ReactNode
+            }
+            clipPath: {
+                id?: string
+                clipPathUnits?: string
+                children?: ReactNode
+            }
+            mask: {
+                id?: string
+                maskUnits?: string
+                maskContentUnits?: string
+                children?: ReactNode
+            }
+            tspan: {
+                x?: string | number
+                y?: string | number
+                dx?: string | number
+                dy?: string | number
+                children?: ReactNode
+            }
+        }
+    }
+}
