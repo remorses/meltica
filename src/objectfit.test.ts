@@ -86,6 +86,25 @@ describe('download', () => {
             expect(Buffer.isBuffer(buffer)).toBeTruthy()
             expect(buffer).toMatchImageSnapshot()
         })
+        it('4. should properly support objectFit = "fill"', async () => {
+            const [width, height] = [200, 200]
+            const canvas = new Canvas(width, height)
+            const context = canvas.getContext('2d')
+            const image = new Image()
+            image.src = await fs.readFileSync(`${fixturesPath}/image.jpg`)
+            const dimensions = calculateBasicImageDimensions({
+                image,
+                x: 0,
+                y: 0,
+                width: canvas.width,
+                height: canvas.height,
+                objectFit: 'fill',
+            })
+            context.drawImage(image, dimensions.left, dimensions.top, dimensions.width, dimensions.height)
+            const buffer = canvas.toBuffer()
+            expect(Buffer.isBuffer(buffer)).toBeTruthy()
+            expect(buffer).toMatchImageSnapshot()
+        })
     })
     describe('2. image-rotated-exif-6.jpg', () => {
         it('4. should properly support objectFit = "none"', async () => {
@@ -156,6 +175,28 @@ describe('download', () => {
                 width: canvas.width,
                 height: canvas.height,
                 objectFit: 'contain',
+                orientation: 6,
+            })
+            context.drawImage(image, dimensions.left, dimensions.top, dimensions.width, dimensions.height)
+            const buffer = canvas.toBuffer()
+            expect(Buffer.isBuffer(buffer)).toBeTruthy()
+            expect(buffer).toMatchImageSnapshot()
+        })
+        it('7. should properly support objectFit = "fill"', async () => {
+            const [width, height] = [200, 200]
+            const canvas = new Canvas(width, height)
+            const context = canvas.getContext('2d')
+            const image = new Image()
+            image.src = await fs.readFileSync(
+                `${fixturesPath}/image-rotated-exif-6.jpg`,
+            )
+            const dimensions = calculateBasicImageDimensions({
+                image,
+                x: 0,
+                y: 0,
+                width: canvas.width,
+                height: canvas.height,
+                objectFit: 'fill',
                 orientation: 6,
             })
             context.drawImage(image, dimensions.left, dimensions.top, dimensions.width, dimensions.height)
