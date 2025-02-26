@@ -54,7 +54,7 @@ export const calculateBasicImageDimensions = ({
     const imageHeight = image.height
 
     if (objectFit === 'none') {
-        return { left: x, top: y, width, height }
+        return { left: x, top: y, width: image.width, height: image.height }
     }
 
     // Calculate scaling ratio based on objectFit
