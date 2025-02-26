@@ -18,15 +18,19 @@ declare module 'vitest' {
 
 expect.extend({ toMatchImageSnapshot })
 
+// Define image file names as variables
+const horizontalImageFile = 'horizontal.jpg'
+const verticalImageFile = 'vertical.jpg'
+
 describe('download', () => {
     // beforeAll(() => Promise.all([mkdirpAsync(tmpPath)]));
-    describe('1. image.jpg', () => {
+    describe('1. Horizontal rectangular image tests', () => {
         it('1. should properly support objectFit = "none"', async () => {
             const [width, height] = [200, 200]
             const canvas = new Canvas(width, height)
             const context = canvas.getContext('2d')
             const image = new Image()
-            image.src = await fs.readFileSync(`${fixturesPath}/image.jpg`)
+            image.src = await fs.readFileSync(`${fixturesPath}/${horizontalImageFile}`)
             // First draw using default API
             context.drawImage(image, 0, 0, width, height)
             const bufferA = canvas.toBuffer()
@@ -53,7 +57,7 @@ describe('download', () => {
             const canvas = new Canvas(width, height)
             const context = canvas.getContext('2d')
             const image = new Image()
-            image.src = await fs.readFileSync(`${fixturesPath}/image.jpg`)
+            image.src = await fs.readFileSync(`${fixturesPath}/${horizontalImageFile}`)
             const dimensions = calculateBasicImageDimensions({
                 image,
                 x: 0,
@@ -72,7 +76,7 @@ describe('download', () => {
             const canvas = new Canvas(width, height)
             const context = canvas.getContext('2d')
             const image = new Image()
-            image.src = await fs.readFileSync(`${fixturesPath}/image.jpg`)
+            image.src = await fs.readFileSync(`${fixturesPath}/${horizontalImageFile}`)
             const dimensions = calculateBasicImageDimensions({
                 image,
                 x: 0,
@@ -91,7 +95,7 @@ describe('download', () => {
             const canvas = new Canvas(width, height)
             const context = canvas.getContext('2d')
             const image = new Image()
-            image.src = await fs.readFileSync(`${fixturesPath}/image.jpg`)
+            image.src = await fs.readFileSync(`${fixturesPath}/${horizontalImageFile}`)
             const dimensions = calculateBasicImageDimensions({
                 image,
                 x: 0,
@@ -106,14 +110,15 @@ describe('download', () => {
             expect(buffer).toMatchImageSnapshot()
         })
     })
-    describe('2. image-rotated-exif-6.jpg', () => {
-        it('4. should properly support objectFit = "none"', async () => {
+
+    describe('2. Vertical rectangular image tests', () => {
+        it('5. should properly support objectFit = "none"', async () => {
             const [width, height] = [200, 200]
             const canvas = new Canvas(width, height)
             const context = canvas.getContext('2d')
             const image = new Image()
             image.src = await fs.readFileSync(
-                `${fixturesPath}/image-rotated-exif-6.jpg`,
+                `${fixturesPath}/${verticalImageFile}`,
             )
             // First draw using default API
             context.drawImage(image, 0, 0, width, height)
@@ -128,7 +133,6 @@ describe('download', () => {
                 width: canvas.width,
                 height: canvas.height,
                 objectFit: 'none',
-                orientation: 6,
             })
             context.drawImage(image, dimensions.left, dimensions.top, dimensions.width, dimensions.height)
             const bufferB = canvas.toBuffer()
@@ -138,13 +142,13 @@ describe('download', () => {
             // TODO
             // expect(bufferA.equals(bufferB)).toBeFalsy()
         })
-        it('5. should properly support objectFit = "cover"', async () => {
+        it('6. should properly support objectFit = "cover"', async () => {
             const [width, height] = [200, 200]
             const canvas = new Canvas(width, height)
             const context = canvas.getContext('2d')
             const image = new Image()
             image.src = await fs.readFileSync(
-                `${fixturesPath}/image-rotated-exif-6.jpg`,
+                `${fixturesPath}/${verticalImageFile}`,
             )
             const dimensions = calculateBasicImageDimensions({
                 image,
@@ -153,20 +157,19 @@ describe('download', () => {
                 width: canvas.width,
                 height: canvas.height,
                 objectFit: 'cover',
-                orientation: 6,
             })
             context.drawImage(image, dimensions.left, dimensions.top, dimensions.width, dimensions.height)
             const buffer = canvas.toBuffer()
             expect(Buffer.isBuffer(buffer)).toBeTruthy()
             expect(buffer).toMatchImageSnapshot()
         })
-        it('6. should properly support objectFit = "contain"', async () => {
+        it('7. should properly support objectFit = "contain"', async () => {
             const [width, height] = [200, 200]
             const canvas = new Canvas(width, height)
             const context = canvas.getContext('2d')
             const image = new Image()
             image.src = await fs.readFileSync(
-                `${fixturesPath}/image-rotated-exif-6.jpg`,
+                `${fixturesPath}/${verticalImageFile}`,
             )
             const dimensions = calculateBasicImageDimensions({
                 image,
@@ -175,20 +178,19 @@ describe('download', () => {
                 width: canvas.width,
                 height: canvas.height,
                 objectFit: 'contain',
-                orientation: 6,
             })
             context.drawImage(image, dimensions.left, dimensions.top, dimensions.width, dimensions.height)
             const buffer = canvas.toBuffer()
             expect(Buffer.isBuffer(buffer)).toBeTruthy()
             expect(buffer).toMatchImageSnapshot()
         })
-        it('7. should properly support objectFit = "fill"', async () => {
+        it('8. should properly support objectFit = "fill"', async () => {
             const [width, height] = [200, 200]
             const canvas = new Canvas(width, height)
             const context = canvas.getContext('2d')
             const image = new Image()
             image.src = await fs.readFileSync(
-                `${fixturesPath}/image-rotated-exif-6.jpg`,
+                `${fixturesPath}/${verticalImageFile}`,
             )
             const dimensions = calculateBasicImageDimensions({
                 image,
@@ -197,7 +199,6 @@ describe('download', () => {
                 width: canvas.width,
                 height: canvas.height,
                 objectFit: 'fill',
-                orientation: 6,
             })
             context.drawImage(image, dimensions.left, dimensions.top, dimensions.width, dimensions.height)
             const buffer = canvas.toBuffer()
