@@ -45,7 +45,7 @@ export const calculateBasicImageDimensions = ({
     y: number
     width: number
     height: number
-    objectFit?: 'none' | 'cover' | 'contain'
+    objectFit?: 'none' | 'cover' | 'contain' | 'fill'
     orientation?: number
     offsetX?: number
     offsetY?: number
@@ -55,6 +55,10 @@ export const calculateBasicImageDimensions = ({
 
     if (objectFit === 'none') {
         return { left: x, top: y, width: image.width, height: image.height }
+    }
+
+    if (objectFit === 'fill') {
+        return { left: x, top: y, width: width, height: height }
     }
 
     // Calculate scaling ratio based on objectFit
