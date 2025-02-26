@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { getSVGRenderer, measureMonospaceTypeface } from './code'
+import { getSVGRenderer, measureMonospaceTypeface } from './shiki-svg'
 import { codeToTokens } from 'shiki'
 
 // Add a custom serializer for SVG content
