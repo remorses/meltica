@@ -1,4 +1,3 @@
-
 // https://github.com/mgcrea/js-canvas-object-fit/tree/master
 //   1        2       3      4         5            6           7          8
 //  888888  888888      88  88      8888888888  88                  88  8888888888
@@ -9,6 +8,15 @@
 export const EXIF_ORIENTATIONS = [
     { op: 'none', radians: 0 },
     { op: 'none', radians: 0 },
+    // CSS equivalents for each orientation:
+    // 1: normal (no transform)
+    // 2: transform: scaleX(-1); (flip horizontally)
+    // 3: transform: rotate(180deg); (rotate 180°)
+    // 4: transform: scaleY(-1); (flip vertically)
+    // 5: transform: scaleX(-1) rotate(90deg); (flip horizontally and rotate 90° clockwise)
+    // 6: transform: rotate(90deg); (rotate 90° clockwise)
+    // 7: transform: scaleX(-1) rotate(-90deg); (flip horizontally and rotate 90° counter-clockwise)
+    // 8: transform: rotate(-90deg); (rotate 90° counter-clockwise)
     { op: 'flip-x', radians: 0 },
     { op: 'none', radians: Math.PI },
     { op: 'flip-y', radians: 0 },
