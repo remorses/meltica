@@ -21,7 +21,7 @@ expect.extend({ toMatchImageSnapshot })
 describe('download', () => {
     // beforeAll(() => Promise.all([mkdirpAsync(tmpPath)]));
     describe('image.jpg', () => {
-        it('should properly support objectFit = "none"', async () => {
+        it('1. should properly support objectFit = "none"', async () => {
             const [width, height] = [200, 200]
             const canvas = new Canvas(width, height)
             const context = canvas.getContext('2d')
@@ -48,7 +48,7 @@ describe('download', () => {
             // Test equality
             expect(bufferA.equals(bufferB)).toBeTruthy()
         })
-        it('should properly support objectFit = "cover"', async () => {
+        it('2. should properly support objectFit = "cover"', async () => {
             const [width, height] = [200, 200]
             const canvas = new Canvas(width, height)
             const context = canvas.getContext('2d')
@@ -67,7 +67,7 @@ describe('download', () => {
             expect(Buffer.isBuffer(buffer)).toBeTruthy()
             expect(buffer).toMatchImageSnapshot()
         })
-        it('should properly support objectFit = "contain"', async () => {
+        it('3. should properly support objectFit = "contain"', async () => {
             const [width, height] = [200, 200]
             const canvas = new Canvas(width, height)
             const context = canvas.getContext('2d')
@@ -88,7 +88,7 @@ describe('download', () => {
         })
     })
     describe('image-rotated-exif-6.jpg', () => {
-        it('should properly support objectFit = "none"', async () => {
+        it('4. should properly support objectFit = "none"', async () => {
             const [width, height] = [200, 200]
             const canvas = new Canvas(width, height)
             const context = canvas.getContext('2d')
@@ -119,7 +119,7 @@ describe('download', () => {
             // TODO
             // expect(bufferA.equals(bufferB)).toBeFalsy()
         })
-        it('should properly support objectFit = "cover"', async () => {
+        it('5. should properly support objectFit = "cover"', async () => {
             const [width, height] = [200, 200]
             const canvas = new Canvas(width, height)
             const context = canvas.getContext('2d')
@@ -141,7 +141,7 @@ describe('download', () => {
             expect(Buffer.isBuffer(buffer)).toBeTruthy()
             expect(buffer).toMatchImageSnapshot()
         })
-        it('should properly support objectFit = "contain"', async () => {
+        it('6. should properly support objectFit = "contain"', async () => {
             const [width, height] = [200, 200]
             const canvas = new Canvas(width, height)
             const context = canvas.getContext('2d')
@@ -165,7 +165,7 @@ describe('download', () => {
         })
     })
     describe.skip('image-rotated-exif-3.jpg', () => {
-        it('should properly support objectFit = "none"', async () => {
+        it('7. should properly support objectFit = "none"', async () => {
             const [width, height] = [200, 200]
             const canvas = new Canvas(width, height)
             const context = canvas.getContext('2d')
@@ -195,7 +195,7 @@ describe('download', () => {
             // Test equality
             expect(bufferA.equals(bufferB)).toBeFalsy()
         })
-        it('should properly support objectFit = "cover"', async () => {
+        it('8. should properly support objectFit = "cover"', async () => {
             const [width, height] = [200, 200]
             const canvas = new Canvas(width, height)
             const context = canvas.getContext('2d')
@@ -217,7 +217,7 @@ describe('download', () => {
             expect(Buffer.isBuffer(buffer)).toBeTruthy()
             expect(buffer).toMatchImageSnapshot()
         })
-        it('should properly support objectFit = "contain"', async () => {
+        it('9. should properly support objectFit = "contain"', async () => {
             const [width, height] = [200, 200]
             const canvas = new Canvas(width, height)
             const context = canvas.getContext('2d')
