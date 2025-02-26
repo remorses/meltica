@@ -1,0 +1,5 @@
+<svg viewBox="0 0 108 112" width="108" height="112" xmlns="http://www.w3.org/2000/svg">
+<rect id="bg" fill="#282c34" width="108" height="112" rx="4"></rect><g id="tokens" transform="translate(36, 44.8)"><text font-family="monospace" font-size="14" y="22.4">
+<tspan x="0" fill="#ff0000">test</tspan>
+</text></g>
+</svg>
