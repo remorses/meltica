@@ -1,5 +1,5 @@
 import { Canvas, Image } from 'canvas'
-import { describe, it, expect, beforeAll, expect } from 'vitest'
+import { describe, it, expect, beforeAll } from 'vitest'
 
 import { toMatchImageSnapshot } from 'jest-image-snapshot'
 
@@ -24,10 +24,13 @@ const verticalImageFile = 'vertical.jpg'
 
 describe('download', () => {
     // beforeAll(() => Promise.all([mkdirpAsync(tmpPath)]));
-    
+
     // Define canvas sizes to test
-    const canvasSizes = [[200, 200], [600, 600]];
-    
+    const canvasSizes = [
+        [200, 200],
+        [600, 600],
+    ]
+
     for (const [width, height] of canvasSizes) {
         describe(`Canvas size: ${width}x${height}`, () => {
             describe('1. Horizontal rectangular image tests', () => {
@@ -260,6 +263,6 @@ describe('download', () => {
                     expect(buffer).toMatchImageSnapshot()
                 })
             })
-        });
+        })
     }
 })
