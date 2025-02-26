@@ -34,7 +34,25 @@ const convertObjectPositionToPixels = (
     }
 };
 
-// Without rotation handling
+/**
+ * Calculates image dimensions and position based on CSS object-fit and object-position properties.
+ * 
+ * This implementation follows the CSS specifications for object-fit and object-position:
+ * - object-fit: https://developer.mozilla.org/en-US/docs/Web/CSS/object-fit
+ * - object-position: https://developer.mozilla.org/en-US/docs/Web/CSS/object-position
+ * 
+ * The object-fit property specifies how the content of a replaced element should be resized:
+ * - 'none': The image is not resized
+ * - 'fill': The image is resized to fill the given dimension
+ * - 'contain': The image is scaled to maintain its aspect ratio while fitting within the element's content box
+ * - 'cover': The image is sized to maintain its aspect ratio while filling the element's entire content box
+ * 
+ * The object-position property specifies the alignment of the replaced element's content:
+ * - Can be specified using keywords (left, center, right, top, bottom)
+ * - Can be specified using percentages or direct pixel values
+ * - Controls positioning of the image within its container
+ */
+
 export const calculateBasicImageDimensions = ({
     image,
     x,
@@ -58,10 +76,15 @@ export const calculateBasicImageDimensions = ({
     const imageHeight = image.height
 
     if (objectFit === 'none') {
-        return { left: x, top: y, width: image.width, height: image.height }
+        // For 'none', we still need to apply object-position
+        const xOffset = convertObjectPositionToPixels(xObjectPosition, width, imageWidth);
+        const yOffset = convertObjectPositionToPixels(yObjectPosition, height, imageHeight);
+        return { left: x + xOffset, top: y + yOffset, width: imageWidth, height: imageHeight }
     }
 
     if (objectFit === 'fill') {
+        // For 'fill', we still need to apply object-position, but since the image
+        // fills the entire container, object-position has no visible effect
         return { left: x, top: y, width: width, height: height }
     }
 
