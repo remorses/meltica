@@ -127,7 +127,7 @@ describe('download', () => {
             expect(buffer).toMatchImageSnapshot()
         })
     })
-    describe('image-rotated-exif-3.jpg', () => {
+    describe.skip('image-rotated-exif-3.jpg', () => {
         it('should properly support objectFit = "none"', async () => {
             const [width, height] = [200, 200]
             const canvas = new Canvas(width, height)

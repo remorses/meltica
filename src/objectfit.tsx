@@ -37,20 +37,28 @@ export const drawBasicImage = (
 ) => {
     const imageWidth = image.width
     const imageHeight = image.height
-    // Resize values
+    
+    if (objectFit === 'none') {
+        ctx.drawImage(image, x, y, width, height)
+        return
+    }
+    
+    // Calculate scaling ratio based on objectFit
     const resizeRatio = Math[objectFit === 'cover' ? 'max' : 'min'](
         width / imageWidth,
         height / imageHeight,
     )
-    const resizeWidth = imageWidth * resizeRatio
-    const resizeHeight = imageHeight * resizeRatio
-    // Cropping values
-    const sWidth = imageWidth / (resizeWidth / width)
-    const sHeight = imageHeight / (resizeHeight / height)
-    const sX = (imageWidth - sWidth) * offsetX
-    const sY = (imageHeight - sHeight) * offsetY
-    // Draw image
-    ctx.drawImage(image, sX, sY, sWidth, sHeight, x, y, width, height)
+    
+    // Calculate new dimensions
+    const newWidth = imageWidth * resizeRatio
+    const newHeight = imageHeight * resizeRatio
+    
+    // Calculate position to center the image
+    const posX = x - (newWidth - width) * offsetX
+    const posY = y - (newHeight - height) * offsetY
+    
+    // Draw image with the calculated dimensions and position
+    ctx.drawImage(image, posX, posY, newWidth, newHeight)
 }
 
 export const drawImage = (
@@ -72,51 +80,70 @@ export const drawImage = (
     const isHalfRotated = rotation !== 0 && rotation % Math.PI === 0
     const isQuarterRotated =
         rotation !== 0 && !isHalfRotated && rotation % (Math.PI / 2) === 0
-    const isRotatedClockwise = rotation / (Math.PI / 2) < 0 // @NOTE handle 2*PI rotation?
-    // Size values
+    const isRotatedClockwise = rotation / (Math.PI / 2) < 0
+    
+    // Get dimensions based on rotation
     const imageWidth = !isQuarterRotated ? image.width : image.height
     const imageHeight = !isQuarterRotated ? image.height : image.width
-    // Resize values
+    
+    // Calculate scaling ratio based on objectFit
     const resizeRatio = Math[objectFit === 'cover' ? 'max' : 'min'](
         width / imageWidth,
         height / imageHeight,
     )
-    const resizeWidth = !isQuarterRotated
-        ? imageWidth * resizeRatio
-        : imageHeight * resizeRatio
-    const resizeHeight = !isQuarterRotated
-        ? imageHeight * resizeRatio
-        : imageWidth * resizeRatio
-    // Cropping values
-    const sWidth = !isQuarterRotated
-        ? imageWidth / (resizeWidth / width)
-        : imageHeight / (resizeWidth / height)
-    const sHeight = !isQuarterRotated
-        ? imageHeight / (resizeHeight / height)
-        : imageWidth / (resizeHeight / width)
-    const sX = (image.width - sWidth) * offsetX
-    const sY = (image.height - sHeight) * offsetY
-    // Positionning values
-    let tX = 0
-    let tY = 0
-    if (isHalfRotated) {
-        tX = -width - x
-        tY = -height - y
-    } else if (isQuarterRotated) {
-        tX = !isRotatedClockwise ? x : -height - x
-        tY = isRotatedClockwise ? y : -width - y
-    }
-    const tWidth = !isQuarterRotated ? width : height
-    const tHeight = !isQuarterRotated ? height : width
-    // Draw image
+    
+    // Calculate new dimensions
+    const newWidth = imageWidth * resizeRatio
+    const newHeight = imageHeight * resizeRatio
+    
+    // Calculate position adjustments for rotation
+    let targetX = x
+    let targetY = y
+    let targetWidth = width
+    let targetHeight = height
+    
+    // Apply rotation if needed
     if (rotation) {
         ctx.rotate(rotation)
+        
+        if (isHalfRotated) {
+            targetX = -width - x
+            targetY = -height - y
+        } else if (isQuarterRotated) {
+            if (isRotatedClockwise) {
+                targetX = -height - x
+                targetY = y
+                targetWidth = height
+                targetHeight = width
+            } else {
+                targetX = x
+                targetY = -width - y
+                targetWidth = height
+                targetHeight = width
+            }
+        }
     }
+    
+    // Calculate position to center the image based on objectFit
+    let drawX = targetX
+    let drawY = targetY
+    let drawWidth = newWidth
+    let drawHeight = newHeight
+    
     if (objectFit !== 'none') {
-        ctx.drawImage(image, sX, sY, sWidth, sHeight, tX, tY, tWidth, tHeight)
+        // For cover and contain, adjust position to center the content
+        drawX = targetX - (newWidth - targetWidth) * offsetX
+        drawY = targetY - (newHeight - targetHeight) * offsetY
     } else {
-        ctx.drawImage(image, tX, tY, tWidth, tHeight)
+        // For 'none', just use the target dimensions
+        drawWidth = targetWidth
+        drawHeight = targetHeight
     }
+    
+    // Draw image with the calculated dimensions and position
+    ctx.drawImage(image, drawX, drawY, drawWidth, drawHeight)
+    
+    // Restore rotation if needed
     if (rotation) {
         ctx.rotate(-rotation)
     }
