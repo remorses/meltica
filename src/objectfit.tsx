@@ -40,41 +40,41 @@ export const calculateBasicImageDimensions = ({
     offsetX = 1 / 2,
     offsetY = 1 / 2,
 }: {
-    image: { width: number; height: number };
-    x: number;
-    y: number;
-    width: number;
-    height: number;
-    objectFit?: 'none' | 'cover' | 'contain';
-    orientation?: number;
-    offsetX?: number;
-    offsetY?: number;
+    image: { width: number; height: number }
+    x: number
+    y: number
+    width: number
+    height: number
+    objectFit?: 'none' | 'cover' | 'contain'
+    orientation?: number
+    offsetX?: number
+    offsetY?: number
 }) => {
     const imageWidth = image.width
     const imageHeight = image.height
-    
+
     if (objectFit === 'none') {
         return { left: x, top: y, width, height }
     }
-    
+
     // Calculate scaling ratio based on objectFit
     const resizeRatio = Math[objectFit === 'cover' ? 'max' : 'min'](
         width / imageWidth,
         height / imageHeight,
     )
-    
+
     // Calculate new dimensions
     const newWidth = imageWidth * resizeRatio
     const newHeight = imageHeight * resizeRatio
-    
+
     // Calculate position to center the image
     const left = x - (newWidth - width) * offsetX
     const top = y - (newHeight - height) * offsetY
-    
+
     return { left, top, width: newWidth, height: newHeight }
 }
 
- const calculateImageDimensions = ({
+const calculateImageDimensions = ({
     image,
     x,
     y,
@@ -85,15 +85,15 @@ export const calculateBasicImageDimensions = ({
     offsetX = 1 / 2,
     offsetY = 1 / 2,
 }: {
-    image: { width: number; height: number };
-    x: number;
-    y: number;
-    width: number;
-    height: number;
-    objectFit?: 'none' | 'cover' | 'contain';
-    orientation?: number;
-    offsetX?: number;
-    offsetY?: number;
+    image: { width: number; height: number }
+    x: number
+    y: number
+    width: number
+    height: number
+    objectFit?: 'none' | 'cover' | 'contain'
+    orientation?: number
+    offsetX?: number
+    offsetY?: number
 }) => {
     // Orientation value
     const rotation = EXIF_ORIENTATIONS[orientation].radians
@@ -101,27 +101,27 @@ export const calculateBasicImageDimensions = ({
     const isQuarterRotated =
         rotation !== 0 && !isHalfRotated && rotation % (Math.PI / 2) === 0
     const isRotatedClockwise = rotation / (Math.PI / 2) < 0
-    
+
     // Get dimensions based on rotation
     const imageWidth = !isQuarterRotated ? image.width : image.height
     const imageHeight = !isQuarterRotated ? image.height : image.width
-    
+
     // Calculate scaling ratio based on objectFit
     const resizeRatio = Math[objectFit === 'cover' ? 'max' : 'min'](
         width / imageWidth,
         height / imageHeight,
     )
-    
+
     // Calculate new dimensions
     const newWidth = imageWidth * resizeRatio
     const newHeight = imageHeight * resizeRatio
-    
+
     // Calculate position adjustments for rotation
     let targetX = x
     let targetY = y
     let targetWidth = width
     let targetHeight = height
-    
+
     // Apply rotation if needed
     if (rotation) {
         if (isHalfRotated) {
@@ -141,13 +141,13 @@ export const calculateBasicImageDimensions = ({
             }
         }
     }
-    
+
     // Calculate position to center the image based on objectFit
     let drawX = targetX
     let drawY = targetY
     let drawWidth = newWidth
     let drawHeight = newHeight
-    
+
     if (objectFit !== 'none') {
         // For cover and contain, adjust position to center the content
         drawX = targetX - (newWidth - targetWidth) * offsetX
@@ -157,12 +157,12 @@ export const calculateBasicImageDimensions = ({
         drawWidth = targetWidth
         drawHeight = targetHeight
     }
-    
+
     return {
         left: drawX,
         top: drawY,
         width: drawWidth,
         height: drawHeight,
-        rotation
+        rotation,
     }
 }
