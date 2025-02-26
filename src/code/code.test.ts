@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { getSVGRenderer, measureMonospaceTypeface } from './code'
+import { codeToTokens } from 'shiki'
 
 // Add a custom serializer for SVG content
 expect.addSnapshotSerializer({
@@ -23,19 +24,30 @@ describe('measureMonospaceTypeface', () => {
     })
 })
 
+const codeSnippet = `function hello() {
+  console.log("Hello, world!");
+  return 42;
+}
+
+const result = hello();
+`
+
 describe('getSVGRenderer', () => {
     it('should create a renderer that can render tokens to SVG', async () => {
         // Create a renderer with simple options
         const renderer = await getSVGRenderer({
             fontFamily: 'monospace',
             fontSize: 14,
+
             bg: '#282c34',
+        })
+        const { tokens } = await codeToTokens(codeSnippet, {
+            lang: 'javascript',
+            theme: 'github-dark',
         })
 
         // Render a simple token array
-        const svg = renderer.renderToSVG([
-            [{ content: 'test', color: '#ff0000', fontStyle: 0, offset: 0 }],
-        ])
+        const svg = renderer.renderToSVG(tokens)
 
         // Use snapshot testing
         expect(svg).toMatchFileSnapshot('svg-snapshots/simple-svg-render.svg')

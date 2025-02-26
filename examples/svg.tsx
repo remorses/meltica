@@ -29,6 +29,7 @@ function Video({}) {
         >
             <Track id={'svg'}>
                 <InlineSvg
+                    id={'inline-svg'}
                     duration={3}
                     svg={
                         <svg width='300' height='300'>
@@ -41,7 +42,7 @@ function Video({}) {
                             />
                         </svg>
                     }
-                    id={'chain0'}
+
                     // in='00:00:00.000'
                     // out='00:00:14.467'
                 />
