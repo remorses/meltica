@@ -231,17 +231,13 @@ export function getSVGRenderer(options: SVGRendererOptions) {
                 if (l.length === 0) {
                     svg += '\n'
                 } else {
-                    svg += `<text font-family="${fontFamily}" font-size="${fontSize}" y="${
-                        lineheight * (index + 1)
-                    }">\n`
-
+                    const yPosition = lineheight * (index + 1)
                     let indent = 0
 
                     l.forEach((token) => {
                         const tokenAttributes = getTokenSVGAttributes(token)
                         /**
-                         * SVG rendering in Sketch/Affinity Photos: `<tspan>` with leading whitespace will render without whitespace
-                         * Need to manually offset `x`
+                         * Handle whitespace leading content by splitting into separate text elements
                          */
                         if (
                             token.content.startsWith(' ') &&
@@ -251,25 +247,24 @@ export function getSVGRenderer(options: SVGRendererOptions) {
                                 token.content.search(/\S/)
 
                             // Whitespace + content, such as ` foo`
-                            // Render as `<tspan> </tspan><tspan>foo</tspan>`, where the second `tspan` is offset by whitespace * width
-                            svg += `<tspan x="${indent * measurement.width}" ${tokenAttributes}>${escapeHtml(
+                            // Render as separate text elements
+                            svg += `<text font-family="${fontFamily}" font-size="${fontSize}" y="${yPosition}" transform="translate(${indent * measurement.width}, 0)" ${tokenAttributes}>${escapeHtml(
                                 token.content.slice(0, firstNonWhitespaceIndex),
-                            )}</tspan>`
+                            )}</text>`
 
-                            svg += `<tspan x="${
-                                (indent + firstNonWhitespaceIndex) *
-                                measurement.width
-                            }" ${tokenAttributes}>${escapeHtml(
+                            svg += `<text font-family="${fontFamily}" font-size="${fontSize}" y="${yPosition}" transform="translate(${
+                                (indent + firstNonWhitespaceIndex) * measurement.width
+                            }, 0)" ${tokenAttributes}>${escapeHtml(
                                 token.content.slice(firstNonWhitespaceIndex),
-                            )}</tspan>`
+                            )}</text>`
                         } else {
-                            svg += `<tspan x="${indent * measurement.width}" ${tokenAttributes}>${escapeHtml(
+                            svg += `<text font-family="${fontFamily}" font-size="${fontSize}" y="${yPosition}" transform="translate(${indent * measurement.width}, 0)" ${tokenAttributes}>${escapeHtml(
                                 token.content,
-                            )}</tspan>`
+                            )}</text>`
                         }
                         indent += token.content.length
                     })
-                    svg += '\n</text>\n'
+                    svg += '\n'
                 }
             })
             svg = svg.replace(/\n*$/, '') // Get rid of final new lines
