@@ -1,4 +1,4 @@
-import { createElement, render } from 'jsx-xml'
+import { createElement, render, renderAsync } from 'jsx-xml'
 
 import { createContext } from '@/context'
 import { execSync } from 'child_process'
@@ -163,9 +163,9 @@ function extractPropertiesFromNodes(nodes: ChildNode[]): Properties {
     return properties as Properties
 }
 
-export function renderToXml(jsx: any) {
+export async function renderToXml(jsx: any) {
     const currentContext = structuredClone(defaultContext)
-    render(
+    await renderAsync(
         <renderingContext.Provider value={currentContext}>
             {jsx}
         </renderingContext.Provider>,
@@ -173,16 +173,18 @@ export function renderToXml(jsx: any) {
 
     const producers = generateProducersXml(currentContext.assets)
 
-    let xml = render(
-        <renderingContext.Provider
-            value={{
-                ...currentContext,
-                producers,
-                isRegistrationStep: false,
-            }}
-        >
-            {jsx}
-        </renderingContext.Provider>,
+    let xml = (
+        await renderAsync(
+            <renderingContext.Provider
+                value={{
+                    ...currentContext,
+                    producers,
+                    isRegistrationStep: false,
+                }}
+            >
+                {jsx}
+            </renderingContext.Provider>,
+        )
     ).end({
         headless: false,
         prettyPrint: true,
@@ -194,13 +196,13 @@ export function renderToXml(jsx: any) {
     return xml
 }
 
-export function renderToVideo(jsx: any, xmlFilename = 'video.mlt') {
+export async function renderToVideo(jsx: any, xmlFilename = 'video.mlt') {
     // Generate unique ID for this render
     const renderId = `render_${Date.now().toString(36)}`
 
     // Task 1: Generate XML
     console.time(`${renderId} generate xml`)
-    const xml = renderToXml(jsx)
+    const xml = await renderToXml(jsx)
     console.timeEnd(`${renderId} generate xml`)
 
     // Task 2: Run melt command
@@ -213,13 +215,13 @@ export function renderToVideo(jsx: any, xmlFilename = 'video.mlt') {
     execSync(`"${meltPath}" ${tempXmlFile}`, { stdio: 'inherit' })
     console.timeEnd(`${renderId} melt processing`)
 }
-export function renderToPreview(jsx: any, xmlFilename = 'video.mlt') {
+export async function renderToPreview(jsx: any, xmlFilename = 'video.mlt') {
     // Generate unique ID for this render
     const renderId = `render_${Date.now().toString(36)}`
 
     // Task 1: Generate XML
     console.time(`${renderId} generate xml`)
-    const xml = renderToXml(jsx)
+    const xml = await renderToXml(jsx)
     console.timeEnd(`${renderId} generate xml`)
 
     // Task 2: Run melt command
@@ -337,3 +339,5 @@ function generateProducersXml(assets: AssetRegistration[]) {
     parsed.forEach((node) => extractProducers(node))
     return producers
 }
+
+export const melticaFolder = '.meltica'

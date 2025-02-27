@@ -17,7 +17,20 @@ import {
 } from '@/rendering'
 import { writeFileSync } from 'fs'
 import path from 'path'
+import { CodeSnippet } from '@/code/code'
 
+const codeSnippet = `
+import React from 'react'
+import { CodeSnippet } from '@/code/code'
+
+export const code = <CodeSnippet
+    code={
+        <div>
+            <h1>Hello World</h1>
+        </div>
+    }
+/>
+`
 function Video({}) {
     return (
         <VideoRoot
@@ -47,6 +60,16 @@ function Video({}) {
                     // out='00:00:14.467'
                 />
             </Track>
+            <Track id={'svg'}>
+                <InlineSvg
+                    id={'inline-svg'}
+                    duration={3}
+                    svg={<CodeSnippet code={codeSnippet} />}
+
+                    // in='00:00:00.000'
+                    // out='00:00:14.467'
+                />
+            </Track>
             <Track id={'audio2'}>
                 <Asset
                     type='audio'
@@ -62,5 +85,5 @@ function Video({}) {
     )
 }
 
-fs.writeFileSync('examples/svg.mlt', renderToXml(<Video />))
+fs.writeFileSync('examples/svg.mlt', await renderToXml(<Video />))
 renderToPreview(<Video />)

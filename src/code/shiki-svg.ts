@@ -2,8 +2,8 @@
 
 import type { ThemedToken as IThemedToken } from 'shiki'
 
-import fontkit from 'fontkit'
-import { findFontSync } from 'font-scanner'
+import * as fontkit from 'fontkit'
+import scanner from 'font-scanner'
 
 export interface ThemedToken extends IThemedToken {}
 
@@ -13,22 +13,25 @@ export interface ThemedToken extends IThemedToken {}
  * @returns An object containing the width and height of a single character
  */
 export function measureMonospaceTypeface(fontFamily: string): {
+    // TODO memoize this function to disk
     width: number
     height: number
 } {
     try {
         // Find the font file path using font-scanner
-        const fontPath = findFontSync(fontFamily)
+        const fontObj = scanner.findFontSync({ family: fontFamily })
 
-        if (!fontPath) {
+        if (!fontObj) {
             console.warn(
                 `Font "${fontFamily}" not found, using fallback measurements`,
             )
             return { width: 9, height: 16 } // Fallback to reasonable defaults
         }
+        
 
         // Open the font using fontkit
-        const font = fontkit.openSync(fontPath)
+        const font = fontkit.openSync(fontObj.path)
+        
 
         // For monospace fonts, we can measure a single character (all have same width)
         const glyph = font.glyphForCodePoint('M'.charCodeAt(0))
@@ -177,7 +180,7 @@ function escapeHtml(html: string) {
         (chr) => htmlEscapes[chr as keyof typeof htmlEscapes],
     )
 }
-export async function getSVGRenderer(options: SVGRendererOptions) {
+export function getSVGRenderer(options: SVGRendererOptions) {
     const fontFamily = options.fontFamily
     const fontSize = options.fontSize ?? 16
     const lineHeightToFontSizeRatio = options.lineHeightToFontSizeRatio ?? 1.4
@@ -186,7 +189,7 @@ export async function getSVGRenderer(options: SVGRendererOptions) {
     const bgSideCharPadding = options.bgSideCharPadding ?? 4
     const bgVerticalCharPadding = options.bgVerticalCharPadding ?? 2
 
-    const measurement = await measureMonospaceTypeface(fontFamily)
+    const measurement = measureMonospaceTypeface(fontFamily)
 
     const lineheight = measurement.height * lineHeightToFontSizeRatio
 

@@ -5,14 +5,16 @@ import {
     AssetRegistration,
     AssetTypeWithPath,
     formatSecondsToTime,
+    melticaFolder,
     renderingContext,
 } from '@/rendering'
 import dedent from 'dedent'
 
-import { render, Fragment } from 'jsx-xml'
+import { render, renderAsync } from 'jsx-xml'
 import { type } from 'os'
 import path from 'path'
 import { text } from 'stream/consumers'
+
 
 type TrackContext = {
     trackId: string
@@ -42,9 +44,7 @@ export function AudioGain({ volume = 0 }) {
     )
 }
 
-const melticaFolder = '.meltica'
-
-export function InlineSvg({
+export async function InlineSvg({
     svg: svgContent,
     id,
     duration,
@@ -62,12 +62,15 @@ export function InlineSvg({
 
     if (context.isRegistrationStep) {
         // Render the SVG content
-        const renderedSvgContent = render(svgContent).end({
-            headless: true,
-            allowEmptyTags: true,
-            indentTextOnlyNodes: false,
-            prettyPrint: true,
-        })
+        let renderedSvgContent =
+            typeof svgContent === 'string'
+                ? svgContent
+                : (await renderAsync(svgContent)).end({
+                      headless: true,
+                      allowEmptyTags: true,
+                      indentTextOnlyNodes: false,
+                      prettyPrint: true,
+                  })
         fs.mkdirSync(melticaFolder, { recursive: true })
         fs.writeFileSync(filepath, renderedSvgContent)
         context.assets.push({

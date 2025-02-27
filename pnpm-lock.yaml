@@ -45,8 +45,8 @@ importers:
         specifier: ^10.0.0
         version: 10.0.0
       jsx-xml:
-        specifier: 0.3.0
-        version: 0.3.0
+        specifier: npm:@xmorse/jsx-xml@^0.4.0
+        version: '@xmorse/jsx-xml@0.4.0'
       node-media-server:
         specifier: ^4.0.7
         version: 4.0.7
@@ -71,6 +71,9 @@ importers:
       vitest:
         specifier: ^3.0.6
         version: 3.0.7(@types/node@22.13.5)
+      xmlbuilder2:
+        specifier: ^3.1.1
+        version: 3.1.1
     devDependencies:
       jest-image-snapshot:
         specifier: ^6.4.0
@@ -441,6 +444,10 @@ packages:
 
   '@vitest/utils@3.0.7':
     resolution: {integrity: sha512-xePVpCRfooFX3rANQjwoditoXgWb1MaFbzmGuPP59MK6i13mrnDw/yEIyJudLeW6/38mCNcwCiJIGmpDPibAIg==}
+
+  '@xmorse/jsx-xml@0.4.0':
+    resolution: {integrity: sha512-K6+v22qf7EiLEZvvgml2GAYWQIN3M581r7Blce4ZzzQy6VRIzO3bWAm3zENE/SFqzmpFsh7R64txZFCYrUK2Ow==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
 
   abbrev@3.0.0:
     resolution: {integrity: sha512-+/kfrslGQ7TNV2ecmQwMJj/B65g5KVq1/L3SGVZ3tCYGqlzFuFCGBZJtMP99wH3NpEUyAjn0zPdPUg0D+DwrOA==}
@@ -948,10 +955,6 @@ packages:
   jsbn@1.1.0:
     resolution: {integrity: sha512-4bYVV3aAMtDTTu4+xsDYa6sy9GyJ69/amsu9sYF2zqjiEoZA5xJi3BrfX3uY+/IekIu7MwdObdbDWpoZdBv3/A==}
 
-  jsx-xml@0.3.0:
-    resolution: {integrity: sha512-KXzxJw7FVURJKZiMOCwxa9oGd9mztLeIeQmUmfvt8lu+t31eRBm26czfz2SPh+0IgklJgt3Cebk96XYJ4y+dMw==}
-    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
-
   lodash@4.17.21:
     resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
 
@@ -1232,8 +1235,8 @@ packages:
     resolution: {integrity: sha512-y3bGgqKj3QBdxLbLkomlohkvsA8gdAiUQlSBJnBhfn+BPxg4bc62d8TcBW15wavDfgexCgccckhcZvywyQYPOw==}
     hasBin: true
 
-  react-is@18.3.1:
-    resolution: {integrity: sha512-/LLMVyas0ljjAtoYiPqYiL8VWXzUUdThrmU5+n20DZv+a+ClRoevUzw5JxU+Ieh5/c87ytoTBV9G1FiKfNJdmg==}
+  react-is@19.0.0:
+    resolution: {integrity: sha512-H91OHcwjZsbq3ClIDHMzBShc1rotbfACdWENsmEf0IFvZ3FgGPtdHMcsv45bQ1hAbgdfiA8SnxTKfDS+x/8m2g==}
 
   readable-stream@3.6.2:
     resolution: {integrity: sha512-9u/sniCrY3D5WdsERHzHE4G2YCXqoG5FTHUiCC4SIbr6XcLZBY05ya9EKjYek9O5xOAwjGq+1JdGBAS7Q9ScoA==}
@@ -1935,6 +1938,11 @@ snapshots:
       loupe: 3.1.3
       tinyrainbow: 2.0.0
 
+  '@xmorse/jsx-xml@0.4.0':
+    dependencies:
+      react-is: 19.0.0
+      xmlbuilder2: 3.1.1
+
   abbrev@3.0.0: {}
 
   accepts@1.3.8:
@@ -2491,11 +2499,6 @@ snapshots:
 
   jsbn@1.1.0: {}
 
-  jsx-xml@0.3.0:
-    dependencies:
-      react-is: 18.3.1
-      xmlbuilder2: 3.1.1
-
   lodash@4.17.21: {}
 
   loupe@3.1.3: {}
@@ -2777,7 +2780,7 @@ snapshots:
       minimist: 1.2.8
       strip-json-comments: 2.0.1
 
-  react-is@18.3.1: {}
+  react-is@19.0.0: {}
 
   readable-stream@3.6.2:
     dependencies:

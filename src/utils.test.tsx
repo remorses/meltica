@@ -2,6 +2,24 @@ import { describe, it, expect } from 'vitest'
 
 import { formatSecondsToTime } from './rendering'
 
+import { renderAsync } from 'jsx-xml'
+import { createContext, useContext } from './context'
+import { create } from 'xmlbuilder2'
+
+describe('renderAsync', () => {
+    it('should render a component that returns text', async () => {
+        // Simple component that returns text
+        function TextComponent() {
+            return create('<z>Hello, world!</z>')
+        }
+
+        const result = await renderAsync(<TextComponent />)
+        expect(result.end({ headless: true })).toMatchInlineSnapshot(
+            `"<z>Hello, world!</z>"`,
+        )
+    })
+})
+
 describe('formatSecondsToTime', () => {
     it('formats seconds to HH:MM:SS.mmm format', () => {
         expect(formatSecondsToTime(0)).toMatchInlineSnapshot(`"00:00:00.000"`)
@@ -16,9 +34,7 @@ describe('formatSecondsToTime', () => {
         expect(formatSecondsToTime('3.65')).toMatchInlineSnapshot(
             `"00:00:03.649"`,
         )
-        expect(formatSecondsToTime('0')).toMatchInlineSnapshot(
-            `"00:00:00.000"`,
-        )
+        expect(formatSecondsToTime('0')).toMatchInlineSnapshot(`"00:00:00.000"`)
         expect(formatSecondsToTime(undefined)).toMatchInlineSnapshot(
             `undefined`,
         )

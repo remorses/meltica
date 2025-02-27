@@ -29,7 +29,7 @@
     "font-scanner": "^0.2.1",
     "fontkit": "^2.0.4",
     "htmlparser2": "^10.0.0",
-    "jsx-xml": "0.3.0",
+    "jsx-xml": "npm:@xmorse/jsx-xml@^0.4.0",
     "node-media-server": "^4.0.7",
     "prettier": "^3.5.2",
     "shiki": "^3.0.0",
@@ -37,7 +37,8 @@
     "uuid": "^11.1.0",
     "vite": "^6.1.1",
     "vite-tsconfig-paths": "^5.1.4",
-    "vitest": "^3.0.6"
+    "vitest": "^3.0.6",
+    "xmlbuilder2": "^3.1.1"
   },
   "devDependencies": {
     "jest-image-snapshot": "^6.4.0"
