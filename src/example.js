@@ -1,5 +1,5 @@
 import { AudioFile, ImageFile, PanningAnimation } from '@/components'
-import { useContext } from '@/context'
+import { useContext } from 'jsx-xml'
 import { renderingContext } from '@/rendering'
 import { render } from 'jsx-xml'
 

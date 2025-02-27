@@ -2,9 +2,10 @@ import { describe, it, expect } from 'vitest'
 
 import { formatSecondsToTime } from './rendering'
 
-import { renderAsync } from 'jsx-xml'
-import { createContext, useContext } from './context'
+import { renderAsync, createContext, useContext } from 'jsx-xml'
+
 import { create } from 'xmlbuilder2'
+import { sleep } from '@/utils'
 
 describe('renderAsync', () => {
     it('should render a component that returns text', async () => {
@@ -16,6 +17,56 @@ describe('renderAsync', () => {
         const result = await renderAsync(<TextComponent />)
         expect(result.end({ headless: true })).toMatchInlineSnapshot(
             `"<z>Hello, world!</z>"`,
+        )
+    })
+})
+
+const exampleContext = createContext({ key: 'default' })
+
+describe('context', () => {
+    it('concurrent useContext should have their context scoped', async () => {
+        function ParentComponent({ key }) {
+            return (
+                <exampleContext.Provider value={{ key }}>
+                    <div>
+                        <FirstSibling key={key} />
+                        <SecondSibling key={key} />
+                    </div>
+                </exampleContext.Provider>
+            )
+        }
+
+        async function FirstSibling({ key }) {
+            const value = useContext(exampleContext)
+            await sleep()
+            expect(value.key).toBe(key)
+            return <div>First: {value.key}</div>
+        }
+
+        async function SecondSibling({ key }) {
+            const value = useContext(exampleContext)
+            await sleep()
+            expect(value.key).toBe(key)
+            return <div>Second: {value.key}</div>
+        }
+
+        const keys = ['default', 'key1', 'key2', 'updated-by-first-sibling']
+        const results = await Promise.all(
+            keys.map(async (key) => {
+                const result = await renderAsync(<ParentComponent key={key} />)
+                return result.end({ headless: true })
+            }),
+        )
+
+        expect(results).toMatchInlineSnapshot(
+            `
+          [
+            "<div><div>First: default</div><div>Second: default</div></div>",
+            "<div><div>First: key1</div><div>Second: key1</div></div>",
+            "<div><div>First: key2</div><div>Second: key2</div></div>",
+            "<div><div>First: updated-by-first-sibling</div><div>Second: updated-by-first-sibling</div></div>",
+          ]
+        `,
         )
     })
 })

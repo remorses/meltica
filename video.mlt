@@ -2,6 +2,90 @@
 <mlt LC_NUMERIC="C" version="7.30.0" title="Shotcut version 25.01.25" producer="main_bin">
   <consumer ab="160k" acodec="aac" channels="2" crf="23" deinterlacer="onefield" f="mp4" g="15" in="0" out="00:00:03.000" mlt_service="avformat" movflags="+faststart" preset="veryfast" real_time="-1" rescale="bilinear" target="examples/svg.mp4" threads="0" vcodec="libx264"/>
   <profile description="PAL 4:3 DV or DVD" width="1080" height="1920" progressive="1" sample_aspect_num="1" sample_aspect_den="1" display_aspect_num="9" display_aspect_den="16" frame_rate_num="30" frame_rate_den="1" colorspace="709"/>
+  <producer id="inline-svg" in="00:00:00.000" out="00:08:20.487">
+    <property name="length">15000</property>
+    <property name="eof">pause</property>
+    <property name="resource">.meltica/inline-svg.svg</property>
+    <property name="ttl">25</property>
+    <property name="aspect_ratio">1</property>
+    <property name="meta.media.progressive">1</property>
+    <property name="seekable">1</property>
+    <property name="format">2</property>
+    <property name="meta.media.width">441</property>
+    <property name="meta.media.height">358</property>
+    <property name="mlt_service">qimage</property>
+    <property name="resource">/Users/morse/Documents/meltica/.meltica/inline-svg.svg</property>
+    <property name="mlt_service">qimage</property>
+    <property name="format">2</property>
+    <property name="shotcut:skipConvert">1</property>
+    <property name="shotcut:caption">Inline SVG</property>
+  </producer>
+  <playlist id="svg">
+    <property name="shotcut:name">track</property>
+    <entry producer="inline-svg" in="00:00:00.000" out="00:00:03.000"/>
+    <entry producer="inline-svg" in="00:00:00.000" out="00:00:03.000"/>
+  </playlist>
+  <producer id="inline-svg" in="00:00:00.000" out="00:08:20.487">
+    <property name="length">15000</property>
+    <property name="eof">pause</property>
+    <property name="resource">.meltica/inline-svg.svg</property>
+    <property name="ttl">25</property>
+    <property name="aspect_ratio">1</property>
+    <property name="meta.media.progressive">1</property>
+    <property name="seekable">1</property>
+    <property name="format">2</property>
+    <property name="meta.media.width">441</property>
+    <property name="meta.media.height">358</property>
+    <property name="mlt_service">qimage</property>
+    <property name="resource">/Users/morse/Documents/meltica/.meltica/inline-svg.svg</property>
+    <property name="mlt_service">qimage</property>
+    <property name="format">2</property>
+    <property name="shotcut:skipConvert">1</property>
+    <property name="shotcut:caption">Inline SVG</property>
+  </producer>
+  <playlist id="svg">
+    <property name="shotcut:name">track</property>
+    <entry producer="inline-svg" in="00:00:00.000" out="00:00:03.000"/>
+    <entry producer="inline-svg" in="00:00:00.000" out="00:00:03.000"/>
+  </playlist>
+  <chain id="chain1" in="00:00:00.000" out="00:02:15.115">
+    <property name="length">4050</property>
+    <property name="eof">pause</property>
+    <property name="resource">edapollo - Let It Go [bQ5glYCsv94].mp3</property>
+    <property name="meta.media.nb_streams">1</property>
+    <property name="meta.media.0.stream.type">audio</property>
+    <property name="meta.media.0.codec.sample_fmt">fltp</property>
+    <property name="meta.media.0.codec.sample_rate">44100</property>
+    <property name="meta.media.0.codec.channels">2</property>
+    <property name="meta.media.0.codec.layout">stereo</property>
+    <property name="meta.media.0.codec.name">mp3float</property>
+    <property name="meta.media.0.codec.long_name">MP3 (MPEG audio layer 3)</property>
+    <property name="meta.media.0.codec.bit_rate">192000</property>
+    <property name="meta.attr.0.stream.encoder.markup">Lavc61.19</property>
+    <property name="meta.attr.major_brand.markup">isom</property>
+    <property name="meta.attr.minor_version.markup">512</property>
+    <property name="meta.attr.compatible_brands.markup">isomiso2avc1mp41</property>
+    <property name="meta.attr.encoder.markup">Lavf61.7.100</property>
+    <property name="seekable">1</property>
+    <property name="audio_index">0</property>
+    <property name="video_index">-1</property>
+    <property name="mute_on_pause">0</property>
+    <property name="mlt_service">avformat</property>
+    <property name="resource">edapollo - Let It Go [bQ5glYCsv94].mp3</property>
+    <property name="shotcut:skipConvert">1</property>
+    <property name="shotcut:caption">edapollo - Let It Go [bQ5glYCsv94].mp3</property>
+    <filter id="chain1gain">
+      <property name="window">75</property>
+      <property name="max_gain">20dB</property>
+      <property name="level">-14</property>
+      <property name="mlt_service">volume</property>
+    </filter>
+  </chain>
+  <playlist id="audio2">
+    <property name="shotcut:audio">1</property>
+    <property name="shotcut:name">track</property>
+    <entry producer="chain1" in="00:00:00.000" out="00:02:15.067"/>
+  </playlist>
   <playlist id="main_bin">
     <property name="xml_retain">1</property>
   </playlist>
@@ -24,5 +108,29 @@
     <property name="shotcut:trackHeight">50</property>
     <property name="shotcut:skipConvert">0</property>
     <track producer="background"/>
+    <track producer="svg"/>
+    <track producer="audio2" hide="video"/>
+    <transition id="transition0">
+      <property name="a_track">0</property>
+      <property name="b_track">1</property>
+      <property name="mlt_service">mix</property>
+      <property name="always_active">1</property>
+      <property name="sum">1</property>
+    </transition>
+    <transition id="transition1">
+      <property name="a_track">0</property>
+      <property name="b_track">2</property>
+      <property name="mlt_service">mix</property>
+      <property name="always_active">1</property>
+      <property name="sum">1</property>
+    </transition>
+    <transition id="transitionCairo0">
+      <property name="a_track">1</property>
+      <property name="b_track">1</property>
+      <property name="version">0.1</property>
+      <property name="mlt_service">frei0r.cairoblend</property>
+      <property name="threads">0</property>
+      <property name="disable">0</property>
+    </transition>
   </tractor>
 </mlt>

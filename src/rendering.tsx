@@ -1,6 +1,6 @@
 import { createElement, render, renderAsync } from 'jsx-xml'
 
-import { createContext } from '@/context'
+import { createContext } from 'jsx-xml'
 import { execSync } from 'child_process'
 import DomHandler, { ChildNode } from 'domhandler'
 import fs from 'fs'
