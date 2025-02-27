@@ -12,7 +12,7 @@ export async function CodeSnippet({
     lang = 'javascript',
     theme = 'github-dark',
     background = '#282c34',
-    fontFamily = 'monospace',
+    fontFamily = "Menlo, Monaco, 'Courier New', monospace",
     fontSize = 14,
 }: {
     code: string
