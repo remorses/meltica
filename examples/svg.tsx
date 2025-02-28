@@ -2,18 +2,8 @@ import fs from 'fs'
 import { WholeWordIcon } from 'lucide-react'
 
 import { CodeSnippet } from '@/code/code'
-import {
-    Asset,
-    AudioGain,
-    InlineSvg,
-    Track,
-    VideoRoot
-} from '@/components'
-import {
-    renderToPreview,
-    renderToVideo,
-    renderToXml
-} from '@/rendering'
+import { Asset, AudioGain, InlineSvg, Track, VideoRoot } from '@/components'
+import { renderToPreview, renderToVideo, renderToXml } from '@/rendering'
 const codeSnippet = `
 import React from 'react'
 import { CodeSnippet } from '@/code/code'
@@ -57,10 +47,10 @@ function Video({}) {
                         </svg>
                     }
                 />
-                <InlineSvg id={'world'} duration={3} svg={<WholeWordIcon />} />
             </Track>
 
             <Track id={'svgCodeTrack'}>
+                <InlineSvg id={'world'} duration={3} svg={<WholeWordIcon color='white' />} />
                 <InlineSvg
                     id={'svgCode'}
                     duration={3}
@@ -86,5 +76,5 @@ function Video({}) {
 }
 
 fs.writeFileSync('examples/svg.mlt', await renderToXml(<Video />))
-renderToVideo(<Video />)
+// renderToVideo(<Video />)
 renderToPreview(<Video />)
