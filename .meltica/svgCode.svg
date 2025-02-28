@@ -1,0 +1,48 @@
+<svg viewBox="0 0 441 358.4" width="441" height="358.4" xmlns="http://www.w3.org/2000/svg">
+  <rect id="bg" fill="#282c34" width="441" height="358.4" rx="4"></rect>
+  <g id="tokens" transform="translate(36, 44.8)">
+    <text font-family="Menlo, Monaco, 'Courier New', monospace" font-size="14" y="44.8" transform="translate(0, 0)" fill="#F97583">import</text>
+    <text font-family="Menlo, Monaco, 'Courier New', monospace" font-size="14" y="44.8" transform="translate(54, 0)" fill="#E1E4E8"></text>
+    <text font-family="Menlo, Monaco, 'Courier New', monospace" font-size="14" y="44.8" transform="translate(63, 0)" fill="#E1E4E8">React </text>
+    <text font-family="Menlo, Monaco, 'Courier New', monospace" font-size="14" y="44.8" transform="translate(117, 0)" fill="#F97583">from</text>
+    <text font-family="Menlo, Monaco, 'Courier New', monospace" font-size="14" y="44.8" transform="translate(153, 0)" fill="#E1E4E8"></text>
+    <text font-family="Menlo, Monaco, 'Courier New', monospace" font-size="14" y="44.8" transform="translate(162, 0)" fill="#9ECBFF">'react'</text>
+    <text font-family="Menlo, Monaco, 'Courier New', monospace" font-size="14" y="67.19999999999999" transform="translate(0, 0)" fill="#F97583">import</text>
+    <text font-family="Menlo, Monaco, 'Courier New', monospace" font-size="14" y="67.19999999999999" transform="translate(54, 0)" fill="#E1E4E8"></text>
+    <text font-family="Menlo, Monaco, 'Courier New', monospace" font-size="14" y="67.19999999999999" transform="translate(63, 0)" fill="#E1E4E8">{ CodeSnippet } </text>
+    <text font-family="Menlo, Monaco, 'Courier New', monospace" font-size="14" y="67.19999999999999" transform="translate(207, 0)" fill="#F97583">from</text>
+    <text font-family="Menlo, Monaco, 'Courier New', monospace" font-size="14" y="67.19999999999999" transform="translate(243, 0)" fill="#E1E4E8"></text>
+    <text font-family="Menlo, Monaco, 'Courier New', monospace" font-size="14" y="67.19999999999999" transform="translate(252, 0)" fill="#9ECBFF">'@/code/code'</text>
+    <text font-family="Menlo, Monaco, 'Courier New', monospace" font-size="14" y="112" transform="translate(0, 0)" fill="#F97583">export</text>
+    <text font-family="Menlo, Monaco, 'Courier New', monospace" font-size="14" y="112" transform="translate(54, 0)" fill="#E1E4E8"></text>
+    <text font-family="Menlo, Monaco, 'Courier New', monospace" font-size="14" y="112" transform="translate(63, 0)" fill="#F97583">const</text>
+    <text font-family="Menlo, Monaco, 'Courier New', monospace" font-size="14" y="112" transform="translate(108, 0)" fill="#E1E4E8"></text>
+    <text font-family="Menlo, Monaco, 'Courier New', monospace" font-size="14" y="112" transform="translate(117, 0)" fill="#79B8FF">code</text>
+    <text font-family="Menlo, Monaco, 'Courier New', monospace" font-size="14" y="112" transform="translate(153, 0)" fill="#E1E4E8"></text>
+    <text font-family="Menlo, Monaco, 'Courier New', monospace" font-size="14" y="112" transform="translate(162, 0)" fill="#F97583">=</text>
+    <text font-family="Menlo, Monaco, 'Courier New', monospace" font-size="14" y="112" transform="translate(171, 0)" fill="#E1E4E8"></text>
+    <text font-family="Menlo, Monaco, 'Courier New', monospace" font-size="14" y="112" transform="translate(180, 0)" fill="#E1E4E8">&lt;</text>
+    <text font-family="Menlo, Monaco, 'Courier New', monospace" font-size="14" y="112" transform="translate(189, 0)" fill="#79B8FF">CodeSnippet</text>
+    <text font-family="Menlo, Monaco, 'Courier New', monospace" font-size="14" y="134.39999999999998" transform="translate(0, 0)" fill="#E1E4E8"></text>
+    <text font-family="Menlo, Monaco, 'Courier New', monospace" font-size="14" y="134.39999999999998" transform="translate(36, 0)" fill="#B392F0">code</text>
+    <text font-family="Menlo, Monaco, 'Courier New', monospace" font-size="14" y="134.39999999999998" transform="translate(72, 0)" fill="#F97583">=</text>
+    <text font-family="Menlo, Monaco, 'Courier New', monospace" font-size="14" y="134.39999999999998" transform="translate(81, 0)" fill="#E1E4E8">{</text>
+    <text font-family="Menlo, Monaco, 'Courier New', monospace" font-size="14" y="156.79999999999998" transform="translate(0, 0)" fill="#E1E4E8"></text>
+    <text font-family="Menlo, Monaco, 'Courier New', monospace" font-size="14" y="156.79999999999998" transform="translate(72, 0)" fill="#E1E4E8">&lt;</text>
+    <text font-family="Menlo, Monaco, 'Courier New', monospace" font-size="14" y="156.79999999999998" transform="translate(81, 0)" fill="#85E89D">div</text>
+    <text font-family="Menlo, Monaco, 'Courier New', monospace" font-size="14" y="156.79999999999998" transform="translate(108, 0)" fill="#E1E4E8">&gt;</text>
+    <text font-family="Menlo, Monaco, 'Courier New', monospace" font-size="14" y="179.2" transform="translate(0, 0)" fill="#E1E4E8"></text>
+    <text font-family="Menlo, Monaco, 'Courier New', monospace" font-size="14" y="179.2" transform="translate(108, 0)" fill="#E1E4E8">&lt;</text>
+    <text font-family="Menlo, Monaco, 'Courier New', monospace" font-size="14" y="179.2" transform="translate(117, 0)" fill="#85E89D">h1</text>
+    <text font-family="Menlo, Monaco, 'Courier New', monospace" font-size="14" y="179.2" transform="translate(135, 0)" fill="#E1E4E8">&gt;Hello World&lt;/</text>
+    <text font-family="Menlo, Monaco, 'Courier New', monospace" font-size="14" y="179.2" transform="translate(261, 0)" fill="#85E89D">h1</text>
+    <text font-family="Menlo, Monaco, 'Courier New', monospace" font-size="14" y="179.2" transform="translate(279, 0)" fill="#E1E4E8">&gt;</text>
+    <text font-family="Menlo, Monaco, 'Courier New', monospace" font-size="14" y="201.6" transform="translate(0, 0)" fill="#E1E4E8"></text>
+    <text font-family="Menlo, Monaco, 'Courier New', monospace" font-size="14" y="201.6" transform="translate(72, 0)" fill="#E1E4E8">&lt;/</text>
+    <text font-family="Menlo, Monaco, 'Courier New', monospace" font-size="14" y="201.6" transform="translate(90, 0)" fill="#85E89D">div</text>
+    <text font-family="Menlo, Monaco, 'Courier New', monospace" font-size="14" y="201.6" transform="translate(117, 0)" fill="#E1E4E8">&gt;</text>
+    <text font-family="Menlo, Monaco, 'Courier New', monospace" font-size="14" y="224" transform="translate(0, 0)" fill="#E1E4E8"></text>
+    <text font-family="Menlo, Monaco, 'Courier New', monospace" font-size="14" y="224" transform="translate(36, 0)" fill="#E1E4E8">}</text>
+    <text font-family="Menlo, Monaco, 'Courier New', monospace" font-size="14" y="246.39999999999998" transform="translate(0, 0)" fill="#E1E4E8">/&gt;</text>
+  </g>
+</svg>

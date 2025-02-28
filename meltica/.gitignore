@@ -1,0 +1,12 @@
+dist
+
+.DS_Store
+node_modules
+*.mp4
+*.jpg
+*.wav
+*.mp3
+*.mov
+*.flv
+!src/fixtures/*
+.meltica
