@@ -303,9 +303,10 @@ export async function renderToPreview(jsx: any, xmlFilename = 'video.mlt') {
     // const tempXmlFile = path.join(os.tmpdir(), `video-${timestamp}.mlt`)
     const tempXmlFile = xmlFilename
     fs.writeFileSync(tempXmlFile, xml)
-    const meltPath = '/Applications/Shotcut.app/Contents/MacOS/melt'
+    let meltPath = '/Applications/Shotcut.app/Contents/MacOS/melt'
+    meltPath = 'melt'
     execSync(
-        `"${meltPath}" ${tempXmlFile} -consumer cbrts in=0 out=-1 muxrate=20000000 | mpv -`,
+        `"${meltPath}" ${tempXmlFile} -consumer sdl2`,
         { stdio: 'inherit' },
     )
     console.timeEnd(`${renderId} melt processing`)

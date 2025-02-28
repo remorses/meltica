@@ -37,7 +37,7 @@ function Video({}) {
             fps={30}
             width={1080}
             height={1920}
-            duration={3}
+            duration={8}
             resultFilePath={'examples/svg.mp4'}
         >
             <Track id={'svgRectTrack'}>
@@ -87,5 +87,5 @@ function Video({}) {
 }
 
 fs.writeFileSync('examples/svg.mlt', await renderToXml(<Video />))
-renderToVideo(<Video />)
-// renderToPreview(<Video />)
+// renderToVideo(<Video />)
+renderToPreview(<Video />)
