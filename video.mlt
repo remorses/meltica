@@ -41,16 +41,16 @@
   <producer id="svgsvgRect" in="00:00:00.000" out="00:08:20.487">
     <property name="length">15000</property>
     <property name="eof">pause</property>
-    <property name="resource">.meltica/svgsvgRect.svg</property>
+    <property name="resource">.meltica/svgsvgRect.png</property>
     <property name="ttl">25</property>
     <property name="aspect_ratio">1</property>
     <property name="meta.media.progressive">1</property>
     <property name="seekable">1</property>
     <property name="format">2</property>
-    <property name="meta.media.width">300</property>
-    <property name="meta.media.height">300</property>
+    <property name="meta.media.width">1080</property>
+    <property name="meta.media.height">1080</property>
     <property name="mlt_service">qimage</property>
-    <property name="resource">/Users/morse/Documents/meltica/.meltica/svgsvgRect.svg</property>
+    <property name="resource">/Users/morse/Documents/meltica/.meltica/svgsvgRect.png</property>
     <property name="mlt_service">qimage</property>
     <property name="format">2</property>
     <property name="shotcut:skipConvert">1</property>
@@ -63,16 +63,16 @@
   <producer id="svgsvgCode" in="00:00:00.000" out="00:08:20.487">
     <property name="length">15000</property>
     <property name="eof">pause</property>
-    <property name="resource">.meltica/svgsvgCode.svg</property>
+    <property name="resource">.meltica/svgsvgCode.png</property>
     <property name="ttl">25</property>
     <property name="aspect_ratio">1</property>
     <property name="meta.media.progressive">1</property>
     <property name="seekable">1</property>
     <property name="format">2</property>
-    <property name="meta.media.width">441</property>
-    <property name="meta.media.height">358</property>
+    <property name="meta.media.width">1080</property>
+    <property name="meta.media.height">878</property>
     <property name="mlt_service">qimage</property>
-    <property name="resource">/Users/morse/Documents/meltica/.meltica/svgsvgCode.svg</property>
+    <property name="resource">/Users/morse/Documents/meltica/.meltica/svgsvgCode.png</property>
     <property name="mlt_service">qimage</property>
     <property name="format">2</property>
     <property name="shotcut:skipConvert">1</property>

@@ -306,7 +306,7 @@ export async function renderToPreview(jsx: any, xmlFilename = 'video.mlt') {
     let meltPath = '/Applications/Shotcut.app/Contents/MacOS/melt'
     meltPath = 'melt'
     execSync(
-        `"${meltPath}" ${tempXmlFile} -consumer sdl2`,
+        `"${meltPath}" ${tempXmlFile} -consumer sdl2 terminate_on_pause=1`,
         { stdio: 'inherit' },
     )
     console.timeEnd(`${renderId} melt processing`)

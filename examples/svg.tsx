@@ -45,7 +45,7 @@ function Video({}) {
                     id={'svgRect'}
                     duration={3}
                     svg={
-                        <svg width='300' height='300'>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" width='300' height='300'>
                             <rect
                                 x='75'
                                 y='75'

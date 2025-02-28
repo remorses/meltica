@@ -55,10 +55,12 @@ export async function InlineSvg({
     children?: any
 }) {
     id = 'svg' + id
+
     const context = useContext(renderingContext)
+    const { width, height } = useContext(videoRootContext)!
     const { trackId } = useTrackContext()
 
-    let filepath = path.resolve(melticaFolder, `${id}.svg`)
+    let filepath = path.resolve(melticaFolder, `${id}.png`)
 
     if (context.isRegistrationStep) {
         // Render the SVG content
@@ -72,7 +74,19 @@ export async function InlineSvg({
                       prettyPrint: true,
                   })
         fs.mkdirSync(melticaFolder, { recursive: true })
-        fs.writeFileSync(filepath, renderedSvgContent)
+        console.time(`${id} svg render`)
+        const { Resvg } = await import('@resvg/resvg-js')
+        const resvg = new Resvg(renderedSvgContent, {
+            fitTo: {
+                mode: 'width',
+                value: width,
+            },
+        })
+        const pngData = resvg.render()
+        const pngBuffer = pngData.asPng()
+        console.timeEnd(`${id} svg render`)
+
+        fs.writeFileSync(filepath, pngBuffer)
         context.assets.push({
             id,
             type: 'image',
