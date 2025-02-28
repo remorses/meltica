@@ -1,12 +1,15 @@
 import { renderAsync } from 'jsx-xml'
 
 import xmlbuilder from 'xmlbuilder2'
+import type { XMLBuilder } from 'xmlbuilder2/lib/interfaces'
+import type { Element } from '@oozcitak/dom/lib/dom/interfaces'
 
 import { execSync } from 'child_process'
 import { ChildNode } from 'domhandler'
 import fs from 'fs'
 import { createContext } from 'jsx-xml'
 import path from 'path'
+import { isTruthy } from '@/utils'
 
 export type AssetTypeWithPath = 'audio' | 'image' | 'video'
 
@@ -179,17 +182,62 @@ export function orderByIndex<T>(array: T[], keyFn: (item: T) => number): T[] {
     })
 }
 
+function nodeIsElement(node: XMLBuilder['node']): node is Element {
+    return node && node.nodeType === node.ELEMENT_NODE
+}
+
+export function checkDuplicateIds(builder: XMLBuilder): string[] {
+    const seenIds = new Set<string>()
+    const duplicateIds: string[] = []
+
+    // Use the each method to recursively traverse the XML structure
+    builder.each(
+        (node, index: number, level: number) => {
+            // Check if this is an element node with an id attribute
+            if (nodeIsElement(node.node)) {
+                const id = node.node.attributes?.getNamedItem('id')?.value
+                if (id) {
+                    if (seenIds.has(id)) {
+                        duplicateIds.push(id)
+                    } else {
+                        seenIds.add(id)
+                    }
+                }
+            }
+
+            // The each method automatically handles recursion
+            return true // Continue traversal
+        },
+        false,
+        true,
+    )
+
+    // If duplicates were found, throw an error
+    if (duplicateIds.length > 0) {
+        const uniqueDuplicates = [...new Set(duplicateIds)]
+        throw new Error(
+            `Duplicate IDs found in XML: ${uniqueDuplicates.join(', ')}`,
+        )
+    }
+
+    // Return array of duplicate IDs (removing any duplicates in the duplicates list)
+    return [...new Set(duplicateIds)]
+}
+
 export async function renderToXml(jsx: any) {
     const currentContext = structuredClone(defaultContext)
-    await renderAsync(
+    const initialNode = await renderAsync(
         <renderingContext.Provider value={currentContext}>
             {jsx}
         </renderingContext.Provider>,
     )
 
-    const producers = generateProducersXml(currentContext.assets)
-    console.log(producers.map(x => x.id))
+    checkDuplicateIds(initialNode)
 
+    const producers = generateProducersXml(currentContext.assets)
+    // console.log(producers.map((x) => x.id))
+
+    // fix ordering of registered assets because of jsx concurrency
     currentContext.assets = orderByIndex(currentContext.assets, (a) => {
         const producerIndex = producers.findIndex((p) => p.id === a.id)
         if (producerIndex === -1) {
@@ -328,14 +376,20 @@ export function generateProducersXml(assets: AssetRegistration[]) {
         .filter(
             (node, index, level) => {
                 const producerTags = ['chain', 'producer']
-                const el = node.node as any as Element
+                const el = node.node
+                if (!nodeIsElement(el)) {
+                    return false
+                }
                 return producerTags.includes(el.nodeName)
             },
             false,
             true,
         )
         .map((node) => {
-            const el = node.node as any as Element
+            const el = node.node
+            if (!nodeIsElement(el)) {
+                return
+            }
             const attributesObject = attributesToObject(el.attributes)
             const allPropsNodes = node.filter(
                 (x) => x.node.nodeName === 'property',
@@ -343,7 +397,10 @@ export function generateProducersXml(assets: AssetRegistration[]) {
             const properties = Object.fromEntries(
                 allPropsNodes.map((x) => {
                     const value = x.node.textContent
-                    const el = x.node as any as Element
+                    const el = x.node
+                    if (!nodeIsElement(el)) {
+                        return []
+                    }
                     const name = attributesToObject(el.attributes).name
                     return [name, value]
                 }),
@@ -356,6 +413,7 @@ export function generateProducersXml(assets: AssetRegistration[]) {
             }
             return assetProducer
         })
+        .filter(isTruthy)
 
     return producerNodes
 }
@@ -367,7 +425,7 @@ export function generateProducersXml(assets: AssetRegistration[]) {
  * @returns A record of attribute names to their string values
  */
 export function attributesToObject(
-    attributes: NamedNodeMap,
+    attributes: Element['attributes'],
 ): Record<string, string> {
     const result: Record<string, string> = {}
 

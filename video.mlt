@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <mlt LC_NUMERIC="C" version="7.30.0" title="Shotcut version 25.01.25" producer="main_bin">
-  <chain id="soundtrack" in="00:00:00.000" out="00:02:15.115">
+  <chain id="assetsoundtrack" in="00:00:00.000" out="00:02:15.115">
     <property name="length">4050</property>
     <property name="eof">pause</property>
     <property name="resource">edapollo - Let It Go [bQ5glYCsv94].mp3</property>
@@ -26,22 +26,22 @@
     <property name="resource">edapollo - Let It Go [bQ5glYCsv94].mp3</property>
     <property name="shotcut:skipConvert">1</property>
     <property name="shotcut:caption">edapollo - Let It Go [bQ5glYCsv94].mp3</property>
-    <filter id="soundtrackgain">
+    <filter id="assetsoundtrackgain">
       <property name="window">75</property>
       <property name="max_gain">20dB</property>
       <property name="level">-14</property>
       <property name="mlt_service">volume</property>
     </filter>
   </chain>
-  <playlist id="soundtrackTrack">
+  <playlist id="tracksoundtrackTrack">
     <property name="shotcut:audio">1</property>
     <property name="shotcut:name">track</property>
-    <entry producer="soundtrack" in="00:00:00.000" out="00:02:15.067"/>
+    <entry producer="assetsoundtrack" in="00:00:00.000" out="00:02:15.067"/>
   </playlist>
-  <producer id="svgRect" in="00:00:00.000" out="00:08:20.487">
+  <producer id="svgsvgRect" in="00:00:00.000" out="00:08:20.487">
     <property name="length">15000</property>
     <property name="eof">pause</property>
-    <property name="resource">.meltica/svgRect.svg</property>
+    <property name="resource">.meltica/svgsvgRect.svg</property>
     <property name="ttl">25</property>
     <property name="aspect_ratio">1</property>
     <property name="meta.media.progressive">1</property>
@@ -50,20 +50,20 @@
     <property name="meta.media.width">300</property>
     <property name="meta.media.height">300</property>
     <property name="mlt_service">qimage</property>
-    <property name="resource">/Users/morse/Documents/meltica/.meltica/svgRect.svg</property>
+    <property name="resource">/Users/morse/Documents/meltica/.meltica/svgsvgRect.svg</property>
     <property name="mlt_service">qimage</property>
     <property name="format">2</property>
     <property name="shotcut:skipConvert">1</property>
     <property name="shotcut:caption">Inline SVG</property>
   </producer>
-  <playlist id="svgRectTrack">
+  <playlist id="tracksvgRectTrack">
     <property name="shotcut:name">track</property>
-    <entry producer="svgRect" in="00:00:00.000" out="00:00:03.000"/>
+    <entry producer="svgsvgRect" in="00:00:00.000" out="00:00:03.000"/>
   </playlist>
-  <producer id="svgCode" in="00:00:00.000" out="00:08:20.487">
+  <producer id="svgsvgCode" in="00:00:00.000" out="00:08:20.487">
     <property name="length">15000</property>
     <property name="eof">pause</property>
-    <property name="resource">.meltica/svgCode.svg</property>
+    <property name="resource">.meltica/svgsvgCode.svg</property>
     <property name="ttl">25</property>
     <property name="aspect_ratio">1</property>
     <property name="meta.media.progressive">1</property>
@@ -72,15 +72,15 @@
     <property name="meta.media.width">441</property>
     <property name="meta.media.height">358</property>
     <property name="mlt_service">qimage</property>
-    <property name="resource">/Users/morse/Documents/meltica/.meltica/svgCode.svg</property>
+    <property name="resource">/Users/morse/Documents/meltica/.meltica/svgsvgCode.svg</property>
     <property name="mlt_service">qimage</property>
     <property name="format">2</property>
     <property name="shotcut:skipConvert">1</property>
     <property name="shotcut:caption">Inline SVG</property>
   </producer>
-  <playlist id="svgCodeTrack">
+  <playlist id="tracksvgCodeTrack">
     <property name="shotcut:name">track</property>
-    <entry producer="svgCode" in="00:00:00.000" out="00:00:03.000"/>
+    <entry producer="svgsvgCode" in="00:00:00.000" out="00:00:03.000"/>
   </playlist>
   <consumer ab="160k" acodec="aac" channels="2" crf="23" deinterlacer="onefield" f="mp4" g="15" in="0" out="00:00:03.000" mlt_service="avformat" movflags="+faststart" preset="veryfast" real_time="-1" rescale="bilinear" target="examples/svg.mp4" threads="0" vcodec="libx264"/>
   <profile description="PAL 4:3 DV or DVD" width="1080" height="1920" progressive="1" sample_aspect_num="1" sample_aspect_den="1" display_aspect_num="9" display_aspect_den="16" frame_rate_num="30" frame_rate_den="1" colorspace="709"/>
@@ -106,9 +106,9 @@
     <property name="shotcut:trackHeight">50</property>
     <property name="shotcut:skipConvert">0</property>
     <track producer="background"/>
-    <track producer="soundtrackTrack" hide="video"/>
-    <track producer="svgRectTrack"/>
-    <track producer="svgCodeTrack"/>
+    <track producer="tracksoundtrackTrack" hide="video"/>
+    <track producer="tracksvgRectTrack"/>
+    <track producer="tracksvgCodeTrack"/>
     <transition id="transition0">
       <property name="a_track">0</property>
       <property name="b_track">1</property>

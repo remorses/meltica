@@ -54,6 +54,7 @@ export async function InlineSvg({
     duration: number
     children?: any
 }) {
+    id = 'svg' + id
     const context = useContext(renderingContext)
     const { trackId } = useTrackContext()
 
@@ -125,6 +126,7 @@ export function Asset({
     type: AssetTypeWithPath
     children?: any
 }) {
+    id = 'asset' + id
     const context = useContext(renderingContext)
     const { trackId } = useTrackContext()
     const producer = context.producers.find((p) => p.id === id)
@@ -393,6 +395,7 @@ export function BlankSpace({ id, length }) {
 }
 
 export function Track({ id: trackId, name = 'track', children }) {
+    trackId = 'track' + trackId
     const context = useContext(renderingContext)
     const trackCtx = { trackId }
     if (context.isRegistrationStep) {
