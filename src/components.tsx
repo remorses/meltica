@@ -15,7 +15,6 @@ import { type } from 'os'
 import path from 'path'
 import { text } from 'stream/consumers'
 
-
 type TrackContext = {
     trackId: string
 }
@@ -82,7 +81,7 @@ export async function InlineSvg({
             out: duration,
             // svgContent
         })
-        return null
+        return <producer id={id}></producer>
     }
     const producer = context.producers.find((p) => p.id === id)
 
@@ -142,7 +141,7 @@ export function Asset({
         })
         return null
     }
-    
+
     if (!producer) {
         throw new Error(`Producer for asset with id ${id} not found`)
     }
@@ -378,15 +377,17 @@ export function Transform({
     )
 }
 
-export function BlankSpace({ length }) {
+export function BlankSpace({ id, length }) {
     const context = useContext(renderingContext)
     const { trackId } = useTrackContext()
     if (context.isRegistrationStep) {
         context.assets.push({
+            id,
             type: 'blank',
             duration: length,
             parentTrackId: trackId,
         })
+        return <producer id={id} />
     }
     return null
 }
@@ -474,7 +475,7 @@ export function VideoRoot({
 }: VideoRootContext & { children: any }) {
     const context = useContext(renderingContext)
     let backgroundDuration = formatSecondsToTime(9999999)
-    const playlists = groupBy(context.assets, (a) => a.parentTrackId!)
+    const playlists = groupBy(context.assets, (a) => a.parentTrackId)
     const { resultFilePath, height, width, duration, fps } = rootProps
     return (
         <videoRootContext.Provider value={rootProps}>

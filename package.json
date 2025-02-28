@@ -15,6 +15,7 @@
     },
     "dependencies": {
         "@kmamal/sdl": "^0.10.14",
+        "@oozcitak/dom": "^1.15.10",
         "@shikijs/vscode-textmate": "^10.0.2",
         "@types/node": "^22.13.5",
         "@types/node-media-server": "^2.3.7",

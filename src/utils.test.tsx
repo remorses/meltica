@@ -4,7 +4,7 @@ import { formatSecondsToTime } from './rendering'
 
 import { renderAsync, createContext, useContext } from 'jsx-xml'
 
-import { create } from 'xmlbuilder2'
+import { create, fragment } from 'xmlbuilder2'
 import { sleep } from '@/utils'
 
 describe('renderAsync', () => {
@@ -18,6 +18,79 @@ describe('renderAsync', () => {
         expect(result.end({ headless: true })).toMatchInlineSnapshot(
             `"<z>Hello, world!</z>"`,
         )
+    })
+
+    it('create txt on fragment', async () => {
+        const c = fragment({})
+        c.txt('Hello, world!')
+        expect(c.end({ headless: true })).toMatchInlineSnapshot(
+            `"Hello, world!"`,
+        )
+    })
+    it('create ele and txt on fragment', async () => {
+        const c = fragment({})
+        c.ele('z').txt('Hello, world!').up().ele('z').txt('Hello, world!')
+        expect(c.end({ headless: true })).toMatchInlineSnapshot(
+            `"<z>Hello, world!</z><z>Hello, world!</z>"`,
+        )
+    })
+
+    it('should convert XML to object with toObject', async () => {
+        // Test based on the soundtrack chain from video.mlt
+        const xml = `
+        <chain id="soundtrack" in="00:00:00.000" out="00:02:15.115">
+            <property name="meta.media.0.stream.type">audio</property>
+            <property name="meta.media.0.codec.sample_fmt">fltp</property>
+        </chain>`
+
+        const xmlObj = create(xml)
+        const result = xmlObj.toObject({ group: true })
+        const res = [...xmlObj.node.childNodes!.values()].map((x: Element) => {
+            const { nodeName, nodeType, attributes } = x
+            return {
+                nodeName,
+                nodeType,
+                ...Object.fromEntries(
+                    [...(attributes || [])].map((attr) => [
+                        attr.name,
+                        attr.value,
+                    ]),
+                ),
+            }
+        })
+        expect(res).toMatchInlineSnapshot(`
+          [
+            {
+              "id": "soundtrack",
+              "in": "00:00:00.000",
+              "nodeName": "chain",
+              "nodeType": 1,
+              "out": "00:02:15.115",
+            },
+          ]
+        `)
+
+        expect(result).toMatchInlineSnapshot(`
+          {
+            "chain": {
+              "@": {
+                "id": "soundtrack",
+                "in": "00:00:00.000",
+                "out": "00:02:15.115",
+              },
+              "property": [
+                {
+                  "#": "audio",
+                  "@name": "meta.media.0.stream.type",
+                },
+                {
+                  "#": "fltp",
+                  "@name": "meta.media.0.codec.sample_fmt",
+                },
+              ],
+            },
+          }
+        `)
     })
     it('xmlbuilder support object syntax with attributes', async () => {
         // Simple component that returns text

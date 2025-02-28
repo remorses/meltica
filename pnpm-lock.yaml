@@ -11,6 +11,9 @@ importers:
       '@kmamal/sdl':
         specifier: ^0.10.14
         version: 0.10.14
+      '@oozcitak/dom':
+        specifier: ^1.15.10
+        version: 1.15.10
       '@shikijs/vscode-textmate':
         specifier: ^10.0.2
         version: 10.0.2

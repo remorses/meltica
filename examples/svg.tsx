@@ -40,9 +40,9 @@ function Video({}) {
             duration={3}
             resultFilePath={'examples/svg.mp4'}
         >
-            <Track id={'svg'}>
+            <Track id={'svgRectTrack'}>
                 <InlineSvg
-                    id={'inline-svg'}
+                    id={'svgRect'}
                     duration={3}
                     svg={
                         <svg width='300' height='300'>
@@ -61,9 +61,9 @@ function Video({}) {
                 />
             </Track>
 
-            <Track id={'svg'}>
+            <Track id={'svgCodeTrack'}>
                 <InlineSvg
-                    id={'inline-svg'}
+                    id={'svgCode'}
                     duration={3}
                     svg={<CodeSnippet code={codeSnippet} />}
 
@@ -71,7 +71,7 @@ function Video({}) {
                     // out='00:00:14.467'
                 />
             </Track>
-            <Track id={'audio2'}>
+            <Track id={'soundtrackTrack'}>
                 <Asset
                     type='audio'
                     id={'soundtrack'}

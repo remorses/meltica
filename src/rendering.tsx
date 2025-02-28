@@ -1,11 +1,11 @@
-import { createElement, render, renderAsync } from 'jsx-xml'
+import { renderAsync } from 'jsx-xml'
 
-import { createContext } from 'jsx-xml'
+import xmlbuilder from 'xmlbuilder2'
+
 import { execSync } from 'child_process'
-import DomHandler, { ChildNode } from 'domhandler'
+import { ChildNode } from 'domhandler'
 import fs from 'fs'
-import { Parser } from 'htmlparser2'
-import os from 'os'
+import { createContext } from 'jsx-xml'
 import path from 'path'
 
 export type AssetTypeWithPath = 'audio' | 'image' | 'video'
@@ -24,6 +24,7 @@ export type AssetRegistration =
     | {
           parentTrackId: string
           type: 'blank'
+          id: string
           duration: string
       }
     | {
@@ -163,6 +164,21 @@ function extractPropertiesFromNodes(nodes: ChildNode[]): Properties {
     return properties as Properties
 }
 
+/**
+ * Orders an array using a key function that returns an index
+ *
+ * @param array - The array to be ordered
+ * @param keyFn - A function that returns the index for each item
+ * @returns A new array ordered according to the indices returned by keyFn
+ */
+export function orderByIndex<T>(array: T[], keyFn: (item: T) => number): T[] {
+    return [...array].sort((a, b) => {
+        const indexA = keyFn(a)
+        const indexB = keyFn(b)
+        return indexA - indexB
+    })
+}
+
 export async function renderToXml(jsx: any) {
     const currentContext = structuredClone(defaultContext)
     await renderAsync(
@@ -172,6 +188,15 @@ export async function renderToXml(jsx: any) {
     )
 
     const producers = generateProducersXml(currentContext.assets)
+    console.log(producers.map(x => x.id))
+
+    currentContext.assets = orderByIndex(currentContext.assets, (a) => {
+        const producerIndex = producers.findIndex((p) => p.id === a.id)
+        if (producerIndex === -1) {
+            throw new Error(`Producer for asset with id ${a.id} not found`)
+        }
+        return producerIndex
+    })
 
     let xml = (
         await renderAsync(
@@ -238,35 +263,7 @@ export async function renderToPreview(jsx: any, xmlFilename = 'video.mlt') {
     console.timeEnd(`${renderId} melt processing`)
 }
 
-export function parseXml(xml: string) {
-    const handler = new DomHandler()
-    const parser = new Parser(handler, {
-        xmlMode: true,
-        recognizeSelfClosing: true,
-    })
-    parser.write(xml)
-    parser.end()
-    return handler.dom
-}
-
-function domHandlerNodesToJsx(nodes: ChildNode[]): any[] {
-    return nodes.map((node) => {
-        if (node.type === 'text' && node.data.trim().length > 0) {
-            return node.data
-        }
-
-        if (node.type === 'tag') {
-            const children = node.children
-                ? domHandlerNodesToJsx(node.children)
-                : []
-            return createElement(node.name, node.attribs, ...children)
-        }
-
-        return null
-    })
-}
-
-export function formatSecondsToTime(secs?: number | string) {
+export function formatSecondsToTime(secs?: number | string | null) {
     if (secs == null) {
         return undefined
     }
@@ -299,7 +296,7 @@ function deduplicate<T, K>(array: T[], keyFn: (item: T) => K): T[] {
     })
 }
 
-function generateProducersXml(assets: AssetRegistration[]) {
+export function generateProducersXml(assets: AssetRegistration[]) {
     const timestamp = Date.now()
     const tempXmlFile = path.join(
         melticaFolder,
@@ -325,27 +322,61 @@ function generateProducersXml(assets: AssetRegistration[]) {
         throw new Error('Melt command failed to generate XML')
     }
 
-    const parsed = parseXml(xml)
+    const parsed = xmlbuilder.create(xml)
 
-    const producers = [] as AssetProducer[]
+    const producerNodes = parsed
+        .filter(
+            (node, index, level) => {
+                const producerTags = ['chain', 'producer']
+                const el = node.node as any as Element
+                return producerTags.includes(el.nodeName)
+            },
+            false,
+            true,
+        )
+        .map((node) => {
+            const el = node.node as any as Element
+            const attributesObject = attributesToObject(el.attributes)
+            const allPropsNodes = node.filter(
+                (x) => x.node.nodeName === 'property',
+            )
+            const properties = Object.fromEntries(
+                allPropsNodes.map((x) => {
+                    const value = x.node.textContent
+                    const el = x.node as any as Element
+                    const name = attributesToObject(el.attributes).name
+                    return [name, value]
+                }),
+            )
+            const assetProducer: AssetProducer = {
+                id: attributesObject.id,
+                attributes: attributesObject,
+                children: node.toArray(false, false),
+                properties,
+            }
+            return assetProducer
+        })
 
-    function extractProducers(node) {
-        if (node.type === 'tag' && node.name === 'producer') {
-            const attributes = node.attribs
-            const properties = extractPropertiesFromNodes(node.children)
-            const id = attributes.id
-            const children = domHandlerNodesToJsx(node.children)
-            producers.push({ attributes, id, children, properties })
-        }
-        if (node.children) {
-            node.children.forEach((child) => {
-                extractProducers(child)
-            })
-        }
+    return producerNodes
+}
+
+/**
+ * Converts DOM element attributes to a plain JavaScript object
+ *
+ * @param attributes - The attributes collection from a DOM element
+ * @returns A record of attribute names to their string values
+ */
+export function attributesToObject(
+    attributes: NamedNodeMap,
+): Record<string, string> {
+    const result: Record<string, string> = {}
+
+    for (let i = 0; i < attributes.length; i++) {
+        const attr = attributes[i]
+        result[attr.name] = attr.value
     }
 
-    parsed.forEach((node) => extractProducers(node))
-    return producers
+    return result
 }
 
 export const melticaFolder = '.meltica'
