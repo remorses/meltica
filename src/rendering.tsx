@@ -301,21 +301,29 @@ function deduplicate<T, K>(array: T[], keyFn: (item: T) => K): T[] {
 
 function generateProducersXml(assets: AssetRegistration[]) {
     const timestamp = Date.now()
-    const tempXmlFile = path.join(os.tmpdir(), `test-${timestamp}.mlt`)
+    const tempXmlFile = path.join(
+        melticaFolder,
+        `producers-extraction-${timestamp}.mlt`,
+    )
     fs.writeFileSync(tempXmlFile, '')
     // TODO the fps is important here and should be parametrized in this step because melt outputs the xml with durations in fps format instead of seconds or durations. now it is hardcoded to 30fps. but melt only supports profile names and not all attributes.
     const profile = `hdv_1080_30p`
     // https://github.com/mltframework/mlt/blob/master/src/modules/xml/consumer_xml.yml#L91
     const timeFormat = 'clock'
-    execSync(
-        `melt ${assets
-            .filter((x) => x.type !== 'blank' && x.type !== 'text')
-            .map((a) => `"${a.filepath}" id=${a.id}`)
-            .join(
-                ' ',
-            )} -profile ${profile} -consumer xml:${tempXmlFile} time_format=${timeFormat}`,
-    )
+    const command = `melt ${assets
+        .filter((x) => x.type !== 'blank' && x.type !== 'text')
+        .map((a) => `"${a.filepath}" id=${a.id}`)
+        .join(
+            ' ',
+        )} -profile ${profile} -consumer xml:${tempXmlFile} time_format=${timeFormat}`
+
+    const out = execSync(command, { stdio: 'pipe' }).toString()
     const xml = fs.readFileSync(tempXmlFile).toString()
+    if (!xml.trim().length) {
+        console.log('executed command\n', command)
+        console.log(out)
+        throw new Error('Melt command failed to generate XML')
+    }
 
     const parsed = parseXml(xml)
 

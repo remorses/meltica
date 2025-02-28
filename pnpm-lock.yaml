@@ -45,8 +45,8 @@ importers:
         specifier: ^10.0.0
         version: 10.0.0
       jsx-xml:
-        specifier: npm:@xmorse/jsx-xml@^0.7.0
-        version: '@xmorse/jsx-xml@0.7.0'
+        specifier: npm:@xmorse/jsx-xml@^0.8.0
+        version: '@xmorse/jsx-xml@0.8.0'
       node-media-server:
         specifier: ^4.0.7
         version: 4.0.7
@@ -445,8 +445,8 @@ packages:
   '@vitest/utils@3.0.7':
     resolution: {integrity: sha512-xePVpCRfooFX3rANQjwoditoXgWb1MaFbzmGuPP59MK6i13mrnDw/yEIyJudLeW6/38mCNcwCiJIGmpDPibAIg==}
 
-  '@xmorse/jsx-xml@0.7.0':
-    resolution: {integrity: sha512-N7l7AKN7HQeEK6EEtNFFccAT8GICvYwWGkFmW5N/KW5Sh4s0kwUaNPyMgyNkdbOEOmX+xRYfrtx0iNwJz8p3xQ==}
+  '@xmorse/jsx-xml@0.8.0':
+    resolution: {integrity: sha512-ImIKsa077AfWmvuDs9L0OCABqDvNpK56Q/G5Bw4IdAhdFRMJ+qPr8YqQ5JiXvCZobbhj90lexrWqipjZU4/oXw==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
 
   abbrev@3.0.0:
@@ -1938,7 +1938,7 @@ snapshots:
       loupe: 3.1.3
       tinyrainbow: 2.0.0
 
-  '@xmorse/jsx-xml@0.7.0':
+  '@xmorse/jsx-xml@0.8.0':
     dependencies:
       react-is: 19.0.0
       xmlbuilder2: 3.1.1

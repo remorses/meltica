@@ -74,7 +74,7 @@ function Video({}) {
             <Track id={'audio2'}>
                 <Asset
                     type='audio'
-                    id={'chain1'}
+                    id={'soundtrack'}
                     filepath={'edapollo - Let It Go [bQ5glYCsv94].mp3'}
                     in='00:00:00.000'
                     out='00:02:15.067'

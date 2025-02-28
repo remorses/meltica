@@ -142,6 +142,7 @@ export function Asset({
         })
         return null
     }
+    
     if (!producer) {
         throw new Error(`Producer for asset with id ${id} not found`)
     }
