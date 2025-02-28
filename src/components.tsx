@@ -139,7 +139,7 @@ export function Asset({
             out: outWithDefault,
             parentTrackId: trackId,
         })
-        return null
+        return <producer id={id}></producer>
     }
 
     if (!producer) {
@@ -643,7 +643,7 @@ export function RichText({
             out: duration,
             parentTrackId: trackId,
         })
-        return null
+        return <producer id={id} />
     }
     const renderedHtmlText = render(htmlText, {}).end({
         headless: true,
