@@ -50,7 +50,17 @@ function Video({}) {
             </Track>
 
             <Track id={'svgCodeTrack'}>
-                <InlineSvg id={'world'} duration={3} svg={<WholeWordIcon color='white' />} />
+                {Array.from({ length: 6 }).map((_, index) => (
+                    <InlineSvg
+                        id={`world${index}`}
+                        duration={0.1}
+                        svg={
+                            <WholeWordIcon
+                                color={index % 2 === 0 ? 'white' : 'red'}
+                            />
+                        }
+                    />
+                ))}
                 <InlineSvg
                     id={'svgCode'}
                     duration={3}
