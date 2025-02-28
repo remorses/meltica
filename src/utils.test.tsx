@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 
-import { formatSecondsToTime } from './rendering'
+import { formatSecondsToTime, isNodeElement } from './rendering'
 
 import { renderAsync, createContext, useContext } from 'jsx-xml'
 
@@ -45,7 +45,10 @@ describe('renderAsync', () => {
 
         const xmlObj = create(xml)
         const result = xmlObj.toObject({ group: true })
-        const res = [...xmlObj.node.childNodes!.values()].map((x: Element) => {
+        const res = [...xmlObj.node.childNodes!.values()].map((x) => {
+            if (!isNodeElement(x)) {
+                return
+            }
             const { nodeName, nodeType, attributes } = x
             return {
                 nodeName,

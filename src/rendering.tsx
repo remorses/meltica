@@ -182,7 +182,7 @@ export function orderByIndex<T>(array: T[], keyFn: (item: T) => number): T[] {
     })
 }
 
-function nodeIsElement(node: XMLBuilder['node']): node is Element {
+export function isNodeElement(node: XMLBuilder['node']): node is Element {
     return node && node.nodeType === node.ELEMENT_NODE
 }
 
@@ -194,7 +194,7 @@ export function checkDuplicateIds(builder: XMLBuilder): string[] {
     builder.each(
         (node, index: number, level: number) => {
             // Check if this is an element node with an id attribute
-            if (nodeIsElement(node.node)) {
+            if (isNodeElement(node.node)) {
                 const id = node.node.attributes?.getNamedItem('id')?.value
                 if (id) {
                     if (seenIds.has(id)) {
@@ -377,7 +377,7 @@ export function generateProducersXml(assets: AssetRegistration[]) {
             (node, index, level) => {
                 const producerTags = ['chain', 'producer']
                 const el = node.node
-                if (!nodeIsElement(el)) {
+                if (!isNodeElement(el)) {
                     return false
                 }
                 return producerTags.includes(el.nodeName)
@@ -387,7 +387,7 @@ export function generateProducersXml(assets: AssetRegistration[]) {
         )
         .map((node) => {
             const el = node.node
-            if (!nodeIsElement(el)) {
+            if (!isNodeElement(el)) {
                 return
             }
             const attributesObject = attributesToObject(el.attributes)
@@ -398,7 +398,7 @@ export function generateProducersXml(assets: AssetRegistration[]) {
                 allPropsNodes.map((x) => {
                     const value = x.node.textContent
                     const el = x.node
-                    if (!nodeIsElement(el)) {
+                    if (!isNodeElement(el)) {
                         return []
                     }
                     const name = attributesToObject(el.attributes).name

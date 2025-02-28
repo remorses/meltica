@@ -7,7 +7,12 @@ import {
     Track,
     VideoRoot,
 } from '@/components'
-import { formatSecondsToTime, renderToPreview, renderToVideo, renderToXml } from '@/rendering'
+import {
+    formatSecondsToTime,
+    renderToPreview,
+    renderToVideo,
+    renderToXml,
+} from '@/rendering'
 import { writeFileSync } from 'fs'
 import path from 'path'
 
@@ -41,7 +46,7 @@ function Video({}) {
                 ))}
             </Track>
             <Track id={'audio1'}>
-                <BlankSpace length={formatSecondsToTime(1)} />
+                <BlankSpace id={'blank'} length={formatSecondsToTime(1)} />
                 <Asset
                     type='audio'
                     filepath={'narrator.wav'}

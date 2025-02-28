@@ -128,7 +128,7 @@ function Video({}) {
                 })}
             </Track>
             <Track id={'audio1'}>
-                <BlankSpace length={1} />
+                <BlankSpace id={'blank'} length={1} />
                 <Asset
                     type='audio'
                     filepath={'narrator.wav'}

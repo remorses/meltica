@@ -3,7 +3,25 @@ import * as path from 'path'
 import { Parser } from 'htmlparser2'
 import { DomHandler, ChildNode, Element, Text } from 'domhandler'
 import { render } from 'dom-serializer'
-import { parseXml } from '@/rendering'
+
+/**
+ * Parses an XML string into a DOM structure using htmlparser2.
+ *
+ * @param xml - The XML string to parse
+ * @returns An array of parsed DOM nodes
+ */
+function parseXml(xml: string): ChildNode[] {
+    const handler = new DomHandler()
+    const parser = new Parser(handler, {
+        xmlMode: true,
+        decodeEntities: true,
+    })
+
+    parser.write(xml)
+    parser.end()
+
+    return handler.dom
+}
 
 function findHtmlProperty(nodes: ChildNode[]): Element | null {
     // Check each node in the array
