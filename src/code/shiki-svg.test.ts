@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { getSVGRenderer, measureMonospaceTypeface } from './shiki-svg'
 import { codeToTokens } from 'shiki'
+import { render } from 'jsx-xml'
 
 // Add a custom serializer for SVG content
 expect.addSnapshotSerializer({
@@ -51,5 +52,32 @@ describe('getSVGRenderer', () => {
 
         // Use snapshot testing
         expect(svg).toMatchFileSnapshot('svg-snapshots/simple-svg-render.svg')
+    })
+})
+
+describe('CodeOuterGrid', () => {
+    it('should render a code frame with corner markers', async () => {
+        // Import the CodeOuterGrid component
+        const { CodeOuterGrid } = await import('./frame')
+
+        // Create a simple CodeOuterGrid component
+        const grid = CodeOuterGrid({
+            width: 600,
+            height: 400,
+            padding: 50,
+            lineColor: 'rgba(255, 255, 255, 0.15)',
+            backgroundColor: '#000000',
+            outerBackgroundColor: '#000000',
+            cornerSize: 15,
+            // children: 'Test content',
+        })
+
+        // Render the component to SVG
+        const svg = render(grid).end({ headless: true })
+
+        // Use snapshot testing
+        expect(svg).toMatchFileSnapshot(
+            'svg-snapshots/code-outer-grid-render.svg',
+        )
     })
 })
