@@ -1,24 +1,19 @@
 import fs from 'fs'
+import { WholeWordIcon } from 'lucide-react'
 
+import { CodeSnippet } from '@/code/code'
 import {
     Asset,
     AudioGain,
-    BlankSpace,
     InlineSvg,
-    PanningAnimation,
     Track,
-    VideoRoot,
+    VideoRoot
 } from '@/components'
 import {
-    formatSecondsToTime,
     renderToPreview,
     renderToVideo,
-    renderToXml,
+    renderToXml
 } from '@/rendering'
-import { writeFileSync } from 'fs'
-import path from 'path'
-import { CodeSnippet } from '@/code/code'
-
 const codeSnippet = `
 import React from 'react'
 import { CodeSnippet } from '@/code/code'
@@ -31,6 +26,7 @@ export const code = <CodeSnippet
     }
 />
 `
+
 function Video({}) {
     return (
         <VideoRoot
@@ -45,7 +41,12 @@ function Video({}) {
                     id={'svgRect'}
                     duration={3}
                     svg={
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" width='300' height='300'>
+                        <svg
+                            xmlns='http://www.w3.org/2000/svg'
+                            viewBox='0 0 300 300'
+                            width='300'
+                            height='300'
+                        >
                             <rect
                                 x='75'
                                 y='75'
@@ -55,10 +56,8 @@ function Video({}) {
                             />
                         </svg>
                     }
-
-                    // in='00:00:00.000'
-                    // out='00:00:14.467'
                 />
+                <InlineSvg id={'world'} duration={3} svg={<WholeWordIcon />} />
             </Track>
 
             <Track id={'svgCodeTrack'}>
@@ -87,5 +86,5 @@ function Video({}) {
 }
 
 fs.writeFileSync('examples/svg.mlt', await renderToXml(<Video />))
-// renderToVideo(<Video />)
+renderToVideo(<Video />)
 renderToPreview(<Video />)

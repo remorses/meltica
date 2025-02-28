@@ -51,14 +51,20 @@ importers:
         specifier: ^10.0.0
         version: 10.0.0
       jsx-xml:
-        specifier: npm:@xmorse/jsx-xml@^0.8.0
-        version: '@xmorse/jsx-xml@0.8.0'
+        specifier: npm:@xmorse/jsx-xml@^0.9.0
+        version: '@xmorse/jsx-xml@0.9.0'
       node-media-server:
         specifier: ^4.0.7
         version: 4.0.7
       prettier:
         specifier: ^3.5.2
         version: 3.5.2
+      react:
+        specifier: ^19.0.0
+        version: 19.0.0
+      react-is:
+        specifier: ^19.0.0
+        version: 19.0.0
       shiki:
         specifier: ^3.0.0
         version: 3.0.0
@@ -84,6 +90,9 @@ importers:
       jest-image-snapshot:
         specifier: ^6.4.0
         version: 6.4.0
+      lucide-react:
+        specifier: ^0.477.0
+        version: 0.477.0(react@19.0.0)
 
 packages:
 
@@ -527,8 +536,8 @@ packages:
   '@vitest/utils@3.0.7':
     resolution: {integrity: sha512-xePVpCRfooFX3rANQjwoditoXgWb1MaFbzmGuPP59MK6i13mrnDw/yEIyJudLeW6/38mCNcwCiJIGmpDPibAIg==}
 
-  '@xmorse/jsx-xml@0.8.0':
-    resolution: {integrity: sha512-ImIKsa077AfWmvuDs9L0OCABqDvNpK56Q/G5Bw4IdAhdFRMJ+qPr8YqQ5JiXvCZobbhj90lexrWqipjZU4/oXw==}
+  '@xmorse/jsx-xml@0.9.0':
+    resolution: {integrity: sha512-3sk8qauEAOBGRMPXFxy+DK7xgTtX0psC01+4YF8a7c3SRIQBJwP6fGCZZ4uhy9MOEeV/MN27Nhf9p3kILUE/VA==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
 
   abbrev@3.0.0:
@@ -1046,6 +1055,11 @@ packages:
   lru-cache@10.4.3:
     resolution: {integrity: sha512-JNAzZcXrCt42VGLuYz0zfAzDfAvJWW6AfYlDBQyDV5DClI2m5sAmK+OIO7s59XfsRsWHp02jAJrRadPRGTt6SQ==}
 
+  lucide-react@0.477.0:
+    resolution: {integrity: sha512-yCf7aYxerFZAbd8jHJxjwe1j7jEMPptjnaOqdYeirFnEy85cNR3/L+o0I875CYFYya+eEVzZSbNuRk8BZPDpVw==}
+    peerDependencies:
+      react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
+
   magic-string@0.30.17:
     resolution: {integrity: sha512-sNPKHvyjVf7gyjwS4xGTaW/mCnF8wnjtifKBEhxfZ7E/S8tQ0rssrwGNn6q8JH/ohItJfSQp9mBtQYuTlH5QnA==}
 
@@ -1319,6 +1333,10 @@ packages:
 
   react-is@19.0.0:
     resolution: {integrity: sha512-H91OHcwjZsbq3ClIDHMzBShc1rotbfACdWENsmEf0IFvZ3FgGPtdHMcsv45bQ1hAbgdfiA8SnxTKfDS+x/8m2g==}
+
+  react@19.0.0:
+    resolution: {integrity: sha512-V8AVnmPIICiWpGfm6GLzCR/W5FXLchHop40W4nXBmdlEceh16rCN8O8LNWm5bh5XUX91fh7KpA+W0TgMKmgTpQ==}
+    engines: {node: '>=0.10.0'}
 
   readable-stream@3.6.2:
     resolution: {integrity: sha512-9u/sniCrY3D5WdsERHzHE4G2YCXqoG5FTHUiCC4SIbr6XcLZBY05ya9EKjYek9O5xOAwjGq+1JdGBAS7Q9ScoA==}
@@ -2071,7 +2089,7 @@ snapshots:
       loupe: 3.1.3
       tinyrainbow: 2.0.0
 
-  '@xmorse/jsx-xml@0.8.0':
+  '@xmorse/jsx-xml@0.9.0':
     dependencies:
       react-is: 19.0.0
       xmlbuilder2: 3.1.1
@@ -2638,6 +2656,10 @@ snapshots:
 
   lru-cache@10.4.3: {}
 
+  lucide-react@0.477.0(react@19.0.0):
+    dependencies:
+      react: 19.0.0
+
   magic-string@0.30.17:
     dependencies:
       '@jridgewell/sourcemap-codec': 1.5.0
@@ -2914,6 +2936,8 @@ snapshots:
       strip-json-comments: 2.0.1
 
   react-is@19.0.0: {}
+
+  react@19.0.0: {}
 
   readable-stream@3.6.2:
     dependencies:

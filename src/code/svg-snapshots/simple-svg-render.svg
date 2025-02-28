@@ -1,18 +1,8 @@
 <svg viewBox="0 0 351 246.39999999999998" width="351" height="246.39999999999998" xmlns="http://www.w3.org/2000/svg">
-<rect id="bg" fill="#282c34" width="351" height="246.39999999999998" rx="4"></rect><g id="tokens" transform="translate(36, 44.8)"><text font-family="monospace" font-size="14" y="22.4">
-<tspan x="0" fill="#F97583">function</tspan><tspan x="72" fill="#E1E4E8"> </tspan><tspan x="81" fill="#B392F0">hello</tspan><tspan x="126" fill="#E1E4E8">() {</tspan>
-</text>
-<text font-family="monospace" font-size="14" y="44.8">
-<tspan x="0" fill="#E1E4E8">  </tspan><tspan x="18" fill="#E1E4E8">console.</tspan><tspan x="90" fill="#B392F0">log</tspan><tspan x="117" fill="#E1E4E8">(</tspan><tspan x="126" fill="#9ECBFF">&quot;Hello, world!&quot;</tspan><tspan x="261" fill="#E1E4E8">);</tspan>
-</text>
-<text font-family="monospace" font-size="14" y="67.19999999999999">
-<tspan x="0" fill="#E1E4E8">  </tspan><tspan x="18" fill="#F97583">return</tspan><tspan x="72" fill="#E1E4E8"> </tspan><tspan x="81" fill="#79B8FF">42</tspan><tspan x="99" fill="#E1E4E8">;</tspan>
-</text>
-<text font-family="monospace" font-size="14" y="89.6">
-<tspan x="0" fill="#E1E4E8">}</tspan>
-</text>
+<rect id="bg" fill="#282c34" width="351" height="246.39999999999998" rx="4"></rect><g id="tokens" transform="translate(36, 44.8)"><text font-family="monospace" font-size="14" y="22.4" transform="translate(0, 0)" fill="#F97583">function</text><text font-family="monospace" font-size="14" y="22.4" transform="translate(72, 0)" fill="#E1E4E8"> </text><text font-family="monospace" font-size="14" y="22.4" transform="translate(81, 0)" fill="#B392F0">hello</text><text font-family="monospace" font-size="14" y="22.4" transform="translate(126, 0)" fill="#E1E4E8">() {</text>
+<text font-family="monospace" font-size="14" y="44.8" transform="translate(0, 0)" fill="#E1E4E8">  </text><text font-family="monospace" font-size="14" y="44.8" transform="translate(18, 0)" fill="#E1E4E8">console.</text><text font-family="monospace" font-size="14" y="44.8" transform="translate(90, 0)" fill="#B392F0">log</text><text font-family="monospace" font-size="14" y="44.8" transform="translate(117, 0)" fill="#E1E4E8">(</text><text font-family="monospace" font-size="14" y="44.8" transform="translate(126, 0)" fill="#9ECBFF">&quot;Hello, world!&quot;</text><text font-family="monospace" font-size="14" y="44.8" transform="translate(261, 0)" fill="#E1E4E8">);</text>
+<text font-family="monospace" font-size="14" y="67.19999999999999" transform="translate(0, 0)" fill="#E1E4E8">  </text><text font-family="monospace" font-size="14" y="67.19999999999999" transform="translate(18, 0)" fill="#F97583">return</text><text font-family="monospace" font-size="14" y="67.19999999999999" transform="translate(72, 0)" fill="#E1E4E8"> </text><text font-family="monospace" font-size="14" y="67.19999999999999" transform="translate(81, 0)" fill="#79B8FF">42</text><text font-family="monospace" font-size="14" y="67.19999999999999" transform="translate(99, 0)" fill="#E1E4E8">;</text>
+<text font-family="monospace" font-size="14" y="89.6" transform="translate(0, 0)" fill="#E1E4E8">}</text>
 
-<text font-family="monospace" font-size="14" y="134.39999999999998">
-<tspan x="0" fill="#F97583">const</tspan><tspan x="45" fill="#E1E4E8"> </tspan><tspan x="54" fill="#79B8FF">result</tspan><tspan x="108" fill="#E1E4E8"> </tspan><tspan x="117" fill="#F97583">=</tspan><tspan x="126" fill="#E1E4E8"> </tspan><tspan x="135" fill="#B392F0">hello</tspan><tspan x="180" fill="#E1E4E8">();</tspan>
-</text></g>
+<text font-family="monospace" font-size="14" y="134.39999999999998" transform="translate(0, 0)" fill="#F97583">const</text><text font-family="monospace" font-size="14" y="134.39999999999998" transform="translate(45, 0)" fill="#E1E4E8"> </text><text font-family="monospace" font-size="14" y="134.39999999999998" transform="translate(54, 0)" fill="#79B8FF">result</text><text font-family="monospace" font-size="14" y="134.39999999999998" transform="translate(108, 0)" fill="#E1E4E8"> </text><text font-family="monospace" font-size="14" y="134.39999999999998" transform="translate(117, 0)" fill="#F97583">=</text><text font-family="monospace" font-size="14" y="134.39999999999998" transform="translate(126, 0)" fill="#E1E4E8"> </text><text font-family="monospace" font-size="14" y="134.39999999999998" transform="translate(135, 0)" fill="#B392F0">hello</text><text font-family="monospace" font-size="14" y="134.39999999999998" transform="translate(180, 0)" fill="#E1E4E8">();</text></g>
 </svg>
