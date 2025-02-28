@@ -5,7 +5,7 @@ import {
     BlendMode,
     PanningAnimation,
     Track,
-    VideoRoot,
+    Composition,
     RichText,
     CropRect,
     GaussianBlur,
@@ -25,7 +25,7 @@ import { Fragment } from 'jsx-xml'
 
 function Video({}) {
     return (
-        <VideoRoot
+        <Composition
             fps={30}
             width={1080}
             height={1920}
@@ -150,7 +150,7 @@ function Video({}) {
                     <AudioGain volume={-14} />
                 </Asset>
             </Track>
-        </VideoRoot>
+        </Composition>
     )
 }
 

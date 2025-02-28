@@ -2,7 +2,7 @@ import fs from 'fs'
 import { WholeWordIcon } from 'lucide-react'
 
 import { CodeSnippet } from '@/code/code'
-import { Asset, AudioGain, InlineSvg, Track, VideoRoot } from '@/components'
+import { Asset, AudioGain, InlineSvg, Track, Composition } from '@/components'
 import { renderToPreview, renderToVideo, renderToXml } from '@/rendering'
 const codeSnippet = `
 import React from 'react'
@@ -19,7 +19,7 @@ export const code = <CodeSnippet
 
 function Video({}) {
     return (
-        <VideoRoot
+        <Composition
             fps={30}
             width={1080}
             height={1920}
@@ -65,9 +65,6 @@ function Video({}) {
                     id={'svgCode'}
                     duration={3}
                     svg={<CodeSnippet code={codeSnippet} />}
-
-                    // in='00:00:00.000'
-                    // out='00:00:14.467'
                 />
             </Track>
             <Track id={'soundtrackTrack'}>
@@ -81,10 +78,10 @@ function Video({}) {
                     <AudioGain volume={-14} />
                 </Asset>
             </Track>
-        </VideoRoot>
+        </Composition>
     )
 }
 
 fs.writeFileSync('examples/svg.mlt', await renderToXml(<Video />))
-// renderToVideo(<Video />)
+renderToVideo(<Video />)
 renderToPreview(<Video />)

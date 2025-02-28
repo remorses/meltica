@@ -57,7 +57,7 @@ export async function InlineSvg({
     id = 'svg' + id
 
     const context = useContext(renderingContext)
-    const { width, height } = useContext(videoRootContext)!
+    const { width, height } = useContext(compositionContext)!
     const { trackId } = useTrackContext()
 
     let filepath = path.resolve(melticaFolder, `${id}.png`)
@@ -237,7 +237,7 @@ export function PanningAnimation({}) {
     const { producer, in: inTime, out: outTime } = useProducerContext()
 
     const { height: videoHeight, width: videoWidth } =
-        useContext(videoRootContext)!
+        useContext(compositionContext)!
 
     const out = producer.attributes.out
     const id = producer.id
@@ -374,7 +374,7 @@ export function Transform({
     compositing?: number
     distort?: number
 }) {
-    const videoContext = useContext(videoRootContext)!
+    const videoContext = useContext(compositionContext)!
     const videoWidth = width || videoContext.width || 1920
     const videoHeight = height || videoContext.height || 1080
     const rect = `${left} ${top} ${videoWidth} ${videoHeight} 1.000000`
@@ -475,7 +475,7 @@ function groupBy<T, K extends string | number>(
     )
 }
 
-type VideoRootContext = {
+type CompositionContext = {
     width: number
     height: number
     resultFilePath: string
@@ -483,19 +483,19 @@ type VideoRootContext = {
     duration?: number
 }
 
-const videoRootContext = createContext<VideoRootContext | null>(null)
+const compositionContext = createContext<CompositionContext | null>(null)
 
-export function VideoRoot({
+export function Composition({
     children,
 
     ...rootProps
-}: VideoRootContext & { children: any }) {
+}: CompositionContext & { children: any }) {
     const context = useContext(renderingContext)
     let backgroundDuration = formatSecondsToTime(9999999)
     const playlists = groupBy(context.assets, (a) => a.parentTrackId)
     const { resultFilePath, height, width, duration, fps } = rootProps
     return (
-        <videoRootContext.Provider value={rootProps}>
+        <compositionContext.Provider value={rootProps}>
             <mlt
                 LC_NUMERIC='C'
                 version='7.30.0'
@@ -623,7 +623,7 @@ export function VideoRoot({
                     })}
                 </tractor>
             </mlt>
-        </videoRootContext.Provider>
+        </compositionContext.Provider>
     )
 }
 
@@ -703,7 +703,7 @@ export function RichText({
 
     `
     const { height: videoHeight, width: videoWidth } =
-        useContext(videoRootContext)!
+        useContext(compositionContext)!
     let left = left_ ?? 0
     let top = top_ ?? 0
     let width = width_ ?? videoWidth
@@ -785,7 +785,7 @@ export function CropRect({
     radius?: number
 }) {
     const { height: videoHeight, width: videoWidth } =
-        useContext(videoRootContext)!
+        useContext(compositionContext)!
     const { height, width } = useAssetSize()
     const rect = `${left} ${top} ${cropWidth ?? videoWidth} ${cropHeight ?? videoHeight} 1`
     return (

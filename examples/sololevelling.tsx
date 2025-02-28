@@ -5,7 +5,7 @@ import {
     BlankSpace,
     PanningAnimation,
     Track,
-    VideoRoot,
+    Composition,
 } from '@/components'
 import {
     formatSecondsToTime,
@@ -25,7 +25,7 @@ function Video({}) {
     const imageDuration = 10
     const duration = allImages.length * imageDuration
     return (
-        <VideoRoot
+        <Composition
             fps={30}
             width={1080}
             height={1920}
@@ -66,7 +66,7 @@ function Video({}) {
                     <AudioGain volume={-14} />
                 </Asset>
             </Track>
-        </VideoRoot>
+        </Composition>
     )
 }
 
