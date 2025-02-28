@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mlt LC_NUMERIC="en_US.UTF-8" version="7.30.0" root="/Users/morse/Documents/meltica" title="video.mlt">
+  <profile description="PAL 4:3 DV or DVD" width="1080" height="1920" progressive="1" sample_aspect_num="1" sample_aspect_den="1" display_aspect_num="9" display_aspect_den="16" frame_rate_num="30" frame_rate_den="1" colorspace="709"/>
+  <producer id="mainTractor" title="Shotcut version 25.01.25" in="0" out="299999969">
+    <property name="length">299999970</property>
+    <property name="eof">pause</property>
+    <property name="resource">video.mlt</property>
+    <property name="mlt_service">xml</property>
+    <property name="shotcut">1</property>
+    <property name="shotcut:projectAudioChannels">2</property>
+    <property name="shotcut:projectFolder">0</property>
+    <property name="shotcut:trackHeight">50</property>
+    <property name="shotcut:skipConvert">0</property>
+    <property name="xml">was here</property>
+    <property name="seekable">1</property>
+  </producer>
+  <playlist id="playlist0">
+    <entry producer="mainTractor" in="0" out="299999969"/>
+  </playlist>
+  <tractor id="tractor0" title="video.mlt" in="0" out="299999969">
+    <track producer="playlist0"/>
+  </tractor>
+</mlt>

@@ -8,7 +8,7 @@ import { create } from 'xmlbuilder2'
 import { sleep } from '@/utils'
 
 describe('renderAsync', () => {
-    it('should render a component that returns text', async () => {
+    it('should render a component that returns xmlbuilder', async () => {
         // Simple component that returns text
         function TextComponent() {
             return create('<z>Hello, world!</z>')
@@ -18,6 +18,39 @@ describe('renderAsync', () => {
         expect(result.end({ headless: true })).toMatchInlineSnapshot(
             `"<z>Hello, world!</z>"`,
         )
+    })
+    it('xmlbuilder support object syntax with attributes', async () => {
+        // Simple component that returns text
+        function TextComponent() {
+            return create({
+                producer: {
+                    id: 'mainTractor',
+                    title: 'Shotcut version 25.01.25',
+                    in: 0,
+                },
+            })
+        }
+
+        const result = await renderAsync(<TextComponent />)
+        expect(
+            result.end({ headless: true, prettyPrint: true }),
+        ).toMatchInlineSnapshot(
+            `
+          "<producer>
+            <id>mainTractor</id>
+            <title>Shotcut version 25.01.25</title>
+            <in>0</in>
+          </producer>"
+        `,
+        )
+        const obj = {
+            producer: {
+                id: 'mainTractor',
+                title: 'Shotcut version 25.01.25',
+                in: '0',
+            },
+        }
+        expect(create(obj).toObject({})).toStrictEqual(obj)
     })
 })
 
