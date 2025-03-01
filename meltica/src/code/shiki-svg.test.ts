@@ -13,7 +13,8 @@ expect.addSnapshotSerializer({
     },
 })
 
-const codeSnippet = `function hello() {
+const codeSnippet = `
+function hello() {
   console.log("Hello, world!");
   return 42;
 }

@@ -1,8 +1,19 @@
-<svg viewBox="0 0 311.113359375 246.40000000000003" width="311.113359375" height="246.40000000000003" xmlns="http://www.w3.org/2000/svg">
-<rect id="bg" fill="#282c34" width="311.113359375" height="246.40000000000003" rx="4"></rect><g id="tokens" transform="translate(30.7890625, 44.800000000000004)"><text font-family="Consolas" font-size="14" y="22.400000000000002" transform="translate(0, 0)" fill="#F97583">function</text><text font-family="Consolas" font-size="14" y="22.400000000000002" transform="translate(63.818125, 0)" fill="#E1E4E8"> </text><text font-family="Consolas" font-size="14" y="22.400000000000002" transform="translate(71.795390625, 0)" fill="#B392F0">hello</text><text font-family="Consolas" font-size="14" y="22.400000000000002" transform="translate(111.68171875, 0)" fill="#E1E4E8">() {</text>
-<text font-family="Consolas" font-size="14" y="44.800000000000004" transform="translate(0, 0)" fill="#E1E4E8">  </text><text font-family="Consolas" font-size="14" y="44.800000000000004" transform="translate(15.95453125, 0)" fill="#E1E4E8">console.</text><text font-family="Consolas" font-size="14" y="44.800000000000004" transform="translate(79.77265625, 0)" fill="#B392F0">log</text><text font-family="Consolas" font-size="14" y="44.800000000000004" transform="translate(103.704453125, 0)" fill="#E1E4E8">(</text><text font-family="Consolas" font-size="14" y="44.800000000000004" transform="translate(111.68171875, 0)" fill="#9ECBFF">&quot;Hello, world!&quot;</text><text font-family="Consolas" font-size="14" y="44.800000000000004" transform="translate(231.340703125, 0)" fill="#E1E4E8">);</text>
-<text font-family="Consolas" font-size="14" y="67.2" transform="translate(0, 0)" fill="#E1E4E8">  </text><text font-family="Consolas" font-size="14" y="67.2" transform="translate(15.95453125, 0)" fill="#F97583">return</text><text font-family="Consolas" font-size="14" y="67.2" transform="translate(63.818125, 0)" fill="#E1E4E8"> </text><text font-family="Consolas" font-size="14" y="67.2" transform="translate(71.795390625, 0)" fill="#79B8FF">42</text><text font-family="Consolas" font-size="14" y="67.2" transform="translate(87.749921875, 0)" fill="#E1E4E8">;</text>
-<text font-family="Consolas" font-size="14" y="89.60000000000001" transform="translate(0, 0)" fill="#E1E4E8">}</text>
+<svg viewBox="0 0 311.113359375 268.8" width="311.113359375" height="268.8" xmlns="http://www.w3.org/2000/svg">
+<rect id="bg" fill="#282c34" width="311.113359375" height="268.8" rx="4"></rect><g id="tokens" transform="translate(30.7890625, 44.800000000000004)">
+<text font-family="Consolas" font-size="14" y="44.800000000000004" letter-spacing="0.28px">
+<tspan x="0" fill="#F97583">function</tspan><tspan x="63.818125" fill="#E1E4E8"> </tspan><tspan x="71.795390625" fill="#B392F0">hello</tspan><tspan x="111.68171875" fill="#E1E4E8">() {</tspan>
+</text>
+<text font-family="Consolas" font-size="14" y="67.2" letter-spacing="0.28px">
+<tspan x="0" fill="#E1E4E8">  </tspan><tspan x="15.95453125" fill="#E1E4E8">console.</tspan><tspan x="79.77265625" fill="#B392F0">log</tspan><tspan x="103.704453125" fill="#E1E4E8">(</tspan><tspan x="111.68171875" fill="#9ECBFF">&quot;Hello, world!&quot;</tspan><tspan x="231.340703125" fill="#E1E4E8">);</tspan>
+</text>
+<text font-family="Consolas" font-size="14" y="89.60000000000001" letter-spacing="0.28px">
+<tspan x="0" fill="#E1E4E8">  </tspan><tspan x="15.95453125" fill="#F97583">return</tspan><tspan x="63.818125" fill="#E1E4E8"> </tspan><tspan x="71.795390625" fill="#79B8FF">42</tspan><tspan x="87.749921875" fill="#E1E4E8">;</tspan>
+</text>
+<text font-family="Consolas" font-size="14" y="112.00000000000001" letter-spacing="0.28px">
+<tspan x="0" fill="#E1E4E8">}</tspan>
+</text>
 
-<text font-family="Consolas" font-size="14" y="134.4" transform="translate(0, 0)" fill="#F97583">const</text><text font-family="Consolas" font-size="14" y="134.4" transform="translate(39.886328125, 0)" fill="#E1E4E8"> </text><text font-family="Consolas" font-size="14" y="134.4" transform="translate(47.86359375, 0)" fill="#79B8FF">result</text><text font-family="Consolas" font-size="14" y="134.4" transform="translate(95.7271875, 0)" fill="#E1E4E8"> </text><text font-family="Consolas" font-size="14" y="134.4" transform="translate(103.704453125, 0)" fill="#F97583">=</text><text font-family="Consolas" font-size="14" y="134.4" transform="translate(111.68171875, 0)" fill="#E1E4E8"> </text><text font-family="Consolas" font-size="14" y="134.4" transform="translate(119.658984375, 0)" fill="#B392F0">hello</text><text font-family="Consolas" font-size="14" y="134.4" transform="translate(159.5453125, 0)" fill="#E1E4E8">();</text></g>
+<text font-family="Consolas" font-size="14" y="156.8" letter-spacing="0.28px">
+<tspan x="0" fill="#F97583">const</tspan><tspan x="39.886328125" fill="#E1E4E8"> </tspan><tspan x="47.86359375" fill="#79B8FF">result</tspan><tspan x="95.7271875" fill="#E1E4E8"> </tspan><tspan x="103.704453125" fill="#F97583">=</tspan><tspan x="111.68171875" fill="#E1E4E8"> </tspan><tspan x="119.658984375" fill="#B392F0">hello</tspan><tspan x="159.5453125" fill="#E1E4E8">();</tspan>
+</text></g>
 </svg>

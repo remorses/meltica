@@ -204,12 +204,14 @@ export function getSVGRenderer(options: SVGRendererOptions) {
                     svg += '\n'
                 } else {
                     const yPosition = lineheightPx * (index + 1)
+                    svg += `<text font-family="${fontFamily}" font-size="${fontSize}" y="${yPosition}" letter-spacing="${letterSpacing * fontSize}px">\n`
+                    
                     let indent = 0
 
                     l.forEach((token) => {
                         const tokenAttributes = getTokenSVGAttributes(token)
                         /**
-                         * Handle whitespace leading content by splitting into separate text elements
+                         * Handle whitespace leading content by splitting into separate tspan elements
                          */
                         if (
                             token.content.startsWith(' ') &&
@@ -219,24 +221,24 @@ export function getSVGRenderer(options: SVGRendererOptions) {
                                 token.content.search(/\S/)
 
                             // Whitespace + content, such as ` foo`
-                            // Render as separate text elements
-                            svg += `<text font-family="${fontFamily}" font-size="${fontSize}" y="${yPosition}" transform="translate(${indent * letterWidth}, 0)" ${tokenAttributes}>${escapeHtml(
+                            // Render as separate tspan elements
+                            svg += `<tspan x="${indent * letterWidth}" ${tokenAttributes}>${escapeHtml(
                                 token.content.slice(0, firstNonWhitespaceIndex),
-                            )}</text>`
+                            )}</tspan>`
 
-                            svg += `<text font-family="${fontFamily}" font-size="${fontSize}" y="${yPosition}" transform="translate(${
+                            svg += `<tspan x="${
                                 (indent + firstNonWhitespaceIndex) * letterWidth
-                            }, 0)" ${tokenAttributes}>${escapeHtml(
+                            }" ${tokenAttributes}>${escapeHtml(
                                 token.content.slice(firstNonWhitespaceIndex),
-                            )}</text>`
+                            )}</tspan>`
                         } else {
-                            svg += `<text font-family="${fontFamily}" font-size="${fontSize}" y="${yPosition}" transform="translate(${indent * letterWidth}, 0)" ${tokenAttributes}>${escapeHtml(
+                            svg += `<tspan x="${indent * letterWidth}" ${tokenAttributes}>${escapeHtml(
                                 token.content,
-                            )}</text>`
+                            )}</tspan>`
                         }
                         indent += token.content.length
                     })
-                    svg += '\n'
+                    svg += '\n</text>\n'
                 }
             })
             svg = svg.replace(/\n*$/, '') // Get rid of final new lines

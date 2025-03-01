@@ -1,8 +1,19 @@
-<svg viewBox="0 0 436.67964843749996 316.8" width="436.67964843749996" height="316.8" xmlns="http://www.w3.org/2000/svg">
-<rect id="bg" fill="#282c34" width="436.67964843749996" height="316.8" rx="4"></rect><g id="tokens" transform="translate(33.71484375, 57.6)"><text font-family="Menlo" font-size="18" y="28.8" transform="translate(0, 0)" fill="#F97583">function</text><text font-family="Menlo" font-size="18" y="28.8" transform="translate(89.5753125, 0)" fill="#E1E4E8"> </text><text font-family="Menlo" font-size="18" y="28.8" transform="translate(100.7722265625, 0)" fill="#B392F0">hello</text><text font-family="Menlo" font-size="18" y="28.8" transform="translate(156.756796875, 0)" fill="#E1E4E8">() {</text>
-<text font-family="Menlo" font-size="18" y="57.6" transform="translate(0, 0)" fill="#E1E4E8">  </text><text font-family="Menlo" font-size="18" y="57.6" transform="translate(22.393828125, 0)" fill="#E1E4E8">console.</text><text font-family="Menlo" font-size="18" y="57.6" transform="translate(111.969140625, 0)" fill="#B392F0">log</text><text font-family="Menlo" font-size="18" y="57.6" transform="translate(145.5598828125, 0)" fill="#E1E4E8">(</text><text font-family="Menlo" font-size="18" y="57.6" transform="translate(156.756796875, 0)" fill="#9ECBFF">&quot;Hello, world!&quot;</text><text font-family="Menlo" font-size="18" y="57.6" transform="translate(324.7105078125, 0)" fill="#E1E4E8">);</text>
-<text font-family="Menlo" font-size="18" y="86.4" transform="translate(0, 0)" fill="#E1E4E8">  </text><text font-family="Menlo" font-size="18" y="86.4" transform="translate(22.393828125, 0)" fill="#F97583">return</text><text font-family="Menlo" font-size="18" y="86.4" transform="translate(89.5753125, 0)" fill="#E1E4E8"> </text><text font-family="Menlo" font-size="18" y="86.4" transform="translate(100.7722265625, 0)" fill="#79B8FF">42</text><text font-family="Menlo" font-size="18" y="86.4" transform="translate(123.1660546875, 0)" fill="#E1E4E8">;</text>
-<text font-family="Menlo" font-size="18" y="115.2" transform="translate(0, 0)" fill="#E1E4E8">}</text>
+<svg viewBox="0 0 436.67964843749996 345.6" width="436.67964843749996" height="345.6" xmlns="http://www.w3.org/2000/svg">
+<rect id="bg" fill="#282c34" width="436.67964843749996" height="345.6" rx="4"></rect><g id="tokens" transform="translate(33.71484375, 57.6)">
+<text font-family="Menlo" font-size="18" y="57.6" letter-spacing="0.36px">
+<tspan x="0" fill="#F97583">function</tspan><tspan x="89.5753125" fill="#E1E4E8"> </tspan><tspan x="100.7722265625" fill="#B392F0">hello</tspan><tspan x="156.756796875" fill="#E1E4E8">() {</tspan>
+</text>
+<text font-family="Menlo" font-size="18" y="86.4" letter-spacing="0.36px">
+<tspan x="0" fill="#E1E4E8">  </tspan><tspan x="22.393828125" fill="#E1E4E8">console.</tspan><tspan x="111.969140625" fill="#B392F0">log</tspan><tspan x="145.5598828125" fill="#E1E4E8">(</tspan><tspan x="156.756796875" fill="#9ECBFF">&quot;Hello, world!&quot;</tspan><tspan x="324.7105078125" fill="#E1E4E8">);</tspan>
+</text>
+<text font-family="Menlo" font-size="18" y="115.2" letter-spacing="0.36px">
+<tspan x="0" fill="#E1E4E8">  </tspan><tspan x="22.393828125" fill="#F97583">return</tspan><tspan x="89.5753125" fill="#E1E4E8"> </tspan><tspan x="100.7722265625" fill="#79B8FF">42</tspan><tspan x="123.1660546875" fill="#E1E4E8">;</tspan>
+</text>
+<text font-family="Menlo" font-size="18" y="144" letter-spacing="0.36px">
+<tspan x="0" fill="#E1E4E8">}</tspan>
+</text>
 
-<text font-family="Menlo" font-size="18" y="172.8" transform="translate(0, 0)" fill="#F97583">const</text><text font-family="Menlo" font-size="18" y="172.8" transform="translate(55.9845703125, 0)" fill="#E1E4E8"> </text><text font-family="Menlo" font-size="18" y="172.8" transform="translate(67.181484375, 0)" fill="#79B8FF">result</text><text font-family="Menlo" font-size="18" y="172.8" transform="translate(134.36296875, 0)" fill="#E1E4E8"> </text><text font-family="Menlo" font-size="18" y="172.8" transform="translate(145.5598828125, 0)" fill="#F97583">=</text><text font-family="Menlo" font-size="18" y="172.8" transform="translate(156.756796875, 0)" fill="#E1E4E8"> </text><text font-family="Menlo" font-size="18" y="172.8" transform="translate(167.95371093749998, 0)" fill="#B392F0">hello</text><text font-family="Menlo" font-size="18" y="172.8" transform="translate(223.93828125, 0)" fill="#E1E4E8">();</text></g>
+<text font-family="Menlo" font-size="18" y="201.6" letter-spacing="0.36px">
+<tspan x="0" fill="#F97583">const</tspan><tspan x="55.9845703125" fill="#E1E4E8"> </tspan><tspan x="67.181484375" fill="#79B8FF">result</tspan><tspan x="134.36296875" fill="#E1E4E8"> </tspan><tspan x="145.5598828125" fill="#F97583">=</tspan><tspan x="156.756796875" fill="#E1E4E8"> </tspan><tspan x="167.95371093749998" fill="#B392F0">hello</tspan><tspan x="223.93828125" fill="#E1E4E8">();</tspan>
+</text></g>
 </svg>
