@@ -1,7 +1,9 @@
-import { render, renderAsync } from 'jsx-xml'
+import { render, renderAsync, useContext } from 'jsx-xml'
 import fs from 'fs'
 import path from 'path'
 import xmlbuilder from 'xmlbuilder2'
+import { melticaFolder, renderingContext } from '@/rendering'
+import { assetContext, compositionContext, trackContext } from '@/components'
 
 /**
  * Utility function that creates a promise that resolves after the specified time.
@@ -38,6 +40,21 @@ export function isElement(value: any): boolean {
 }
 
 /**
+ * Checks if a value is an xmlbuilder2 object.
+ *
+ * @param value - The value to check
+ * @returns A boolean indicating whether the value is an xmlbuilder2 object
+ */
+export function isXmlBuilder(value: any): boolean {
+    return (
+        value !== null &&
+        typeof value === 'object' &&
+        typeof value.end === 'function' &&
+        typeof value.ele === 'function'
+    )
+}
+
+/**
  * A simplified version of JSON.stringify that resolves promises before stringifying.
  *
  * @param value - The value to stringify
@@ -52,7 +69,7 @@ export async function stringifyWithPromises(
     const resolved = await resolvePromises(value)
 
     // Then stringify using our replacer
-    return JSON.stringify(resolved)
+    return JSON.stringify(resolved, null, space)
 }
 
 type XmlSerialized = {
@@ -83,6 +100,12 @@ async function resolvePromises(value: any): Promise<any> {
         return {
             type: 'xml',
             xml: (await renderAsync(value)).end({ headless: true }),
+        } satisfies XmlSerialized
+    }
+    if (isXmlBuilder(value)) {
+        return {
+            type: 'xml',
+            xml: value.end({ headless: true }),
         } satisfies XmlSerialized
     }
 
@@ -122,46 +145,95 @@ function reviver(key: string, value: any): any {
     return value
 }
 
-export function persistentMemo<T, Args extends any[]>(
-    fn: (...args: Args) => Promise<T>,
-    cacheDir: string = '.meltica/cache',
-): (...args: Args) => Promise<T> {
-    return async (...args: Args): Promise<T> => {
-        // Create a cache key based on the function name and stringified arguments
-        const fnName = fn.name || 'anonymous'
-        const argsKey = await stringifyWithPromises(args, '  ')
-        const cacheKey = `${fnName}_${Buffer.from(argsKey).toString('base64')}`
-        const cacheFile = path.join(cacheDir, `${cacheKey}.json`)
+// Global in-memory cache map
+const globalMemoryCache = new Map<string, any>()
+let cacheLoaded = false
+const cacheDir = '.meltica'
+const cacheFile = path.resolve(cacheDir, 'persistentMemo.json')
+// Save cache to disk
+const saveCacheToDisk = async () => {
+    try {
+        const cacheObject = Object.fromEntries(globalMemoryCache.entries())
+        await fs.promises.mkdir(cacheDir, { recursive: true })
+        await fs.promises.writeFile(
+            cacheFile,
+            await stringifyWithPromises(cacheObject, '  '),
+            'utf8',
+        )
+    } catch (error) {
+        console.warn(`Failed to write cache to disk:`, error)
+    }
+}
 
-        // Ensure cache directory exists
+// Register handlers to save cache on exit (only once)
+
+process.on('exit', async () => {
+    await saveCacheToDisk()
+})
+
+// Handle process termination events
+const handleTermination = async (exitCode: number = 0, errorMessage?: any) => {
+    if (errorMessage) {
+        console.error(errorMessage)
+    }
+    await saveCacheToDisk()
+    process.exit(exitCode)
+}
+
+// Handle SIGINT (Ctrl+C) and SIGTERM
+process.on('SIGINT', () => handleTermination(0))
+process.on('SIGTERM', () => handleTermination(0))
+
+export function persistentMemo<T, Args extends object[]>(
+    fn: (...args: Args) => Promise<T>,
+): (...args: Args) => Promise<T> {
+    // Load cache from disk on first use
+    const loadCacheFromDisk = async () => {
+        if (cacheLoaded) return
+
         try {
             await fs.promises.mkdir(cacheDir, { recursive: true })
+            const cachedData = await fs.promises.readFile(cacheFile, 'utf8')
+            const parsedCache = JSON.parse(cachedData, reviver)
+
+            // Populate memory cache from disk
+            for (const [key, value] of Object.entries(parsedCache)) {
+                globalMemoryCache.set(key, value)
+            }
         } catch (error) {
-            console.warn(`Failed to create cache directory ${cacheDir}:`, error)
+            // File might not exist yet, that's okay
         }
 
-        // Check if we have a cached result
-        try {
-            const cachedData = await fs.promises.readFile(cacheFile, 'utf8')
-            return JSON.parse(cachedData, reviver)
-        } catch (error) {
-            // If there's an error reading the cache, continue to compute the result
-            // This will happen if the file doesn't exist or can't be read
+        cacheLoaded = true
+    }
+
+    return async (...args: Args): Promise<T> => {
+        // Ensure cache is loaded
+        await loadCacheFromDisk()
+
+        // Create a cache key based on the function name and stringified arguments
+        const fnName = fn.name || 'anonymous'
+        const { isRegistrationStep } = useContext(renderingContext)
+        const composition = useContext(compositionContext)
+        const asset = useContext(assetContext)
+        const track = useContext(trackContext)
+
+        const argsKey = await stringifyWithPromises(
+            { isRegistrationStep, composition, asset, track, ...args },
+            '  ',
+        )
+        const cacheKey = `${fnName}_${Buffer.from(argsKey).toString('base64')}`
+
+        // Check if result is in memory cache
+        if (globalMemoryCache.has(cacheKey)) {
+            return globalMemoryCache.get(cacheKey) as T
         }
 
         // Compute the result
         const result = await fn(...args)
 
-        // Save the result to cache
-        try {
-            await fs.promises.writeFile(
-                cacheFile,
-                await stringifyWithPromises(result, '  '),
-                'utf8',
-            )
-        } catch (error) {
-            console.warn(`Failed to write cache for ${cacheKey}:`, error)
-        }
+        // Save the result to memory cache
+        globalMemoryCache.set(cacheKey, result)
 
         return result
     }

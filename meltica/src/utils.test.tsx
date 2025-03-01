@@ -11,7 +11,7 @@ describe('persistentMemo', () => {
     it('persistentMemo', async ({ task }) => {
         const timestamp = 12345
         async function fetchData({ timestamp, jsxArg }) {
-            await sleep(20)
+            await sleep(30)
             return (
                 <producer>
                     {jsxArg}
@@ -39,7 +39,7 @@ describe('persistentMemo', () => {
         expect(result1.end({ headless: true })).toMatchInlineSnapshot(
             `"<producer>12345<consumer>12345<track>AsyncComponent</track></consumer><track>AsyncComponent</track></producer>"`,
         )
-        expect(result1)
+
         // This should use the cached result, so it should be very fast
         const startTime = new Date().getTime()
         const result2 = await renderAsync(

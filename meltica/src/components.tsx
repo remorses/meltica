@@ -16,11 +16,26 @@ import { type } from 'os'
 import path from 'path'
 import { text } from 'stream/consumers'
 
+type CompositionContext = {
+    width: number
+    height: number
+    resultFilePath: string
+    fps: number
+    duration?: number
+}
+
+export const compositionContext = createContext<CompositionContext | null>(null)
 type TrackContext = {
     trackId: string
 }
 
-const trackContext = createContext<TrackContext | null>(null)
+export const trackContext = createContext<TrackContext | null>(null)
+type AssetContext = {
+    producer: AssetProducer
+    in?: number | string
+    out?: number | string
+}
+export const assetContext = createContext<AssetContext | null>(null)
 
 function useTrackContext() {
     const context = useContext(trackContext)
@@ -195,14 +210,6 @@ export function Asset({
         </assetContext.Provider>
     )
 }
-
-type AssetContext = {
-    producer: AssetProducer
-    in?: number | string
-    out?: number | string
-}
-
-export const assetContext = createContext<AssetContext | null>(null)
 
 function useProducerContext() {
     const producer = useContext(assetContext)
@@ -501,16 +508,6 @@ function groupBy<T, K extends string | number>(
         {} as Record<K, T[]>,
     )
 }
-
-type CompositionContext = {
-    width: number
-    height: number
-    resultFilePath: string
-    fps: number
-    duration?: number
-}
-
-const compositionContext = createContext<CompositionContext | null>(null)
 
 export function Composition({
     children,

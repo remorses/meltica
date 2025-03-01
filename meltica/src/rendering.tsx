@@ -11,6 +11,14 @@ import { createContext } from 'jsx-xml'
 import path from 'path'
 import { isTruthy } from '@/utils'
 
+let defaultContext = {
+    assets: [] as AssetRegistration[],
+    producers: [] as AssetProducer[],
+    isRegistrationStep: true,
+}
+
+export const renderingContext = createContext(defaultContext)
+
 export type AssetTypeWithPath = 'audio' | 'image' | 'video'
 
 type NumberLike = string | number
@@ -47,13 +55,7 @@ export type AssetProducer = {
     children: any[]
 }
 
-let defaultContext = {
-    assets: [] as AssetRegistration[],
-    producers: [] as AssetProducer[],
-    isRegistrationStep: true,
-}
 
-export const renderingContext = createContext(defaultContext)
 type ImageProducerProperties = {
     length: string
     eof: string

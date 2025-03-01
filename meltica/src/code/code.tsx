@@ -6,8 +6,9 @@ import {
     codeToTokens,
     CodeToTokensOptions,
 } from 'shiki'
+import { persistentMemo } from '@/utils'
 
-export async function CodeSnippet({
+export const CodeSnippet = persistentMemo(async function CodeSnippet({
     code,
     lang = 'javascript',
     theme = 'github-dark',
@@ -34,4 +35,4 @@ export async function CodeSnippet({
 
     const svg = renderer.renderToSVG(tokens)
     return create(svg)
-}
+})
