@@ -9,7 +9,7 @@
         "jsx": "react-jsx",
         "outDir": "dist",
         
-        // "jsxImportSource": "jsx-xml",
+        "jsxImportSource": "jsx-xml",
         "module": "ESNext",
         "moduleResolution": "Bundler",
         "resolveJsonModule": true,

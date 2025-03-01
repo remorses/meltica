@@ -1,11 +1,12 @@
 import { describe, it, expect } from 'vitest'
 
 import { formatSecondsToTime, isNodeElement } from './rendering'
-
-import { renderAsync, createContext, useContext } from 'jsx-xml'
+import react from 'react-dom/server.edge'
+import { renderAsync, createContext, useContext, render } from 'jsx-xml'
 
 import { create, fragment } from 'xmlbuilder2'
 import { sleep } from '@/utils'
+import { WorkflowIcon } from 'lucide-react'
 
 describe('renderAsync', () => {
     it('should render a component that returns xmlbuilder', async () => {
@@ -19,6 +20,30 @@ describe('renderAsync', () => {
             `"<z>Hello, world!</z>"`,
         )
     })
+    it('xmlbuilder attributes can be objects', async () => {
+        // Simple component that returns text
+        function TextComponent() {
+            // @ts-ignore
+            return <div style={{ color: 'red' }}>Hello, world!</div>
+        }
+
+        const result = await renderAsync(<TextComponent />)
+        expect(result.end({ headless: true })).toMatchInlineSnapshot(
+            `"<div style="[object Object]">Hello, world!</div>"`,
+        )
+    })
+    it('render can use React components', async () => {
+        // Simple component that returns text
+        function TextComponent() {
+            return <WorkflowIcon />
+        }
+
+        const result = render(<TextComponent />)
+        expect(result.end({ headless: true })).toMatchInlineSnapshot(`"<svg key="null" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-workflow"><rect key="by2w9f" width="8" height="8" x="3" y="3" rx="2"/><path key="xkn7yn" d="M7 11v4a2 2 0 0 0 2 2h4"/><rect key="1cgmvn" width="8" height="8" x="13" y="13" rx="2"/></svg>"`)
+            
+        
+    })
+    
 
     it('create txt on fragment', async () => {
         const c = fragment({})

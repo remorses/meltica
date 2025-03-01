@@ -1,6 +1,9 @@
-import { ReactNode } from 'react'
 
-type NumberLike = NumberLike
+import type { XMLBuilder } from 'xmlbuilder2/lib/interfaces'
+
+type NumberLike = string | number
+
+type ReactNode = any
 
 declare global {
     namespace JSX {
