@@ -4,7 +4,12 @@ import fs from 'fs'
 import path from 'path'
 import xmlbuilder from 'xmlbuilder2'
 import { melticaFolder } from '@/rendering'
-import { compositionContext, assetContext, trackContext, renderingContext } from '@/context'
+import {
+    compositionContext,
+    assetContext,
+    trackContext,
+    renderingContext,
+} from '@/context'
 
 /**
  * Utility function that creates a promise that resolves after the specified time.
@@ -79,11 +84,12 @@ function reviver(key: string, value: any): any {
     return value
 }
 
-// Global in-memory cache map
-const globalMemoryCache = new Map<string, any>()
+// Global in-memory cache object
+const globalMemoMemoryCache: Record<string, any> = {}
+
 let cacheLoaded = false
 const cacheDir = '.meltica'
-const cacheFile = path.resolve(cacheDir, 'persistentMemo.json')
+export const cacheFile = path.resolve(cacheDir, 'persistentMemo.json')
 
 // Register handlers to save cache on exit (only once)
 
@@ -107,42 +113,47 @@ process.on('SIGTERM', () => handleTermination(0))
 // Save cache to disk
 const saveCacheToDisk = () => {
     try {
-        const cacheObject = Object.fromEntries(globalMemoryCache.entries())
+        // No need to convert entries with an object
         fs.mkdirSync(cacheDir, { recursive: true })
-        fs.writeFileSync(cacheFile, JSON.stringify(cacheObject), 'utf8')
+        fs.writeFileSync(
+            cacheFile,
+            JSON.stringify(globalMemoMemoryCache),
+            'utf8',
+        )
     } catch (error) {
         console.warn(`Failed to write cache to disk:`, error)
     }
+}
+
+export const loadCacheFromDisk = () => {
+    if (cacheLoaded) return
+
+    try {
+        if (!fs.existsSync(cacheDir)) {
+            fs.mkdirSync(cacheDir, { recursive: true })
+        }
+
+        if (fs.existsSync(cacheFile)) {
+            const cachedData = fs.readFileSync(cacheFile, 'utf8')
+            const parsedCache = JSON.parse(cachedData, reviver)
+
+            // Populate memory cache from disk
+            for (const [key, value] of Object.entries(parsedCache)) {
+                globalMemoMemoryCache[key] = value
+            }
+        }
+    } catch (error) {
+        console.warn(`Failed to load cache from disk:`, error)
+        // File might not exist yet, that's okay
+    }
+
+    cacheLoaded = true
 }
 
 export function persistentMemo<T, Args extends object[]>(
     fn: (...args: Args) => Promise<T>,
 ): (...args: Args) => Promise<T> | T {
     // Load cache from disk on first use
-    const loadCacheFromDisk = () => {
-        if (cacheLoaded) return
-
-        try {
-            if (!fs.existsSync(cacheDir)) {
-                fs.mkdirSync(cacheDir, { recursive: true })
-            }
-
-            if (fs.existsSync(cacheFile)) {
-                const cachedData = fs.readFileSync(cacheFile, 'utf8')
-                const parsedCache = JSON.parse(cachedData, reviver)
-
-                // Populate memory cache from disk
-                for (const [key, value] of Object.entries(parsedCache)) {
-                    globalMemoryCache.set(key, value)
-                }
-            }
-        } catch (error) {
-            console.warn(`Failed to load cache from disk:`, error)
-            // File might not exist yet, that's okay
-        }
-
-        cacheLoaded = true
-    }
 
     return (...args: Args): Promise<T> | T => {
         // Ensure cache is loaded
@@ -226,15 +237,39 @@ export function persistentMemo<T, Args extends object[]>(
         const cacheKey = `${fnName}_${hash}`
 
         // Check if result is in memory cache
-        if (globalMemoryCache.has(cacheKey)) {
-            return JSON.parse(globalMemoryCache.get(cacheKey), reviver) as T
+        if (cacheKey in globalMemoMemoryCache) {
+            return JSON.parse(globalMemoMemoryCache[cacheKey], reviver) as T
         }
         return fn(...args).then((result) => {
             // Save the result to memory cache
-            globalMemoryCache.set(cacheKey, JSON.stringify(result, replacer, 4))
+            globalMemoMemoryCache[cacheKey] = JSON.stringify(
+                result,
+                replacer,
+                4,
+            )
             saveCacheToDisk()
 
             return result
         })
+    }
+}
+
+export async function fastFileHash(filepath: string): Promise<string> {
+    try {
+        const stats = await fs.promises.stat(filepath)
+        const fileSizeInMB = stats.size / (1024 * 1024)
+
+        // If file is larger than 5MB, just use the file size as a simple hash
+        if (fileSizeInMB > 5) {
+            return `size-${stats.size}-${path.basename(filepath)}`
+        }
+
+        // For smaller files, compute MD5 hash of the content
+        const fileContent = await fs.promises.readFile(filepath)
+        return crypto.createHash('md5').update(fileContent).digest('hex')
+    } catch (error) {
+        console.error(`Error hashing file ${filepath}:`, error)
+        // Return a fallback hash based on the filepath if we can't read the file
+        return crypto.createHash('md5').update(filepath).digest('hex')
     }
 }

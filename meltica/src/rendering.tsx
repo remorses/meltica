@@ -1,18 +1,16 @@
 import { renderAsync } from 'jsx-xml'
+import crypto from 'crypto'
 
+import type { Element } from '@oozcitak/dom/lib/dom/interfaces'
 import xmlbuilder from 'xmlbuilder2'
 import type { XMLBuilder } from 'xmlbuilder2/lib/interfaces'
-import type { Element } from '@oozcitak/dom/lib/dom/interfaces'
 
+import { defaultRenderingContext, renderingContext } from '@/context'
+import { fastFileHash, isTruthy } from '@/utils'
 import { execSync } from 'child_process'
 import { ChildNode } from 'domhandler'
 import fs from 'fs'
-import { createContext } from 'jsx-xml'
 import path from 'path'
-import { isTruthy } from '@/utils'
-import { compositionContext, assetContext, trackContext, renderingContext, defaultRenderingContext } from '@/context'
-
-
 
 export type AssetTypeWithPath = 'audio' | 'image' | 'video'
 
@@ -149,20 +147,6 @@ type Properties = Partial<
     ImageProducerProperties & AudioProducerProperties & VideoProducerProperties
 >
 
-function extractPropertiesFromNodes(nodes: ChildNode[]): Properties {
-    const properties: Record<string, string> = {}
-
-    nodes.forEach((node) => {
-        if (node.type === 'tag' && node.name === 'property') {
-            const nameAttr = node.attribs['name']
-            const value = (node.children[0] as any)?.data || ''
-            properties[nameAttr] = value
-        }
-    })
-
-    return properties as Properties
-}
-
 /**
  * Orders an array using a key function that returns an index
  *
@@ -230,7 +214,8 @@ export async function renderToXml(jsx: any) {
 
     checkDuplicateIds(initialNode)
 
-    const { producers, assets } = generateProducersXml(initialNode)
+    const { producers, assets } =
+        await extractProducersDataFromAssets(initialNode)
     // console.log(producers.map((x) => x.id))
 
     let xml = (
@@ -371,37 +356,24 @@ export function getAssetsFromXml(xml: XMLBuilder) {
     return deduplicate(assets, (asset) => asset.id)
 }
 
-export function generateProducersXml(xmlWithAssets: XMLBuilder) {
-    const timestamp = Date.now()
-    const tempXmlFile = path.join(
-        melticaFolder,
-        `producers-extraction-${timestamp}.mlt`,
+async function computeAssetsKey(assets: AssetRegistration[]) {
+    const filteredAssets = assets.filter(
+        (x) => x.type !== 'blank' && x.type !== 'text',
     )
-    const assets = getAssetsFromXml(xmlWithAssets)
-    if (!assets.length) {
-        console.warn('No assets found in XML')
-        return { producers: [], assets }
-    }
-    fs.writeFileSync(tempXmlFile, '')
-    // TODO the fps is important here and should be parametrized in this step because melt outputs the xml with durations in fps format instead of seconds or durations. now it is hardcoded to 30fps. but melt only supports profile names and not all attributes.
-    const profile = `hdv_1080_30p`
-    // https://github.com/mltframework/mlt/blob/master/src/modules/xml/consumer_xml.yml#L91
-    const timeFormat = 'clock'
-    const command = `melt ${assets
-        .filter((x) => x.type !== 'blank' && x.type !== 'text')
-        .map((a) => `"${a.filepath}" id=${a.id}`)
-        .join(
-            ' ',
-        )} -profile ${profile} -consumer xml:${tempXmlFile} time_format=${timeFormat}`
 
-    const out = execSync(command, { stdio: 'pipe' }).toString()
-    const xml = fs.readFileSync(tempXmlFile).toString()
-    if (!xml.trim().length) {
-        console.log('executed command\n', command)
-        console.log(out)
-        throw new Error('Melt command failed to generate XML')
-    }
+    const assetKeys = await Promise.all(
+        filteredAssets.map(async (a) => {
+            const hash = await fastFileHash(a.filepath)
+            return a.filepath + a.id + hash
+        }),
+    )
 
+    // Use crypto to compute hash of the combined asset keys
+    const combinedKeys = assetKeys.sort().join(',')
+    return crypto.createHash('md5').update(combinedKeys).digest('hex')
+}
+
+export function getProducersFromXml(xml: string) {
     const parsed = xmlbuilder.create(xml)
 
     const producerNodes = parsed
@@ -446,8 +418,63 @@ export function generateProducersXml(xmlWithAssets: XMLBuilder) {
             return assetProducer
         })
         .filter(isTruthy)
+    return producerNodes
+}
 
-    return { producers: producerNodes, assets }
+/**
+ * Extracts producer data from assets using the melt command line tool.
+ *
+ * This function takes some asset files and uses melt to get metadata like width, height,
+ * encoding, etc. It works by creating a temporary MLT XML file with all the assets,
+ * then parsing that XML to extract the producer nodes which contain the metadata.
+ *
+ * The metadata is cached based on the asset files to avoid repeated processing of the same assets.
+ *
+ * @param xmlWithAssets - XML builder containing asset registrations
+ * @returns An object containing the extracted producers and the original assets
+ */
+
+export async function extractProducersDataFromAssets(
+    xmlWithAssets: XMLBuilder,
+) {
+    const assets = getAssetsFromXml(xmlWithAssets)
+    const key = await computeAssetsKey(assets)
+    const tempXmlFile = path.join(
+        melticaFolder,
+        `producers-extraction-${key}.mlt`,
+    )
+    if (!process.env.DISABLE_CACHE && fs.existsSync(tempXmlFile)) {
+        const xml = fs.readFileSync(tempXmlFile).toString()
+        const producers = getProducersFromXml(xml)
+        return { producers, assets }
+    }
+    if (!assets.length) {
+        console.warn('No assets found in XML')
+        return { producers: [], assets }
+    }
+
+    // TODO the fps is important here and should be parametrized in this step because melt outputs the xml with durations in fps format instead of seconds or durations. now it is hardcoded to 30fps. but melt only supports profile names and not all attributes.
+    const profile = `hdv_1080_30p`
+    // https://github.com/mltframework/mlt/blob/master/src/modules/xml/consumer_xml.yml#L91
+    const timeFormat = 'clock'
+    const command = `melt ${assets
+        .filter((x) => x.type !== 'blank' && x.type !== 'text')
+        .map((a) => `"${a.filepath}" id=${a.id}`)
+        .join(
+            ' ',
+        )} -profile ${profile} -consumer xml:${tempXmlFile} time_format=${timeFormat}`
+
+    await fs.promises.writeFile(tempXmlFile, '')
+    const out = execSync(command, { stdio: 'pipe' }).toString()
+    const xml = fs.readFileSync(tempXmlFile).toString()
+    if (!xml.trim().length) {
+        console.log('executed command\n', command)
+        console.log(out)
+        throw new Error('Melt command failed to generate XML')
+    }
+    const producers = getProducersFromXml(xml)
+
+    return { producers, assets }
 }
 
 /**
@@ -470,3 +497,17 @@ export function attributesToObject(
 }
 
 export const melticaFolder = '.meltica'
+
+function extractPropertiesFromNodes(nodes: ChildNode[]): Properties {
+    const properties: Record<string, string> = {}
+
+    nodes.forEach((node) => {
+        if (node.type === 'tag' && node.name === 'property') {
+            const nameAttr = node.attribs['name']
+            const value = (node.children[0] as any)?.data || ''
+            properties[nameAttr] = value
+        }
+    })
+
+    return properties as Properties
+}

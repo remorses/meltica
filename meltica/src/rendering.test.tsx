@@ -1,15 +1,10 @@
-import { describe, it, expect } from 'vitest'
-import {
-    formatSecondsToTime,
-    generateProducersXml,
-    getAssetsFromXml,
-} from './rendering'
-import path from 'path'
-import fs from 'fs'
-import { renderAsync } from 'jsx-xml'
 import { Asset, Composition, Track } from '@/components'
 import { sleep } from '@/utils'
-import { defaultRenderingContext, renderingContext } from '@/context'
+import { renderAsync } from 'jsx-xml'
+import { describe, expect, it } from 'vitest'
+import {
+  getAssetsFromXml
+} from './rendering'
 
 describe('generateProducersXml', () => {
     it('getAssetsFromXml works with sync components', async () => {
