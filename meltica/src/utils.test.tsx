@@ -1,12 +1,11 @@
-import { describe, it, expect } from 'vitest'
+import { describe, expect, it } from 'vitest'
 
+import { createContext, render, renderAsync, useContext } from 'jsx-xml'
 import { formatSecondsToTime, isNodeElement } from './rendering'
-import react from 'react-dom/server.edge'
-import { renderAsync, createContext, useContext, render } from 'jsx-xml'
 
-import { create, fragment } from 'xmlbuilder2'
 import { sleep } from '@/utils'
 import { WorkflowIcon } from 'lucide-react'
+import { create, fragment } from 'xmlbuilder2'
 
 describe('renderAsync', () => {
     it('should render a component that returns xmlbuilder', async () => {
