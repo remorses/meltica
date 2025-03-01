@@ -1,43 +1,5 @@
 <?xml version="1.0"?>
 <mlt LC_NUMERIC="C" version="7.30.0" title="Shotcut version 25.01.25" producer="main_bin">
-  <chain id="assetsoundtrack" in="00:00:00.000" out="00:02:15.115">
-    <property name="length">4050</property>
-    <property name="eof">pause</property>
-    <property name="resource">edapollo - Let It Go [bQ5glYCsv94].mp3</property>
-    <property name="meta.media.nb_streams">1</property>
-    <property name="meta.media.0.stream.type">audio</property>
-    <property name="meta.media.0.codec.sample_fmt">fltp</property>
-    <property name="meta.media.0.codec.sample_rate">44100</property>
-    <property name="meta.media.0.codec.channels">2</property>
-    <property name="meta.media.0.codec.layout">stereo</property>
-    <property name="meta.media.0.codec.name">mp3float</property>
-    <property name="meta.media.0.codec.long_name">MP3 (MPEG audio layer 3)</property>
-    <property name="meta.media.0.codec.bit_rate">192000</property>
-    <property name="meta.attr.0.stream.encoder.markup">Lavc61.19</property>
-    <property name="meta.attr.major_brand.markup">isom</property>
-    <property name="meta.attr.minor_version.markup">512</property>
-    <property name="meta.attr.compatible_brands.markup">isomiso2avc1mp41</property>
-    <property name="meta.attr.encoder.markup">Lavf61.7.100</property>
-    <property name="seekable">1</property>
-    <property name="audio_index">0</property>
-    <property name="video_index">-1</property>
-    <property name="mute_on_pause">0</property>
-    <property name="mlt_service">avformat</property>
-    <property name="resource">edapollo - Let It Go [bQ5glYCsv94].mp3</property>
-    <property name="shotcut:skipConvert">1</property>
-    <property name="shotcut:caption">edapollo - Let It Go [bQ5glYCsv94].mp3</property>
-    <filter id="assetsoundtrackgain">
-      <property name="window">75</property>
-      <property name="max_gain">20dB</property>
-      <property name="level">-14</property>
-      <property name="mlt_service">volume</property>
-    </filter>
-  </chain>
-  <playlist id="tracksoundtrackTrack">
-    <property name="shotcut:audio">1</property>
-    <property name="shotcut:name">track</property>
-    <entry producer="assetsoundtrack" in="00:00:00.000" out="00:02:15.067"/>
-  </playlist>
   <producer id="svgsvgRect" in="00:00:00.000" out="00:08:20.487">
     <property name="length">15000</property>
     <property name="eof">pause</property>
@@ -228,6 +190,44 @@
       <property name="kdenlive:collapsed">0</property>
     </filter>
   </producer>
+  <chain id="assetsoundtrack" in="00:00:00.000" out="00:02:15.115">
+    <property name="length">4050</property>
+    <property name="eof">pause</property>
+    <property name="resource">edapollo - Let It Go [bQ5glYCsv94].mp3</property>
+    <property name="meta.media.nb_streams">1</property>
+    <property name="meta.media.0.stream.type">audio</property>
+    <property name="meta.media.0.codec.sample_fmt">fltp</property>
+    <property name="meta.media.0.codec.sample_rate">44100</property>
+    <property name="meta.media.0.codec.channels">2</property>
+    <property name="meta.media.0.codec.layout">stereo</property>
+    <property name="meta.media.0.codec.name">mp3float</property>
+    <property name="meta.media.0.codec.long_name">MP3 (MPEG audio layer 3)</property>
+    <property name="meta.media.0.codec.bit_rate">192000</property>
+    <property name="meta.attr.0.stream.encoder.markup">Lavc61.19</property>
+    <property name="meta.attr.major_brand.markup">isom</property>
+    <property name="meta.attr.minor_version.markup">512</property>
+    <property name="meta.attr.compatible_brands.markup">isomiso2avc1mp41</property>
+    <property name="meta.attr.encoder.markup">Lavf61.7.100</property>
+    <property name="seekable">1</property>
+    <property name="audio_index">0</property>
+    <property name="video_index">-1</property>
+    <property name="mute_on_pause">0</property>
+    <property name="mlt_service">avformat</property>
+    <property name="resource">edapollo - Let It Go [bQ5glYCsv94].mp3</property>
+    <property name="shotcut:skipConvert">1</property>
+    <property name="shotcut:caption">edapollo - Let It Go [bQ5glYCsv94].mp3</property>
+    <filter id="assetsoundtrackgain">
+      <property name="window">75</property>
+      <property name="max_gain">20dB</property>
+      <property name="level">-14</property>
+      <property name="mlt_service">volume</property>
+    </filter>
+  </chain>
+  <playlist id="tracksoundtrackTrack">
+    <property name="shotcut:audio">1</property>
+    <property name="shotcut:name">track</property>
+    <entry producer="assetsoundtrack" in="00:00:00.000" out="00:02:15.067"/>
+  </playlist>
   <producer id="svgsvgCode" in="00:00:00.000" out="00:08:20.487">
     <property name="length">15000</property>
     <property name="eof">pause</property>
@@ -280,8 +280,8 @@
     <property name="shotcut:trackHeight">50</property>
     <property name="shotcut:skipConvert">0</property>
     <track producer="background"/>
-    <track producer="tracksvgCodeTrack"/>
     <track producer="tracksvgRectTrack"/>
+    <track producer="tracksvgCodeTrack"/>
     <track producer="tracksoundtrackTrack" hide="video"/>
     <transition id="transition0">
       <property name="a_track">0</property>
