@@ -77,6 +77,12 @@ interface SVGRendererOptions {
      * Line height ratio. fontSize * lineHeight will be the line height in px
      */
     lineHeight?: number
+    /**
+     * Letter spacing as a ratio of fontSize (similar to em units).
+     * For example, 0.05 adds spacing of 5% of the fontSize between characters.
+     * Default is 0.02 (2% of fontSize).
+     */
+    letterSpacing?: number
 }
 
 interface TokenOptions {
@@ -150,6 +156,7 @@ export function getSVGRenderer(options: SVGRendererOptions) {
     const bgCornerRadius = options.bgCornerRadius ?? 4
     const bgSideCharPadding = options.bgSideCharPadding ?? 4
     const bgVerticalCharPadding = options.bgVerticalCharPadding ?? 2
+    const letterSpacing = options.letterSpacing ?? 0.02
 
     const measurement = fontsToMeasurement[fontFamily]
     if (!measurement) {
@@ -157,7 +164,7 @@ export function getSVGRenderer(options: SVGRendererOptions) {
     }
     const lineHeight = options.lineHeightToFontSizeRatio ?? 1.6
     const lineheightPx = fontSize * lineHeight
-    let letterWidth = (measurement.width * fontSize) / fontSizeForMeasurement
+    let letterWidth = (measurement.width * fontSize) / fontSizeForMeasurement + (letterSpacing * fontSize)
 
     return {
         renderToSVG(lines: IThemedToken[][], { bg } = { bg: _bg }) {

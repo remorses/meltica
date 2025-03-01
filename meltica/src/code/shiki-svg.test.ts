@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { getSVGRenderer } from './shiki-svg'
+import { FontFamily, getSVGRenderer } from './shiki-svg'
 import { codeToTokens } from 'shiki'
 import { render } from 'jsx-xml'
 
@@ -22,7 +22,7 @@ const result = hello();
 `
 describe('getSVGRenderer', () => {
     it('should create a renderer that can render tokens to SVG', async () => {
-        const fonts = ['Consolas'] as const
+        const fonts: FontFamily[] = ['Consolas', 'Menlo', 'Courier']
         const fontSizes = [9, 12, 14, 18, 24]
 
         for (const font of fonts) {
