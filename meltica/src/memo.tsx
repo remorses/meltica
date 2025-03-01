@@ -39,9 +39,15 @@ function reviver(key: string, value: any): any {
 const globalMemoMemoryCache = new FlatCache({
     cacheDir: '.meltica',
     lruSize: 1000,
+    ttl: 1000 * 60 * 60 * 24 * 7, // 1 week
     cacheId: 'memo.json',
-    persistInterval: 200,
+    persistInterval: 100,
 })
+globalMemoMemoryCache.on('error', (e) =>
+    console.error(`error loading cache`, e),
+)
+globalMemoMemoryCache.load()
+
 
 // Register handlers to save cache on exit (only once)
 
@@ -82,9 +88,6 @@ export function persistentMemo<T, Args extends object[]>(
     // Load cache from disk on first use
 
     return (...args: Args): Promise<T> | T => {
-        // Ensure cache is loaded
-
-        // Create a cache key based on the function name and stringified arguments
         const fnName = fn.name || 'anonymous'
         const { isRegistrationStep, assets, producers } =
             useContext(renderingContext)
@@ -165,6 +168,7 @@ export function persistentMemo<T, Args extends object[]>(
         if (cached) {
             return JSON.parse(cached, reviver) as T
         }
+
         return fn(...args).then((result) => {
             // Save the result to memory cache
             globalMemoMemoryCache.set(

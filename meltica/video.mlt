@@ -1,7 +1,5 @@
 <?xml version="1.0"?>
 <mlt LC_NUMERIC="C" version="7.30.0" title="Shotcut version 25.01.25" producer="main_bin">
-  <consumer ab="160k" acodec="aac" channels="2" crf="23" deinterlacer="onefield" f="mp4" g="15" in="0" out="00:00:08.000" mlt_service="avformat" movflags="+faststart" preset="veryfast" real_time="-1" rescale="bilinear" target="examples/svg.mp4" threads="0" vcodec="libx264"/>
-  <profile description="PAL 4:3 DV or DVD" width="1080" height="1920" progressive="1" sample_aspect_num="1" sample_aspect_den="1" display_aspect_num="9" display_aspect_den="16" frame_rate_num="30" frame_rate_den="1" colorspace="709"/>
   <producer id="svgsvgCode" in="00:00:00.000" out="00:08:20.487">
     <property name="length">15000</property>
     <property name="eof">pause</property>
@@ -188,65 +186,6 @@
       <property name="kdenlive:collapsed">0</property>
     </filter>
   </producer>
-  <chain id="assetslow" in="00:00:00.000" out="00:00:00.167">
-    <property name="length">6</property>
-    <property name="eof">pause</property>
-    <property name="resource">video.mp4</property>
-    <property name="meta.media.nb_streams">2</property>
-    <property name="meta.media.0.stream.type">video</property>
-    <property name="meta.media.0.stream.frame_rate">30</property>
-    <property name="meta.media.0.stream.sample_aspect_ratio">1</property>
-    <property name="meta.media.0.codec.width">1080</property>
-    <property name="meta.media.0.codec.height">1920</property>
-    <property name="meta.media.0.codec.rotate">0</property>
-    <property name="meta.media.0.codec.pix_fmt">yuv420p</property>
-    <property name="meta.media.0.codec.sample_aspect_ratio">0</property>
-    <property name="meta.media.0.codec.colorspace">709</property>
-    <property name="meta.media.0.codec.color_trc">1</property>
-    <property name="meta.media.0.codec.name">h264</property>
-    <property name="meta.media.0.codec.long_name">H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10</property>
-    <property name="meta.media.0.codec.bit_rate">51979200</property>
-    <property name="meta.attr.0.stream.handler_name.markup">VideoHandler</property>
-    <property name="meta.attr.0.stream.vendor_id.markup">[0][0][0][0]</property>
-    <property name="meta.media.1.stream.type">audio</property>
-    <property name="meta.media.1.codec.sample_fmt">fltp</property>
-    <property name="meta.media.1.codec.sample_rate">48000</property>
-    <property name="meta.media.1.codec.channels">2</property>
-    <property name="meta.media.1.codec.layout">stereo</property>
-    <property name="meta.media.1.codec.name">aac</property>
-    <property name="meta.media.1.codec.long_name">AAC (Advanced Audio Coding)</property>
-    <property name="meta.media.1.codec.bit_rate">2887</property>
-    <property name="meta.attr.1.stream.handler_name.markup">SoundHandler</property>
-    <property name="meta.attr.1.stream.vendor_id.markup">[0][0][0][0]</property>
-    <property name="meta.attr.major_brand.markup">isom</property>
-    <property name="meta.attr.minor_version.markup">512</property>
-    <property name="meta.attr.compatible_brands.markup">isomiso2avc1mp41</property>
-    <property name="meta.attr.encoder.markup">Lavf61.7.100</property>
-    <property name="seekable">1</property>
-    <property name="meta.media.sample_aspect_num">1</property>
-    <property name="meta.media.sample_aspect_den">1</property>
-    <property name="aspect_ratio">1</property>
-    <property name="format">3</property>
-    <property name="audio_index">1</property>
-    <property name="video_index">0</property>
-    <property name="mute_on_pause">0</property>
-    <property name="mlt_service">avformat</property>
-    <property name="resource">video.mp4</property>
-    <property name="shotcut:skipConvert">1</property>
-    <property name="shotcut:caption">video.mp4</property>
-  </chain>
-  <playlist id="tracksvgCodeTrack">
-    <property name="shotcut:video">1</property>
-    <property name="shotcut:name">track</property>
-    <entry producer="svgsvgCode" in="00:00:00.000" out="00:00:03.000"/>
-    <entry producer="svgworld0" in="00:00:00.000" out="00:00:00.100"/>
-    <entry producer="svgworld1" in="00:00:00.000" out="00:00:00.100"/>
-    <entry producer="svgworld2" in="00:00:00.000" out="00:00:00.100"/>
-    <entry producer="svgworld3" in="00:00:00.000" out="00:00:00.100"/>
-    <entry producer="svgworld4" in="00:00:00.000" out="00:00:00.100"/>
-    <entry producer="svgworld5" in="00:00:00.000" out="00:00:00.100"/>
-    <entry producer="assetslow" in="00:00:00.000" out="00:00:10.000"/>
-  </playlist>
   <producer id="svgsvgRect" in="00:00:00.000" out="00:08:20.487">
     <property name="length">15000</property>
     <property name="eof">pause</property>
@@ -317,6 +256,85 @@
     <property name="shotcut:name">track</property>
     <entry producer="assetsoundtrack" in="00:00:00.000" out="00:02:15.067"/>
   </playlist>
+  <producer id="svgsvgCode" in="00:00:00.000" out="00:08:20.487">
+    <property name="length">15000</property>
+    <property name="eof">pause</property>
+    <property name="resource">.meltica/svgsvgCode.png</property>
+    <property name="ttl">25</property>
+    <property name="aspect_ratio">1</property>
+    <property name="meta.media.progressive">1</property>
+    <property name="seekable">1</property>
+    <property name="format">2</property>
+    <property name="meta.media.width">1080</property>
+    <property name="meta.media.height">878</property>
+    <property name="mlt_service">qimage</property>
+    <property name="resource">/Users/morse/Documents/meltica/meltica/.meltica/svgsvgCode.png</property>
+    <property name="mlt_service">qimage</property>
+    <property name="format">2</property>
+    <property name="shotcut:skipConvert">1</property>
+    <property name="shotcut:caption">Inline SVG</property>
+  </producer>
+  <chain id="assetslow" in="00:00:00.000" out="00:00:00.167">
+    <property name="length">6</property>
+    <property name="eof">pause</property>
+    <property name="resource">video.mp4</property>
+    <property name="meta.media.nb_streams">2</property>
+    <property name="meta.media.0.stream.type">video</property>
+    <property name="meta.media.0.stream.frame_rate">30</property>
+    <property name="meta.media.0.stream.sample_aspect_ratio">1</property>
+    <property name="meta.media.0.codec.width">1080</property>
+    <property name="meta.media.0.codec.height">1920</property>
+    <property name="meta.media.0.codec.rotate">0</property>
+    <property name="meta.media.0.codec.pix_fmt">yuv420p</property>
+    <property name="meta.media.0.codec.sample_aspect_ratio">0</property>
+    <property name="meta.media.0.codec.colorspace">709</property>
+    <property name="meta.media.0.codec.color_trc">1</property>
+    <property name="meta.media.0.codec.name">h264</property>
+    <property name="meta.media.0.codec.long_name">H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10</property>
+    <property name="meta.media.0.codec.bit_rate">51979200</property>
+    <property name="meta.attr.0.stream.handler_name.markup">VideoHandler</property>
+    <property name="meta.attr.0.stream.vendor_id.markup">[0][0][0][0]</property>
+    <property name="meta.media.1.stream.type">audio</property>
+    <property name="meta.media.1.codec.sample_fmt">fltp</property>
+    <property name="meta.media.1.codec.sample_rate">48000</property>
+    <property name="meta.media.1.codec.channels">2</property>
+    <property name="meta.media.1.codec.layout">stereo</property>
+    <property name="meta.media.1.codec.name">aac</property>
+    <property name="meta.media.1.codec.long_name">AAC (Advanced Audio Coding)</property>
+    <property name="meta.media.1.codec.bit_rate">2887</property>
+    <property name="meta.attr.1.stream.handler_name.markup">SoundHandler</property>
+    <property name="meta.attr.1.stream.vendor_id.markup">[0][0][0][0]</property>
+    <property name="meta.attr.major_brand.markup">isom</property>
+    <property name="meta.attr.minor_version.markup">512</property>
+    <property name="meta.attr.compatible_brands.markup">isomiso2avc1mp41</property>
+    <property name="meta.attr.encoder.markup">Lavf61.7.100</property>
+    <property name="seekable">1</property>
+    <property name="meta.media.sample_aspect_num">1</property>
+    <property name="meta.media.sample_aspect_den">1</property>
+    <property name="aspect_ratio">1</property>
+    <property name="format">3</property>
+    <property name="audio_index">1</property>
+    <property name="video_index">0</property>
+    <property name="mute_on_pause">0</property>
+    <property name="mlt_service">avformat</property>
+    <property name="resource">video.mp4</property>
+    <property name="shotcut:skipConvert">1</property>
+    <property name="shotcut:caption">video.mp4</property>
+  </chain>
+  <playlist id="tracksvgCodeTrack">
+    <property name="shotcut:video">1</property>
+    <property name="shotcut:name">track</property>
+    <entry producer="svgsvgCode" in="00:00:00.000" out="00:00:03.000"/>
+    <entry producer="svgworld0" in="00:00:00.000" out="00:00:00.100"/>
+    <entry producer="svgworld1" in="00:00:00.000" out="00:00:00.100"/>
+    <entry producer="svgworld2" in="00:00:00.000" out="00:00:00.100"/>
+    <entry producer="svgworld3" in="00:00:00.000" out="00:00:00.100"/>
+    <entry producer="svgworld4" in="00:00:00.000" out="00:00:00.100"/>
+    <entry producer="svgworld5" in="00:00:00.000" out="00:00:00.100"/>
+    <entry producer="assetslow" in="00:00:00.000" out="00:00:10.000"/>
+  </playlist>
+  <consumer ab="160k" acodec="aac" channels="2" crf="23" deinterlacer="onefield" f="mp4" g="15" in="0" out="00:00:08.000" mlt_service="avformat" movflags="+faststart" preset="veryfast" real_time="-1" rescale="bilinear" target="examples/svg.mp4" threads="0" vcodec="libx264"/>
+  <profile description="PAL 4:3 DV or DVD" width="1080" height="1920" progressive="1" sample_aspect_num="1" sample_aspect_den="1" display_aspect_num="9" display_aspect_den="16" frame_rate_num="30" frame_rate_den="1" colorspace="709"/>
   <playlist id="main_bin">
     <property name="xml_retain">1</property>
   </playlist>

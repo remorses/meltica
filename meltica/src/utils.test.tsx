@@ -13,6 +13,7 @@ describe('persistentMemo', () => {
         const timestamp = 12345
         async function fetchData({ timestamp, jsxArg }) {
             await sleep(30)
+            console.log('fetchData', timestamp)
             return (
                 <producer>
                     {jsxArg}
