@@ -21,6 +21,11 @@ import { render, renderAsync } from 'jsx-xml'
 import path from 'path'
 import { persistentMemo } from 'meltica/src/memo'
 import { formatSecondsToTime } from 'meltica/src/time'
+import {
+    calculateBasicImageDimensions,
+    ObjectFit,
+    ObjectPositionValue,
+} from 'meltica/src/objectfit'
 
 function useTrackContext() {
     const context = useContext(trackContext)
@@ -352,15 +357,26 @@ export function Vignette({
     )
 }
 
+type ObjectPositionString =
+    | ObjectPositionValue
+    | `${ObjectPositionValue} ${ObjectPositionValue}`
+type Position =
+    | {
+          width?: number
+          height?: number
+          left?: number
+          top?: number
+      }
+    | {
+          objectFit: ObjectFit
+          objectPosition?: ObjectPositionString
+      }
+
 type TransformKeyframe = {
     time: number | string
     easing?: EasingType
-    width?: number
-    height?: number
-    left?: number
-    top?: number
     rotation?: number
-}
+} & Position
 
 const easingTypeToLetter = {
     smooth: '$',
@@ -374,10 +390,29 @@ const easingTypeToLetter = {
 
 type EasingType = keyof typeof easingTypeToLetter
 
+function extractObjectPositions(position?: string | number) {
+    if (!position) {
+        return {}
+    }
+    if (typeof position !== 'string') {
+        return {}
+    }
+    if (!position.includes(' ')) {
+        return {
+            xObjectPosition: position as ObjectPositionValue,
+            yObjectPosition: position as ObjectPositionValue,
+        }
+    }
+    const [x, y] = position.split(' ')
+    return {
+        xObjectPosition: x as ObjectPositionValue,
+        yObjectPosition: y as ObjectPositionValue,
+    }
+}
+
 export function Transform({
     id = 'qtblend',
     keyframes,
-
     compositing = 0,
     distort = 0,
 }: {
@@ -389,9 +424,26 @@ export function Transform({
     const videoContext = useContext(compositionContext)!
     const rect = keyframes
         .map((keyframe) => {
+            const time = formatSecondsToTime(keyframe.time)
             const animationLetter =
                 easingTypeToLetter[keyframe.easing || 'linear']
-            return `${formatSecondsToTime(keyframe.time)}${animationLetter}=${keyframe.left} ${keyframe.top} ${keyframe.width || videoContext.width} ${keyframe.height || videoContext.height} 1.000000`
+            if ('objectFit' in keyframe) {
+                const { left, top, width, height } =
+                    calculateBasicImageDimensions({
+                        containerWidth: videoContext.width,
+                        containerHeight: videoContext.height,
+                        objectWidth: videoContext.width,
+                        objectHeight: videoContext.height,
+                        objectFit: keyframe.objectFit,
+                        ...extractObjectPositions(keyframe.objectPosition),
+                    })
+                return `${time}${animationLetter}=${left} ${top} ${width} ${height} 1.000000`
+            }
+            const left = keyframe.left;
+            const top = keyframe.top;
+            const width = keyframe.width || videoContext.width;
+            const height = keyframe.height || videoContext.height;
+            return `${time}${animationLetter}=${left} ${top} ${width} ${height} 1.000000`
         })
         .join(';')
     const rotation = keyframes

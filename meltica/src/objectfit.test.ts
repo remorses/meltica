@@ -55,8 +55,7 @@ for (const [width, height] of canvasSizes) {
                     const dimensions = calculateBasicImageDimensions({
                         objectWidth: image.width,
                         objectHeight: image.height,
-                        x: 0,
-                        y: 0,
+                        
                         containerWidth: canvas.width,
                         containerHeight: canvas.height,
                         objectFit: 'none',
@@ -85,8 +84,7 @@ for (const [width, height] of canvasSizes) {
                     const dimensions = calculateBasicImageDimensions({
                         objectWidth: image.width,
                         objectHeight: image.height,
-                        x: 0,
-                        y: 0,
+                        
                         containerWidth: canvas.width,
                         containerHeight: canvas.height,
                         objectFit: 'cover',
@@ -115,8 +113,6 @@ for (const [width, height] of canvasSizes) {
                     const dimensions = calculateBasicImageDimensions({
                         objectWidth: image.width,
                         objectHeight: image.height,
-                        x: 0,
-                        y: 0,
                         containerWidth: canvas.width,
                         containerHeight: canvas.height,
                         objectFit: 'contain',
@@ -145,8 +141,7 @@ for (const [width, height] of canvasSizes) {
                     const dimensions = calculateBasicImageDimensions({
                         objectWidth: image.width,
                         objectHeight: image.height,
-                        x: 0,
-                        y: 0,
+                        
                         containerWidth: canvas.width,
                         containerHeight: canvas.height,
                         objectFit: 'fill',
@@ -185,8 +180,7 @@ for (const [width, height] of canvasSizes) {
                     const dimensions = calculateBasicImageDimensions({
                         objectWidth: image.width,
                         objectHeight: image.height,
-                        x: 0,
-                        y: 0,
+                        
                         containerWidth: canvas.width,
                         containerHeight: canvas.height,
                         objectFit: 'none',
@@ -215,8 +209,7 @@ for (const [width, height] of canvasSizes) {
                     const dimensions = calculateBasicImageDimensions({
                         objectWidth: image.width,
                         objectHeight: image.height,
-                        x: 0,
-                        y: 0,
+                        
                         containerWidth: canvas.width,
                         containerHeight: canvas.height,
                         objectFit: 'cover',
@@ -245,8 +238,7 @@ for (const [width, height] of canvasSizes) {
                     const dimensions = calculateBasicImageDimensions({
                         objectWidth: image.width,
                         objectHeight: image.height,
-                        x: 0,
-                        y: 0,
+                        
                         containerWidth: canvas.width,
                         containerHeight: canvas.height,
                         objectFit: 'contain',
@@ -275,8 +267,7 @@ for (const [width, height] of canvasSizes) {
                     const dimensions = calculateBasicImageDimensions({
                         objectWidth: image.width,
                         objectHeight: image.height,
-                        x: 0,
-                        y: 0,
+                        
                         containerWidth: canvas.width,
                         containerHeight: canvas.height,
                         objectFit: 'fill',

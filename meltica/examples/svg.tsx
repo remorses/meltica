@@ -10,7 +10,11 @@ import {
     Composition,
     Transform,
 } from 'meltica/src/components'
-import { renderToPreview, renderToVideo, renderToXml } from 'meltica/src/rendering'
+import {
+    renderToPreview,
+    renderToVideo,
+    renderToXml,
+} from 'meltica/src/rendering'
 import { sleep } from 'meltica/src/utils'
 import { persistentMemo } from 'meltica/src/memo'
 const codeSnippet = `
@@ -61,13 +65,11 @@ function Video({}) {
                             keyframes={[
                                 {
                                     time: 0,
-                                    left: 0,
-                                    top: 0,
-                                    width: 100,
-                                    height: 100,
+                                    objectFit: 'cover',
+                                    objectPosition: 'center',
                                 },
                                 {
-                                    time: 2,
+                                    time: 3,
                                     left: 100,
                                     top: 200,
                                     width: 300,
@@ -104,10 +106,8 @@ function Video({}) {
                         keyframes={[
                             {
                                 time: 0,
-                                left: 0,
-                                top: 0,
-                                width: 100,
-                                height: 100,
+                                objectFit: 'cover',
+                                objectPosition: 'center',
                             },
                         ]}
                     />
