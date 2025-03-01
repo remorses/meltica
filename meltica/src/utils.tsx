@@ -1,4 +1,5 @@
 import { render, renderAsync, useContext } from 'jsx-xml'
+import crypto from 'crypto'
 import fs from 'fs'
 import path from 'path'
 import xmlbuilder from 'xmlbuilder2'
@@ -222,7 +223,10 @@ export function persistentMemo<T, Args extends object[]>(
             { isRegistrationStep, composition, asset, track, ...args },
             '  ',
         )
-        const cacheKey = `${fnName}_${Buffer.from(argsKey).toString('base64')}`
+        // Create a hash of the arguments key for a more compact cache key
+
+        const hash = crypto.createHash('md5').update(argsKey).digest('hex')
+        const cacheKey = `${fnName}_${hash}`
 
         // Check if result is in memory cache
         if (globalMemoryCache.has(cacheKey)) {
