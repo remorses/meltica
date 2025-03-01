@@ -1,54 +1,7 @@
 // based on https://github.com/shikijs/shiki/blob/bd779ea535b8787f5e42bf2f350d59c8a12b24d1/packages/renderer-svg/src/index.ts
 
+import { fontsToMeasurement } from 'meltica/src/code/fonts-measurements'
 import type { ThemedToken as IThemedToken } from 'shiki'
-
-import * as fontkit from 'fontkit'
-import scanner from 'font-scanner'
-
-export interface ThemedToken extends IThemedToken {}
-
-/**
- * Measures a monospace typeface to determine its dimensions
- * @param fontFamily The font family name to measure
- * @returns An object containing the width and height of a single character
- */
-export function measureMonospaceTypeface(fontFamily: string): {
-    // TODO memoize this function to disk
-    width: number
-    height: number
-} {
-    try {
-        // Find the font file path using font-scanner
-        const fontObj = scanner.findFontSync({ family: fontFamily })
-
-        if (!fontObj) {
-            console.warn(
-                `Font "${fontFamily}" not found, using fallback measurements`,
-            )
-            return { width: 9, height: 16 } // Fallback to reasonable defaults
-        }
-        
-
-        // Open the font using fontkit
-        const font = fontkit.openSync(fontObj.path)
-        
-
-        // For monospace fonts, we can measure a single character (all have same width)
-        const glyph = font.glyphForCodePoint('M'.charCodeAt(0))
-
-        // Get the dimensions
-        const width = glyph.advanceWidth
-        const height = font.ascent - font.descent
-
-        return {
-            width,
-            height,
-        }
-    } catch (error) {
-        console.error('Error measuring typeface:', error)
-        return { width: 9, height: 16 } // Fallback to reasonable defaults
-    }
-}
 
 const FontStyle = {
     NotSet: -1,
@@ -59,7 +12,11 @@ const FontStyle = {
     Strikethrough: 8,
 } as const
 
-type FontStyle = (typeof FontStyle)[keyof typeof FontStyle]
+export type FontStyle = (typeof FontStyle)[keyof typeof FontStyle]
+
+let fontSizeForMeasurement = 14
+
+export type FontFamily = keyof typeof fontsToMeasurement
 
 interface SVGRendererOptions {
     /**
@@ -77,7 +34,7 @@ interface SVGRendererOptions {
      *   cssURL: 'https://fonts.googleapis.com/css2?family=Inconsolata&display=swap'
      * }})
      */
-    fontFamily: string
+    fontFamily: FontFamily
 
     /**
      * Default to 16px.
@@ -180,18 +137,25 @@ function escapeHtml(html: string) {
         (chr) => htmlEscapes[chr as keyof typeof htmlEscapes],
     )
 }
+
+let lineHeight = 1.4
+
 export function getSVGRenderer(options: SVGRendererOptions) {
     const fontFamily = options.fontFamily
     const fontSize = options.fontSize ?? 16
-    const lineHeightToFontSizeRatio = options.lineHeightToFontSizeRatio ?? 1.4
+
     const _bg = options.bg ?? '#fff'
     const bgCornerRadius = options.bgCornerRadius ?? 4
     const bgSideCharPadding = options.bgSideCharPadding ?? 4
     const bgVerticalCharPadding = options.bgVerticalCharPadding ?? 2
 
-    const measurement = measureMonospaceTypeface(fontFamily)
-
-    const lineheight = measurement.height * lineHeightToFontSizeRatio
+    const measurement = fontsToMeasurement[fontFamily]
+    if (!measurement) {
+        throw new Error(`Font family ${fontFamily} not supported`)
+    }
+    const lineheight =
+        measurement.height * lineHeight * (fontSize / fontSizeForMeasurement)
+    let letterWidth = (measurement.width * fontSize) / fontSizeForMeasurement
 
     return {
         renderToSVG(lines: IThemedToken[][], { bg } = { bg: _bg }) {
@@ -210,8 +174,7 @@ export function getSVGRenderer(options: SVGRendererOptions) {
              */
             const bgWidth = Math.max(
                 options.bgMinWidth ?? 0,
-                (longestLineTextLength + bgSideCharPadding * 2) *
-                    measurement.width,
+                (longestLineTextLength + bgSideCharPadding * 2) * letterWidth,
             )
             /**
              * all rows + 2 rows top/bot
@@ -248,17 +211,17 @@ export function getSVGRenderer(options: SVGRendererOptions) {
 
                             // Whitespace + content, such as ` foo`
                             // Render as separate text elements
-                            svg += `<text font-family="${fontFamily}" font-size="${fontSize}" y="${yPosition}" transform="translate(${indent * measurement.width}, 0)" ${tokenAttributes}>${escapeHtml(
+                            svg += `<text font-family="${fontFamily}" font-size="${fontSize}" y="${yPosition}" transform="translate(${indent * letterWidth}, 0)" ${tokenAttributes}>${escapeHtml(
                                 token.content.slice(0, firstNonWhitespaceIndex),
                             )}</text>`
 
                             svg += `<text font-family="${fontFamily}" font-size="${fontSize}" y="${yPosition}" transform="translate(${
-                                (indent + firstNonWhitespaceIndex) * measurement.width
+                                (indent + firstNonWhitespaceIndex) * letterWidth
                             }, 0)" ${tokenAttributes}>${escapeHtml(
                                 token.content.slice(firstNonWhitespaceIndex),
                             )}</text>`
                         } else {
-                            svg += `<text font-family="${fontFamily}" font-size="${fontSize}" y="${yPosition}" transform="translate(${indent * measurement.width}, 0)" ${tokenAttributes}>${escapeHtml(
+                            svg += `<text font-family="${fontFamily}" font-size="${fontSize}" y="${yPosition}" transform="translate(${indent * letterWidth}, 0)" ${tokenAttributes}>${escapeHtml(
                                 token.content,
                             )}</text>`
                         }

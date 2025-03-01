@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { getSVGRenderer, measureMonospaceTypeface } from './shiki-svg'
+import { getSVGRenderer } from './shiki-svg'
 import { codeToTokens } from 'shiki'
 import { render } from 'jsx-xml'
 
@@ -13,18 +13,6 @@ expect.addSnapshotSerializer({
     },
 })
 
-describe('measureMonospaceTypeface', () => {
-    it('should measure a font', async () => {
-        const measurement = await measureMonospaceTypeface('monospace')
-        expect(measurement).toMatchInlineSnapshot(`
-      {
-        "height": 16,
-        "width": 9,
-      }
-    `)
-    })
-})
-
 const codeSnippet = `function hello() {
   console.log("Hello, world!");
   return 42;
@@ -32,26 +20,34 @@ const codeSnippet = `function hello() {
 
 const result = hello();
 `
-
 describe('getSVGRenderer', () => {
     it('should create a renderer that can render tokens to SVG', async () => {
-        // Create a renderer with simple options
-        const renderer = await getSVGRenderer({
-            fontFamily: 'monospace',
-            fontSize: 14,
+        const fonts = ['Consolas'] as const
+        const fontSizes = [12, 14, 18]
 
-            bg: '#282c34',
-        })
-        const { tokens } = await codeToTokens(codeSnippet, {
-            lang: 'javascript',
-            theme: 'github-dark',
-        })
+        for (const font of fonts) {
+            for (const fontSize of fontSizes) {
+                // Create a renderer with different font sizes
+                const renderer = await getSVGRenderer({
+                    fontFamily: font,
+                    fontSize: fontSize,
+                    bg: '#282c34',
+                })
 
-        // Render a simple token array
-        const svg = await renderer.renderToSVG(tokens)
+                const { tokens } = await codeToTokens(codeSnippet, {
+                    lang: 'javascript',
+                    theme: 'github-dark',
+                })
 
-        // Use snapshot testing
-        await expect(svg).toMatchFileSnapshot('svg-snapshots/simple-svg-render.svg')
+                // Render a simple token array
+                const svg = await renderer.renderToSVG(tokens)
+
+                // Use snapshot testing with different filenames for each combination
+                await expect(svg).toMatchFileSnapshot(
+                    `svg-snapshots/${font}-${fontSize}-render.svg`,
+                )
+            }
+        }
     })
 })
 

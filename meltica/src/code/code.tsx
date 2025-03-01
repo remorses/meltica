@@ -1,4 +1,4 @@
-import { getSVGRenderer } from 'meltica/src/code/shiki-svg'
+import { FontFamily, FontStyle, getSVGRenderer } from 'meltica/src/code/shiki-svg'
 import { create } from 'xmlbuilder2'
 import {
     BundledLanguage,
@@ -13,14 +13,14 @@ export const CodeSnippet = persistentMemo(async function CodeSnippet({
     lang = 'javascript',
     theme = 'github-dark',
     background = '#282c34',
-    fontFamily = "Menlo, Monaco, 'Courier New', monospace",
+    fontFamily = "Consolas" as const,
     fontSize = 14,
 }: {
     code: string
     lang?: BundledLanguage
     theme?: BundledTheme
     background?: string
-    fontFamily?: string
+    fontFamily?: FontFamily
     fontSize?: number
 }) {
     const renderer = getSVGRenderer({
