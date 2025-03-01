@@ -65,15 +65,8 @@ function Video({}) {
                             keyframes={[
                                 {
                                     time: 0,
-                                    objectFit: 'cover',
+                                    objectFit: 'contain',
                                     objectPosition: 'center',
-                                },
-                                {
-                                    time: 3,
-                                    left: 100,
-                                    top: 200,
-                                    width: 300,
-                                    height: 300,
                                 },
                             ]}
                         />
@@ -106,7 +99,7 @@ function Video({}) {
                         keyframes={[
                             {
                                 time: 0,
-                                objectFit: 'cover',
+                                objectFit: 'contain',
                                 objectPosition: 'center',
                             },
                         ]}
@@ -129,5 +122,5 @@ function Video({}) {
 }
 
 // fs.writeFileSync('examples/svg.mlt', await renderToXml(<Video />))
-// renderToVideo(<Video />)
+renderToVideo(<Video />)
 renderToPreview(<Video />)

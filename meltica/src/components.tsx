@@ -36,7 +36,7 @@ function useTrackContext() {
 }
 
 export function AudioGain({ volume = 0 }) {
-    const { producer } = useProducerContext()
+    const { producer } = useAssetContext()
     const id = producer.id
 
     return (
@@ -205,16 +205,17 @@ export function Asset({
     )
 }
 
-function useProducerContext() {
+function useAssetContext() {
     const producer = useContext(assetContext)
+    const {producers} = useContext(renderingContext)
     if (!producer) {
-        throw new Error('No producer found in context')
+        throw new Error(`No producer found in context, producers: ${producers.map((x) => x.id)}`)
     }
     return producer
 }
 
 function useAssetSize() {
-    const { producer } = useProducerContext()
+    const { producer } = useAssetContext()
     const width = parseInt(
         producer.properties['meta.media.width'] ||
             producer.properties['meta.media.0.codec.width'] ||
@@ -236,7 +237,7 @@ function renderRectKeyframe({ time, top, left, width, height }) {
     return `${formatSecondsToTime(time)}=${left} ${top} ${width} ${height} 1`
 }
 export function PanningAnimation({}) {
-    const { producer, in: inTime, out: outTime } = useProducerContext()
+    const { producer, in: inTime, out: outTime } = useAssetContext()
 
     const { height: videoHeight, width: videoWidth } =
         useContext(compositionContext)!
@@ -422,6 +423,8 @@ export function Transform({
     distort?: number
 }) {
     const videoContext = useContext(compositionContext)!
+
+    const { height: assetHeight, width: assetWidth } = useAssetSize()
     const rect = keyframes
         .map((keyframe) => {
             const time = formatSecondsToTime(keyframe.time)
@@ -432,17 +435,17 @@ export function Transform({
                     calculateBasicImageDimensions({
                         containerWidth: videoContext.width,
                         containerHeight: videoContext.height,
-                        objectWidth: videoContext.width,
-                        objectHeight: videoContext.height,
+                        objectWidth: assetWidth,
+                        objectHeight: assetHeight,
                         objectFit: keyframe.objectFit,
                         ...extractObjectPositions(keyframe.objectPosition),
                     })
                 return `${time}${animationLetter}=${left} ${top} ${width} ${height} 1.000000`
             }
-            const left = keyframe.left;
-            const top = keyframe.top;
-            const width = keyframe.width || videoContext.width;
-            const height = keyframe.height || videoContext.height;
+            const left = keyframe.left
+            const top = keyframe.top
+            const width = keyframe.width || videoContext.width
+            const height = keyframe.height || videoContext.height
             return `${time}${animationLetter}=${left} ${top} ${width} ${height} 1.000000`
         })
         .join(';')
@@ -885,7 +888,7 @@ export function GaussianBlur({
     /** The horizontal blur amount from 0 to 100 (default 10) */
     amount?: number
 }) {
-    const { producer } = useProducerContext()
+    const { producer } = useAssetContext()
     const id = producer.id
 
     return (
@@ -907,7 +910,7 @@ export function Blur({
     /** The blur amount (default 32.9) */
     amount?: number
 }) {
-    const { producer } = useProducerContext()
+    const { producer } = useAssetContext()
     const id = producer.id
 
     return (
@@ -924,7 +927,7 @@ export function Glow({
     /** The glow amount from 0 to 1 (default 0.23) */
     amount?: number
 }) {
-    const { producer } = useProducerContext()
+    const { producer } = useAssetContext()
     const id = producer.id
 
     return (
@@ -946,7 +949,7 @@ export function Pitch({
     /** The latency in milliseconds (default 85) */
     latency?: number
 }) {
-    const { producer } = useProducerContext()
+    const { producer } = useAssetContext()
     const id = producer.id
 
     return (
@@ -979,7 +982,7 @@ export function DynamicLoudness({
     /** Whether to reset on discontinuity (default 1) */
     discontinuityReset?: number
 }) {
-    const { producer } = useProducerContext()
+    const { producer } = useAssetContext()
     const id = producer.id
 
     return (
@@ -1023,7 +1026,7 @@ export function Reverb({
     /** Tail level in dB (default -17.5) */
     tailLevel?: number
 }) {
-    const { producer } = useProducerContext()
+    const { producer } = useAssetContext()
     const id = producer.id
 
     return (
@@ -1050,7 +1053,7 @@ export function AudioPan({
     /** Amount of panning from 0 to 1 (default 1) */
     amount?: number
 }) {
-    const { producer } = useProducerContext()
+    const { producer } = useAssetContext()
     const id = producer.id
 
     // Convert channel string to numeric value (0 for left, 1 for right)
@@ -1081,7 +1084,7 @@ export function Speed({
     // /** Optional speed map in format "00:00:01.919=0.54" */
     // speedMap?: string
 }) {
-    const { producer } = useProducerContext()
+    const { producer } = useAssetContext()
     const id = producer.id
 
     return (
@@ -1106,7 +1109,7 @@ export function ChromaHold({
     /** The similarity threshold from 0 to 1 (default 0.059) */
     similarity?: number
 }) {
-    const { producer } = useProducerContext()
+    const { producer } = useAssetContext()
     const id = producer.id
 
     return (
@@ -1125,7 +1128,7 @@ export function Brightness({
     /** The brightness level (default 1.0, where 1.0 is normal brightness) */
     level?: number
 }) {
-    const { producer } = useProducerContext()
+    const { producer } = useAssetContext()
     const id = producer.id
 
     return (
@@ -1148,7 +1151,7 @@ export function FadeInBrightness({
     /** The ending brightness level (default 1) */
     endLevel?: number
 }) {
-    const { producer } = useProducerContext()
+    const { producer } = useAssetContext()
     const id = producer.id
     let durationTime = formatSecondsToTime(duration)
 
@@ -1177,7 +1180,7 @@ export function FadeOutBrightness({
     /** The ending brightness level (default 0) */
     endLevel?: number
 }) {
-    const { producer } = useProducerContext()
+    const { producer } = useAssetContext()
     const id = producer.id
     let durationTime = formatSecondsToTime(duration)
     return (
@@ -1205,7 +1208,7 @@ export function FadeInAudio({
     /** The ending volume level in dB (default 0) */
     endLevel?: number
 }) {
-    const { producer } = useProducerContext()
+    const { producer } = useAssetContext()
     const id = producer.id
     let durationTime = formatSecondsToTime(duration)
 
@@ -1234,7 +1237,7 @@ export function FadeOutAudio({
     /** The ending volume level in dB (default -60) */
     endLevel?: number
 }) {
-    const { producer } = useProducerContext()
+    const { producer } = useAssetContext()
     const id = producer.id
     let durationTime = formatSecondsToTime(duration)
 
@@ -1260,7 +1263,7 @@ export function SimpleChromaKey({
     /** The distance threshold for the chroma key from 0 to 1 (default 0.169) */
     distance?: number
 }) {
-    const { producer } = useProducerContext()
+    const { producer } = useAssetContext()
     const id = producer.id
 
     return (
@@ -1302,7 +1305,7 @@ export function BlendMode({
         | 'divide'
         | 'subtract'
 }) {
-    const { producer } = useProducerContext()
+    const { producer } = useAssetContext()
     const id = producer.id
 
     return (

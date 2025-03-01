@@ -48,7 +48,6 @@ globalMemoMemoryCache.on('error', (e) =>
 )
 globalMemoMemoryCache.load()
 
-
 // Register handlers to save cache on exit (only once)
 
 process.on('exit', async () => {
