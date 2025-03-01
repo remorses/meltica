@@ -3,9 +3,56 @@ import { describe, expect, it } from 'vitest'
 import { createContext, render, renderAsync, useContext } from 'jsx-xml'
 import { formatSecondsToTime, isNodeElement } from './rendering'
 
-import { sleep } from '@/utils'
+import { persistentMemo, sleep } from '@/utils'
 import { WorkflowIcon } from 'lucide-react'
 import { create, fragment } from 'xmlbuilder2'
+
+describe('persistentMemo', () => {
+    it('persistentMemo', async ({ task }) => {
+        const timestamp = 12345
+        async function fetchData({ timestamp, jsxArg }) {
+            await sleep(20)
+            return (
+                <producer>
+                    {jsxArg}
+                    {timestamp}
+                    <AsyncComponent>result</AsyncComponent>
+                </producer>
+            )
+        }
+
+        const persisted = persistentMemo(fetchData)
+        async function AsyncComponent({ children }) {
+            return <track>AsyncComponent</track>
+        }
+        const jsxArg = (
+            <consumer>
+                <AsyncComponent>arg</AsyncComponent>
+                {timestamp}
+            </consumer>
+        )
+        const r1 = await persisted({ timestamp, jsxArg })
+        
+        const result1 = await renderAsync(
+            r1,
+        )
+        expect(result1.end({ headless: true })).toMatchInlineSnapshot(
+            `"<producer>12345<consumer>12345<track>AsyncComponent</track></consumer><track>AsyncComponent</track></producer>"`,
+        )
+        expect(result1)
+        // This should use the cached result, so it should be very fast
+        const startTime = new Date().getTime()
+        const result2 = await renderAsync(
+            await persisted({ timestamp, jsxArg }),
+        )
+        const endTime = new Date().getTime()
+        const executionTime = endTime - startTime
+        expect(executionTime).toBeLessThanOrEqual(3) // expect less than 1ms
+        expect(result2.end({ headless: true })).toMatchInlineSnapshot(
+            `"<producer>12345<consumer>12345<track>AsyncComponent</track></consumer><track>AsyncComponent</track></producer>"`,
+        )
+    })
+})
 
 describe('renderAsync', () => {
     it('should render a component that returns xmlbuilder', async () => {
@@ -38,11 +85,10 @@ describe('renderAsync', () => {
         }
 
         const result = render(<TextComponent />)
-        expect(result.end({ headless: true })).toMatchInlineSnapshot(`"<svg key="null" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-workflow"><rect key="by2w9f" width="8" height="8" x="3" y="3" rx="2"/><path key="xkn7yn" d="M7 11v4a2 2 0 0 0 2 2h4"/><rect key="1cgmvn" width="8" height="8" x="13" y="13" rx="2"/></svg>"`)
-            
-        
+        expect(result.end({ headless: true })).toMatchInlineSnapshot(
+            `"<svg key="null" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-workflow"><rect key="by2w9f" width="8" height="8" x="3" y="3" rx="2"/><path key="xkn7yn" d="M7 11v4a2 2 0 0 0 2 2h4"/><rect key="1cgmvn" width="8" height="8" x="13" y="13" rx="2"/></svg>"`,
+        )
     })
-    
 
     it('create txt on fragment', async () => {
         const c = fragment({})

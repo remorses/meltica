@@ -66,25 +66,32 @@ function Video({}) {
                                 color={index % 2 === 0 ? 'white' : 'red'}
                             />
                         }
-                    />
+                    >
+                        <Transform
+                            keyframes={[
+                                {
+                                    time: 0,
+                                    left: 0,
+                                    top: 0,
+                                    width: 100,
+                                    height: 100,
+                                },
+                                {
+                                    time: 2,
+                                    left: 100,
+                                    top: 200,
+                                    width: 300,
+                                    height: 300,
+                                },
+                            ]}
+                        />
+                    </InlineSvg>
                 ))}
                 <InlineSvg
                     id={'svgCode'}
                     duration={3}
                     svg={<CodeSnippet code={codeSnippet} />}
-                >
-                    <Transform
-                        keyframes={[
-                            {
-                                time: 0,
-                                left: 0,
-                                top: 0,
-                                width: 100,
-                                height: 100,
-                            },
-                        ]}
-                    />
-                </InlineSvg>
+                ></InlineSvg>
             </Track>
             <Track id={'soundtrackTrack'}>
                 <Asset
