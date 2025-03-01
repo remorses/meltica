@@ -91,7 +91,7 @@ describe('CodeOuterGrid', () => {
         const grid = CodeOuterGrid({
             width,
             height,
-            padding,
+            padding: padding - 4,
             lineColor: 'rgba(255, 255, 255, 0.15)',
 
             backgroundColor: '#000000',

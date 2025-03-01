@@ -29,6 +29,7 @@ export const CodeOuterGrid = ({
     cornerSize = 15, // Increased corner marker size from 8 to 15
     children,
 }: CodeOuterGridProps) => {
+    const plusStrokeWidth = 1.5
     return (
         <svg
             xmlns='http://www.w3.org/2000/svg'
@@ -39,13 +40,43 @@ export const CodeOuterGrid = ({
             {/* Outer background */}
             <rect width={width} height={height} fill={outerBackgroundColor} />
 
-            {/* Inner background */}
-            <rect
-                x={padding}
-                y={padding}
-                width={width - 2 * padding}
-                height={height - 2 * padding}
-                fill={backgroundColor}
+            {/* Frame lines (replacing inner background rectangle) */}
+            {/* Top horizontal line */}
+            <line
+                x1='0'
+                y1={padding}
+                x2={width}
+                y2={padding}
+                stroke={lineColor}
+                stroke-width='1'
+            />
+
+            {/* Bottom horizontal line */}
+            <line
+                x1='0'
+                y1={height - padding}
+                x2={width}
+                y2={height - padding}
+                stroke={lineColor}
+                stroke-width='1'
+            />
+
+            {/* Left vertical line */}
+            <line
+                x1={padding}
+                y1='0'
+                x2={padding}
+                y2={height}
+                stroke={lineColor}
+                stroke-width='1'
+            />
+
+            {/* Right vertical line */}
+            <line
+                x1={width - padding}
+                y1='0'
+                x2={width - padding}
+                y2={height}
                 stroke={lineColor}
                 stroke-width='1'
             />
@@ -55,28 +86,28 @@ export const CodeOuterGrid = ({
             <path
                 d={`M${padding - cornerSize},${padding} L${padding + cornerSize},${padding} M${padding},${padding - cornerSize} L${padding},${padding + cornerSize}`}
                 stroke={lineColor}
-                stroke-width='1'
+                stroke-width={plusStrokeWidth}
             />
 
             {/* Top-right */}
-            <path
+            {/* <path
                 d={`M${width - padding - cornerSize},${padding} L${width - padding + cornerSize},${padding} M${width - padding},${padding - cornerSize} L${width - padding},${padding + cornerSize}`}
                 stroke={lineColor}
-                stroke-width='1'
-            />
+                stroke-width={plusStrokeWidth}
+            /> */}
 
             {/* Bottom-left */}
-            <path
+            {/* <path
                 d={`M${padding - cornerSize},${height - padding} L${padding + cornerSize},${height - padding} M${padding},${height - padding - cornerSize} L${padding},${height - padding + cornerSize}`}
                 stroke={lineColor}
-                stroke-width='1'
-            />
+                stroke-width={plusStrokeWidth}
+            /> */}
 
             {/* Bottom-right */}
             <path
                 d={`M${width - padding - cornerSize},${height - padding} L${width - padding + cornerSize},${height - padding} M${width - padding},${height - padding - cornerSize} L${width - padding},${height - padding + cornerSize}`}
                 stroke={lineColor}
-                stroke-width='1'
+                stroke-width={plusStrokeWidth}
             />
 
             {/* Render children inside the frame */}
