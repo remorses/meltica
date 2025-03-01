@@ -95,10 +95,14 @@ describe('generateProducersXml', () => {
         ).toMatchInlineSnapshot(
             `
           "<mlt LC_NUMERIC="C" version="7.30.0" title="Shotcut version 25.01.25" producer="main_bin">
-            <assetRegistration forId="asset3" data="{&quot;filepath&quot;:&quot;three.mp4&quot;,&quot;id&quot;:&quot;asset3&quot;,&quot;type&quot;:&quot;video&quot;,&quot;parentTrackId&quot;:&quot;tracksecond&quot;}"/>
-            <assetRegistration forId="asset4" data="{&quot;filepath&quot;:&quot;four.mp4&quot;,&quot;id&quot;:&quot;asset4&quot;,&quot;type&quot;:&quot;video&quot;,&quot;parentTrackId&quot;:&quot;tracksecond&quot;}"/>
-            <assetRegistration forId="asset1" data="{&quot;filepath&quot;:&quot;one.mp4&quot;,&quot;id&quot;:&quot;asset1&quot;,&quot;type&quot;:&quot;video&quot;,&quot;parentTrackId&quot;:&quot;tracksecond&quot;}"/>
-            <assetRegistration forId="asset2" data="{&quot;filepath&quot;:&quot;two.mp4&quot;,&quot;id&quot;:&quot;asset2&quot;,&quot;type&quot;:&quot;video&quot;,&quot;parentTrackId&quot;:&quot;trackfirst&quot;}"/>
+            <track id="trackfirst">
+              <assetRegistration forId="asset1" data="{&quot;filepath&quot;:&quot;one.mp4&quot;,&quot;id&quot;:&quot;asset1&quot;,&quot;type&quot;:&quot;video&quot;,&quot;parentTrackId&quot;:&quot;tracksecond&quot;}"/>
+              <assetRegistration forId="asset2" data="{&quot;filepath&quot;:&quot;two.mp4&quot;,&quot;id&quot;:&quot;asset2&quot;,&quot;type&quot;:&quot;video&quot;,&quot;parentTrackId&quot;:&quot;trackfirst&quot;}"/>
+            </track>
+            <track id="tracksecond">
+              <assetRegistration forId="asset3" data="{&quot;filepath&quot;:&quot;three.mp4&quot;,&quot;id&quot;:&quot;asset3&quot;,&quot;type&quot;:&quot;video&quot;,&quot;parentTrackId&quot;:&quot;tracksecond&quot;}"/>
+              <assetRegistration forId="asset4" data="{&quot;filepath&quot;:&quot;four.mp4&quot;,&quot;id&quot;:&quot;asset4&quot;,&quot;type&quot;:&quot;video&quot;,&quot;parentTrackId&quot;:&quot;tracksecond&quot;}"/>
+            </track>
             <consumer ab="160k" acodec="aac" channels="2" crf="23" deinterlacer="onefield" f="mp4" g="15" in="0" mlt_service="avformat" movflags="+faststart" preset="veryfast" real_time="-1" rescale="bilinear" target="video.mp4" threads="0" vcodec="libx264"/>
             <profile description="PAL 4:3 DV or DVD" width="1080" height="1920" progressive="1" sample_aspect_num="1" sample_aspect_den="1" display_aspect_num="9" display_aspect_den="16" frame_rate_num="30" frame_rate_den="1" colorspace="709"/>
             <playlist id="main_bin">
@@ -132,18 +136,6 @@ describe('generateProducersXml', () => {
         expect(assets).toMatchInlineSnapshot(`
           [
             {
-              "filepath": "three.mp4",
-              "id": "asset3",
-              "parentTrackId": "tracksecond",
-              "type": "video",
-            },
-            {
-              "filepath": "four.mp4",
-              "id": "asset4",
-              "parentTrackId": "tracksecond",
-              "type": "video",
-            },
-            {
               "filepath": "one.mp4",
               "id": "asset1",
               "parentTrackId": "tracksecond",
@@ -153,6 +145,18 @@ describe('generateProducersXml', () => {
               "filepath": "two.mp4",
               "id": "asset2",
               "parentTrackId": "trackfirst",
+              "type": "video",
+            },
+            {
+              "filepath": "three.mp4",
+              "id": "asset3",
+              "parentTrackId": "tracksecond",
+              "type": "video",
+            },
+            {
+              "filepath": "four.mp4",
+              "id": "asset4",
+              "parentTrackId": "tracksecond",
               "type": "video",
             },
           ]

@@ -97,6 +97,7 @@ declare global {
             track: {
                 producer?: string
                 hide?: string
+                id?: string
                 in?: NumberLike
                 out?: NumberLike
                 children?: ReactNode

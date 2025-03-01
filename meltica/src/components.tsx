@@ -437,14 +437,15 @@ export function Track({ id: trackId, name = 'track', children }) {
     const context = useContext(renderingContext)
     const trackCtx = { trackId }
     if (context.isRegistrationStep) {
+        // TODO without a parent tag, order is broken for some reason
+        // return (
+        //     <trackContext.Provider value={trackCtx}>
+        //         {children}
+        //     </trackContext.Provider>
+        // )
         return (
             <trackContext.Provider value={trackCtx}>
-                {children}
-            </trackContext.Provider>
-        )
-        return (
-            <trackContext.Provider value={trackCtx}>
-                <track>{children}</track>
+                <track id={trackId}>{children}</track>
             </trackContext.Provider>
         )
     }
