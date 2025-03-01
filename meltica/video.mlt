@@ -56,192 +56,6 @@
     <property name="shotcut:skipConvert">1</property>
     <property name="shotcut:caption">Inline SVG</property>
   </producer>
-  <producer id="svgworld0" in="00:00:00.000" out="00:08:20.487">
-    <property name="length">15000</property>
-    <property name="eof">pause</property>
-    <property name="resource">.meltica/svgworld0.png</property>
-    <property name="ttl">25</property>
-    <property name="aspect_ratio">1</property>
-    <property name="meta.media.progressive">1</property>
-    <property name="seekable">1</property>
-    <property name="format">2</property>
-    <property name="meta.media.width">1080</property>
-    <property name="meta.media.height">1080</property>
-    <property name="mlt_service">qimage</property>
-    <property name="resource">/Users/morse/Documents/meltica/meltica/.meltica/svgworld0.png</property>
-    <property name="mlt_service">qimage</property>
-    <property name="format">2</property>
-    <property name="shotcut:skipConvert">1</property>
-    <property name="shotcut:caption">Inline SVG</property>
-    <filter id="qtblend">
-      <property name="rotate_center">1</property>
-      <property name="mlt_service">qtblend</property>
-      <property name="kdenlive_id">qtblend</property>
-      <property name="compositing"/>
-      <property name="distort"/>
-      <property name="rect">00:00:00.000=0 0 100 100 1.000000;00:00:02.000=100 200 300 300 1.000000</property>
-      <property name="rotation">00:00:00.000=0;00:00:02.000=0</property>
-      <property name="kdenlive:collapsed">0</property>
-    </filter>
-  </producer>
-  <producer id="svgworld1" in="00:00:00.000" out="00:08:20.487">
-    <property name="length">15000</property>
-    <property name="eof">pause</property>
-    <property name="resource">.meltica/svgworld1.png</property>
-    <property name="ttl">25</property>
-    <property name="aspect_ratio">1</property>
-    <property name="meta.media.progressive">1</property>
-    <property name="seekable">1</property>
-    <property name="format">2</property>
-    <property name="meta.media.width">1080</property>
-    <property name="meta.media.height">1080</property>
-    <property name="mlt_service">qimage</property>
-    <property name="resource">/Users/morse/Documents/meltica/meltica/.meltica/svgworld1.png</property>
-    <property name="mlt_service">qimage</property>
-    <property name="format">2</property>
-    <property name="shotcut:skipConvert">1</property>
-    <property name="shotcut:caption">Inline SVG</property>
-    <filter id="qtblend">
-      <property name="rotate_center">1</property>
-      <property name="mlt_service">qtblend</property>
-      <property name="kdenlive_id">qtblend</property>
-      <property name="compositing"/>
-      <property name="distort"/>
-      <property name="rect">00:00:00.000=0 0 100 100 1.000000;00:00:02.000=100 200 300 300 1.000000</property>
-      <property name="rotation">00:00:00.000=0;00:00:02.000=0</property>
-      <property name="kdenlive:collapsed">0</property>
-    </filter>
-  </producer>
-  <producer id="svgworld2" in="00:00:00.000" out="00:08:20.487">
-    <property name="length">15000</property>
-    <property name="eof">pause</property>
-    <property name="resource">.meltica/svgworld2.png</property>
-    <property name="ttl">25</property>
-    <property name="aspect_ratio">1</property>
-    <property name="meta.media.progressive">1</property>
-    <property name="seekable">1</property>
-    <property name="format">2</property>
-    <property name="meta.media.width">1080</property>
-    <property name="meta.media.height">1080</property>
-    <property name="mlt_service">qimage</property>
-    <property name="resource">/Users/morse/Documents/meltica/meltica/.meltica/svgworld2.png</property>
-    <property name="mlt_service">qimage</property>
-    <property name="format">2</property>
-    <property name="shotcut:skipConvert">1</property>
-    <property name="shotcut:caption">Inline SVG</property>
-    <filter id="qtblend">
-      <property name="rotate_center">1</property>
-      <property name="mlt_service">qtblend</property>
-      <property name="kdenlive_id">qtblend</property>
-      <property name="compositing"/>
-      <property name="distort"/>
-      <property name="rect">00:00:00.000=0 0 100 100 1.000000;00:00:02.000=100 200 300 300 1.000000</property>
-      <property name="rotation">00:00:00.000=0;00:00:02.000=0</property>
-      <property name="kdenlive:collapsed">0</property>
-    </filter>
-  </producer>
-  <producer id="svgworld3" in="00:00:00.000" out="00:08:20.487">
-    <property name="length">15000</property>
-    <property name="eof">pause</property>
-    <property name="resource">.meltica/svgworld3.png</property>
-    <property name="ttl">25</property>
-    <property name="aspect_ratio">1</property>
-    <property name="meta.media.progressive">1</property>
-    <property name="seekable">1</property>
-    <property name="format">2</property>
-    <property name="meta.media.width">1080</property>
-    <property name="meta.media.height">1080</property>
-    <property name="mlt_service">qimage</property>
-    <property name="resource">/Users/morse/Documents/meltica/meltica/.meltica/svgworld3.png</property>
-    <property name="mlt_service">qimage</property>
-    <property name="format">2</property>
-    <property name="shotcut:skipConvert">1</property>
-    <property name="shotcut:caption">Inline SVG</property>
-    <filter id="qtblend">
-      <property name="rotate_center">1</property>
-      <property name="mlt_service">qtblend</property>
-      <property name="kdenlive_id">qtblend</property>
-      <property name="compositing"/>
-      <property name="distort"/>
-      <property name="rect">00:00:00.000=0 0 100 100 1.000000;00:00:02.000=100 200 300 300 1.000000</property>
-      <property name="rotation">00:00:00.000=0;00:00:02.000=0</property>
-      <property name="kdenlive:collapsed">0</property>
-    </filter>
-  </producer>
-  <producer id="svgworld4" in="00:00:00.000" out="00:08:20.487">
-    <property name="length">15000</property>
-    <property name="eof">pause</property>
-    <property name="resource">.meltica/svgworld4.png</property>
-    <property name="ttl">25</property>
-    <property name="aspect_ratio">1</property>
-    <property name="meta.media.progressive">1</property>
-    <property name="seekable">1</property>
-    <property name="format">2</property>
-    <property name="meta.media.width">1080</property>
-    <property name="meta.media.height">1080</property>
-    <property name="mlt_service">qimage</property>
-    <property name="resource">/Users/morse/Documents/meltica/meltica/.meltica/svgworld4.png</property>
-    <property name="mlt_service">qimage</property>
-    <property name="format">2</property>
-    <property name="shotcut:skipConvert">1</property>
-    <property name="shotcut:caption">Inline SVG</property>
-    <filter id="qtblend">
-      <property name="rotate_center">1</property>
-      <property name="mlt_service">qtblend</property>
-      <property name="kdenlive_id">qtblend</property>
-      <property name="compositing"/>
-      <property name="distort"/>
-      <property name="rect">00:00:00.000=0 0 100 100 1.000000;00:00:02.000=100 200 300 300 1.000000</property>
-      <property name="rotation">00:00:00.000=0;00:00:02.000=0</property>
-      <property name="kdenlive:collapsed">0</property>
-    </filter>
-  </producer>
-  <producer id="svgworld5" in="00:00:00.000" out="00:08:20.487">
-    <property name="length">15000</property>
-    <property name="eof">pause</property>
-    <property name="resource">.meltica/svgworld5.png</property>
-    <property name="ttl">25</property>
-    <property name="aspect_ratio">1</property>
-    <property name="meta.media.progressive">1</property>
-    <property name="seekable">1</property>
-    <property name="format">2</property>
-    <property name="meta.media.width">1080</property>
-    <property name="meta.media.height">1080</property>
-    <property name="mlt_service">qimage</property>
-    <property name="resource">/Users/morse/Documents/meltica/meltica/.meltica/svgworld5.png</property>
-    <property name="mlt_service">qimage</property>
-    <property name="format">2</property>
-    <property name="shotcut:skipConvert">1</property>
-    <property name="shotcut:caption">Inline SVG</property>
-    <filter id="qtblend">
-      <property name="rotate_center">1</property>
-      <property name="mlt_service">qtblend</property>
-      <property name="kdenlive_id">qtblend</property>
-      <property name="compositing"/>
-      <property name="distort"/>
-      <property name="rect">00:00:00.000=0 0 100 100 1.000000;00:00:02.000=100 200 300 300 1.000000</property>
-      <property name="rotation">00:00:00.000=0;00:00:02.000=0</property>
-      <property name="kdenlive:collapsed">0</property>
-    </filter>
-  </producer>
-  <producer id="svgsvgRect" in="00:00:00.000" out="00:08:20.487">
-    <property name="length">15000</property>
-    <property name="eof">pause</property>
-    <property name="resource">.meltica/svgsvgRect.png</property>
-    <property name="ttl">25</property>
-    <property name="aspect_ratio">1</property>
-    <property name="meta.media.progressive">1</property>
-    <property name="seekable">1</property>
-    <property name="format">2</property>
-    <property name="meta.media.width">1080</property>
-    <property name="meta.media.height">1080</property>
-    <property name="mlt_service">qimage</property>
-    <property name="resource">/Users/morse/Documents/meltica/meltica/.meltica/svgsvgRect.png</property>
-    <property name="mlt_service">qimage</property>
-    <property name="format">2</property>
-    <property name="shotcut:skipConvert">1</property>
-    <property name="shotcut:caption">Inline SVG</property>
-  </producer>
   <playlist id="tracksvgRectTrack">
     <property name="shotcut:name">track</property>
     <entry producer="svgsvgRect" in="00:00:00.000" out="00:00:03.000"/>
@@ -432,24 +246,6 @@
     <property name="shotcut:skipConvert">1</property>
     <property name="shotcut:caption">Inline SVG</property>
   </producer>
-  <producer id="svgsvgCode" in="00:00:00.000" out="00:08:20.487">
-    <property name="length">15000</property>
-    <property name="eof">pause</property>
-    <property name="resource">.meltica/svgsvgCode.png</property>
-    <property name="ttl">25</property>
-    <property name="aspect_ratio">1</property>
-    <property name="meta.media.progressive">1</property>
-    <property name="seekable">1</property>
-    <property name="format">2</property>
-    <property name="meta.media.width">1080</property>
-    <property name="meta.media.height">878</property>
-    <property name="mlt_service">qimage</property>
-    <property name="resource">/Users/morse/Documents/meltica/meltica/.meltica/svgsvgCode.png</property>
-    <property name="mlt_service">qimage</property>
-    <property name="format">2</property>
-    <property name="shotcut:skipConvert">1</property>
-    <property name="shotcut:caption">Inline SVG</property>
-  </producer>
   <playlist id="tracksvgCodeTrack">
     <property name="shotcut:name">track</property>
     <entry producer="svgworld0" in="00:00:00.000" out="00:00:00.100"/>
@@ -484,9 +280,9 @@
     <property name="shotcut:trackHeight">50</property>
     <property name="shotcut:skipConvert">0</property>
     <track producer="background"/>
-    <track producer="tracksoundtrackTrack" hide="video"/>
-    <track producer="tracksvgRectTrack"/>
     <track producer="tracksvgCodeTrack"/>
+    <track producer="tracksvgRectTrack"/>
+    <track producer="tracksoundtrackTrack" hide="video"/>
     <transition id="transition0">
       <property name="a_track">0</property>
       <property name="b_track">1</property>
@@ -508,17 +304,17 @@
       <property name="always_active">1</property>
       <property name="sum">1</property>
     </transition>
-    <transition id="transitionCairo1">
+    <transition id="transitionCairo0">
       <property name="a_track">1</property>
-      <property name="b_track">2</property>
+      <property name="b_track">1</property>
       <property name="version">0.1</property>
       <property name="mlt_service">frei0r.cairoblend</property>
       <property name="threads">0</property>
       <property name="disable">0</property>
     </transition>
-    <transition id="transitionCairo2">
+    <transition id="transitionCairo1">
       <property name="a_track">1</property>
-      <property name="b_track">3</property>
+      <property name="b_track">2</property>
       <property name="version">0.1</property>
       <property name="mlt_service">frei0r.cairoblend</property>
       <property name="threads">0</property>

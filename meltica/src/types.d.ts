@@ -1,4 +1,3 @@
-
 import type { XMLBuilder } from 'xmlbuilder2/lib/interfaces'
 
 type NumberLike = string | number
@@ -12,6 +11,9 @@ declare global {
         }
 
         interface IntrinsicElements {
+            assetRegistration: {
+                data: string
+            }
             mlt: {
                 LC_NUMERIC?: string
                 version?: string

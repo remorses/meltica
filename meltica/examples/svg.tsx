@@ -109,5 +109,5 @@ function Video({}) {
 }
 
 fs.writeFileSync('examples/svg.mlt', await renderToXml(<Video />))
-// renderToVideo(<Video />)
+renderToVideo(<Video />)
 // renderToPreview(<Video />)

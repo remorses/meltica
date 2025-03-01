@@ -234,25 +234,17 @@ export async function renderToXml(jsx: any) {
         </renderingContext.Provider>,
     )
 
-    // checkDuplicateIds(initialNode)
+    checkDuplicateIds(initialNode)
 
-    const producers = generateProducersXml(currentContext.assets)
+    const { producers, assets } = generateProducersXml(initialNode)
     // console.log(producers.map((x) => x.id))
-
-    // fix ordering of registered assets because of jsx concurrency
-    currentContext.assets = orderByIndex(currentContext.assets, (a) => {
-        const producerIndex = producers.findIndex((p) => p.id === a.id)
-        if (producerIndex === -1) {
-            throw new Error(`Producer for asset with id ${a.id} not found`)
-        }
-        return producerIndex
-    })
 
     let xml = (
         await renderAsync(
             <renderingContext.Provider
                 value={{
                     ...currentContext,
+                    assets,
                     producers,
                     isRegistrationStep: false,
                 }}
@@ -347,12 +339,55 @@ function deduplicate<T, K>(array: T[], keyFn: (item: T) => K): T[] {
     })
 }
 
-export function generateProducersXml(assets: AssetRegistration[]) {
+export function getAssetsFromXml(xml: XMLBuilder) {
+    const assets: AssetRegistration[] = []
+    // Recursively find all assetRegistration elements in the XML
+    const assetRegistrationNodes = xml.filter(
+        (node, index, level) => {
+            const el = node.node
+            if (!isNodeElement(el)) {
+                return false
+            }
+            return el.nodeName === 'assetRegistration'
+        },
+        true, // recursive
+        true, // include all levels
+    )
+
+    // Extract asset registration data from each node
+    for (const node of assetRegistrationNodes) {
+        const el = node.node
+        if (!isNodeElement(el)) {
+            continue
+        }
+
+        const attributesObject = attributesToObject(el.attributes)
+        if (attributesObject.data) {
+            try {
+                const assetData = JSON.parse(
+                    attributesObject.data,
+                ) as AssetRegistration
+                assets.push(assetData)
+            } catch (error) {
+                console.error('Failed to parse asset registration data:', error)
+            }
+        }
+    }
+
+    return deduplicate(assets, (asset) => asset.id)
+}
+
+export function generateProducersXml(xmlWithAssets: XMLBuilder) {
     const timestamp = Date.now()
     const tempXmlFile = path.join(
         melticaFolder,
         `producers-extraction-${timestamp}.mlt`,
     )
+    const assets = getAssetsFromXml(xmlWithAssets)
+    if (!assets.length) {
+        console.warn('No assets found in XML')
+        return { producers: [], assets }
+    }
     fs.writeFileSync(tempXmlFile, '')
     // TODO the fps is important here and should be parametrized in this step because melt outputs the xml with durations in fps format instead of seconds or durations. now it is hardcoded to 30fps. but melt only supports profile names and not all attributes.
     const profile = `hdv_1080_30p`
@@ -418,7 +453,7 @@ export function generateProducersXml(assets: AssetRegistration[]) {
         })
         .filter(isTruthy)
 
-    return producerNodes
+    return { producers: producerNodes, assets }
 }
 
 /**

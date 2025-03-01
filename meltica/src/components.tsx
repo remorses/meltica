@@ -1,16 +1,22 @@
-import { useContext } from 'jsx-xml'
+import { Fragment, useContext } from 'jsx-xml'
 
 import {
     AssetRegistration,
     AssetTypeWithPath,
     formatSecondsToTime,
     melticaFolder,
-    renderingContext
+    renderingContext,
 } from '@/rendering'
 import dedent from 'dedent'
 import fs from 'fs'
 
-import { assetContext, AssetContext, compositionContext, CompositionContext, trackContext } from '@/context'
+import {
+    assetContext,
+    AssetContext,
+    compositionContext,
+    CompositionContext,
+    trackContext,
+} from '@/context'
 import { persistentMemo } from '@/utils'
 import { render, renderAsync } from 'jsx-xml'
 import path from 'path'
@@ -37,7 +43,7 @@ export function AudioGain({ volume = 0 }) {
     )
 }
 
-export const InlineSvg = persistentMemo(async function InlineSvg({
+export const InlineSvg = async function InlineSvg({
     svg: svgContent,
     id,
     duration,
@@ -81,7 +87,7 @@ export const InlineSvg = persistentMemo(async function InlineSvg({
         console.timeEnd(`${id} svg render`)
 
         fs.writeFileSync(filepath, pngBuffer)
-        context.assets.push({
+        return AssetRegistrationComponent({
             id,
             type: 'image',
             filepath,
@@ -117,7 +123,7 @@ export const InlineSvg = persistentMemo(async function InlineSvg({
             </producer>
         </assetContext.Provider>
     )
-})
+}
 
 export function Asset({
     id,
@@ -141,7 +147,7 @@ export function Asset({
     const inWithDefault = inTime ?? producer?.attributes.in
     const outWithDefault = out ?? producer?.attributes.out
     if (context.isRegistrationStep) {
-        context.assets.push({
+        return AssetRegistrationComponent({
             filepath,
             id,
             type,
@@ -409,7 +415,7 @@ export function BlankSpace({ id, length }) {
     const context = useContext(renderingContext)
     const { trackId } = useTrackContext()
     if (context.isRegistrationStep) {
-        context.assets.push({
+        return AssetRegistrationComponent({
             id,
             type: 'blank',
             duration: length,
@@ -629,6 +635,10 @@ export function Composition({
     )
 }
 
+function AssetRegistrationComponent(asset: AssetRegistration) {
+    return <assetRegistration data={JSON.stringify(asset)} />
+}
+
 export function RichText({
     id,
     html: htmlText,
@@ -655,7 +665,7 @@ export function RichText({
     const context = useContext(renderingContext)
     const { trackId } = useTrackContext()
     if (context.isRegistrationStep) {
-        context.assets.push({
+        return AssetRegistrationComponent({
             type: 'text',
             id,
             in: 0,
