@@ -93,9 +93,9 @@ describe('CodeOuterGrid', () => {
             width,
             height,
             padding: padding - 4,
-            lineColor: 'rgba(255, 255, 255, 0.15)',
+            lineColor: 'rgba(82, 82, 82, 0.15)',
 
-            backgroundColor: '#000000',
+            
             outerBackgroundColor: '#000000',
             cornerSize: 15,
             children,

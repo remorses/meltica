@@ -7,8 +7,6 @@ type CodeOuterGridProps = {
     padding?: number
     /** Color of the grid lines */
     lineColor?: string
-    /** Background color */
-    backgroundColor?: string
     /** Background color outside the main rectangle */
     outerBackgroundColor?: string
     /** Size of the corner markers */
@@ -24,7 +22,6 @@ export const CodeOuterGrid = ({
     height = 400,
     padding = 50,
     lineColor = 'rgba(255, 255, 255, 0.15)',
-    backgroundColor = '#000000',
     outerBackgroundColor = '#000000',
     cornerSize = 15, // Increased corner marker size from 8 to 15
     children,
