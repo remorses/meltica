@@ -1,19 +1,19 @@
-<svg viewBox="0 0 533.3371875 460.80000000000007" width="533.3371875" height="460.80000000000007" xmlns="http://www.w3.org/2000/svg">
-<rect id="bg" fill="#282c34" width="533.3371875" height="460.80000000000007" rx="4"></rect><g id="tokens" transform="translate(30.7890625, 76.80000000000001)">
-<text font-family="Consolas" font-size="24" y="76.80000000000001" letter-spacing="0.48px">
-<tspan x="0" fill="#F97583">function</tspan><tspan x="109.4025" fill="#E1E4E8"> </tspan><tspan x="123.07781250000001" fill="#B392F0">hello</tspan><tspan x="191.454375" fill="#E1E4E8">() {</tspan>
+<svg viewBox="0 0 561.4171875 460.80000000000007" width="561.4171875" height="460.80000000000007" xmlns="http://www.w3.org/2000/svg">
+<rect id="bg" fill="#000" width="561.4171875" height="460.80000000000007" rx="4"></rect><g id="tokens" transform="translate(30.7890625, 76.80000000000001)">
+<text font-family="Consolas" font-size="24" y="76.80000000000001" letter-spacing="1.2000000000000002px">
+<tspan x="0" fill="#F97583">function</tspan><tspan x="115.1625" fill="#E1E4E8"> </tspan><tspan x="129.55781249999998" fill="#B392F0">hello</tspan><tspan x="201.53437499999998" fill="#E1E4E8">() {</tspan>
 </text>
-<text font-family="Consolas" font-size="24" y="115.20000000000002" letter-spacing="0.48px">
-<tspan x="0" fill="#E1E4E8">  </tspan><tspan x="27.350625" fill="#E1E4E8">console.</tspan><tspan x="136.753125" fill="#B392F0">log</tspan><tspan x="177.7790625" fill="#E1E4E8">(</tspan><tspan x="191.454375" fill="#9ECBFF">&quot;Hello, world!&quot;</tspan><tspan x="396.5840625" fill="#E1E4E8">);</tspan>
+<text font-family="Consolas" font-size="24" y="115.20000000000002" letter-spacing="1.2000000000000002px">
+<tspan x="0" fill="#E1E4E8">  </tspan><tspan x="28.790625" fill="#E1E4E8">console.</tspan><tspan x="143.953125" fill="#B392F0">log</tspan><tspan x="187.1390625" fill="#E1E4E8">(</tspan><tspan x="201.53437499999998" fill="#9ECBFF">&quot;Hello, world!&quot;</tspan><tspan x="417.46406249999995" fill="#E1E4E8">);</tspan>
 </text>
-<text font-family="Consolas" font-size="24" y="153.60000000000002" letter-spacing="0.48px">
-<tspan x="0" fill="#E1E4E8">  </tspan><tspan x="27.350625" fill="#F97583">return</tspan><tspan x="109.4025" fill="#E1E4E8"> </tspan><tspan x="123.07781250000001" fill="#79B8FF">42</tspan><tspan x="150.4284375" fill="#E1E4E8">;</tspan>
+<text font-family="Consolas" font-size="24" y="153.60000000000002" letter-spacing="1.2000000000000002px">
+<tspan x="0" fill="#E1E4E8">  </tspan><tspan x="28.790625" fill="#F97583">return</tspan><tspan x="115.1625" fill="#E1E4E8"> </tspan><tspan x="129.55781249999998" fill="#79B8FF">42</tspan><tspan x="158.3484375" fill="#E1E4E8">;</tspan>
 </text>
-<text font-family="Consolas" font-size="24" y="192.00000000000003" letter-spacing="0.48px">
+<text font-family="Consolas" font-size="24" y="192.00000000000003" letter-spacing="1.2000000000000002px">
 <tspan x="0" fill="#E1E4E8">}</tspan>
 </text>
 
-<text font-family="Consolas" font-size="24" y="268.80000000000007" letter-spacing="0.48px">
-<tspan x="0" fill="#F97583">const</tspan><tspan x="68.3765625" fill="#E1E4E8"> </tspan><tspan x="82.051875" fill="#79B8FF">result</tspan><tspan x="164.10375" fill="#E1E4E8"> </tspan><tspan x="177.7790625" fill="#F97583">=</tspan><tspan x="191.454375" fill="#E1E4E8"> </tspan><tspan x="205.12968750000002" fill="#B392F0">hello</tspan><tspan x="273.50625" fill="#E1E4E8">();</tspan>
+<text font-family="Consolas" font-size="24" y="268.80000000000007" letter-spacing="1.2000000000000002px">
+<tspan x="0" fill="#F97583">const</tspan><tspan x="71.9765625" fill="#E1E4E8"> </tspan><tspan x="86.37187499999999" fill="#79B8FF">result</tspan><tspan x="172.74374999999998" fill="#E1E4E8"> </tspan><tspan x="187.1390625" fill="#F97583">=</tspan><tspan x="201.53437499999998" fill="#E1E4E8"> </tspan><tspan x="215.9296875" fill="#B392F0">hello</tspan><tspan x="287.90625" fill="#E1E4E8">();</tspan>
 </text></g>
 </svg>

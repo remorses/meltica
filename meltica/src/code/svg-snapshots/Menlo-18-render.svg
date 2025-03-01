@@ -1,19 +1,19 @@
-<svg viewBox="0 0 436.67964843749996 345.6" width="436.67964843749996" height="345.6" xmlns="http://www.w3.org/2000/svg">
-<rect id="bg" fill="#282c34" width="436.67964843749996" height="345.6" rx="4"></rect><g id="tokens" transform="translate(33.71484375, 57.6)">
-<text font-family="Menlo" font-size="18" y="57.6" letter-spacing="0.36px">
-<tspan x="0" fill="#F97583">function</tspan><tspan x="89.5753125" fill="#E1E4E8"> </tspan><tspan x="100.7722265625" fill="#B392F0">hello</tspan><tspan x="156.756796875" fill="#E1E4E8">() {</tspan>
+<svg viewBox="0 0 457.7396484375 345.6" width="457.7396484375" height="345.6" xmlns="http://www.w3.org/2000/svg">
+<rect id="bg" fill="#000" width="457.7396484375" height="345.6" rx="4"></rect><g id="tokens" transform="translate(33.71484375, 57.6)">
+<text font-family="Menlo" font-size="18" y="57.6" letter-spacing="0.9px">
+<tspan x="0" fill="#F97583">function</tspan><tspan x="93.8953125" fill="#E1E4E8"> </tspan><tspan x="105.63222656250001" fill="#B392F0">hello</tspan><tspan x="164.316796875" fill="#E1E4E8">() {</tspan>
 </text>
-<text font-family="Menlo" font-size="18" y="86.4" letter-spacing="0.36px">
-<tspan x="0" fill="#E1E4E8">  </tspan><tspan x="22.393828125" fill="#E1E4E8">console.</tspan><tspan x="111.969140625" fill="#B392F0">log</tspan><tspan x="145.5598828125" fill="#E1E4E8">(</tspan><tspan x="156.756796875" fill="#9ECBFF">&quot;Hello, world!&quot;</tspan><tspan x="324.7105078125" fill="#E1E4E8">);</tspan>
+<text font-family="Menlo" font-size="18" y="86.4" letter-spacing="0.9px">
+<tspan x="0" fill="#E1E4E8">  </tspan><tspan x="23.473828125" fill="#E1E4E8">console.</tspan><tspan x="117.369140625" fill="#B392F0">log</tspan><tspan x="152.57988281250002" fill="#E1E4E8">(</tspan><tspan x="164.316796875" fill="#9ECBFF">&quot;Hello, world!&quot;</tspan><tspan x="340.3705078125" fill="#E1E4E8">);</tspan>
 </text>
-<text font-family="Menlo" font-size="18" y="115.2" letter-spacing="0.36px">
-<tspan x="0" fill="#E1E4E8">  </tspan><tspan x="22.393828125" fill="#F97583">return</tspan><tspan x="89.5753125" fill="#E1E4E8"> </tspan><tspan x="100.7722265625" fill="#79B8FF">42</tspan><tspan x="123.1660546875" fill="#E1E4E8">;</tspan>
+<text font-family="Menlo" font-size="18" y="115.2" letter-spacing="0.9px">
+<tspan x="0" fill="#E1E4E8">  </tspan><tspan x="23.473828125" fill="#F97583">return</tspan><tspan x="93.8953125" fill="#E1E4E8"> </tspan><tspan x="105.63222656250001" fill="#79B8FF">42</tspan><tspan x="129.1060546875" fill="#E1E4E8">;</tspan>
 </text>
-<text font-family="Menlo" font-size="18" y="144" letter-spacing="0.36px">
+<text font-family="Menlo" font-size="18" y="144" letter-spacing="0.9px">
 <tspan x="0" fill="#E1E4E8">}</tspan>
 </text>
 
-<text font-family="Menlo" font-size="18" y="201.6" letter-spacing="0.36px">
-<tspan x="0" fill="#F97583">const</tspan><tspan x="55.9845703125" fill="#E1E4E8"> </tspan><tspan x="67.181484375" fill="#79B8FF">result</tspan><tspan x="134.36296875" fill="#E1E4E8"> </tspan><tspan x="145.5598828125" fill="#F97583">=</tspan><tspan x="156.756796875" fill="#E1E4E8"> </tspan><tspan x="167.95371093749998" fill="#B392F0">hello</tspan><tspan x="223.93828125" fill="#E1E4E8">();</tspan>
+<text font-family="Menlo" font-size="18" y="201.6" letter-spacing="0.9px">
+<tspan x="0" fill="#F97583">const</tspan><tspan x="58.6845703125" fill="#E1E4E8"> </tspan><tspan x="70.421484375" fill="#79B8FF">result</tspan><tspan x="140.84296875" fill="#E1E4E8"> </tspan><tspan x="152.57988281250002" fill="#F97583">=</tspan><tspan x="164.316796875" fill="#E1E4E8"> </tspan><tspan x="176.0537109375" fill="#B392F0">hello</tspan><tspan x="234.73828125" fill="#E1E4E8">();</tspan>
 </text></g>
 </svg>

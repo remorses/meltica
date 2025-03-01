@@ -156,7 +156,7 @@ export function getSVGRenderer(options: SVGRendererOptions) {
     const bgCornerRadius = options.bgCornerRadius ?? 4
     const bgSideCharPadding = options.bgSideCharPadding ?? 4
     const bgVerticalCharPadding = options.bgVerticalCharPadding ?? 2
-    const letterSpacing = options.letterSpacing ?? 0.02
+    const letterSpacing = options.letterSpacing ?? 0.05
 
     const measurement = fontsToMeasurement[fontFamily]
     if (!measurement) {

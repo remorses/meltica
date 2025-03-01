@@ -32,7 +32,7 @@ describe('getSVGRenderer', () => {
                 const renderer = await getSVGRenderer({
                     fontFamily: font,
                     fontSize: fontSize,
-                    bg: '#282c34',
+                    bg: '#000',
                 })
 
                 const { tokens } = await codeToTokens(codeSnippet, {
