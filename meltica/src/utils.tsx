@@ -1,15 +1,6 @@
-import { render, renderAsync, useContext } from 'jsx-xml'
 import crypto from 'crypto'
 import fs from 'fs'
 import path from 'path'
-import xmlbuilder from 'xmlbuilder2'
-import { melticaFolder } from '@/rendering'
-import {
-    compositionContext,
-    assetContext,
-    trackContext,
-    renderingContext,
-} from '@/context'
 
 /**
  * Utility function that creates a promise that resolves after the specified time.

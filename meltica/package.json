@@ -10,7 +10,6 @@
     "keywords": [],
     "author": "remorses <beats.by.morse@gmail.com>",
     "license": "ISC",
-    
     "dependencies": {
         "@kmamal/sdl": "^0.10.14",
         "@oozcitak/dom": "^1.15.10",
@@ -23,6 +22,7 @@
         "dedent": "^1.5.3",
         "dom-serializer": "^2.0.0",
         "domhandler": "^5.0.3",
+        "flat-cache": "^6.1.6",
         "font-scanner": "^0.2.1",
         "fontkit": "^2.0.4",
         "htmlparser2": "^10.0.0",

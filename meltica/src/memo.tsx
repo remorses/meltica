@@ -1,4 +1,5 @@
 import { render, useContext } from 'jsx-xml'
+import { createFromFile, FlatCache } from 'flat-cache'
 import {
     assetContext,
     compositionContext,
@@ -35,12 +36,15 @@ function reviver(key: string, value: any): any {
     return value
 }
 
-// Global in-memory cache object
-const globalMemoMemoryCache: Record<string, any> = {}
-
-let cacheLoaded = false
-const cacheDir = '.meltica'
-export const cacheFile = path.resolve(cacheDir, 'persistentMemo.json')
+const globalMemoMemoryCache = new FlatCache({
+    cacheDir: '.meltica',
+    // deserialize(data) {
+    //     return JSON.parse(data, reviver)
+    // },
+    lruSize: 1000,
+    cacheId: 'memo.json',
+    persistInterval: 200,
+})
 
 // Register handlers to save cache on exit (only once)
 
@@ -63,42 +67,7 @@ process.on('SIGTERM', () => handleTermination(0))
 
 // Save cache to disk
 const saveCacheToDisk = () => {
-    try {
-        // No need to convert entries with an object
-        fs.mkdirSync(cacheDir, { recursive: true })
-        fs.writeFileSync(
-            cacheFile,
-            JSON.stringify(globalMemoMemoryCache),
-            'utf8',
-        )
-    } catch (error) {
-        console.warn(`Failed to write cache to disk:`, error)
-    }
-}
-
-export const loadCacheFromDisk = () => {
-    if (cacheLoaded) return
-
-    try {
-        if (!fs.existsSync(cacheDir)) {
-            fs.mkdirSync(cacheDir, { recursive: true })
-        }
-
-        if (fs.existsSync(cacheFile)) {
-            const cachedData = fs.readFileSync(cacheFile, 'utf8')
-            const parsedCache = JSON.parse(cachedData, reviver)
-
-            // Populate memory cache from disk
-            for (const [key, value] of Object.entries(parsedCache)) {
-                globalMemoMemoryCache[key] = value
-            }
-        }
-    } catch (error) {
-        console.warn(`Failed to load cache from disk:`, error)
-        // File might not exist yet, that's okay
-    }
-
-    cacheLoaded = true
+    return globalMemoMemoryCache.save()
 }
 
 /**
@@ -117,7 +86,6 @@ export function persistentMemo<T, Args extends object[]>(
 
     return (...args: Args): Promise<T> | T => {
         // Ensure cache is loaded
-        loadCacheFromDisk()
 
         // Create a cache key based on the function name and stringified arguments
         const fnName = fn.name || 'anonymous'
@@ -196,17 +164,17 @@ export function persistentMemo<T, Args extends object[]>(
         const hash = crypto.createHash('md5').update(argsKey).digest('hex')
         const cacheKey = `${fnName}_${hash}`
 
-        // Check if result is in memory cache
-        if (cacheKey in globalMemoMemoryCache) {
-            return JSON.parse(globalMemoMemoryCache[cacheKey], reviver) as T
+        const cached = globalMemoMemoryCache.getKey(cacheKey) as string
+        if (cached) {
+            return JSON.parse(cached, reviver) as T
         }
         return fn(...args).then((result) => {
             // Save the result to memory cache
-            globalMemoMemoryCache[cacheKey] = JSON.stringify(
-                result,
-                replacer,
-                4,
+            globalMemoMemoryCache.setKey(
+                cacheKey,
+                JSON.stringify(result, replacer, 4),
             )
+
             // TODO remove saving cache on every memo, instead do it on process exit
             // saveCacheToDisk()
 
