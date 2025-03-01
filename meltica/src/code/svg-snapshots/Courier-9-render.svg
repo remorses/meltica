@@ -1,19 +1,19 @@
-<svg viewBox="0 0 220.80359122983873 144" width="220.80359122983873" height="144" xmlns="http://www.w3.org/2000/svg" >
-<rect id="bg" fill="#000" width="220.80359122983873" height="144" rx="4"></rect><g id="tokens" transform="translate(32.427923387096776, 14.4)">
-<text font-family="Courier" font-size="9" y="28.8" letter-spacing="0.45px">
+<svg viewBox="0 0 220.80359122983873 126" width="220.80359122983873" height="126" xmlns="http://www.w3.org/2000/svg" >
+<rect id="bg" fill="#000" width="220.80359122983873" height="126" rx="4"></rect><g id="tokens" transform="translate(32.427923387096776, 12.6)">
+<text font-family="Courier" font-size="9" y="25.2" letter-spacing="0.45px">
 <tspan x="0" fill="#F97583">function</tspan><tspan x="45.29304435483871" fill="#E1E4E8"> </tspan><tspan x="50.95467489919355" fill="#B392F0">hello</tspan><tspan x="79.26282762096776" fill="#E1E4E8">() {</tspan>
 </text>
-<text font-family="Courier" font-size="9" y="43.2" letter-spacing="0.45px">
+<text font-family="Courier" font-size="9" y="37.8" letter-spacing="0.45px">
 <tspan x="0" fill="#E1E4E8">  </tspan><tspan x="11.323261088709678" fill="#E1E4E8">console.</tspan><tspan x="56.61630544354839" fill="#B392F0">log</tspan><tspan x="73.6011970766129" fill="#E1E4E8">(</tspan><tspan x="79.26282762096776" fill="#9ECBFF">&quot;Hello, world!&quot;</tspan><tspan x="164.18728578629035" fill="#E1E4E8">);</tspan>
 </text>
-<text font-family="Courier" font-size="9" y="57.6" letter-spacing="0.45px">
+<text font-family="Courier" font-size="9" y="50.4" letter-spacing="0.45px">
 <tspan x="0" fill="#E1E4E8">  </tspan><tspan x="11.323261088709678" fill="#F97583">return</tspan><tspan x="45.29304435483871" fill="#E1E4E8"> </tspan><tspan x="50.95467489919355" fill="#79B8FF">42</tspan><tspan x="62.277935987903234" fill="#E1E4E8">;</tspan>
 </text>
-<text font-family="Courier" font-size="9" y="72" letter-spacing="0.45px">
+<text font-family="Courier" font-size="9" y="63" letter-spacing="0.45px">
 <tspan x="0" fill="#E1E4E8">}</tspan>
 </text>
 
-<text font-family="Courier" font-size="9" y="100.8" letter-spacing="0.45px">
+<text font-family="Courier" font-size="9" y="88.2" letter-spacing="0.45px">
 <tspan x="0" fill="#F97583">const</tspan><tspan x="28.308152721774196" fill="#E1E4E8"> </tspan><tspan x="33.969783266129035" fill="#79B8FF">result</tspan><tspan x="67.93956653225807" fill="#E1E4E8"> </tspan><tspan x="73.6011970766129" fill="#F97583">=</tspan><tspan x="79.26282762096776" fill="#E1E4E8"> </tspan><tspan x="84.92445816532259" fill="#B392F0">hello</tspan><tspan x="113.23261088709678" fill="#E1E4E8">();</tspan>
 </text></g>
 </svg>

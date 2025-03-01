@@ -1,19 +1,19 @@
-<svg viewBox="0 0 228.86982421875 144" width="228.86982421875" height="144" xmlns="http://www.w3.org/2000/svg" >
-<rect id="bg" fill="#000" width="228.86982421875" height="144" rx="4"></rect><g id="tokens" transform="translate(33.71484375, 14.4)">
-<text font-family="Menlo" font-size="9" y="28.8" letter-spacing="0.45px">
+<svg viewBox="0 0 228.86982421875 126" width="228.86982421875" height="126" xmlns="http://www.w3.org/2000/svg" >
+<rect id="bg" fill="#000" width="228.86982421875" height="126" rx="4"></rect><g id="tokens" transform="translate(33.71484375, 12.6)">
+<text font-family="Menlo" font-size="9" y="25.2" letter-spacing="0.45px">
 <tspan x="0" fill="#F97583">function</tspan><tspan x="46.94765625" fill="#E1E4E8"> </tspan><tspan x="52.816113281250004" fill="#B392F0">hello</tspan><tspan x="82.1583984375" fill="#E1E4E8">() {</tspan>
 </text>
-<text font-family="Menlo" font-size="9" y="43.2" letter-spacing="0.45px">
+<text font-family="Menlo" font-size="9" y="37.8" letter-spacing="0.45px">
 <tspan x="0" fill="#E1E4E8">  </tspan><tspan x="11.7369140625" fill="#E1E4E8">console.</tspan><tspan x="58.6845703125" fill="#B392F0">log</tspan><tspan x="76.28994140625001" fill="#E1E4E8">(</tspan><tspan x="82.1583984375" fill="#9ECBFF">&quot;Hello, world!&quot;</tspan><tspan x="170.18525390625" fill="#E1E4E8">);</tspan>
 </text>
-<text font-family="Menlo" font-size="9" y="57.6" letter-spacing="0.45px">
+<text font-family="Menlo" font-size="9" y="50.4" letter-spacing="0.45px">
 <tspan x="0" fill="#E1E4E8">  </tspan><tspan x="11.7369140625" fill="#F97583">return</tspan><tspan x="46.94765625" fill="#E1E4E8"> </tspan><tspan x="52.816113281250004" fill="#79B8FF">42</tspan><tspan x="64.55302734375" fill="#E1E4E8">;</tspan>
 </text>
-<text font-family="Menlo" font-size="9" y="72" letter-spacing="0.45px">
+<text font-family="Menlo" font-size="9" y="63" letter-spacing="0.45px">
 <tspan x="0" fill="#E1E4E8">}</tspan>
 </text>
 
-<text font-family="Menlo" font-size="9" y="100.8" letter-spacing="0.45px">
+<text font-family="Menlo" font-size="9" y="88.2" letter-spacing="0.45px">
 <tspan x="0" fill="#F97583">const</tspan><tspan x="29.34228515625" fill="#E1E4E8"> </tspan><tspan x="35.2107421875" fill="#79B8FF">result</tspan><tspan x="70.421484375" fill="#E1E4E8"> </tspan><tspan x="76.28994140625001" fill="#F97583">=</tspan><tspan x="82.1583984375" fill="#E1E4E8"> </tspan><tspan x="88.02685546875" fill="#B392F0">hello</tspan><tspan x="117.369140625" fill="#E1E4E8">();</tspan>
 </text></g>
 </svg>

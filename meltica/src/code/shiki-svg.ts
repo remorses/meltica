@@ -165,7 +165,7 @@ export function renderCodeToSVG(options: SVGRendererOptions) {
     if (!measurement) {
         throw new Error(`Font family ${fontFamily} not supported`)
     }
-    const lineHeight = options.lineHeightToFontSizeRatio ?? 1.6
+    const lineHeight = options.lineHeightToFontSizeRatio ?? 1.4
     const lineheightPx = fontSize * lineHeight
     let letterWidth =
         (measurement.width * fontSize) / fontSizeForMeasurement +
