@@ -1,4 +1,4 @@
-import { AssetProducer, AssetRegistration } from '@/rendering'
+import { AssetProducer, AssetRegistration } from 'meltica/src/rendering'
 import { createContext } from 'jsx-xml'
 
 export type CompositionContext = {

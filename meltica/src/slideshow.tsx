@@ -13,13 +13,13 @@ import {
     SimpleChromaKey,
     Glow,
     Pitch,
-} from '@/components'
+} from 'meltica/src/components'
 import {
     formatSecondsToTime,
     renderToPreview,
     renderToVideo,
     renderToXml,
-} from '@/rendering'
+} from 'meltica/src/rendering'
 import { writeFileSync } from 'fs'
 import { Fragment } from 'jsx-xml'
 

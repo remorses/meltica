@@ -1,4 +1,4 @@
-import { getSVGRenderer } from '@/code/shiki-svg'
+import { getSVGRenderer } from 'meltica/src/code/shiki-svg'
 import { create } from 'xmlbuilder2'
 import {
     BundledLanguage,
@@ -6,7 +6,7 @@ import {
     codeToTokens,
     CodeToTokensOptions,
 } from 'shiki'
-import { persistentMemo } from '@/memo'
+import { persistentMemo } from 'meltica/src/memo'
 
 export const CodeSnippet = persistentMemo(async function CodeSnippet({
     code,

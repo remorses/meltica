@@ -4,7 +4,7 @@ import { describe, it, expect, beforeAll } from 'vitest'
 import { toMatchImageSnapshot } from 'jest-image-snapshot'
 
 import fs from 'fs'
-import { calculateBasicImageDimensions } from '@/objectfit'
+import { calculateBasicImageDimensions } from 'meltica/src/objectfit'
 
 // const mkdirpAsync = Promise.promisify(mkdirp);
 // const tmpPath = `${fixturesPath}/../.tmp`;

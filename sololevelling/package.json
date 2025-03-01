@@ -1,0 +1,26 @@
+{
+    "name": "new-package-template",
+    "version": "0.0.0",
+    "description": "",
+    "main": "dist/index.js",
+    "module": "esm/index.js",
+    "types": "dist/index.d.ts",
+    "repository": "https://github.com/remorses/",
+    "scripts": {
+        "dev": "pnpm tsx src/sololevelling.tsx",
+        "watch": "tsc -w"
+    },
+    "files": [
+        "dist",
+        "src",
+        "esm"
+    ],
+    "keywords": [],
+    "author": "Tommaso De Rossi, morse <beats.by.morse@gmail.com>",
+    "license": "",
+    "devDependencies": {},
+    "dependencies": {
+        "meltica": "workspace:*"
+    },
+    "peerDependencies": {}
+}

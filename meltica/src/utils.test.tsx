@@ -5,8 +5,8 @@ import { formatSecondsToTime, isNodeElement } from './rendering'
 
 import { WorkflowIcon } from 'lucide-react'
 import { create, fragment } from 'xmlbuilder2'
-import { persistentMemo } from '@/memo'
-import { sleep } from '@/utils'
+import { persistentMemo } from 'meltica/src/memo'
+import { sleep } from 'meltica/src/utils'
 
 describe('persistentMemo', () => {
     it('persistentMemo', async ({ task }) => {

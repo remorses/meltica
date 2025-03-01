@@ -5,8 +5,8 @@ import {
     PanningAnimation,
     VideoConsumer,
     Profile,
-} from '@/components'
-import { renderToVideo, renderToXml } from '@/rendering'
+} from 'meltica/src/components'
+import { renderToVideo, renderToXml } from 'meltica/src/rendering'
 import { writeFileSync } from 'fs'
 
 function MLT({}) {

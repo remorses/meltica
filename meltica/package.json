@@ -4,9 +4,7 @@
     "description": "",
     "main": "index.js",
     "type": "module",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
-    },
+    "scripts": {},
     "keywords": [],
     "author": "remorses <beats.by.morse@gmail.com>",
     "license": "ISC",
@@ -21,6 +19,7 @@
         "canvas": "^3.1.0",
         "dedent": "^1.5.3",
         "dom-serializer": "^2.0.0",
+        "meltica": "workspace:*",
         "domhandler": "^5.0.3",
         "flat-cache": "^6.1.6",
         "font-scanner": "^0.2.1",

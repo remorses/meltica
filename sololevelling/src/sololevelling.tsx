@@ -1,23 +1,17 @@
-import fs from 'fs'
 import {
     Asset,
     AudioGain,
     BlankSpace,
+    Composition,
     PanningAnimation,
     Track,
-    Composition,
-} from 'meltica/src/components'
-import {
-    formatSecondsToTime,
-    renderToPreview,
-    renderToVideo,
-    renderToXml,
-} from 'meltica/src/rendering'
-import { writeFileSync } from 'fs'
+} from 'meltica/src'
+import { formatSecondsToTime, renderToPreview } from 'meltica/src'
+import fs from 'fs'
 import path from 'path'
 
 function Video({}) {
-    const imagesFolder = './sololevelling'
+    const imagesFolder = './chapter1'
     const allImages = fs
         .readdirSync(imagesFolder)
         .map((x) => path.join(imagesFolder, x))

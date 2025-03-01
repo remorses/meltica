@@ -1,7 +1,7 @@
 import fs from 'fs'
 import { WholeWordIcon } from 'lucide-react'
 
-import { CodeSnippet } from '@/code/code'
+import { CodeSnippet } from 'meltica/src/code/code'
 import {
     Asset,
     AudioGain,
@@ -9,13 +9,13 @@ import {
     Track,
     Composition,
     Transform,
-} from '@/components'
-import { renderToPreview, renderToVideo, renderToXml } from '@/rendering'
-import { sleep } from '@/utils'
-import { persistentMemo } from '@/memo'
+} from 'meltica/src/components'
+import { renderToPreview, renderToVideo, renderToXml } from 'meltica/src/rendering'
+import { sleep } from 'meltica/src/utils'
+import { persistentMemo } from 'meltica/src/memo'
 const codeSnippet = `
 import React from 'react'
-import { CodeSnippet } from '@/code/code'
+import { CodeSnippet } from 'meltica/src/code/code'
 
 export const code = <CodeSnippet
     code={

@@ -1,0 +1,10 @@
+{
+    "extends": "../tsconfig.base.json",
+    "compilerOptions": {
+        "types": ["meltica/src/types"],
+        "jsxImportSource": "meltica/src",
+        "rootDir": "src",
+        "outDir": "dist"
+    },
+    "include": ["src"]
+}

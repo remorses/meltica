@@ -1,5 +1,5 @@
-import { Asset, Composition, Track } from '@/components'
-import { sleep } from '@/utils'
+import { Asset, Composition, Track } from 'meltica/src/components'
+import { sleep } from 'meltica/src/utils'
 import { renderAsync } from 'jsx-xml'
 import { describe, expect, it } from 'vitest'
 import {

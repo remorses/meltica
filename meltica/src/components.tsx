@@ -5,7 +5,7 @@ import {
     AssetTypeWithPath,
     formatSecondsToTime,
     melticaFolder,
-} from '@/rendering'
+} from 'meltica/src/rendering'
 import dedent from 'dedent'
 import fs from 'fs'
 
@@ -16,11 +16,11 @@ import {
     CompositionContext,
     renderingContext,
     trackContext,
-} from '@/context'
+} from 'meltica/src/context'
 
 import { render, renderAsync } from 'jsx-xml'
 import path from 'path'
-import { persistentMemo } from '@/memo'
+import { persistentMemo } from 'meltica/src/memo'
 
 function useTrackContext() {
     const context = useContext(trackContext)

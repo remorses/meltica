@@ -77,6 +77,9 @@ importers:
       jsx-xml:
         specifier: npm:@xmorse/jsx-xml@^0.11.0
         version: '@xmorse/jsx-xml@0.11.0'
+      meltica:
+        specifier: workspace:*
+        version: 'link:'
       node-media-server:
         specifier: ^4.0.7
         version: 4.0.7
@@ -116,6 +119,12 @@ importers:
         version: 0.477.0(react@19.0.0)
 
   new-package-template: {}
+
+  sololevelling:
+    dependencies:
+      meltica:
+        specifier: workspace:*
+        version: link:../meltica
 
 packages:
 

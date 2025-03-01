@@ -5,12 +5,12 @@ import {
     compositionContext,
     renderingContext,
     trackContext,
-} from '@/context'
+} from 'meltica/src/context'
 import crypto from 'crypto'
 import fs from 'fs'
 import path from 'path'
 import xmlbuilder from 'xmlbuilder2'
-import { isXmlBuilder, isElement } from '@/utils'
+import { isXmlBuilder, isElement } from 'meltica/src/utils'
 
 type XmlSerialized = {
     type: 'xml'

@@ -1,14 +1,14 @@
 {
     "compilerOptions": {
         "lib": ["DOM", "DOM.Iterable", "ES2022", "ESNext"],
-        "types": ["./src/types.d.ts", "@types/node", ],
+        "types": ["./src/types.d.ts", "@types/node"],
         "isolatedModules": true,
         "esModuleInterop": true,
         // "jsxFactory": "React.createElement",
         // "jsxFragmentFactory": "React.Fragment",
         "jsx": "react-jsx",
         "outDir": "dist",
-        
+
         "jsxImportSource": "jsx-xml",
         "module": "ESNext",
         "moduleResolution": "Bundler",
@@ -22,11 +22,9 @@
         "baseUrl": ".",
         "noImplicitAny": false,
         "paths": {
-            "@/*": ["./src/*"],
-            "~/*": ["./public/*"],
-            "website/*": ["./*"],
-        },
+            "meltica/*": ["./*"]
+        }
     },
     "include": ["src", "scripts", "examples/"],
-    "exclude": ["kdenlive-old"],
+    "exclude": ["kdenlive-old"]
 }
