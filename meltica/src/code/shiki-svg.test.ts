@@ -1,7 +1,9 @@
 import { describe, expect, it } from 'vitest'
-import { FontFamily, getSVGRenderer } from './shiki-svg'
+import xmlbuilder from 'xmlbuilder2'
+import { FontFamily, renderCodeToSVG } from './shiki-svg'
 import { codeToTokens } from 'shiki'
 import { render } from 'jsx-xml'
+import { CodeOuterGrid } from 'meltica/src/code/frame'
 
 // Add a custom serializer for SVG content
 expect.addSnapshotSerializer({
@@ -29,11 +31,6 @@ describe('getSVGRenderer', () => {
         for (const font of fonts) {
             for (const fontSize of fontSizes) {
                 // Create a renderer with different font sizes
-                const renderer = await getSVGRenderer({
-                    fontFamily: font,
-                    fontSize: fontSize,
-                    bg: '#000',
-                })
 
                 const { tokens } = await codeToTokens(codeSnippet, {
                     lang: 'javascript',
@@ -41,7 +38,12 @@ describe('getSVGRenderer', () => {
                 })
 
                 // Render a simple token array
-                const svg = await renderer.renderToSVG(tokens)
+                const { svg } = await renderCodeToSVG({
+                    fontFamily: font,
+                    fontSize: fontSize,
+                    bg: '#000',
+                    tokens,
+                })
 
                 // Use snapshot testing with different filenames for each combination
                 await expect(svg).toMatchFileSnapshot(
@@ -55,17 +57,47 @@ describe('getSVGRenderer', () => {
 describe('CodeOuterGrid', () => {
     it('should render a code frame with corner markers', async () => {
         // Import the CodeOuterGrid component
-        const { CodeOuterGrid } = await import('./frame')
 
-        // Create a simple CodeOuterGrid component
+        const { tokens } = await codeToTokens(codeSnippet, {
+            lang: 'javascript',
+            theme: 'github-dark',
+        })
+
+        // Render a simple token array
+        const {
+            svg: childrenCode,
+            height: codeHeight,
+            width: codeWidth,
+        } = await renderCodeToSVG({
+            fontFamily: 'Consolas',
+            fontSize: 14,
+            bg: '#000',
+            tokens,
+            svgAttributes: {},
+        })
+        const padding = 50
+        let width = codeWidth + padding * 2
+        let height = codeHeight + padding * 2
+
+        let children = xmlbuilder.create(childrenCode)
+        const svgElement = children.find((node) => node.node.nodeName === 'svg')
+
+        if (!svgElement) {
+            throw new Error('No svg element found')
+        }
+        svgElement.att('x', String(padding))
+        svgElement.att('y', String(padding))
+
         const grid = CodeOuterGrid({
-            width: 600,
-            height: 400,
-            padding: 50,
+            width,
+            height,
+            padding,
             lineColor: 'rgba(255, 255, 255, 0.15)',
+
             backgroundColor: '#000000',
             outerBackgroundColor: '#000000',
             cornerSize: 15,
+            children,
             // children: 'Test content',
         })
 

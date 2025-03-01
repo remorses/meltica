@@ -19,6 +19,7 @@ let fontSizeForMeasurement = 14
 export type FontFamily = keyof typeof fontsToMeasurement
 
 interface SVGRendererOptions {
+    tokens: IThemedToken[][]
     /**
      * A monospace font.
      *
@@ -83,6 +84,7 @@ interface SVGRendererOptions {
      * Default is 0.02 (2% of fontSize).
      */
     letterSpacing?: number
+    svgAttributes?: Record<string, string>
 }
 
 interface TokenOptions {
@@ -148,14 +150,16 @@ function escapeHtml(html: string) {
     )
 }
 
-export function getSVGRenderer(options: SVGRendererOptions) {
+export function renderCodeToSVG(options: SVGRendererOptions) {
     const fontFamily = options.fontFamily
     const fontSize = options.fontSize ?? 16
 
-    const _bg = options.bg ?? '#fff'
+    const lines = options.tokens
+    const actualBg = options.bg ?? '#fff'
+
     const bgCornerRadius = options.bgCornerRadius ?? 4
     const bgSideCharPadding = options.bgSideCharPadding ?? 4
-    const bgVerticalCharPadding = options.bgVerticalCharPadding ?? 2
+    const bgVerticalCharPadding = options.bgVerticalCharPadding ?? 1
     const letterSpacing = options.letterSpacing ?? 0.05
 
     const measurement = fontsToMeasurement[fontFamily]
@@ -164,89 +168,90 @@ export function getSVGRenderer(options: SVGRendererOptions) {
     }
     const lineHeight = options.lineHeightToFontSizeRatio ?? 1.6
     const lineheightPx = fontSize * lineHeight
-    let letterWidth = (measurement.width * fontSize) / fontSizeForMeasurement + (letterSpacing * fontSize)
+    let letterWidth =
+        (measurement.width * fontSize) / fontSizeForMeasurement +
+        letterSpacing * fontSize
 
-    return {
-        renderToSVG(lines: IThemedToken[][], { bg } = { bg: _bg }) {
-            let longestLineTextLength = 0
-            lines.forEach((lTokens) => {
-                let lineTextLength = 0
-                lTokens.forEach((l) => (lineTextLength += l.content.length))
+    let longestLineTextLength = 0
+    lines.forEach((lTokens) => {
+        let lineTextLength = 0
+        lTokens.forEach((l) => (lineTextLength += l.content.length))
 
-                if (lineTextLength > longestLineTextLength) {
-                    longestLineTextLength = lineTextLength
-                }
-            })
+        if (lineTextLength > longestLineTextLength) {
+            longestLineTextLength = lineTextLength
+        }
+    })
 
-            /**
-             * longest line + left/right 4 char width
-             */
-            const bgWidth = Math.max(
-                options.bgMinWidth ?? 0,
-                (longestLineTextLength + bgSideCharPadding * 2) * letterWidth,
-            )
-            /**
-             * all rows + 2 rows top/bot
-             */
-            const bgHeight =
-                (lines.length + bgVerticalCharPadding * 2) * lineheightPx
+    /**
+     * longest line + left/right 4 char width
+     */
+    const bgWidth = Math.max(
+        options.bgMinWidth ?? 0,
+        (longestLineTextLength + bgSideCharPadding * 2) * letterWidth,
+    )
+    /**
+     * all rows + 2 rows top/bot
+     */
+    const bgHeight = (lines.length + bgVerticalCharPadding * 2) * lineheightPx
 
-            let svg = `<svg viewBox="0 0 ${bgWidth} ${bgHeight}" width="${bgWidth}" height="${bgHeight}" xmlns="http://www.w3.org/2000/svg">\n`
+    const svgAttributes = options.svgAttributes
+        ? Object.entries(options.svgAttributes)
+              .map(([key, value]) => `${key}="${value}"`)
+              .join(' ')
+        : ''
+    let svg = `<svg viewBox="0 0 ${bgWidth} ${bgHeight}" width="${bgWidth}" height="${bgHeight}" xmlns="http://www.w3.org/2000/svg" ${svgAttributes}>\n`
 
-            svg += `<rect id="bg" fill="${bg}" width="${bgWidth}" height="${bgHeight}" rx="${bgCornerRadius}"></rect>`
+    svg += `<rect id="bg" fill="${actualBg}" width="${bgWidth}" height="${bgHeight}" rx="${bgCornerRadius}"></rect>`
 
-            svg += `<g id="tokens" transform="translate(${measurement.width * bgSideCharPadding}, ${
-                lineheightPx * bgVerticalCharPadding
-            })">`
+    svg += `<g id="tokens" transform="translate(${measurement.width * bgSideCharPadding}, ${
+        lineheightPx * bgVerticalCharPadding
+    })">`
 
-            lines.forEach((l: IThemedToken[], index: number) => {
-                if (l.length === 0) {
-                    svg += '\n'
+    lines.forEach((l: IThemedToken[], index: number) => {
+        if (l.length === 0) {
+            svg += '\n'
+        } else {
+            const yPosition = lineheightPx * (index + 1)
+            svg += `<text font-family="${fontFamily}" font-size="${fontSize}" y="${yPosition}" letter-spacing="${letterSpacing * fontSize}px">\n`
+
+            let indent = 0
+
+            l.forEach((token) => {
+                const tokenAttributes = getTokenSVGAttributes(token)
+                /**
+                 * Handle whitespace leading content by splitting into separate tspan elements
+                 */
+                if (
+                    token.content.startsWith(' ') &&
+                    token.content.search(/\S/) !== -1
+                ) {
+                    const firstNonWhitespaceIndex = token.content.search(/\S/)
+
+                    // Whitespace + content, such as ` foo`
+                    // Render as separate tspan elements
+                    svg += `<tspan x="${indent * letterWidth}" ${tokenAttributes}>${escapeHtml(
+                        token.content.slice(0, firstNonWhitespaceIndex),
+                    )}</tspan>`
+
+                    svg += `<tspan x="${
+                        (indent + firstNonWhitespaceIndex) * letterWidth
+                    }" ${tokenAttributes}>${escapeHtml(
+                        token.content.slice(firstNonWhitespaceIndex),
+                    )}</tspan>`
                 } else {
-                    const yPosition = lineheightPx * (index + 1)
-                    svg += `<text font-family="${fontFamily}" font-size="${fontSize}" y="${yPosition}" letter-spacing="${letterSpacing * fontSize}px">\n`
-                    
-                    let indent = 0
-
-                    l.forEach((token) => {
-                        const tokenAttributes = getTokenSVGAttributes(token)
-                        /**
-                         * Handle whitespace leading content by splitting into separate tspan elements
-                         */
-                        if (
-                            token.content.startsWith(' ') &&
-                            token.content.search(/\S/) !== -1
-                        ) {
-                            const firstNonWhitespaceIndex =
-                                token.content.search(/\S/)
-
-                            // Whitespace + content, such as ` foo`
-                            // Render as separate tspan elements
-                            svg += `<tspan x="${indent * letterWidth}" ${tokenAttributes}>${escapeHtml(
-                                token.content.slice(0, firstNonWhitespaceIndex),
-                            )}</tspan>`
-
-                            svg += `<tspan x="${
-                                (indent + firstNonWhitespaceIndex) * letterWidth
-                            }" ${tokenAttributes}>${escapeHtml(
-                                token.content.slice(firstNonWhitespaceIndex),
-                            )}</tspan>`
-                        } else {
-                            svg += `<tspan x="${indent * letterWidth}" ${tokenAttributes}>${escapeHtml(
-                                token.content,
-                            )}</tspan>`
-                        }
-                        indent += token.content.length
-                    })
-                    svg += '\n</text>\n'
+                    svg += `<tspan x="${indent * letterWidth}" ${tokenAttributes}>${escapeHtml(
+                        token.content,
+                    )}</tspan>`
                 }
+                indent += token.content.length
             })
-            svg = svg.replace(/\n*$/, '') // Get rid of final new lines
+            svg += '\n</text>\n'
+        }
+    })
+    svg = svg.replace(/\n*$/, '') // Get rid of final new lines
 
-            svg += '</g>'
-            svg += '\n</svg>\n'
+    svg += '</g>'
+    svg += '\n</svg>\n'
 
-            return svg
-        },
-    }
+    return { svg, width: bgWidth, height: bgHeight }
 }

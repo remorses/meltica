@@ -1,5 +1,5 @@
-<svg viewBox="0 0 588.8095766129034 460.80000000000007" width="588.8095766129034" height="460.80000000000007" xmlns="http://www.w3.org/2000/svg">
-<rect id="bg" fill="#000" width="588.8095766129034" height="460.80000000000007" rx="4"></rect><g id="tokens" transform="translate(32.427923387096776, 76.80000000000001)">
+<svg viewBox="0 0 588.8095766129034 384.00000000000006" width="588.8095766129034" height="384.00000000000006" xmlns="http://www.w3.org/2000/svg" >
+<rect id="bg" fill="#000" width="588.8095766129034" height="384.00000000000006" rx="4"></rect><g id="tokens" transform="translate(32.427923387096776, 38.400000000000006)">
 <text font-family="Courier" font-size="24" y="76.80000000000001" letter-spacing="1.2000000000000002px">
 <tspan x="0" fill="#F97583">function</tspan><tspan x="120.78145161290325" fill="#E1E4E8"> </tspan><tspan x="135.87913306451617" fill="#B392F0">hello</tspan><tspan x="211.36754032258068" fill="#E1E4E8">() {</tspan>
 </text>

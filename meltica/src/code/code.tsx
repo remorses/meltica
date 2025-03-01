@@ -1,4 +1,8 @@
-import { FontFamily, FontStyle, getSVGRenderer } from 'meltica/src/code/shiki-svg'
+import {
+    FontFamily,
+    FontStyle,
+    renderCodeToSVG,
+} from 'meltica/src/code/shiki-svg'
 import { create } from 'xmlbuilder2'
 import {
     BundledLanguage,
@@ -13,7 +17,7 @@ export const CodeSnippet = persistentMemo(async function CodeSnippet({
     lang = 'javascript',
     theme = 'github-dark',
     background = '#282c34',
-    fontFamily = "Consolas" as const,
+    fontFamily = 'Consolas' as const,
     fontSize = 14,
 }: {
     code: string
@@ -23,16 +27,16 @@ export const CodeSnippet = persistentMemo(async function CodeSnippet({
     fontFamily?: FontFamily
     fontSize?: number
 }) {
-    const renderer = getSVGRenderer({
-        fontFamily,
-        fontSize,
-        bg: background,
-    })
     const { tokens } = await codeToTokens(code, {
         lang,
         theme,
     })
+    const svg = renderCodeToSVG({
+        fontFamily,
+        fontSize,
+        bg: background,
+        tokens,
+    })
 
-    const svg = renderer.renderToSVG(tokens)
     return create(svg)
 })
