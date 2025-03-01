@@ -2,28 +2,24 @@
 <mlt LC_NUMERIC="C" version="7.30.0" title="Shotcut version 25.01.25" producer="main_bin">
   <consumer ab="160k" acodec="aac" channels="2" crf="23" deinterlacer="onefield" f="mp4" g="15" in="0" out="00:00:08.000" mlt_service="avformat" movflags="+faststart" preset="veryfast" real_time="-1" rescale="bilinear" target="examples/svg.mp4" threads="0" vcodec="libx264"/>
   <profile description="PAL 4:3 DV or DVD" width="1080" height="1920" progressive="1" sample_aspect_num="1" sample_aspect_den="1" display_aspect_num="9" display_aspect_den="16" frame_rate_num="30" frame_rate_den="1" colorspace="709"/>
-  <producer id="svgsvgRect" in="00:00:00.000" out="00:08:20.487">
+  <producer id="svgsvgCode" in="00:00:00.000" out="00:08:20.487">
     <property name="length">15000</property>
     <property name="eof">pause</property>
-    <property name="resource">.meltica/svgsvgRect.png</property>
+    <property name="resource">.meltica/svgsvgCode.png</property>
     <property name="ttl">25</property>
     <property name="aspect_ratio">1</property>
     <property name="meta.media.progressive">1</property>
     <property name="seekable">1</property>
     <property name="format">2</property>
     <property name="meta.media.width">1080</property>
-    <property name="meta.media.height">1080</property>
+    <property name="meta.media.height">878</property>
     <property name="mlt_service">qimage</property>
-    <property name="resource">/Users/morse/Documents/meltica/meltica/.meltica/svgsvgRect.png</property>
+    <property name="resource">/Users/morse/Documents/meltica/meltica/.meltica/svgsvgCode.png</property>
     <property name="mlt_service">qimage</property>
     <property name="format">2</property>
     <property name="shotcut:skipConvert">1</property>
     <property name="shotcut:caption">Inline SVG</property>
   </producer>
-  <playlist id="tracksvgRectTrack">
-    <property name="shotcut:name">track</property>
-    <entry producer="svgsvgRect" in="00:00:00.000" out="00:00:03.000"/>
-  </playlist>
   <producer id="svgworld0" in="00:00:00.000" out="00:08:20.487">
     <property name="length">15000</property>
     <property name="eof">pause</property>
@@ -192,33 +188,47 @@
       <property name="kdenlive:collapsed">0</property>
     </filter>
   </producer>
-  <producer id="svgsvgCode" in="00:00:00.000" out="00:08:20.487">
-    <property name="length">15000</property>
-    <property name="eof">pause</property>
-    <property name="resource">.meltica/svgsvgCode.png</property>
-    <property name="ttl">25</property>
-    <property name="aspect_ratio">1</property>
-    <property name="meta.media.progressive">1</property>
-    <property name="seekable">1</property>
-    <property name="format">2</property>
-    <property name="meta.media.width">1080</property>
-    <property name="meta.media.height">878</property>
-    <property name="mlt_service">qimage</property>
-    <property name="resource">/Users/morse/Documents/meltica/meltica/.meltica/svgsvgCode.png</property>
-    <property name="mlt_service">qimage</property>
-    <property name="format">2</property>
-    <property name="shotcut:skipConvert">1</property>
-    <property name="shotcut:caption">Inline SVG</property>
-  </producer>
   <playlist id="tracksvgCodeTrack">
     <property name="shotcut:name">track</property>
+    <entry producer="svgsvgCode" in="00:00:00.000" out="00:00:03.000"/>
     <entry producer="svgworld0" in="00:00:00.000" out="00:00:00.100"/>
     <entry producer="svgworld1" in="00:00:00.000" out="00:00:00.100"/>
     <entry producer="svgworld2" in="00:00:00.000" out="00:00:00.100"/>
     <entry producer="svgworld3" in="00:00:00.000" out="00:00:00.100"/>
     <entry producer="svgworld4" in="00:00:00.000" out="00:00:00.100"/>
     <entry producer="svgworld5" in="00:00:00.000" out="00:00:00.100"/>
-    <entry producer="svgsvgCode" in="00:00:00.000" out="00:00:03.000"/>
+  </playlist>
+  <producer id="svgsvgRect" in="00:00:00.000" out="00:08:20.487">
+    <property name="length">15000</property>
+    <property name="eof">pause</property>
+    <property name="resource">.meltica/svgsvgRect.png</property>
+    <property name="ttl">25</property>
+    <property name="aspect_ratio">1</property>
+    <property name="meta.media.progressive">1</property>
+    <property name="seekable">1</property>
+    <property name="format">2</property>
+    <property name="meta.media.width">1080</property>
+    <property name="meta.media.height">1080</property>
+    <property name="mlt_service">qimage</property>
+    <property name="resource">/Users/morse/Documents/meltica/meltica/.meltica/svgsvgRect.png</property>
+    <property name="mlt_service">qimage</property>
+    <property name="format">2</property>
+    <property name="shotcut:skipConvert">1</property>
+    <property name="shotcut:caption">Inline SVG</property>
+    <filter id="qtblend">
+      <property name="rotate_center">1</property>
+      <property name="mlt_service">qtblend</property>
+      <property name="kdenlive_id">qtblend</property>
+      <property name="compositing"/>
+      <property name="distort"/>
+      <property name="rect">00:00:00.000=0 0 100 100 1.000000;00:00:02.000=100 200 300 300 1.000000</property>
+      <property name="rotation">00:00:00.000=0;00:00:02.000=0</property>
+      <property name="kdenlive:collapsed">0</property>
+    </filter>
+  </producer>
+  <playlist id="tracksvgRectTrack">
+    <property name="shotcut:name">track</property>
+    <entry producer="svgsvgRect" in="00:00:00.000" out="00:00:03.000"/>
   </playlist>
   <chain id="assetsoundtrack" in="00:00:00.000" out="00:02:15.115">
     <property name="length">4050</property>
@@ -280,8 +290,8 @@
     <property name="shotcut:trackHeight">50</property>
     <property name="shotcut:skipConvert">0</property>
     <track producer="background"/>
-    <track producer="tracksvgRectTrack"/>
     <track producer="tracksvgCodeTrack"/>
+    <track producer="tracksvgRectTrack"/>
     <track producer="tracksoundtrackTrack" hide="video"/>
     <transition id="transition0">
       <property name="a_track">0</property>

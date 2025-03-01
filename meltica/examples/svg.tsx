@@ -33,30 +33,12 @@ function Video({}) {
             duration={8}
             resultFilePath={'examples/svg.mp4'}
         >
-            <Track id={'svgRectTrack'}>
-                <InlineSvg
-                    id={'svgRect'}
-                    duration={3}
-                    svg={
-                        <svg
-                            xmlns='http://www.w3.org/2000/svg'
-                            viewBox='0 0 300 300'
-                            width='300'
-                            height='300'
-                        >
-                            <rect
-                                x='75'
-                                y='75'
-                                width='150'
-                                height='150'
-                                fill='red'
-                            />
-                        </svg>
-                    }
-                />
-            </Track>
-
             <Track id={'svgCodeTrack'}>
+                <InlineSvg
+                    id={'svgCode'}
+                    duration={3}
+                    svg={<CodeSnippet code={codeSnippet} />}
+                ></InlineSvg>
                 {Array.from({ length: 6 }).map((_, index) => (
                     <InlineSvg
                         id={`world${index}`}
@@ -87,11 +69,40 @@ function Video({}) {
                         />
                     </InlineSvg>
                 ))}
+            </Track>
+            <Track id={'svgRectTrack'}>
                 <InlineSvg
-                    id={'svgCode'}
+                    id={'svgRect'}
                     duration={3}
-                    svg={<CodeSnippet code={codeSnippet} />}
-                ></InlineSvg>
+                    svg={
+                        <svg
+                            xmlns='http://www.w3.org/2000/svg'
+                            viewBox='0 0 300 300'
+                            width='300'
+                            height='300'
+                        >
+                            <rect
+                                x='75'
+                                y='75'
+                                width='150'
+                                height='150'
+                                fill='red'
+                            />
+                        </svg>
+                    }
+                >
+                    <Transform
+                        keyframes={[
+                            {
+                                time: 0,
+                                left: 0,
+                                top: 0,
+                                width: 100,
+                                height: 100,
+                            },
+                        ]}
+                    />
+                </InlineSvg>
             </Track>
             <Track id={'soundtrackTrack'}>
                 <Asset
