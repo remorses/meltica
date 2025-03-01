@@ -1,12 +1,13 @@
 import { describe, expect, it } from 'vitest'
 
 import { createContext, render, renderAsync, useContext } from 'jsx-xml'
-import { formatSecondsToTime, isNodeElement } from './rendering'
+import { isNodeElement } from './rendering'
 
 import { WorkflowIcon } from 'lucide-react'
 import { create, fragment } from 'xmlbuilder2'
 import { persistentMemo } from 'meltica/src/memo'
 import { sleep } from 'meltica/src/utils'
+import { formatSecondsToTime } from 'meltica/src/time'
 
 describe('persistentMemo', () => {
     it('persistentMemo', async ({ task }) => {

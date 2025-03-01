@@ -1,7 +1,5 @@
+import { formatSecondsToTime } from 'meltica/src/time'
+
 export * from './components'
-export {
-    renderToPreview,
-    renderToVideo,
-    renderToXml,
-    formatSecondsToTime,
-} from './rendering'
+export { renderToPreview, renderToVideo, renderToXml } from './rendering'
+export { formatSecondsToTime }

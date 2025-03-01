@@ -8,7 +8,6 @@
         // "jsxFragmentFactory": "React.Fragment",
         "jsx": "react-jsx",
         "outDir": "dist",
-
         "jsxImportSource": "jsx-xml",
         "module": "ESNext",
         "moduleResolution": "Bundler",

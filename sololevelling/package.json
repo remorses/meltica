@@ -7,7 +7,7 @@
     "types": "dist/index.d.ts",
     "repository": "https://github.com/remorses/",
     "scripts": {
-        "dev": "pnpm tsx src/sololevelling.tsx",
+        "dev": "pnpm vite-node src/sololevelling.tsx",
         "watch": "tsc -w"
     },
     "files": [

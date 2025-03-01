@@ -3,7 +3,6 @@ import { Fragment, useContext } from 'jsx-xml'
 import {
     AssetRegistration,
     AssetTypeWithPath,
-    formatSecondsToTime,
     melticaFolder,
 } from 'meltica/src/rendering'
 import dedent from 'dedent'
@@ -21,6 +20,7 @@ import {
 import { render, renderAsync } from 'jsx-xml'
 import path from 'path'
 import { persistentMemo } from 'meltica/src/memo'
+import { formatSecondsToTime } from 'meltica/src/time'
 
 function useTrackContext() {
     const context = useContext(trackContext)

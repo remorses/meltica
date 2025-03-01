@@ -285,26 +285,6 @@ export async function renderToPreview(jsx: any, xmlFilename = 'video.mlt') {
     console.timeEnd(`${renderId} melt processing`)
 }
 
-export function formatSecondsToTime(secs?: number | string | null) {
-    if (secs == null) {
-        return undefined
-    }
-    if (typeof secs === 'string') {
-        if (secs.includes(':')) {
-            return secs
-        }
-        const parsed = Number(secs)
-        if (isNaN(parsed)) {
-            throw new Error(`Invalid time string: ${secs}`)
-        }
-        return formatSecondsToTime(parsed)
-    }
-    const hours = Math.floor(secs / 3600)
-    const minutes = Math.floor((secs % 3600) / 60)
-    const seconds = Math.floor(secs % 60)
-    const milliseconds = Math.floor((secs % 1) * 1000)
-    return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}.${milliseconds.toString().padStart(3, '0')}`
-}
 
 function deduplicate<T, K>(array: T[], keyFn: (item: T) => K): T[] {
     const seen = new Set<K>()

@@ -6,13 +6,9 @@ import {
     PanningAnimation,
     Track,
     Composition,
-} from 'meltica/src/components'
-import {
     formatSecondsToTime,
-    renderToPreview,
-    renderToVideo,
-    renderToXml,
-} from 'meltica/src/rendering'
+} from 'meltica/src'
+import { renderToPreview, renderToVideo, renderToXml } from 'meltica/src'
 import { writeFileSync } from 'fs'
 import path from 'path'
 

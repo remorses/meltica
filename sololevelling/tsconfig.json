@@ -2,6 +2,7 @@
     "extends": "../tsconfig.base.json",
     "compilerOptions": {
         "types": ["meltica/src/types"],
+        "jsx": "react-jsx",
         "jsxImportSource": "meltica/src",
         "rootDir": "src",
         "outDir": "dist"
