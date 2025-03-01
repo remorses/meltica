@@ -48,10 +48,10 @@ describe('getSVGRenderer', () => {
         })
 
         // Render a simple token array
-        const svg = renderer.renderToSVG(tokens)
+        const svg = await renderer.renderToSVG(tokens)
 
         // Use snapshot testing
-        expect(svg).toMatchFileSnapshot('svg-snapshots/simple-svg-render.svg')
+        await expect(svg).toMatchFileSnapshot('svg-snapshots/simple-svg-render.svg')
     })
 })
 
@@ -73,10 +73,10 @@ describe('CodeOuterGrid', () => {
         })
 
         // Render the component to SVG
-        const svg = render(grid).end({ headless: true })
+        const svg = await render(grid).end({ headless: true })
 
         // Use snapshot testing
-        expect(svg).toMatchFileSnapshot(
+        await expect(svg).toMatchFileSnapshot(
             'svg-snapshots/code-outer-grid-render.svg',
         )
     })

@@ -10,15 +10,9 @@ import fs from 'fs'
 import { createContext } from 'jsx-xml'
 import path from 'path'
 import { isTruthy } from '@/utils'
-import { compositionContext, assetContext, trackContext } from '@/context'
+import { compositionContext, assetContext, trackContext, renderingContext, defaultRenderingContext } from '@/context'
 
-let defaultContext = {
-    assets: [] as AssetRegistration[],
-    producers: [] as AssetProducer[],
-    isRegistrationStep: true,
-}
 
-export const renderingContext = createContext(defaultContext)
 
 export type AssetTypeWithPath = 'audio' | 'image' | 'video'
 
@@ -227,7 +221,7 @@ export function checkDuplicateIds(builder: XMLBuilder): string[] {
 }
 
 export async function renderToXml(jsx: any) {
-    const currentContext = structuredClone(defaultContext)
+    const currentContext = structuredClone(defaultRenderingContext)
     const initialNode = await renderAsync(
         <renderingContext.Provider value={currentContext}>
             {jsx}

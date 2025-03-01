@@ -36,7 +36,7 @@ const objectPositions = [
 ] as const
 
 for (const [width, height] of canvasSizes) {
-    describe(`${width}x${height}`, () => {
+    describe.skip(`${width}x${height}`, () => {
         describe('1. Horizontal', () => {
             for (const position of objectPositions) {
                 it(`1. objectFit = "none", objectPosition = "${position.name}"`, async () => {

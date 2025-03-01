@@ -13,6 +13,7 @@ declare global {
         interface IntrinsicElements {
             assetRegistration: {
                 data: string
+                forId: string
             }
             mlt: {
                 LC_NUMERIC?: string

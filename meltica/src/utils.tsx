@@ -3,8 +3,8 @@ import crypto from 'crypto'
 import fs from 'fs'
 import path from 'path'
 import xmlbuilder from 'xmlbuilder2'
-import { melticaFolder, renderingContext } from '@/rendering'
-import { compositionContext, assetContext, trackContext } from '@/context'
+import { melticaFolder } from '@/rendering'
+import { compositionContext, assetContext, trackContext, renderingContext } from '@/context'
 
 /**
  * Utility function that creates a promise that resolves after the specified time.
@@ -215,7 +215,7 @@ export function persistentMemo<T, Args extends object[]>(
             replacer,
             4,
         )
-        if (foundPromises) {
+        if (process.env.DISABLE_CACHE || foundPromises) {
             console.warn(
                 `Found promises in arguments, skipping cache for ${fnName}`,
             )

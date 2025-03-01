@@ -5,7 +5,6 @@ import {
     AssetTypeWithPath,
     formatSecondsToTime,
     melticaFolder,
-    renderingContext,
 } from '@/rendering'
 import dedent from 'dedent'
 import fs from 'fs'
@@ -15,6 +14,7 @@ import {
     AssetContext,
     compositionContext,
     CompositionContext,
+    renderingContext,
     trackContext,
 } from '@/context'
 import { persistentMemo } from '@/utils'
@@ -87,15 +87,17 @@ export const InlineSvg = persistentMemo(async function InlineSvg({
         console.timeEnd(`${id} svg render`)
 
         fs.writeFileSync(filepath, pngBuffer)
-        return AssetRegistrationComponent({
-            id,
-            type: 'image',
-            filepath,
-            parentTrackId: trackId,
-            in: 0,
-            out: duration,
-            // svgContent
-        })
+        return (
+            <AssetRegistrationComponent
+                id={id}
+                type='image'
+                filepath={filepath}
+                parentTrackId={trackId}
+                in={0}
+                out={duration}
+                // svgContent
+            />
+        )
         return <producer id={id}></producer>
     }
     const producer = context.producers.find((p) => p.id === id)
@@ -147,14 +149,16 @@ export function Asset({
     const inWithDefault = inTime ?? producer?.attributes.in
     const outWithDefault = out ?? producer?.attributes.out
     if (context.isRegistrationStep) {
-        return AssetRegistrationComponent({
-            filepath,
-            id,
-            type,
-            in: inWithDefault,
-            out: outWithDefault,
-            parentTrackId: trackId,
-        })
+        return (
+            <AssetRegistrationComponent
+                filepath={filepath}
+                id={id}
+                type={type}
+                in={inWithDefault}
+                out={outWithDefault}
+                parentTrackId={trackId}
+            />
+        )
         return <producer id={id}></producer>
     }
 
@@ -415,12 +419,14 @@ export function BlankSpace({ id, length }) {
     const context = useContext(renderingContext)
     const { trackId } = useTrackContext()
     if (context.isRegistrationStep) {
-        return AssetRegistrationComponent({
-            id,
-            type: 'blank',
-            duration: length,
-            parentTrackId: trackId,
-        })
+        return (
+            <AssetRegistrationComponent
+                id={id}
+                type='blank'
+                duration={length}
+                parentTrackId={trackId}
+            />
+        )
         return <producer id={id} />
     }
     return null
@@ -434,6 +440,11 @@ export function Track({ id: trackId, name = 'track', children }) {
         return (
             <trackContext.Provider value={trackCtx}>
                 {children}
+            </trackContext.Provider>
+        )
+        return (
+            <trackContext.Provider value={trackCtx}>
+                <track>{children}</track>
             </trackContext.Provider>
         )
     }
@@ -636,7 +647,7 @@ export function Composition({
 }
 
 function AssetRegistrationComponent(asset: AssetRegistration) {
-    return <assetRegistration data={JSON.stringify(asset)} />
+    return <assetRegistration forId={asset.id} data={JSON.stringify(asset)} />
 }
 
 export function RichText({
@@ -665,13 +676,15 @@ export function RichText({
     const context = useContext(renderingContext)
     const { trackId } = useTrackContext()
     if (context.isRegistrationStep) {
-        return AssetRegistrationComponent({
-            type: 'text',
-            id,
-            in: 0,
-            out: duration,
-            parentTrackId: trackId,
-        })
+        return (
+            <AssetRegistrationComponent
+                type='text'
+                id={id}
+                in={0}
+                out={duration}
+                parentTrackId={trackId}
+            />
+        )
         return <producer id={id} />
     }
     const renderedHtmlText = render(htmlText, {}).end({

@@ -1,5 +1,5 @@
-import { AssetProducer } from "@/rendering"
-import { createContext } from "jsx-xml"
+import { AssetProducer, AssetRegistration } from '@/rendering'
+import { createContext } from 'jsx-xml'
 
 export type CompositionContext = {
     width: number
@@ -21,3 +21,11 @@ export type AssetContext = {
     out?: number | string
 }
 export const assetContext = createContext<AssetContext | null>(null)
+
+export let defaultRenderingContext = {
+    assets: [] as AssetRegistration[],
+    producers: [] as AssetProducer[],
+    isRegistrationStep: true,
+}
+
+export const renderingContext = createContext(defaultRenderingContext)
