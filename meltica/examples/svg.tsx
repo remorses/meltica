@@ -11,6 +11,8 @@ import {
     Transform,
 } from '@/components'
 import { renderToPreview, renderToVideo, renderToXml } from '@/rendering'
+import { sleep } from '@/utils'
+import { persistentMemo } from '@/memo'
 const codeSnippet = `
 import React from 'react'
 import { CodeSnippet } from '@/code/code'
@@ -23,6 +25,12 @@ export const code = <CodeSnippet
     }
 />
 `
+
+const SlowComponent = persistentMemo(async function ({}) {
+    console.log('rendering slow component')
+    await sleep(1)
+    return <Asset type='video' id='slow' filepath='video.mp4' in={0} out={10} />
+})
 
 function Video({}) {
     return (
@@ -69,6 +77,7 @@ function Video({}) {
                         />
                     </InlineSvg>
                 ))}
+                <SlowComponent />
             </Track>
             <Track id={'svgRectTrack'}>
                 <InlineSvg

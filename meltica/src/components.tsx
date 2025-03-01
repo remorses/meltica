@@ -17,9 +17,10 @@ import {
     renderingContext,
     trackContext,
 } from '@/context'
-import { persistentMemo } from '@/utils'
+
 import { render, renderAsync } from 'jsx-xml'
 import path from 'path'
+import { persistentMemo } from '@/memo'
 
 function useTrackContext() {
     const context = useContext(trackContext)

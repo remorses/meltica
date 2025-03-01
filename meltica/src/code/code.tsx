@@ -6,7 +6,7 @@ import {
     codeToTokens,
     CodeToTokensOptions,
 } from 'shiki'
-import { persistentMemo } from '@/utils'
+import { persistentMemo } from '@/memo'
 
 export const CodeSnippet = persistentMemo(async function CodeSnippet({
     code,

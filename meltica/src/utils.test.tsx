@@ -3,9 +3,10 @@ import { describe, expect, it } from 'vitest'
 import { createContext, render, renderAsync, useContext } from 'jsx-xml'
 import { formatSecondsToTime, isNodeElement } from './rendering'
 
-import { persistentMemo, sleep } from '@/utils'
 import { WorkflowIcon } from 'lucide-react'
 import { create, fragment } from 'xmlbuilder2'
+import { persistentMemo } from '@/memo'
+import { sleep } from '@/utils'
 
 describe('persistentMemo', () => {
     it('persistentMemo', async ({ task }) => {
