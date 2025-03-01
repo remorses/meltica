@@ -73,7 +73,6 @@ describe('CodeOuterGrid', () => {
             fontSize: 14,
             bg: '#000',
             tokens,
-            svgAttributes: {},
         })
         const padding = 50
         let width = codeWidth + padding * 2

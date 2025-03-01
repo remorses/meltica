@@ -84,7 +84,6 @@ interface SVGRendererOptions {
      * Default is 0.02 (2% of fontSize).
      */
     letterSpacing?: number
-    svgAttributes?: Record<string, string>
 }
 
 interface TokenOptions {
@@ -194,12 +193,8 @@ export function renderCodeToSVG(options: SVGRendererOptions) {
      */
     const bgHeight = (lines.length + bgVerticalCharPadding * 2) * lineheightPx
 
-    const svgAttributes = options.svgAttributes
-        ? Object.entries(options.svgAttributes)
-              .map(([key, value]) => `${key}="${value}"`)
-              .join(' ')
-        : ''
-    let svg = `<svg viewBox="0 0 ${bgWidth} ${bgHeight}" width="${bgWidth}" height="${bgHeight}" xmlns="http://www.w3.org/2000/svg" ${svgAttributes}>\n`
+
+    let svg = `<svg viewBox="0 0 ${bgWidth} ${bgHeight}" width="${bgWidth}" height="${bgHeight}" xmlns="http://www.w3.org/2000/svg" >\n`
 
     svg += `<rect id="bg" fill="${actualBg}" width="${bgWidth}" height="${bgHeight}" rx="${bgCornerRadius}"></rect>`
 
