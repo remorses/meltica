@@ -63,40 +63,31 @@ describe('generateProducersXml', () => {
         }
 
         const node = await renderAsync(
-            <renderingContext.Provider
-                value={structuredClone(defaultRenderingContext)}
+            <Composition
+                width={1080}
+                height={1920}
+                fps={30}
+                resultFilePath='video.mp4'
             >
-                <Composition
-                    width={1080}
-                    height={1920}
-                    fps={30}
-                    resultFilePath='video.mp4'
-                >
-                    <Track id={'first'}>
-                        <AsyncAsset
-                            ms={3}
-                            id='1'
-                            filepath='one.mp4'
-                            type='video'
-                        />
-                        <Asset id='2' filepath='two.mp4' type='video' />
-                    </Track>
-                    <Track id={'second'}>
-                        <AsyncAsset
-                            ms={0}
-                            id='3'
-                            filepath='three.mp4'
-                            type='video'
-                        />
-                        <AsyncAsset
-                            ms={0}
-                            id='4'
-                            filepath='four.mp4'
-                            type='video'
-                        />
-                    </Track>
-                </Composition>
-            </renderingContext.Provider>,
+                <Track id={'first'}>
+                    <AsyncAsset ms={3} id='1' filepath='one.mp4' type='video' />
+                    <Asset id='2' filepath='two.mp4' type='video' />
+                </Track>
+                <Track id={'second'}>
+                    <AsyncAsset
+                        ms={0}
+                        id='3'
+                        filepath='three.mp4'
+                        type='video'
+                    />
+                    <AsyncAsset
+                        ms={0}
+                        id='4'
+                        filepath='four.mp4'
+                        type='video'
+                    />
+                </Track>
+            </Composition>,
         )
 
         expect(
