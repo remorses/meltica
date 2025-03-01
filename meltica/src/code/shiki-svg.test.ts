@@ -23,7 +23,7 @@ const result = hello();
 describe('getSVGRenderer', () => {
     it('should create a renderer that can render tokens to SVG', async () => {
         const fonts = ['Consolas'] as const
-        const fontSizes = [12, 14, 18]
+        const fontSizes = [9, 12, 14, 18, 24]
 
         for (const font of fonts) {
             for (const fontSize of fontSizes) {

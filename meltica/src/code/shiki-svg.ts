@@ -73,6 +73,10 @@ interface SVGRendererOptions {
      * Background minimal width. Default to longest line calculated by font-measurements done by Playwright.
      */
     bgMinWidth?: number
+    /**
+     * Line height ratio. fontSize * lineHeight will be the line height in px
+     */
+    lineHeight?: number
 }
 
 interface TokenOptions {
@@ -138,8 +142,6 @@ function escapeHtml(html: string) {
     )
 }
 
-let lineHeight = 1.4
-
 export function getSVGRenderer(options: SVGRendererOptions) {
     const fontFamily = options.fontFamily
     const fontSize = options.fontSize ?? 16
@@ -153,8 +155,8 @@ export function getSVGRenderer(options: SVGRendererOptions) {
     if (!measurement) {
         throw new Error(`Font family ${fontFamily} not supported`)
     }
-    const lineheight =
-        measurement.height * lineHeight * (fontSize / fontSizeForMeasurement)
+    const lineHeight = options.lineHeightToFontSizeRatio ?? 1.6
+    const lineheightPx = fontSize * lineHeight
     let letterWidth = (measurement.width * fontSize) / fontSizeForMeasurement
 
     return {
@@ -180,21 +182,21 @@ export function getSVGRenderer(options: SVGRendererOptions) {
              * all rows + 2 rows top/bot
              */
             const bgHeight =
-                (lines.length + bgVerticalCharPadding * 2) * lineheight
+                (lines.length + bgVerticalCharPadding * 2) * lineheightPx
 
             let svg = `<svg viewBox="0 0 ${bgWidth} ${bgHeight}" width="${bgWidth}" height="${bgHeight}" xmlns="http://www.w3.org/2000/svg">\n`
 
             svg += `<rect id="bg" fill="${bg}" width="${bgWidth}" height="${bgHeight}" rx="${bgCornerRadius}"></rect>`
 
             svg += `<g id="tokens" transform="translate(${measurement.width * bgSideCharPadding}, ${
-                lineheight * bgVerticalCharPadding
+                lineheightPx * bgVerticalCharPadding
             })">`
 
             lines.forEach((l: IThemedToken[], index: number) => {
                 if (l.length === 0) {
                     svg += '\n'
                 } else {
-                    const yPosition = lineheight * (index + 1)
+                    const yPosition = lineheightPx * (index + 1)
                     let indent = 0
 
                     l.forEach((token) => {
