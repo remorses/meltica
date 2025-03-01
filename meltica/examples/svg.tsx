@@ -2,7 +2,14 @@ import fs from 'fs'
 import { WholeWordIcon } from 'lucide-react'
 
 import { CodeSnippet } from '@/code/code'
-import { Asset, AudioGain, InlineSvg, Track, Composition } from '@/components'
+import {
+    Asset,
+    AudioGain,
+    InlineSvg,
+    Track,
+    Composition,
+    Transform,
+} from '@/components'
 import { renderToPreview, renderToVideo, renderToXml } from '@/rendering'
 const codeSnippet = `
 import React from 'react'
@@ -65,7 +72,19 @@ function Video({}) {
                     id={'svgCode'}
                     duration={3}
                     svg={<CodeSnippet code={codeSnippet} />}
-                />
+                >
+                    <Transform
+                        keyframes={[
+                            {
+                                time: 0,
+                                left: 0,
+                                top: 0,
+                                width: 100,
+                                height: 100,
+                            },
+                        ]}
+                    />
+                </InlineSvg>
             </Track>
             <Track id={'soundtrackTrack'}>
                 <Asset

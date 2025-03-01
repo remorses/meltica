@@ -11,7 +11,6 @@ import {
 } from '@/rendering'
 import dedent from 'dedent'
 
-
 import { render, renderAsync } from 'jsx-xml'
 import { type } from 'os'
 import path from 'path'
@@ -357,29 +356,55 @@ export function Vignette({
     )
 }
 
-export function Transform({
-    id = 'qtblend',
-    width,
-    height,
-    left = 0,
-    top = 0,
-    rotation = 0,
-    compositing = 0,
-    distort = 0,
-}: {
-    id?: string
+type TransformKeyframe = {
+    time: number | string
+    easing?: EasingType
     width?: number
     height?: number
     left?: number
     top?: number
     rotation?: number
+}
+
+const easingTypeToLetter = {
+    smooth: '$',
+    linear: '',
+    step: '|',
+    'cubic in': 'g',
+    'cubic out': 'h',
+    'exponential in': 'p',
+    'exponential out': 'q',
+} as const
+
+type EasingType = keyof typeof easingTypeToLetter
+
+export function Transform({
+    id = 'qtblend',
+    keyframes,
+
+    compositing = 0,
+    distort = 0,
+}: {
+    id?: string
+    keyframes: TransformKeyframe[]
     compositing?: number
     distort?: number
 }) {
     const videoContext = useContext(compositionContext)!
-    const videoWidth = width || videoContext.width || 1920
-    const videoHeight = height || videoContext.height || 1080
-    const rect = `${left} ${top} ${videoWidth} ${videoHeight} 1.000000`
+    const rect = keyframes
+        .map((keyframe) => {
+            const animationLetter =
+                easingTypeToLetter[keyframe.easing || 'linear']
+            return `${formatSecondsToTime(keyframe.time)}${animationLetter}=${keyframe.left} ${keyframe.top} ${keyframe.width || videoContext.width} ${keyframe.height || videoContext.height} 1.000000`
+        })
+        .join(';')
+    const rotation = keyframes
+        .map((keyframe) => {
+            const animationLetter =
+                easingTypeToLetter[keyframe.easing || 'linear']
+            return `${formatSecondsToTime(keyframe.time)}${animationLetter}=${keyframe.rotation || 0}`
+        })
+        .join(';')
 
     return (
         <filter id={id}>
@@ -388,8 +413,8 @@ export function Transform({
             <property name='kdenlive_id'>qtblend</property>
             <property name='compositing'>{compositing}</property>
             <property name='distort'>{distort}</property>
-            <property name='rect'>{`00:00:00.000=${rect}`}</property>
-            <property name='rotation'>{`00:00:00.000=${rotation}`}</property>
+            <property name='rect'>{rect}</property>
+            <property name='rotation'>{rotation}</property>
             <property name='kdenlive:collapsed'>0</property>
         </filter>
     )

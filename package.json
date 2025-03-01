@@ -15,6 +15,9 @@
         "vite": "^6.2.0",
         "vitest": "^2.0.5"
     },
+    "pnpm": {
+        "neverBuiltDependencies": []
+    },
     "repository": "https://github.com/remorses/",
     "author": "remorses <beats.by.morse@gmail.com>",
     "license": ""
