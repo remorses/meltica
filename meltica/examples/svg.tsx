@@ -128,6 +128,6 @@ function Video({}) {
     )
 }
 
-fs.writeFileSync('examples/svg.mlt', await renderToXml(<Video />))
-renderToVideo(<Video />)
-// renderToPreview(<Video />)
+// fs.writeFileSync('examples/svg.mlt', await renderToXml(<Video />))
+// renderToVideo(<Video />)
+renderToPreview(<Video />)

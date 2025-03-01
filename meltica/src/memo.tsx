@@ -101,6 +101,15 @@ export const loadCacheFromDisk = () => {
     cacheLoaded = true
 }
 
+/**
+ * A memoization function that persists results to disk. Should be used on leaf components, because it does not work if a child is a non memoized async component.
+ *
+ * IMPORTANT: This function should only be used with stateless components.
+ * State can also come from contexts, which is currently not factored into the cache key.
+ *
+ * // TODO: Add an argument for specifying which contexts to include in the cache key
+ * to properly handle components that depend on more context values.
+ */
 export function persistentMemo<T, Args extends object[]>(
     fn: (...args: Args) => Promise<T>,
 ): (...args: Args) => Promise<T> | T {
@@ -198,7 +207,8 @@ export function persistentMemo<T, Args extends object[]>(
                 replacer,
                 4,
             )
-            saveCacheToDisk()
+            // TODO remove saving cache on every memo, instead do it on process exit
+            // saveCacheToDisk()
 
             return result
         })
