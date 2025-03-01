@@ -38,9 +38,6 @@ function reviver(key: string, value: any): any {
 
 const globalMemoMemoryCache = new FlatCache({
     cacheDir: '.meltica',
-    // deserialize(data) {
-    //     return JSON.parse(data, reviver)
-    // },
     lruSize: 1000,
     cacheId: 'memo.json',
     persistInterval: 200,
@@ -164,19 +161,16 @@ export function persistentMemo<T, Args extends object[]>(
         const hash = crypto.createHash('md5').update(argsKey).digest('hex')
         const cacheKey = `${fnName}_${hash}`
 
-        const cached = globalMemoMemoryCache.getKey(cacheKey) as string
+        const cached = globalMemoMemoryCache.get(cacheKey) as string
         if (cached) {
             return JSON.parse(cached, reviver) as T
         }
         return fn(...args).then((result) => {
             // Save the result to memory cache
-            globalMemoMemoryCache.setKey(
+            globalMemoMemoryCache.set(
                 cacheKey,
                 JSON.stringify(result, replacer, 4),
             )
-
-            // TODO remove saving cache on every memo, instead do it on process exit
-            // saveCacheToDisk()
 
             return result
         })
