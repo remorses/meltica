@@ -1,41 +1,19 @@
-import { createContext, useContext } from 'jsx-xml'
+import { useContext } from 'jsx-xml'
 
-import fs from 'fs'
 import {
-    AssetProducer,
     AssetRegistration,
     AssetTypeWithPath,
     formatSecondsToTime,
     melticaFolder,
-    renderingContext,
+    renderingContext
 } from '@/rendering'
 import dedent from 'dedent'
+import fs from 'fs'
 
+import { assetContext, AssetContext, compositionContext, CompositionContext, trackContext } from '@/context'
+import { persistentMemo } from '@/utils'
 import { render, renderAsync } from 'jsx-xml'
-import { type } from 'os'
 import path from 'path'
-import { text } from 'stream/consumers'
-
-type CompositionContext = {
-    width: number
-    height: number
-    resultFilePath: string
-    fps: number
-    duration?: number
-}
-
-export const compositionContext = createContext<CompositionContext | null>(null)
-type TrackContext = {
-    trackId: string
-}
-
-export const trackContext = createContext<TrackContext | null>(null)
-type AssetContext = {
-    producer: AssetProducer
-    in?: number | string
-    out?: number | string
-}
-export const assetContext = createContext<AssetContext | null>(null)
 
 function useTrackContext() {
     const context = useContext(trackContext)
@@ -59,7 +37,7 @@ export function AudioGain({ volume = 0 }) {
     )
 }
 
-export async function InlineSvg({
+export const InlineSvg = persistentMemo(async function InlineSvg({
     svg: svgContent,
     id,
     duration,
@@ -139,7 +117,7 @@ export async function InlineSvg({
             </producer>
         </assetContext.Provider>
     )
-}
+})
 
 export function Asset({
     id,

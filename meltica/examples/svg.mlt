@@ -77,6 +77,16 @@
     <property name="format">2</property>
     <property name="shotcut:skipConvert">1</property>
     <property name="shotcut:caption">Inline SVG</property>
+    <filter id="qtblend">
+      <property name="rotate_center">1</property>
+      <property name="mlt_service">qtblend</property>
+      <property name="kdenlive_id">qtblend</property>
+      <property name="compositing"/>
+      <property name="distort"/>
+      <property name="rect">00:00:00.000=0 0 100 100 1.000000;00:00:02.000=100 200 300 300 1.000000</property>
+      <property name="rotation">00:00:00.000=0;00:00:02.000=0</property>
+      <property name="kdenlive:collapsed">0</property>
+    </filter>
   </producer>
   <producer id="svgworld1" in="00:00:00.000" out="00:08:20.487">
     <property name="length">15000</property>
@@ -95,6 +105,16 @@
     <property name="format">2</property>
     <property name="shotcut:skipConvert">1</property>
     <property name="shotcut:caption">Inline SVG</property>
+    <filter id="qtblend">
+      <property name="rotate_center">1</property>
+      <property name="mlt_service">qtblend</property>
+      <property name="kdenlive_id">qtblend</property>
+      <property name="compositing"/>
+      <property name="distort"/>
+      <property name="rect">00:00:00.000=0 0 100 100 1.000000;00:00:02.000=100 200 300 300 1.000000</property>
+      <property name="rotation">00:00:00.000=0;00:00:02.000=0</property>
+      <property name="kdenlive:collapsed">0</property>
+    </filter>
   </producer>
   <producer id="svgworld2" in="00:00:00.000" out="00:08:20.487">
     <property name="length">15000</property>
@@ -113,6 +133,16 @@
     <property name="format">2</property>
     <property name="shotcut:skipConvert">1</property>
     <property name="shotcut:caption">Inline SVG</property>
+    <filter id="qtblend">
+      <property name="rotate_center">1</property>
+      <property name="mlt_service">qtblend</property>
+      <property name="kdenlive_id">qtblend</property>
+      <property name="compositing"/>
+      <property name="distort"/>
+      <property name="rect">00:00:00.000=0 0 100 100 1.000000;00:00:02.000=100 200 300 300 1.000000</property>
+      <property name="rotation">00:00:00.000=0;00:00:02.000=0</property>
+      <property name="kdenlive:collapsed">0</property>
+    </filter>
   </producer>
   <producer id="svgworld3" in="00:00:00.000" out="00:08:20.487">
     <property name="length">15000</property>
@@ -131,6 +161,16 @@
     <property name="format">2</property>
     <property name="shotcut:skipConvert">1</property>
     <property name="shotcut:caption">Inline SVG</property>
+    <filter id="qtblend">
+      <property name="rotate_center">1</property>
+      <property name="mlt_service">qtblend</property>
+      <property name="kdenlive_id">qtblend</property>
+      <property name="compositing"/>
+      <property name="distort"/>
+      <property name="rect">00:00:00.000=0 0 100 100 1.000000;00:00:02.000=100 200 300 300 1.000000</property>
+      <property name="rotation">00:00:00.000=0;00:00:02.000=0</property>
+      <property name="kdenlive:collapsed">0</property>
+    </filter>
   </producer>
   <producer id="svgworld4" in="00:00:00.000" out="00:08:20.487">
     <property name="length">15000</property>
@@ -149,6 +189,16 @@
     <property name="format">2</property>
     <property name="shotcut:skipConvert">1</property>
     <property name="shotcut:caption">Inline SVG</property>
+    <filter id="qtblend">
+      <property name="rotate_center">1</property>
+      <property name="mlt_service">qtblend</property>
+      <property name="kdenlive_id">qtblend</property>
+      <property name="compositing"/>
+      <property name="distort"/>
+      <property name="rect">00:00:00.000=0 0 100 100 1.000000;00:00:02.000=100 200 300 300 1.000000</property>
+      <property name="rotation">00:00:00.000=0;00:00:02.000=0</property>
+      <property name="kdenlive:collapsed">0</property>
+    </filter>
   </producer>
   <producer id="svgworld5" in="00:00:00.000" out="00:08:20.487">
     <property name="length">15000</property>
@@ -167,6 +217,16 @@
     <property name="format">2</property>
     <property name="shotcut:skipConvert">1</property>
     <property name="shotcut:caption">Inline SVG</property>
+    <filter id="qtblend">
+      <property name="rotate_center">1</property>
+      <property name="mlt_service">qtblend</property>
+      <property name="kdenlive_id">qtblend</property>
+      <property name="compositing"/>
+      <property name="distort"/>
+      <property name="rect">00:00:00.000=0 0 100 100 1.000000;00:00:02.000=100 200 300 300 1.000000</property>
+      <property name="rotation">00:00:00.000=0;00:00:02.000=0</property>
+      <property name="kdenlive:collapsed">0</property>
+    </filter>
   </producer>
   <producer id="svgsvgCode" in="00:00:00.000" out="00:08:20.487">
     <property name="length">15000</property>
@@ -185,16 +245,6 @@
     <property name="format">2</property>
     <property name="shotcut:skipConvert">1</property>
     <property name="shotcut:caption">Inline SVG</property>
-    <filter id="qtblend">
-      <property name="rotate_center">1</property>
-      <property name="mlt_service">qtblend</property>
-      <property name="kdenlive_id">qtblend</property>
-      <property name="compositing"/>
-      <property name="distort"/>
-      <property name="rect">00:00:00.000=0 0 100 100 1.000000</property>
-      <property name="rotation">00:00:00.000=0</property>
-      <property name="kdenlive:collapsed">0</property>
-    </filter>
   </producer>
   <playlist id="tracksvgCodeTrack">
     <property name="shotcut:name">track</property>

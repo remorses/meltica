@@ -22,7 +22,7 @@ describe('persistentMemo', () => {
         }
 
         const persisted = persistentMemo(fetchData)
-        async function AsyncComponent({ children }) {
+        function AsyncComponent({ children }) {
             return <track>AsyncComponent</track>
         }
         const jsxArg = (
@@ -32,12 +32,10 @@ describe('persistentMemo', () => {
             </consumer>
         )
         const r1 = await persisted({ timestamp, jsxArg })
-        
-        const result1 = await renderAsync(
-            r1,
-        )
+
+        const result1 = await renderAsync(r1)
         expect(result1.end({ headless: true })).toMatchInlineSnapshot(
-            `"<producer>12345<consumer>12345<track>AsyncComponent</track></consumer><track>AsyncComponent</track></producer>"`,
+            `"<producer><consumer><track>AsyncComponent</track>12345</consumer>12345<track>AsyncComponent</track></producer>"`,
         )
 
         // This should use the cached result, so it should be very fast
@@ -49,7 +47,7 @@ describe('persistentMemo', () => {
         const executionTime = endTime - startTime
         expect(executionTime).toBeLessThanOrEqual(3) // expect less than 1ms
         expect(result2.end({ headless: true })).toMatchInlineSnapshot(
-            `"<producer>12345<consumer>12345<track>AsyncComponent</track></consumer><track>AsyncComponent</track></producer>"`,
+            `"<producer><consumer><track>AsyncComponent</track>12345</consumer>12345<track>AsyncComponent</track></producer>"`,
         )
     })
 })

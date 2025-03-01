@@ -10,6 +10,7 @@ import fs from 'fs'
 import { createContext } from 'jsx-xml'
 import path from 'path'
 import { isTruthy } from '@/utils'
+import { compositionContext, assetContext, trackContext } from '@/context'
 
 let defaultContext = {
     assets: [] as AssetRegistration[],
@@ -54,7 +55,6 @@ export type AssetProducer = {
     properties: Properties
     children: any[]
 }
-
 
 type ImageProducerProperties = {
     length: string
@@ -234,7 +234,7 @@ export async function renderToXml(jsx: any) {
         </renderingContext.Provider>,
     )
 
-    checkDuplicateIds(initialNode)
+    // checkDuplicateIds(initialNode)
 
     const producers = generateProducersXml(currentContext.assets)
     // console.log(producers.map((x) => x.id))

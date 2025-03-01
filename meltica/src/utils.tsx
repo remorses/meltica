@@ -4,7 +4,7 @@ import fs from 'fs'
 import path from 'path'
 import xmlbuilder from 'xmlbuilder2'
 import { melticaFolder, renderingContext } from '@/rendering'
-import { assetContext, compositionContext, trackContext } from '@/components'
+import { compositionContext, assetContext, trackContext } from '@/context'
 
 /**
  * Utility function that creates a promise that resolves after the specified time.
@@ -55,76 +55,9 @@ export function isXmlBuilder(value: any): boolean {
     )
 }
 
-/**
- * A simplified version of JSON.stringify that resolves promises before stringifying.
- *
- * @param value - The value to stringify
- * @param space - Optional space parameter for formatting
- * @returns A promise that resolves to the JSON string
- */
-export async function stringifyWithPromises(
-    value: any,
-    space?: string | number,
-): Promise<string> {
-    // Recursively resolve all promises in the object
-    const resolved = await resolvePromises(value)
-
-    // Then stringify using our replacer
-    return JSON.stringify(resolved, null, space)
-}
-
 type XmlSerialized = {
     type: 'xml'
     xml: string
-}
-
-// Helper function to recursively resolve promises
-async function resolvePromises(value: any): Promise<any> {
-    // Handle primitive values and null
-    if (value === null || typeof value !== 'object') {
-        return value
-    }
-
-    // Handle promises
-    if (value instanceof Promise) {
-        const resolved = await value
-        return resolvePromises(resolved)
-    }
-
-    // Handle arrays
-    if (Array.isArray(value)) {
-        return Promise.all(value.map(resolvePromises))
-    }
-
-    // Handle JSX elements
-    if (isElement(value)) {
-        return {
-            type: 'xml',
-            xml: (await renderAsync(value)).end({ headless: true }),
-        } satisfies XmlSerialized
-    }
-    if (isXmlBuilder(value)) {
-        return {
-            type: 'xml',
-            xml: value.end({ headless: true }),
-        } satisfies XmlSerialized
-    }
-
-    // Handle objects
-    const result: Record<string, any> = {}
-    const keys = Object.keys(value)
-
-    // Resolve all properties concurrently
-    const resolvedValues = await Promise.all(
-        keys.map((key) => resolvePromises(value[key])),
-    )
-
-    // Reconstruct the object with resolved values
-    keys.forEach((key, index) => {
-        result[key] = resolvedValues[index]
-    })
-
-    return result
 }
 
 function isXmlSerialized(value: any): value is XmlSerialized {
@@ -151,25 +84,11 @@ const globalMemoryCache = new Map<string, any>()
 let cacheLoaded = false
 const cacheDir = '.meltica'
 const cacheFile = path.resolve(cacheDir, 'persistentMemo.json')
-// Save cache to disk
-const saveCacheToDisk = async () => {
-    try {
-        const cacheObject = Object.fromEntries(globalMemoryCache.entries())
-        await fs.promises.mkdir(cacheDir, { recursive: true })
-        await fs.promises.writeFile(
-            cacheFile,
-            await stringifyWithPromises(cacheObject, '  '),
-            'utf8',
-        )
-    } catch (error) {
-        console.warn(`Failed to write cache to disk:`, error)
-    }
-}
 
 // Register handlers to save cache on exit (only once)
 
 process.on('exit', async () => {
-    await saveCacheToDisk()
+    saveCacheToDisk()
 })
 
 // Handle process termination events
@@ -177,7 +96,7 @@ const handleTermination = async (exitCode: number = 0, errorMessage?: any) => {
     if (errorMessage) {
         console.error(errorMessage)
     }
-    await saveCacheToDisk()
+    saveCacheToDisk()
     process.exit(exitCode)
 }
 
@@ -185,60 +104,137 @@ const handleTermination = async (exitCode: number = 0, errorMessage?: any) => {
 process.on('SIGINT', () => handleTermination(0))
 process.on('SIGTERM', () => handleTermination(0))
 
+// Save cache to disk
+const saveCacheToDisk = () => {
+    try {
+        const cacheObject = Object.fromEntries(globalMemoryCache.entries())
+        fs.mkdirSync(cacheDir, { recursive: true })
+        fs.writeFileSync(cacheFile, JSON.stringify(cacheObject), 'utf8')
+    } catch (error) {
+        console.warn(`Failed to write cache to disk:`, error)
+    }
+}
+
 export function persistentMemo<T, Args extends object[]>(
     fn: (...args: Args) => Promise<T>,
-): (...args: Args) => Promise<T> {
+): (...args: Args) => Promise<T> | T {
     // Load cache from disk on first use
-    const loadCacheFromDisk = async () => {
+    const loadCacheFromDisk = () => {
         if (cacheLoaded) return
 
         try {
-            await fs.promises.mkdir(cacheDir, { recursive: true })
-            const cachedData = await fs.promises.readFile(cacheFile, 'utf8')
-            const parsedCache = JSON.parse(cachedData, reviver)
+            if (!fs.existsSync(cacheDir)) {
+                fs.mkdirSync(cacheDir, { recursive: true })
+            }
 
-            // Populate memory cache from disk
-            for (const [key, value] of Object.entries(parsedCache)) {
-                globalMemoryCache.set(key, value)
+            if (fs.existsSync(cacheFile)) {
+                const cachedData = fs.readFileSync(cacheFile, 'utf8')
+                const parsedCache = JSON.parse(cachedData, reviver)
+
+                // Populate memory cache from disk
+                for (const [key, value] of Object.entries(parsedCache)) {
+                    globalMemoryCache.set(key, value)
+                }
             }
         } catch (error) {
+            console.warn(`Failed to load cache from disk:`, error)
             // File might not exist yet, that's okay
         }
 
         cacheLoaded = true
     }
 
-    return async (...args: Args): Promise<T> => {
+    return (...args: Args): Promise<T> | T => {
         // Ensure cache is loaded
-        await loadCacheFromDisk()
+        loadCacheFromDisk()
 
         // Create a cache key based on the function name and stringified arguments
         const fnName = fn.name || 'anonymous'
-        const { isRegistrationStep } = useContext(renderingContext)
+        const { isRegistrationStep, assets, producers } =
+            useContext(renderingContext)
         const composition = useContext(compositionContext)
         const asset = useContext(assetContext)
         const track = useContext(trackContext)
 
-        const argsKey = await stringifyWithPromises(
-            { isRegistrationStep, composition, asset, track, ...args },
-            '  ',
+        function Container({ children }: { children: any }) {
+            return (
+                <renderingContext.Provider
+                    value={{
+                        isRegistrationStep,
+                        assets,
+                        producers,
+                    }}
+                >
+                    <compositionContext.Provider value={composition}>
+                        <assetContext.Provider value={asset}>
+                            <trackContext.Provider value={track}>
+                                {children}
+                            </trackContext.Provider>
+                        </assetContext.Provider>
+                    </compositionContext.Provider>
+                </renderingContext.Provider>
+            )
+        }
+
+        let foundPromises = false
+
+        function replacer(key: string, value: any): any {
+            if (isXmlBuilder(value)) {
+                const xml = value.end({ headless: true })
+                return {
+                    type: 'xml',
+                    xml,
+                } satisfies XmlSerialized
+            }
+            if (isElement(value)) {
+                try {
+                    const xml = render(Container({ children: value })).end({
+                        headless: true,
+                    })
+                    return {
+                        type: 'xml',
+                        xml,
+                    } satisfies XmlSerialized
+                } catch (error) {
+                    console.warn(`Failed to render element:`, error)
+                    foundPromises = true
+                }
+            }
+            return value
+        }
+
+        const argsKey = JSON.stringify(
+            {
+                isRegistrationStep,
+                composition,
+                asset,
+                track,
+                producers,
+                ...args,
+            },
+            replacer,
+            4,
         )
-        // Create a hash of the arguments key for a more compact cache key
+        if (foundPromises) {
+            console.warn(
+                `Found promises in arguments, skipping cache for ${fnName}`,
+            )
+            return fn(...args)
+        }
 
         const hash = crypto.createHash('md5').update(argsKey).digest('hex')
         const cacheKey = `${fnName}_${hash}`
 
         // Check if result is in memory cache
         if (globalMemoryCache.has(cacheKey)) {
-            return globalMemoryCache.get(cacheKey) as T
+            return JSON.parse(globalMemoryCache.get(cacheKey), reviver) as T
         }
+        return fn(...args).then((result) => {
+            // Save the result to memory cache
+            globalMemoryCache.set(cacheKey, JSON.stringify(result, replacer, 4))
+            saveCacheToDisk()
 
-        // Compute the result
-        const result = await fn(...args)
-
-        // Save the result to memory cache
-        globalMemoryCache.set(cacheKey, result)
-
-        return result
+            return result
+        })
     }
 }
