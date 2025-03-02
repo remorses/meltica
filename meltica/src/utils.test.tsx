@@ -6,7 +6,7 @@ import { isNodeElement } from './rendering'
 import { WorkflowIcon } from 'lucide-react'
 import { create, fragment } from 'xmlbuilder2'
 import { persistentMemo } from 'meltica/src/memo'
-import { sleep } from 'meltica/src/utils'
+import { isXmlBuilder, sleep } from 'meltica/src/utils'
 import { formatSecondsToTime } from 'meltica/src/time'
 
 describe('persistentMemo', () => {
@@ -202,6 +202,38 @@ describe('renderAsync', () => {
 })
 
 const exampleContext = createContext({ key: 'default' })
+
+describe('nested context', () => {
+    it('should override parent context with nested provider', async () => {
+        function NestedContextComponent() {
+            const outerValue = useContext(exampleContext)
+
+            return (
+                <div>
+                    <div>Outer: {outerValue.key}</div>
+                    <exampleContext.Provider value={{ key: 'nested' }}>
+                        <NestedChild />
+                    </exampleContext.Provider>
+                </div>
+            )
+        }
+
+        function NestedChild() {
+            const innerValue = useContext(exampleContext)
+            return <div>Inner: {innerValue.key}</div>
+        }
+
+        const result = await renderAsync(
+            <exampleContext.Provider value={{ key: 'parent' }}>
+                <NestedContextComponent />
+            </exampleContext.Provider>,
+        )
+
+        expect(result.end({ headless: true })).toMatchInlineSnapshot(
+            `"<div><div>Outer: parent</div><div>Inner: nested</div></div>"`,
+        )
+    })
+})
 
 describe('context', () => {
     it('concurrent useContext should have their context scoped', async () => {

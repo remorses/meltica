@@ -285,7 +285,6 @@ export async function renderToPreview(jsx: any, xmlFilename = 'video.mlt') {
     console.timeEnd(`${renderId} melt processing`)
 }
 
-
 function deduplicate<T, K>(array: T[], keyFn: (item: T) => K): T[] {
     const seen = new Set<K>()
     return array.filter((item) => {
@@ -425,8 +424,12 @@ export async function extractProducersDataFromAssets(
     )
     if (!process.env.DISABLE_CACHE && fs.existsSync(tempXmlFile)) {
         const xml = fs.readFileSync(tempXmlFile).toString()
-        const producers = getProducersFromXml(xml)
-        return { producers, assets }
+        if (xml.trim()) {
+            const producers = getProducersFromXml(xml)
+            return { producers, assets }
+        } else {
+            console.error(new Error('No producers found in cached XML'))
+        }
     }
     if (!assets.length) {
         console.warn('No assets found in XML')
@@ -444,7 +447,7 @@ export async function extractProducersDataFromAssets(
             ' ',
         )} -profile ${profile} -consumer xml:${tempXmlFile} time_format=${timeFormat}`
 
-    await fs.promises.writeFile(tempXmlFile, '')
+    await fs.writeFileSync(tempXmlFile, '')
     const out = execSync(command, { stdio: 'pipe' }).toString()
     const xml = fs.readFileSync(tempXmlFile).toString()
     if (!xml.trim().length) {

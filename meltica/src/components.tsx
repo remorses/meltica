@@ -64,11 +64,11 @@ export const InlineSvg = persistentMemo(async function InlineSvg({
 
     const context = useContext(renderingContext)
     const { width, height } = useContext(compositionContext)!
-    const { trackId } = useTrackContext()
 
     let filepath = path.resolve(melticaFolder, `${id}.png`)
 
     if (context.isRegistrationStep) {
+        console.time(`${id} svg render`)
         // Render the SVG content
         let renderedSvgContent =
             typeof svgContent === 'string'
@@ -93,43 +93,17 @@ export const InlineSvg = persistentMemo(async function InlineSvg({
         console.timeEnd(`${id} svg render`)
 
         fs.writeFileSync(filepath, pngBuffer)
-        return (
-            <AssetRegistrationComponent
-                id={id}
-                type='image'
-                filepath={filepath}
-                parentTrackId={trackId}
-                in={0}
-                out={duration}
-                // svgContent
-            />
-        )
-        return <producer id={id}></producer>
-    }
-    const producer = context.producers.find((p) => p.id === id)
-
-    if (!producer) {
-        throw new Error(`Producer for SVG with id ${id} not found`)
-    }
-
-    const assetCtx: AssetContext = {
-        producer,
-        in: producer?.attributes?.in,
-        out: producer?.attributes?.out,
     }
 
     return (
-        <assetContext.Provider value={assetCtx}>
-            <producer {...producer?.attributes} id={id}>
-                {producer?.children}
-                <property name='resource'>{filepath}</property>
-                <property name='mlt_service'>qimage</property>
-                <property name='format'>2</property>
-                <property name='shotcut:skipConvert'>1</property>
-                <property name='shotcut:caption'>Inline SVG</property>
-                {children}
-            </producer>
-        </assetContext.Provider>
+        <Asset
+            id={id}
+            filepath={filepath}
+            type='image'
+            in={0}
+            out={duration}
+            children={children}
+        />
     )
 })
 
@@ -169,7 +143,9 @@ export function Asset({
     }
 
     if (!producer) {
-        throw new Error(`Producer for asset with id ${id} not found`)
+        throw new Error(
+            `Producer for asset with id ${id} not found, among ${JSON.stringify(context.producers.map((p) => p.id))}`,
+        )
     }
 
     const basename = path.basename(filepath)
@@ -180,36 +156,36 @@ export function Asset({
     }
     if (type === 'image') {
         return (
-            <assetContext.Provider value={assetCtx}>
-                <producer {...producer.attributes} id={id}>
+            <producer {...producer.attributes} id={id}>
+                <assetContext.Provider value={assetCtx}>
                     {producer.children}
-                    <property name='resource'>{filepath}</property>
-                    <property name='shotcut:skipConvert'>1</property>
-                    <property name='shotcut:caption'>{basename}</property>
-                    {children}
-                </producer>
-            </assetContext.Provider>
-        )
-    }
-
-    return (
-        <assetContext.Provider value={assetCtx}>
-            <chain {...producer?.attributes} id={id}>
-                {producer.children}
+                </assetContext.Provider>
                 <property name='resource'>{filepath}</property>
                 <property name='shotcut:skipConvert'>1</property>
                 <property name='shotcut:caption'>{basename}</property>
                 {children}
-            </chain>
-        </assetContext.Provider>
+            </producer>
+        )
+    }
+
+    return (
+        <chain {...producer?.attributes} id={id}>
+            <assetContext.Provider value={assetCtx}>
+                {producer.children}
+            </assetContext.Provider>
+            <property name='resource'>{filepath}</property>
+            <property name='shotcut:skipConvert'>1</property>
+            <property name='shotcut:caption'>{basename}</property>
+            {children}
+        </chain>
     )
 }
 
 function useAssetContext() {
     const producer = useContext(assetContext)
-    const {producers} = useContext(renderingContext)
+    const { producers } = useContext(renderingContext)
     if (!producer) {
-        throw new Error(`No producer found in context, producers: ${producers.map((x) => x.id)}`)
+        throw new Error(`No asset context found`)
     }
     return producer
 }
@@ -423,6 +399,10 @@ export function Transform({
     distort?: number
 }) {
     const videoContext = useContext(compositionContext)!
+    const context = useContext(renderingContext)
+    // if (context.isRegistrationStep) {
+    //     return <filter id={id + 'transformFilter'}></filter>
+    // }
 
     const { height: assetHeight, width: assetWidth } = useAssetSize()
     const rect = keyframes
