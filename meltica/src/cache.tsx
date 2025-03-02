@@ -1,6 +1,6 @@
 import { FlatCache } from 'flat-cache'
 
-export function cache({
+export function createCache({
     cacheId,
     ttl = 1000 * 60 * 60 * 24 * 7,
     lruSize = 1000,
@@ -15,11 +15,8 @@ export function cache({
     cache.on('error', (e) => console.error(`error loading cache`, e))
     cache.load()
     // Wrap a function with caching functionality
-    const wrap = <T extends (...args: any[]) => any>(
-        key: string,
-        fn: T,
-    ): ((...args: Parameters<T>) => ReturnType<T>) => {
-        return (...args: Parameters<T>): ReturnType<T> => {
+    const wrap = <T extends (...args: any[]) => any>(key: string, fn: T): T => {
+        return ((...args: Parameters<T>): ReturnType<T> => {
             // Create a unique cache key based on the function arguments
             const argsKey = JSON.stringify(args)
             const cacheKey = `${key}:${argsKey}`
@@ -34,7 +31,7 @@ export function cache({
             const result = fn(...args)
             cache.setKey(cacheKey, result)
             return result
-        }
+        }) as any
     }
     return { cache, wrap }
 }

@@ -205,6 +205,7 @@ describe('svg', () => {
 })
 
 import { fal } from '@fal-ai/client'
+import { createCache } from 'meltica/src/cache'
 
 fal.config({
     // Can also be auto-configured using environment variables:
@@ -213,19 +214,26 @@ fal.config({
 
 describe('memo', () => {
     test('1. using ', async () => {
-        async function TranscribeAudio({}) {
-            const audioPath = 'narrator.wav'
-            // Use fal.ai to transcribe audio with Whisper
-            const transcription = await fal.subscribe('fal-ai/whisper', {
-                input: {
-                    audio_url: audioPath,
-                    language: 'en',
-                    prompt: 'Transcribe the following audio',
-                    chunk_level: 'word',
-                },
-            })
-            const chunks = transcription.data.chunks
-        }
+        const cache = createCache({
+            cacheId: 'transcription',
+        })
+        const transcribeAudio = cache.wrap(
+            'transcription',
+            async function transcribeAudio({ audioPath }) {
+                
+                // Use fal.ai to transcribe audio with Whisper
+                const transcription = await fal.subscribe('fal-ai/whisper', {
+                    input: {
+                        audio_url: audioPath,
+                        language: 'en',
+                        prompt: 'Transcribe the following audio',
+                        chunk_level: 'word',
+                    },
+                })
+                const chunks = transcription.data.chunks
+            },
+        )
+        transcribeAudio({})
         function Video({}) {
             return (
                 <Composition
