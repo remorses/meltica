@@ -26,6 +26,7 @@
         "htmlparser2": "^10.0.0",
         "jsx-xml": "npm:@xmorse/jsx-xml@^0.11.0",
         "meltica": "workspace:*",
+        "mime-types": "^2.1.35",
         "node-media-server": "^4.0.7",
         "node-web-audio-api": "^1.0.2",
         "prettier": "^3.5.2",
@@ -39,8 +40,10 @@
     },
     "devDependencies": {
         "@fal-ai/client": "^1.2.3",
+        "@types/mime-types": "^2.1.4",
         "@types/react": "^19.0.10",
         "jest-image-snapshot": "^6.4.0",
-        "lucide-react": "^0.477.0"
+        "lucide-react": "^0.477.0",
+        "yauzl": "^3.2.0"
     }
 }
