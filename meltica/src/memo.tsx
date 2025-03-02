@@ -1,4 +1,4 @@
-import { render, useContext } from 'jsx-xml'
+import { Context, render, useContext } from 'jsx-xml'
 import { createFromFile, FlatCache } from 'flat-cache'
 import {
     assetContext,
@@ -73,6 +73,29 @@ const saveCacheToDisk = () => {
 }
 
 /**
+ * Creates a component that wraps children with a series of context providers.
+ * This utility function helps in creating nested context providers more easily.
+ *
+ * @param contexts An array of context objects with their values to be provided
+ * @returns A component that wraps children with the specified context providers
+ */
+export function createContextPipe(
+    contexts: Array<{ context: Context<any>; value: any }>,
+) {
+    return function ContextPipe({ children }: { children: any }) {
+        // Reduce the array of contexts to create nested providers
+        return contexts.reduceRight((acc, { context, value }) => {
+            // Skip adding a provider if the value is null
+            if (value == null) {
+                return acc
+            }
+            const Provider = context.Provider
+            return <Provider value={value}>{acc}</Provider>
+        }, children)
+    }
+}
+
+/**
  * A memoization function that persists results to disk. Should be used on leaf components, because it does not work if a child is a non memoized async component.
  *
  * IMPORTANT: This function should only be used with stateless components.
@@ -94,25 +117,29 @@ export function persistentMemo<T, Args extends object[]>(
         const asset = useContext(assetContext)
         const track = useContext(trackContext)
 
-        function Container({ children }: { children: any }) {
-            return (
-                <renderingContext.Provider
-                    value={{
-                        isRegistrationStep,
-                        assets,
-                        producers,
-                    }}
-                >
-                    <compositionContext.Provider value={composition}>
-                        <assetContext.Provider value={asset}>
-                            <trackContext.Provider value={track}>
-                                {children}
-                            </trackContext.Provider>
-                        </assetContext.Provider>
-                    </compositionContext.Provider>
-                </renderingContext.Provider>
-            )
-        }
+        
+        const Container = createContextPipe([
+            {
+                context: renderingContext,
+                value: {
+                    isRegistrationStep,
+                    assets,
+                    producers,
+                },
+            },
+            {
+                context: compositionContext,
+                value: composition,
+            },
+            {
+                context: assetContext,
+                value: asset,
+            },
+            {
+                context: trackContext,
+                value: track,
+            },
+        ])
 
         let foundPromises = false
 
