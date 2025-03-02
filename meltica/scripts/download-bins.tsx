@@ -16,32 +16,32 @@ const DOWNLOAD_BASE_URL = `https://github.com/mltframework/shotcut/releases/down
 type Os = 'win64' | 'linux' | 'mac'
 // Define the releases to download
 const releases = [
-    {
-        os: 'win64' satisfies Os,
-        filename: `shotcut-win64-${SHOTCUT_VERSION_NO_DOTS}.zip`,
-        extract: async ({ filepath, destDir }) => {
-            console.log(`Extracting ${filepath} to ${destDir}...`)
-            // Use a different approach to avoid ENOBUFS error
-            // Create the destination directory first
-            fs.mkdirSync(destDir, { recursive: true })
+    // {
+    //     os: 'win64' satisfies Os,
+    //     filename: `shotcut-win64-${SHOTCUT_VERSION_NO_DOTS}.zip`,
+    //     extract: async ({ filepath, destDir }) => {
+    //         console.log(`Extracting ${filepath} to ${destDir}...`)
+    //         // Use a different approach to avoid ENOBUFS error
+    //         // Create the destination directory first
+    //         fs.mkdirSync(destDir, { recursive: true })
 
-            // Use a more controlled approach with smaller chunks
-            await execWithInheritedStdio(
-                `mkdir -p "${destDir}" && unzip -q "${filepath}" -d "${destDir}"`,
-            )
-        },
-    },
-    {
-        os: 'linux' satisfies Os,
-        filename: `shotcut-linux-x86_64-${SHOTCUT_VERSION_NO_DOTS}.txz`,
-        extract: async ({ filepath, destDir }) => {
-            console.log(`Extracting ${filepath} to ${destDir}...`)
-            fs.mkdirSync(destDir, { recursive: true })
-            await execWithInheritedStdio(
-                `tar -xf "${filepath}" -C "${destDir}"`,
-            )
-        },
-    },
+    //         // Use a more controlled approach with smaller chunks
+    //         await execWithInheritedStdio(
+    //             `mkdir -p "${destDir}" && unzip -q "${filepath}" -d "${destDir}"`,
+    //         )
+    //     },
+    // },
+    // {
+    //     os: 'linux' satisfies Os,
+    //     filename: `shotcut-linux-x86_64-${SHOTCUT_VERSION_NO_DOTS}.txz`,
+    //     extract: async ({ filepath, destDir }) => {
+    //         console.log(`Extracting ${filepath} to ${destDir}...`)
+    //         fs.mkdirSync(destDir, { recursive: true })
+    //         await execWithInheritedStdio(
+    //             `tar -xf "${filepath}" -C "${destDir}"`,
+    //         )
+    //     },
+    // },
     {
         os: 'mac' satisfies Os,
         filename: `shotcut-macos-${SHOTCUT_VERSION_NO_DOTS}.dmg`,
@@ -84,7 +84,7 @@ const releases = [
                         `Copying Shotcut.app from ${appPath} to ${destDir}...`,
                     )
                     await execWithInheritedStdio(
-                        `cp -R "${appPath}" "${destDir}/"`,
+                        `ditto "${appPath}" "${destDir}/Shotcut.app"`,
                     )
                 } else {
                     // List contents to debug
@@ -171,35 +171,39 @@ async function downloadFile(url, outputPath): Promise<void> {
         // First, download the initial zip file
         const tempZipPath = `${outputPath}.temp.zip`
         const tempZipStream = createWriteStream(tempZipPath)
-        
+
         // Convert the web ReadableStream to a Node.js Readable stream
         const nodeReadable = Readable.fromWeb(response.body! as any)
-        
+
         await pipeline(nodeReadable, tempZipStream)
         console.log(`Initial zip download of ${url} completed`)
-        
+
         // Create a temporary directory to extract the zip
         const tempDir = `${outputPath}.temp_dir`
         fs.mkdirSync(tempDir, { recursive: true })
-        
+
         // Extract the single entry from the zip file using unzip command
         console.log(`Extracting content from ${tempZipPath}...`)
-        await execWithInheritedStdio(`unzip -q "${tempZipPath}" -d "${tempDir}"`)
-        
+        await execWithInheritedStdio(
+            `unzip -q "${tempZipPath}" -d "${tempDir}"`,
+        )
+
         // Get the extracted file (should be only one)
         const extractedFiles = fs.readdirSync(tempDir)
         if (extractedFiles.length !== 1) {
-            throw new Error(`Expected 1 file in zip, found ${extractedFiles.length}`)
+            throw new Error(
+                `Expected 1 file in zip, found ${extractedFiles.length}`,
+            )
         }
-        
+
         // Move the extracted file to the final destination
         const extractedFilePath = path.join(tempDir, extractedFiles[0])
         fs.renameSync(extractedFilePath, outputPath)
-        
+
         // Clean up temporary files
         fs.unlinkSync(tempZipPath)
-        fs.rmdirSync(tempDir, { recursive: true })
-        
+        fs.rmSync(tempDir, { recursive: true })
+
         console.log(`Download and extraction of ${url} completed`)
     } catch (error) {
         console.error(`Download error for ${url}:`, error)
@@ -210,7 +214,7 @@ async function downloadFile(url, outputPath): Promise<void> {
 async function main() {
     console.log(`Downloading Shotcut ${SHOTCUT_VERSION} releases...`)
 
-    const artifacts = await getGitHubArtifacts()
+    const artifacts = await getGitHubArtifacts(new Date('2025-01-25'))
     for (const release of releases) {
         const destDir = path.resolve(`../shotcut-binaries/${release.os}`)
         // Create destination directory if it doesn't exist
@@ -249,11 +253,13 @@ async function main() {
 }
 
 // Function to get all artifacts from GitHub Actions
-async function getGitHubArtifacts(): Promise<Record<Os, string>> {
+async function getGitHubArtifacts(
+    beforeDate?: Date,
+): Promise<Record<Os, string>> {
     try {
         console.log('Fetching GitHub artifacts...')
         const { stdout } = await execWithInheritedStdio(
-            'gh api repos/mltframework/shotcut/actions/artifacts',
+            'gh api repos/mltframework/shotcut/actions/artifacts --cache 60m --paginate --slurp',
         )
 
         // Parse the JSON response
@@ -274,7 +280,7 @@ async function getGitHubArtifacts(): Promise<Record<Os, string>> {
             artifacts: Artifact[]
         }
 
-        const typedResponse = response as ArtifactsResponse
+        const typedResponse = response as ArtifactsResponse[]
 
         // Map artifact names to OS types
         const artifactNameToOs: Record<string, Os> = {
@@ -290,33 +296,40 @@ async function getGitHubArtifacts(): Promise<Record<Os, string>> {
             linux: '',
         }
 
-        // Find the first valid artifact for each OS
-        for (const artifact of typedResponse.artifacts) {
-            const artifactName = artifact.name
-            if (artifactName in artifactNameToOs && !artifact.expired) {
-                const os = artifactNameToOs[artifactName]
+        for (let page of typedResponse) {
+            // Find the first valid artifact for each OS
+            for (const artifact of page.artifacts) {
+                const artifactName = artifact.name
+                const artifactDate = new Date(artifact.created_at)
 
-                // Only set the URL if we haven't found one for this OS yet
-                if (!result[os]) {
-                    result[os] = artifact.archive_download_url
-
-                    // Log information about the selected artifact
-                    const createdDate = new Date(
-                        artifact.created_at,
-                    ).toLocaleString()
-                    const sizeMB = (
-                        artifact.size_in_bytes /
-                        (1024 * 1024)
-                    ).toFixed(2)
-                    console.log(
-                        `Selected ${artifactName} for ${os} (${sizeMB} MB) created on ${createdDate}`,
-                    )
+                // Skip artifacts created after the beforeDate if specified
+                if (beforeDate && artifactDate > beforeDate) {
+                    continue
                 }
-            }
 
-            // Check if we have found one for each OS
-            if (Object.values(result).every((url) => url !== '')) {
-                break
+                if (artifactName in artifactNameToOs && !artifact.expired) {
+                    const os = artifactNameToOs[artifactName]
+
+                    // Only set the URL if we haven't found one for this OS yet
+                    if (!result[os]) {
+                        result[os] = artifact.archive_download_url
+
+                        // Log information about the selected artifact
+                        const createdDate = artifactDate.toLocaleString()
+                        const sizeMB = (
+                            artifact.size_in_bytes /
+                            (1024 * 1024)
+                        ).toFixed(2)
+                        console.log(
+                            `Selected ${artifactName} for ${os} (${sizeMB} MB) created on ${createdDate}`,
+                        )
+                    }
+                }
+
+                // Check if we have found one for each OS
+                if (Object.values(result).every((url) => url !== '')) {
+                    break
+                }
             }
         }
 

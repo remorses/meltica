@@ -7,5 +7,6 @@ esm
 coverage
 __image_snapshots__
 Shotcut
+Shotcut.app
 *.zip
 *.dmg
