@@ -16,32 +16,32 @@ const DOWNLOAD_BASE_URL = `https://github.com/mltframework/shotcut/releases/down
 type Os = 'win64' | 'linux' | 'mac'
 // Define the releases to download
 const releases = [
-    // {
-    //     os: 'win64' satisfies Os,
-    //     filename: `shotcut-win64-${SHOTCUT_VERSION_NO_DOTS}.zip`,
-    //     extract: async ({ filepath, destDir }) => {
-    //         console.log(`Extracting ${filepath} to ${destDir}...`)
-    //         // Use a different approach to avoid ENOBUFS error
-    //         // Create the destination directory first
-    //         fs.mkdirSync(destDir, { recursive: true })
+    {
+        os: 'win64' satisfies Os,
+        filename: `shotcut-win64-${SHOTCUT_VERSION_NO_DOTS}.zip`,
+        extract: async ({ filepath, destDir }) => {
+            console.log(`Extracting ${filepath} to ${destDir}...`)
+            // Use a different approach to avoid ENOBUFS error
+            // Create the destination directory first
+            fs.mkdirSync(destDir, { recursive: true })
 
-    //         // Use a more controlled approach with smaller chunks
-    //         await execWithInheritedStdio(
-    //             `mkdir -p "${destDir}" && unzip -q "${filepath}" -d "${destDir}"`,
-    //         )
-    //     },
-    // },
-    // {
-    //     os: 'linux' satisfies Os,
-    //     filename: `shotcut-linux-x86_64-${SHOTCUT_VERSION_NO_DOTS}.txz`,
-    //     extract: async ({ filepath, destDir }) => {
-    //         console.log(`Extracting ${filepath} to ${destDir}...`)
-    //         fs.mkdirSync(destDir, { recursive: true })
-    //         await execWithInheritedStdio(
-    //             `tar -xf "${filepath}" -C "${destDir}"`,
-    //         )
-    //     },
-    // },
+            // Use a more controlled approach with smaller chunks
+            await execWithInheritedStdio(
+                `mkdir -p "${destDir}" && unzip -q "${filepath}" -d "${destDir}"`,
+            )
+        },
+    },
+    {
+        os: 'linux' satisfies Os,
+        filename: `shotcut-linux-x86_64-${SHOTCUT_VERSION_NO_DOTS}.txz`,
+        extract: async ({ filepath, destDir }) => {
+            console.log(`Extracting ${filepath} to ${destDir}...`)
+            fs.mkdirSync(destDir, { recursive: true })
+            await execWithInheritedStdio(
+                `tar -xf "${filepath}" -C "${destDir}"`,
+            )
+        },
+    },
     {
         os: 'mac' satisfies Os,
         filename: `shotcut-macos-${SHOTCUT_VERSION_NO_DOTS}.dmg`,
@@ -167,42 +167,51 @@ async function downloadFile(url, outputPath): Promise<void> {
                 `Failed to download ${url}: HTTP ${response.status} ${await response.text()}`,
             )
         }
+        const isZipResponse = response.headers.get('content-type') === 'zip'
 
-        // First, download the initial zip file
-        const tempZipPath = `${outputPath}.temp.zip`
-        const tempZipStream = createWriteStream(tempZipPath)
+        if (isZipResponse) {
+            // First, download the initial zip file
+            const tempZipPath = `${outputPath}.temp.zip`
+            const tempZipStream = createWriteStream(tempZipPath)
 
-        // Convert the web ReadableStream to a Node.js Readable stream
-        const nodeReadable = Readable.fromWeb(response.body! as any)
+            // Convert the web ReadableStream to a Node.js Readable stream
+            const nodeReadable = Readable.fromWeb(response.body! as any)
 
-        await pipeline(nodeReadable, tempZipStream)
-        console.log(`Initial zip download of ${url} completed`)
+            await pipeline(nodeReadable, tempZipStream)
+            console.log(`Initial zip download of ${url} completed`)
 
-        // Create a temporary directory to extract the zip
-        const tempDir = `${outputPath}.temp_dir`
-        fs.mkdirSync(tempDir, { recursive: true })
+            // Create a temporary directory to extract the zip
+            const tempDir = `${outputPath}.temp_dir`
+            fs.mkdirSync(tempDir, { recursive: true })
 
-        // Extract the single entry from the zip file using unzip command
-        console.log(`Extracting content from ${tempZipPath}...`)
-        await execWithInheritedStdio(
-            `unzip -q "${tempZipPath}" -d "${tempDir}"`,
-        )
-
-        // Get the extracted file (should be only one)
-        const extractedFiles = fs.readdirSync(tempDir)
-        if (extractedFiles.length !== 1) {
-            throw new Error(
-                `Expected 1 file in zip, found ${extractedFiles.length}`,
+            // Extract the single entry from the zip file using unzip command
+            console.log(`Extracting content from ${tempZipPath}...`)
+            await execWithInheritedStdio(
+                `unzip -q "${tempZipPath}" -d "${tempDir}"`,
             )
+
+            // Get the extracted file (should be only one)
+            const extractedFiles = fs.readdirSync(tempDir)
+            if (extractedFiles.length !== 1) {
+                throw new Error(
+                    `Expected 1 file in zip, found ${extractedFiles.length}`,
+                )
+            }
+
+            // Move the extracted file to the final destination
+            const extractedFilePath = path.join(tempDir, extractedFiles[0])
+            fs.renameSync(extractedFilePath, outputPath)
+
+            // Clean up temporary files
+            fs.unlinkSync(tempZipPath)
+            fs.rmSync(tempDir, { recursive: true })
+        } else {
+            // Direct download to the output path
+            const fileStream = createWriteStream(outputPath)
+            const nodeReadable = Readable.fromWeb(response.body! as any)
+            await pipeline(nodeReadable, fileStream)
+            console.log(`Direct download of ${url} completed`)
         }
-
-        // Move the extracted file to the final destination
-        const extractedFilePath = path.join(tempDir, extractedFiles[0])
-        fs.renameSync(extractedFilePath, outputPath)
-
-        // Clean up temporary files
-        fs.unlinkSync(tempZipPath)
-        fs.rmSync(tempDir, { recursive: true })
 
         console.log(`Download and extraction of ${url} completed`)
     } catch (error) {
@@ -214,13 +223,14 @@ async function downloadFile(url, outputPath): Promise<void> {
 async function main() {
     console.log(`Downloading Shotcut ${SHOTCUT_VERSION} releases...`)
 
-    const artifacts = await getGitHubArtifacts(new Date('2025-01-25'))
+    // const artifacts = await getGitHubArtifacts(new Date('2025-01-25'))
     for (const release of releases) {
         const destDir = path.resolve(`../shotcut-binaries/${release.os}`)
         // Create destination directory if it doesn't exist
         fs.mkdirSync(destDir, { recursive: true })
         console.log(`Created destination directory: ${destDir}`)
-        const downloadUrl = artifacts[release.os]
+        let downloadUrl = DOWNLOAD_BASE_URL + '/' + release.filename
+        // let downloadUrl = artifacts[release.os]
         if (!downloadUrl) {
             throw new Error(`No download URL found for ${release.os}`)
         }
