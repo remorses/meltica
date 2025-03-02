@@ -1,16 +1,14 @@
+import crypto from 'crypto'
+import { FlatCache } from 'flat-cache'
 import { Context, render, useContext } from 'jsx-xml'
-import { createFromFile, FlatCache } from 'flat-cache'
 import {
     assetContext,
     compositionContext,
     renderingContext,
     trackContext,
 } from 'meltica/src/context'
-import crypto from 'crypto'
-import fs from 'fs'
-import path from 'path'
+import { isElement, isXmlBuilder } from 'meltica/src/utils'
 import xmlbuilder from 'xmlbuilder2'
-import { isXmlBuilder, isElement } from 'meltica/src/utils'
 
 type XmlSerialized = {
     type: 'xml'

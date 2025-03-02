@@ -1,6 +1,267 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`examples > 1. svg icon from React 1`] = `
+exports[`memo > 1. using  1`] = `
+"<mlt LC_NUMERIC="C" version="7.30.0" title="Shotcut version 25.01.25" producer="main_bin">
+  <chain id="assetsoundtrack" in="00:00:00.000" out="00:02:15.115">
+    <property name="length">4050</property>
+    <property name="eof">pause</property>
+    <property name="resource">edapollo - Let It Go [bQ5glYCsv94].mp3</property>
+    <property name="meta.media.nb_streams">1</property>
+    <property name="meta.media.0.stream.type">audio</property>
+    <property name="meta.media.0.codec.sample_fmt">fltp</property>
+    <property name="meta.media.0.codec.sample_rate">44100</property>
+    <property name="meta.media.0.codec.channels">2</property>
+    <property name="meta.media.0.codec.layout">stereo</property>
+    <property name="meta.media.0.codec.name">mp3float</property>
+    <property name="meta.media.0.codec.long_name">MP3 (MPEG audio layer 3)</property>
+    <property name="meta.media.0.codec.bit_rate">192000</property>
+    <property name="meta.attr.0.stream.encoder.markup">Lavc61.19</property>
+    <property name="meta.attr.major_brand.markup">isom</property>
+    <property name="meta.attr.minor_version.markup">512</property>
+    <property name="meta.attr.compatible_brands.markup">isomiso2avc1mp41</property>
+    <property name="meta.attr.encoder.markup">Lavf61.7.100</property>
+    <property name="seekable">1</property>
+    <property name="audio_index">0</property>
+    <property name="video_index">-1</property>
+    <property name="mute_on_pause">0</property>
+    <property name="mlt_service">avformat</property>
+    <property name="resource">edapollo - Let It Go [bQ5glYCsv94].mp3</property>
+    <property name="shotcut:skipConvert">1</property>
+    <property name="shotcut:caption">edapollo - Let It Go [bQ5glYCsv94].mp3</property>
+    <filter id="assetsoundtrackgain">
+      <property name="window">75</property>
+      <property name="max_gain">20dB</property>
+      <property name="level">-14</property>
+      <property name="mlt_service">volume</property>
+    </filter>
+  </chain>
+  <playlist id="tracksoundtrack">
+    <property name="shotcut:audio">1</property>
+    <property name="shotcut:name">track</property>
+    <entry producer="assetsvgworld0" in="00:00:00.000" out="00:00:00.100"/>
+    <entry producer="assetsvgworld1" in="00:00:00.000" out="00:00:00.100"/>
+    <entry producer="assetsvgworld2" in="00:00:00.000" out="00:00:00.100"/>
+    <entry producer="assetsvgworld3" in="00:00:00.000" out="00:00:00.100"/>
+    <entry producer="assetsvgworld4" in="00:00:00.000" out="00:00:00.100"/>
+    <entry producer="assetsvgworld5" in="00:00:00.000" out="00:00:00.100"/>
+    <entry producer="assetsvgsvgRect2" in="00:00:00.000" out="00:00:03.000"/>
+    <entry producer="assetsoundtrack" in="00:00:00.000" out="00:02:15.067"/>
+  </playlist>
+  <producer id="assetsvgworld0" in="00:00:00.000" out="00:08:20.487">
+    <property name="length">15000</property>
+    <property name="eof">pause</property>
+    <property name="resource">.meltica/svgworld0.png</property>
+    <property name="ttl">25</property>
+    <property name="aspect_ratio">1</property>
+    <property name="meta.media.progressive">1</property>
+    <property name="seekable">1</property>
+    <property name="format">2</property>
+    <property name="meta.media.width">1080</property>
+    <property name="meta.media.height">1080</property>
+    <property name="mlt_service">qimage</property>
+    <property name="resource">/Users/morse/Documents/meltica/meltica/.meltica/svgworld0.png</property>
+    <property name="shotcut:skipConvert">1</property>
+    <property name="shotcut:caption">svgworld0.png</property>
+    <filter id="qtblend">
+      <property name="rotate_center">1</property>
+      <property name="mlt_service">qtblend</property>
+      <property name="kdenlive_id">qtblend</property>
+      <property name="compositing"/>
+      <property name="distort"/>
+      <property name="rect">00:00:00.000=0 420 1080 1080 1.000000</property>
+      <property name="rotation">00:00:00.000=0</property>
+      <property name="kdenlive:collapsed">0</property>
+    </filter>
+  </producer>
+  <producer id="assetsvgworld1" in="00:00:00.000" out="00:08:20.487">
+    <property name="length">15000</property>
+    <property name="eof">pause</property>
+    <property name="resource">.meltica/svgworld1.png</property>
+    <property name="ttl">25</property>
+    <property name="aspect_ratio">1</property>
+    <property name="meta.media.progressive">1</property>
+    <property name="seekable">1</property>
+    <property name="format">2</property>
+    <property name="meta.media.width">1080</property>
+    <property name="meta.media.height">1080</property>
+    <property name="mlt_service">qimage</property>
+    <property name="resource">/Users/morse/Documents/meltica/meltica/.meltica/svgworld1.png</property>
+    <property name="shotcut:skipConvert">1</property>
+    <property name="shotcut:caption">svgworld1.png</property>
+    <filter id="qtblend">
+      <property name="rotate_center">1</property>
+      <property name="mlt_service">qtblend</property>
+      <property name="kdenlive_id">qtblend</property>
+      <property name="compositing"/>
+      <property name="distort"/>
+      <property name="rect">00:00:00.000=0 420 1080 1080 1.000000</property>
+      <property name="rotation">00:00:00.000=0</property>
+      <property name="kdenlive:collapsed">0</property>
+    </filter>
+  </producer>
+  <producer id="assetsvgworld2" in="00:00:00.000" out="00:08:20.487">
+    <property name="length">15000</property>
+    <property name="eof">pause</property>
+    <property name="resource">.meltica/svgworld2.png</property>
+    <property name="ttl">25</property>
+    <property name="aspect_ratio">1</property>
+    <property name="meta.media.progressive">1</property>
+    <property name="seekable">1</property>
+    <property name="format">2</property>
+    <property name="meta.media.width">1080</property>
+    <property name="meta.media.height">1080</property>
+    <property name="mlt_service">qimage</property>
+    <property name="resource">/Users/morse/Documents/meltica/meltica/.meltica/svgworld2.png</property>
+    <property name="shotcut:skipConvert">1</property>
+    <property name="shotcut:caption">svgworld2.png</property>
+    <filter id="qtblend">
+      <property name="rotate_center">1</property>
+      <property name="mlt_service">qtblend</property>
+      <property name="kdenlive_id">qtblend</property>
+      <property name="compositing"/>
+      <property name="distort"/>
+      <property name="rect">00:00:00.000=0 420 1080 1080 1.000000</property>
+      <property name="rotation">00:00:00.000=0</property>
+      <property name="kdenlive:collapsed">0</property>
+    </filter>
+  </producer>
+  <producer id="assetsvgworld3" in="00:00:00.000" out="00:08:20.487">
+    <property name="length">15000</property>
+    <property name="eof">pause</property>
+    <property name="resource">.meltica/svgworld3.png</property>
+    <property name="ttl">25</property>
+    <property name="aspect_ratio">1</property>
+    <property name="meta.media.progressive">1</property>
+    <property name="seekable">1</property>
+    <property name="format">2</property>
+    <property name="meta.media.width">1080</property>
+    <property name="meta.media.height">1080</property>
+    <property name="mlt_service">qimage</property>
+    <property name="resource">/Users/morse/Documents/meltica/meltica/.meltica/svgworld3.png</property>
+    <property name="shotcut:skipConvert">1</property>
+    <property name="shotcut:caption">svgworld3.png</property>
+    <filter id="qtblend">
+      <property name="rotate_center">1</property>
+      <property name="mlt_service">qtblend</property>
+      <property name="kdenlive_id">qtblend</property>
+      <property name="compositing"/>
+      <property name="distort"/>
+      <property name="rect">00:00:00.000=0 420 1080 1080 1.000000</property>
+      <property name="rotation">00:00:00.000=0</property>
+      <property name="kdenlive:collapsed">0</property>
+    </filter>
+  </producer>
+  <producer id="assetsvgworld4" in="00:00:00.000" out="00:08:20.487">
+    <property name="length">15000</property>
+    <property name="eof">pause</property>
+    <property name="resource">.meltica/svgworld4.png</property>
+    <property name="ttl">25</property>
+    <property name="aspect_ratio">1</property>
+    <property name="meta.media.progressive">1</property>
+    <property name="seekable">1</property>
+    <property name="format">2</property>
+    <property name="meta.media.width">1080</property>
+    <property name="meta.media.height">1080</property>
+    <property name="mlt_service">qimage</property>
+    <property name="resource">/Users/morse/Documents/meltica/meltica/.meltica/svgworld4.png</property>
+    <property name="shotcut:skipConvert">1</property>
+    <property name="shotcut:caption">svgworld4.png</property>
+    <filter id="qtblend">
+      <property name="rotate_center">1</property>
+      <property name="mlt_service">qtblend</property>
+      <property name="kdenlive_id">qtblend</property>
+      <property name="compositing"/>
+      <property name="distort"/>
+      <property name="rect">00:00:00.000=0 420 1080 1080 1.000000</property>
+      <property name="rotation">00:00:00.000=0</property>
+      <property name="kdenlive:collapsed">0</property>
+    </filter>
+  </producer>
+  <producer id="assetsvgworld5" in="00:00:00.000" out="00:08:20.487">
+    <property name="length">15000</property>
+    <property name="eof">pause</property>
+    <property name="resource">.meltica/svgworld5.png</property>
+    <property name="ttl">25</property>
+    <property name="aspect_ratio">1</property>
+    <property name="meta.media.progressive">1</property>
+    <property name="seekable">1</property>
+    <property name="format">2</property>
+    <property name="meta.media.width">1080</property>
+    <property name="meta.media.height">1080</property>
+    <property name="mlt_service">qimage</property>
+    <property name="resource">/Users/morse/Documents/meltica/meltica/.meltica/svgworld5.png</property>
+    <property name="shotcut:skipConvert">1</property>
+    <property name="shotcut:caption">svgworld5.png</property>
+    <filter id="qtblend">
+      <property name="rotate_center">1</property>
+      <property name="mlt_service">qtblend</property>
+      <property name="kdenlive_id">qtblend</property>
+      <property name="compositing"/>
+      <property name="distort"/>
+      <property name="rect">00:00:00.000=0 420 1080 1080 1.000000</property>
+      <property name="rotation">00:00:00.000=0</property>
+      <property name="kdenlive:collapsed">0</property>
+    </filter>
+  </producer>
+  <producer id="assetsvgsvgRect2" in="00:00:00.000" out="00:08:20.487">
+    <property name="length">15000</property>
+    <property name="eof">pause</property>
+    <property name="resource">.meltica/svgsvgRect2.png</property>
+    <property name="ttl">25</property>
+    <property name="aspect_ratio">1</property>
+    <property name="meta.media.progressive">1</property>
+    <property name="seekable">1</property>
+    <property name="format">2</property>
+    <property name="meta.media.width">1080</property>
+    <property name="meta.media.height">1080</property>
+    <property name="mlt_service">qimage</property>
+    <property name="resource">/Users/morse/Documents/meltica/meltica/.meltica/svgsvgRect2.png</property>
+    <property name="shotcut:skipConvert">1</property>
+    <property name="shotcut:caption">svgsvgRect2.png</property>
+  </producer>
+  <playlist id="tracksvgRectTrack2">
+    <property name="shotcut:name">track</property>
+  </playlist>
+  <playlist id="tracksvgCodeTrack">
+    <property name="shotcut:name">track</property>
+  </playlist>
+  <consumer ab="160k" acodec="aac" channels="2" crf="23" deinterlacer="onefield" f="mp4" g="15" in="0" out="00:00:03.000" mlt_service="avformat" movflags="+faststart" preset="veryfast" real_time="-1" rescale="bilinear" target="examples/svg.mp4" threads="0" vcodec="libx264"/>
+  <profile description="PAL 4:3 DV or DVD" width="1080" height="1920" progressive="1" sample_aspect_num="1" sample_aspect_den="1" display_aspect_num="9" display_aspect_den="16" frame_rate_num="30" frame_rate_den="1" colorspace="709"/>
+  <playlist id="main_bin">
+    <property name="xml_retain">1</property>
+  </playlist>
+  <producer id="black" in="00:00:00.000" out="2777:46:39.000">
+    <property name="length">2777:46:39.000</property>
+    <property name="eof">pause</property>
+    <property name="resource">0</property>
+    <property name="aspect_ratio">1</property>
+    <property name="mlt_service">color</property>
+    <property name="mlt_image_format">rgba</property>
+    <property name="set.test_audio">0</property>
+  </producer>
+  <playlist id="background">
+    <entry producer="black" in="00:00:00.000" out="2777:46:39.000"/>
+  </playlist>
+  <tractor id="mainTractor" title="Shotcut version 25.01.25" in="00:00:00.000">
+    <property name="shotcut">1</property>
+    <property name="shotcut:projectAudioChannels">2</property>
+    <property name="shotcut:projectFolder">0</property>
+    <property name="shotcut:trackHeight">50</property>
+    <property name="shotcut:skipConvert">0</property>
+    <track producer="background"/>
+    <track producer="tracksoundtrack" hide="video"/>
+    <transition id="transition0">
+      <property name="a_track">0</property>
+      <property name="b_track">1</property>
+      <property name="mlt_service">mix</property>
+      <property name="always_active">1</property>
+      <property name="sum">1</property>
+    </transition>
+  </tractor>
+</mlt>"
+`;
+
+exports[`svg > 1. svg icon from React 1`] = `
 "<mlt LC_NUMERIC="C" version="7.30.0" title="Shotcut version 25.01.25" producer="main_bin">
   <chain id="assetsoundtrack" in="00:00:00.000" out="00:02:15.115">
     <property name="length">4050</property>
@@ -241,7 +502,7 @@ exports[`examples > 1. svg icon from React 1`] = `
 </mlt>"
 `;
 
-exports[`examples > 2. simple inline svg  1`] = `
+exports[`svg > 2. simple inline svg  1`] = `
 "<mlt LC_NUMERIC="C" version="7.30.0" title="Shotcut version 25.01.25" producer="main_bin">
   <chain id="assetsoundtrack" in="00:00:00.000" out="00:02:15.115">
     <property name="length">4050</property>
@@ -347,7 +608,7 @@ exports[`examples > 2. simple inline svg  1`] = `
 </mlt>"
 `;
 
-exports[`examples > 2. simple inline svg  2`] = `
+exports[`svg > 3. complex svg setup 1`] = `
 "<mlt LC_NUMERIC="C" version="7.30.0" title="Shotcut version 25.01.25" producer="main_bin">
   <chain id="assetsoundtrack" in="00:00:00.000" out="00:02:15.115">
     <property name="length">4050</property>
