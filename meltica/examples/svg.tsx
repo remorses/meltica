@@ -42,7 +42,7 @@ function Video({}) {
             <Track id={'svgCodeTrack'}>
                 <InlineSvg
                     id={'svgCode'}
-                    duration={3}
+                    duration={1}
                     svg={<CodeSnippet code={codeSnippet} />}
                 ></InlineSvg>
                 {Array.from({ length: 6 }).map((_, index) => (
@@ -115,5 +115,5 @@ function Video({}) {
 }
 
 // fs.writeFileSync('examples/svg.mlt', await renderToXml(<Video />))
-renderToVideo(<Video />)
+
 renderToPreview(<Video />)

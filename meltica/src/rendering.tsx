@@ -6,7 +6,7 @@ import xmlbuilder from 'xmlbuilder2'
 import type { XMLBuilder } from 'xmlbuilder2/lib/interfaces'
 
 import { defaultRenderingContext, renderingContext } from 'meltica/src/context'
-import { fastFileHash, isTruthy } from 'meltica/src/utils'
+import { fastFileHash, isTruthy, randomString } from 'meltica/src/utils'
 import { execSync } from 'child_process'
 import { ChildNode } from 'domhandler'
 import fs from 'fs'
@@ -206,6 +206,7 @@ export function checkDuplicateIds(builder: XMLBuilder): string[] {
 
 export async function renderToXml(jsx: any) {
     const currentContext = structuredClone(defaultRenderingContext)
+    currentContext.jobId = randomString()
     const initialNode = await renderAsync(
         <renderingContext.Provider value={currentContext}>
             {jsx}

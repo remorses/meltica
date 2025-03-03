@@ -26,6 +26,7 @@ export let defaultRenderingContext = {
     assets: [] as AssetRegistration[],
     producers: [] as AssetProducer[],
     isRegistrationStep: true,
+    jobId: '',
 }
 
 export const renderingContext = createContext(defaultRenderingContext)

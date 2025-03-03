@@ -62,13 +62,14 @@ export const InlineSvg = async function InlineSvg({
 }) {
     id = 'svg' + id
 
-    const context = useContext(renderingContext)
+    const { isRegistrationStep, jobId } = useContext(renderingContext)
+
     const { width, height } = useContext(compositionContext)!
 
     let filepath = path.resolve(melticaFolder, `${id}.png`)
 
-    if (context.isRegistrationStep) {
-        console.time(`${id} svg render`)
+    if (isRegistrationStep) {
+        console.time(`${jobId} ${id} svg render`)
         // Render the SVG content
         let renderedSvgContent =
             typeof svgContent === 'string'
@@ -90,7 +91,7 @@ export const InlineSvg = async function InlineSvg({
         })
         const pngData = resvg.render()
         const pngBuffer = pngData.asPng()
-        console.timeEnd(`${id} svg render`)
+        console.timeEnd(`${jobId} ${id} svg render`)
 
         fs.writeFileSync(filepath, pngBuffer)
     }
