@@ -5,55 +5,9 @@ import { isNodeElement } from './rendering'
 
 import { WorkflowIcon } from 'lucide-react'
 import { create, fragment } from 'xmlbuilder2'
-import { persistentMemo } from 'meltica/src/memo'
+
 import { isXmlBuilder, sleep } from 'meltica/src/utils'
 import { formatSecondsToTime } from 'meltica/src/time'
-
-describe.skip('persistentMemo', () => {
-    it('persistentMemo', async ({ task }) => {
-        const timestamp = 12345
-        async function fetchData({ timestamp, jsxArg }) {
-            await sleep(30)
-            console.log('fetchData', timestamp)
-            return (
-                <producer>
-                    {jsxArg}
-                    {timestamp}
-                    <AsyncComponent>result</AsyncComponent>
-                </producer>
-            )
-        }
-
-        const persisted = persistentMemo(fetchData)
-        function AsyncComponent({ children }) {
-            return <track>AsyncComponent</track>
-        }
-        const jsxArg = (
-            <consumer>
-                <AsyncComponent>arg</AsyncComponent>
-                {timestamp}
-            </consumer>
-        )
-        const r1 = await persisted({ timestamp, jsxArg })
-
-        const result1 = await renderAsync(r1)
-        expect(result1.end({ headless: true })).toMatchInlineSnapshot(
-            `"<producer><consumer><track>AsyncComponent</track>12345</consumer>12345<track>AsyncComponent</track></producer>"`,
-        )
-
-        // This should use the cached result, so it should be very fast
-        const startTime = new Date().getTime()
-        const result2 = await renderAsync(
-            await persisted({ timestamp, jsxArg }),
-        )
-        const endTime = new Date().getTime()
-        const executionTime = endTime - startTime
-        expect(executionTime).toBeLessThanOrEqual(3) // expect less than 1ms
-        expect(result2.end({ headless: true })).toMatchInlineSnapshot(
-            `"<producer><consumer><track>AsyncComponent</track>12345</consumer>12345<track>AsyncComponent</track></producer>"`,
-        )
-    })
-})
 
 describe('renderAsync', () => {
     it('should render a component that returns xmlbuilder', async () => {
