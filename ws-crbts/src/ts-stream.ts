@@ -22,7 +22,7 @@ const httpServer = http.createServer((req, res) => {
 
         // Spawn melt process with the MLT file
         const meltProcess = spawn(
-            `melt ${VIDEO_MLT_PATH} -consumer cbrts muxrate=20000000 vcodec=libx264 preset=veryfast vb=1984k maxrate=1984k bufsize=3968k g=60 acodec=aac ab=128k f=flv`,
+            `melt ${VIDEO_MLT_PATH} -consumer cbrts muxrate=10000000 vcodec=libx264 preset=veryfast vb=1984k maxrate=1984k bufsize=3968k g=60 acodec=aac ab=128k f=flv`,
             {
                 shell: true,
                 stdio: ['ignore', 'pipe', 'pipe'],

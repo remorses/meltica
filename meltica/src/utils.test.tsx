@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { createContext, render, renderAsync, useContext } from 'jsx-xml'
+import { createContext, render, renderAsync, useContext } from 'xmlize'
 import { isNodeElement } from './rendering'
 
 import { WorkflowIcon } from 'lucide-react'

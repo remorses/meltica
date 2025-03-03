@@ -77,9 +77,6 @@ importers:
       htmlparser2:
         specifier: ^10.0.0
         version: 10.0.0
-      jsx-xml:
-        specifier: npm:@xmorse/jsx-xml@^0.11.0
-        version: '@xmorse/jsx-xml@0.11.0'
       meltica:
         specifier: workspace:*
         version: 'link:'
@@ -116,6 +113,9 @@ importers:
       xmlbuilder2:
         specifier: ^3.1.1
         version: 3.1.1
+      xmlize:
+        specifier: latest
+        version: 0.0.2
     devDependencies:
       '@fal-ai/client':
         specifier: ^1.2.3
@@ -958,10 +958,6 @@ packages:
 
   '@vitest/utils@3.0.7':
     resolution: {integrity: sha512-xePVpCRfooFX3rANQjwoditoXgWb1MaFbzmGuPP59MK6i13mrnDw/yEIyJudLeW6/38mCNcwCiJIGmpDPibAIg==}
-
-  '@xmorse/jsx-xml@0.11.0':
-    resolution: {integrity: sha512-1U77Gp+xCjnRqbnuOlHCOEA0A2QNfi8V7e9GuRyxmLiPo5tY+WRP/azhU/yFTIYBv9vFWK4vy7r3fQ+sNpd/HQ==}
-    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
 
   abbrev@3.0.0:
     resolution: {integrity: sha512-+/kfrslGQ7TNV2ecmQwMJj/B65g5KVq1/L3SGVZ3tCYGqlzFuFCGBZJtMP99wH3NpEUyAjn0zPdPUg0D+DwrOA==}
@@ -2718,6 +2714,10 @@ packages:
     resolution: {integrity: sha512-WCSfbfZnQDdLQLiMdGUQpMxxckeQ4oZNMNhLVkcekTu7xhD4tuUDyAPoY8CwXvBYE6LwBHd6QW2WZXlOWr1vCw==}
     engines: {node: '>=12.0'}
 
+  xmlize@0.0.2:
+    resolution: {integrity: sha512-OCVqAV9UVfD9JRhdG+yJtPOS2q/LAG3j/wlJtUlsu/4Fmh9DR8QAhMj+oN+kxzp8jGOskDjsHTeO+SmT83+m+Q==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+
   yallist@2.1.2:
     resolution: {integrity: sha512-ncTzHV7NvsQZkYe1DW7cbDLm0YpzHmZF5r/iyP3ZnQtMiJ+pjzisCiMNI+Sj+xQF5pXhSHxSB3uDbsBTzY/c2A==}
 
@@ -3465,11 +3465,6 @@ snapshots:
       '@vitest/pretty-format': 3.0.7
       loupe: 3.1.3
       tinyrainbow: 2.0.0
-
-  '@xmorse/jsx-xml@0.11.0':
-    dependencies:
-      react-is: 19.0.0
-      xmlbuilder2: 3.1.1
 
   abbrev@3.0.0: {}
 
@@ -5310,6 +5305,11 @@ snapshots:
       '@oozcitak/infra': 1.0.8
       '@oozcitak/util': 8.3.8
       js-yaml: 3.14.1
+
+  xmlize@0.0.2:
+    dependencies:
+      react-is: 19.0.0
+      xmlbuilder2: 3.1.1
 
   yallist@2.1.2: {}
 

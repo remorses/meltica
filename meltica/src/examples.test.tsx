@@ -237,7 +237,7 @@ describe('memo', () => {
                 return { words: chunks }
             },
         )
-        transcribeAudio({})
+        
         function Video({}) {
             return (
                 <Composition

@@ -1,4 +1,4 @@
-import { renderAsync } from 'jsx-xml'
+import { renderAsync } from 'xmlize'
 import crypto from 'crypto'
 
 import type { Element } from '@oozcitak/dom/lib/dom/interfaces'

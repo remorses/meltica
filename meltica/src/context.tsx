@@ -1,5 +1,5 @@
 import { AssetProducer, AssetRegistration } from 'meltica/src/rendering'
-import { createContext } from 'jsx-xml'
+import { createContext } from 'xmlize'
 
 export type CompositionContext = {
     width: number

@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import xmlbuilder from 'xmlbuilder2'
 import { FontFamily, renderCodeToSVG } from './shiki-svg'
 import { codeToTokens } from 'shiki'
-import { render } from 'jsx-xml'
+import { render } from 'xmlize'
 import { CodeOuterGrid } from 'meltica/src/code/frame'
 
 // Add a custom serializer for SVG content

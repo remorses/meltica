@@ -1,4 +1,4 @@
-import { Fragment, useContext } from 'jsx-xml'
+import { Fragment, useContext } from 'xmlize'
 
 import {
     AssetRegistration,
@@ -17,7 +17,7 @@ import {
     trackContext,
 } from 'meltica/src/context'
 
-import { render, renderAsync } from 'jsx-xml'
+import { render, renderAsync } from 'xmlize'
 import path from 'path'
 
 import { formatSecondsToTime } from 'meltica/src/time'

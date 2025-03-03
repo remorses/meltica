@@ -1,1 +1,1 @@
-export * from 'jsx-xml/jsx-runtime'
+export * from 'xmlize/jsx-runtime'

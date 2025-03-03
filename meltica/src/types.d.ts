@@ -7,7 +7,7 @@ type ReactNode = any
 declare global {
     namespace JSX {
         interface ElementChildrenAttribute {
-            children?: ReactNode
+            children?: any
         }
 
         interface IntrinsicElements {

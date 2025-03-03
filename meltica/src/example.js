@@ -1,7 +1,7 @@
 import { AudioFile, ImageFile, PanningAnimation } from 'meltica/src/components'
-import { useContext } from 'jsx-xml'
+import { useContext } from 'xmlize'
 import { renderingContext } from 'meltica/src/rendering'
-import { render } from 'jsx-xml'
+import { render } from 'xmlize'
 
 // type ImageInput = {
 //     filepath: string
