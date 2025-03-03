@@ -10,7 +10,7 @@ import {
     codeToTokens,
     CodeToTokensOptions,
 } from 'shiki'
-import { persistentMemo } from 'meltica/src/memo'
+
 
 import { createCache } from 'meltica/src/cache'
 
@@ -32,20 +32,14 @@ const renderCodeSnippetToSVG = codeCache.wrap(
             lang,
             theme,
         })
-        const { svg } = renderCodeToSVG({
+        const res = renderCodeToSVG({
             fontFamily,
             fontSize,
             bg: background,
             tokens,
         })
 
-        try {
-            return create(svg)
-        } catch (error) {
-            console.log(svg)
-            console.error('Error creating code SVG:', error)
-            return svg
-        }
+        return res
     },
 )
 
@@ -66,7 +60,7 @@ export const CodeSnippet = async function CodeSnippet({
     fontFamily = 'Consolas' as const,
     fontSize = 14,
 }: Props) {
-    return await renderCodeSnippetToSVG({
+    const { svg } = await renderCodeSnippetToSVG({
         code,
         lang,
         theme,
@@ -74,4 +68,11 @@ export const CodeSnippet = async function CodeSnippet({
         fontSize,
         background,
     })
+    try {
+        return create(svg)
+    } catch (error) {
+        console.log(svg)
+        console.error('Error creating code SVG:', error)
+        return svg
+    }
 }

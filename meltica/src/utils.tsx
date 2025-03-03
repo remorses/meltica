@@ -1,7 +1,9 @@
 import crypto from 'crypto'
+import readline from 'readline'
 import mime from 'mime-types'
 import fs from 'fs'
 import path from 'path'
+import { execSync, spawn } from 'child_process'
 
 /**
  * Utility function that creates a promise that resolves after the specified time.
@@ -113,3 +115,82 @@ export function randomString(length: number = 8): string {
 
     return result
 }
+// Function that uses spawn and returns both stdout and stderr
+export function execWithInheritedStdio(command: string, options?: any) {
+    return new Promise<{ stdout: string; stderr: string; fullOut: string }>(
+        (resolve, reject) => {
+            let stdout = ''
+            let stderr = ''
+            let fullOut = ''
+            const childProcess = spawn(command, {
+                ...options,
+                stdio: [
+                    'inherit', // stdin
+                    'pipe', // stdout
+                    'pipe', // stderr
+                ],
+                shell: true,
+            })
+
+            childProcess.stdout.on('data', (data) => {
+                const text = data.toString()
+                stdout += text
+                fullOut += text
+            })
+
+            childProcess.stderr.on('data', (data) => {
+                const text = data.toString()
+                stderr += text
+                fullOut += text
+                process.stderr.write(data) // Still show stderr in console
+            })
+
+            childProcess.on('close', (code) => {
+                if (code === 0) {
+                    resolve({ stdout, stderr, fullOut })
+                } else {
+                    reject(new Error(`Command failed with exit code ${code}`))
+                }
+            })
+
+            childProcess.on('error', (err) => {
+                reject(err)
+            })
+        },
+    )
+}
+
+function resetTerminalMode() {
+    try {
+        // Use readline to reset terminal mode instead of stty
+
+        // Check if stdin is TTY before attempting to use readline functions
+        if (process.stdin.isTTY) {
+            const rl = readline.createInterface({
+                input: process.stdin,
+                output: process.stdout,
+            })
+            rl.close()
+            // Force readline to refresh the line and restore terminal settings
+            readline.cursorTo(process.stdout, 0)
+            readline.clearLine(process.stdout, 0)
+        } else {
+            // Skip terminal operations if not in TTY mode
+            // console.log('Skipping terminal reset (not in TTY mode)')
+        }
+    } catch (error) {
+        console.warn('Failed to reset terminal settings:', error)
+    }
+}
+
+// Set up process exit handlers to reset terminal mode
+process.on('exit', () => {
+    resetTerminalMode()
+})
+
+// Handle SIGINT (Ctrl+C)
+process.on('SIGINT', () => {
+    // console.log('\nReceived SIGINT (Ctrl+C). Cleaning up...')
+    resetTerminalMode()
+    process.exit(0)
+})

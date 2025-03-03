@@ -8,6 +8,7 @@ import { pipeline } from 'stream/promises'
 import { Readable } from 'stream'
 import util from 'util'
 import { createGunzip } from 'zlib'
+import { execWithInheritedStdio } from 'meltica/src/utils'
 
 const SHOTCUT_VERSION = 'v25.01.25'
 const SHOTCUT_VERSION_NO_DOTS = '250125'
@@ -354,33 +355,6 @@ async function getGitHubArtifacts(
     }
 }
 
-// New function that uses spawn and returns stdout
-function execWithInheritedStdio(command: string): Promise<{ stdout: string }> {
-    return new Promise((resolve, reject) => {
-        let stdout = ''
-        const childProcess = spawn(command, {
-            shell: true,
-        })
-
-        childProcess.stdout.on('data', (data) => {
-            stdout += data.toString()
-        })
-
-        childProcess.stderr.pipe(process.stderr)
-
-        childProcess.on('close', (code) => {
-            if (code === 0) {
-                resolve({ stdout })
-            } else {
-                reject(new Error(`Command failed with exit code ${code}`))
-            }
-        })
-
-        childProcess.on('error', (err) => {
-            reject(err)
-        })
-    })
-}
 
 main().catch((error) => {
     console.error('Error:', error)

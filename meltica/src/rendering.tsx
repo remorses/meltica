@@ -6,7 +6,12 @@ import xmlbuilder from 'xmlbuilder2'
 import type { XMLBuilder } from 'xmlbuilder2/lib/interfaces'
 
 import { defaultRenderingContext, renderingContext } from 'meltica/src/context'
-import { fastFileHash, isTruthy, randomString } from 'meltica/src/utils'
+import {
+    execWithInheritedStdio,
+    fastFileHash,
+    isTruthy,
+    randomString,
+} from 'meltica/src/utils'
 import { execSync } from 'child_process'
 import { ChildNode } from 'domhandler'
 import fs from 'fs'
@@ -259,7 +264,9 @@ export async function renderToVideo(jsx: any, xmlFilename = 'video.mlt') {
     const tempXmlFile = xmlFilename
     fs.writeFileSync(tempXmlFile, xml)
     const meltPath = '/Applications/Shotcut.app/Contents/MacOS/melt'
-    execSync(`"${meltPath}" ${tempXmlFile}`, { stdio: 'inherit' })
+    await execWithInheritedStdio(`"${meltPath}" ${tempXmlFile}`)
+    // Restore terminal to normal mode after melt command
+
     console.timeEnd(`${renderId} melt processing`)
 }
 export async function renderToPreview(jsx: any, xmlFilename = 'video.mlt') {
@@ -279,10 +286,10 @@ export async function renderToPreview(jsx: any, xmlFilename = 'video.mlt') {
     fs.writeFileSync(tempXmlFile, xml)
     let meltPath = '/Applications/Shotcut.app/Contents/MacOS/melt'
     meltPath = 'melt'
-    execSync(
+    await execWithInheritedStdio(
         `"${meltPath}" ${tempXmlFile} -consumer sdl2 terminate_on_pause=1`,
-        { stdio: 'inherit' },
     )
+
     console.timeEnd(`${renderId} melt processing`)
 }
 
@@ -449,11 +456,11 @@ export async function extractProducersDataFromAssets(
         )} -profile ${profile} -consumer xml:${tempXmlFile} time_format=${timeFormat}`
 
     await fs.writeFileSync(tempXmlFile, '')
-    const out = execSync(command, { stdio: 'pipe' }).toString()
+    const { fullOut } = await execWithInheritedStdio(command)
     const xml = fs.readFileSync(tempXmlFile).toString()
     if (!xml.trim().length) {
         console.log('executed command\n', command)
-        console.log(out)
+        // console.log(fullOut)
         throw new Error('Melt command failed to generate XML')
     }
     const producers = getProducersFromXml(xml)

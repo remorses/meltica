@@ -16,7 +16,7 @@ import {
     renderToXml,
 } from 'meltica/src/rendering'
 import { sleep } from 'meltica/src/utils'
-import { persistentMemo } from 'meltica/src/memo'
+
 const codeSnippet = `
 import React from 'react'
 import { CodeSnippet } from 'meltica/src/code/code'

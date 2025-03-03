@@ -19,7 +19,7 @@ import {
 
 import { render, renderAsync } from 'jsx-xml'
 import path from 'path'
-import { persistentMemo } from 'meltica/src/memo'
+
 import { formatSecondsToTime } from 'meltica/src/time'
 import {
     calculateBasicImageDimensions,
