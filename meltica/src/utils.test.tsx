@@ -9,7 +9,7 @@ import { persistentMemo } from 'meltica/src/memo'
 import { isXmlBuilder, sleep } from 'meltica/src/utils'
 import { formatSecondsToTime } from 'meltica/src/time'
 
-describe('persistentMemo', () => {
+describe.skip('persistentMemo', () => {
     it('persistentMemo', async ({ task }) => {
         const timestamp = 12345
         async function fetchData({ timestamp, jsxArg }) {

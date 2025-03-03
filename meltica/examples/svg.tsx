@@ -30,12 +30,6 @@ export const code = <CodeSnippet
 />
 `
 
-const SlowComponent = persistentMemo(async function ({}) {
-    console.log('rendering slow component')
-    await sleep(1)
-    return <Asset type='video' id='slow' filepath='video.mp4' in={0} out={10} />
-})
-
 function Video({}) {
     return (
         <Composition
@@ -72,7 +66,6 @@ function Video({}) {
                         />
                     </InlineSvg>
                 ))}
-                <SlowComponent />
             </Track>
             <Track id={'svgRectTrack'}>
                 <InlineSvg

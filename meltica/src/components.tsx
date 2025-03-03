@@ -49,7 +49,7 @@ export function AudioGain({ volume = 0 }) {
     )
 }
 
-export const InlineSvg = persistentMemo(async function InlineSvg({
+export const InlineSvg = async function InlineSvg({
     svg: svgContent,
     id,
     duration,
@@ -105,7 +105,7 @@ export const InlineSvg = persistentMemo(async function InlineSvg({
             children={children}
         />
     )
-})
+}
 
 export function Asset({
     id,

@@ -15,7 +15,6 @@ expect.addSnapshotSerializer({
     },
 })
 
-
 const codeSnippet = `
 function hello() {
   console.log("Hello, world!");
@@ -95,7 +94,6 @@ describe('CodeOuterGrid', () => {
             padding: padding - 4,
             lineColor: 'rgba(82, 82, 82, 0.15)',
 
-            
             outerBackgroundColor: '#000000',
             cornerSize: 15,
             children,

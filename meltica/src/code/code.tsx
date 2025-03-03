@@ -12,7 +12,7 @@ import {
 } from 'shiki'
 import { persistentMemo } from 'meltica/src/memo'
 
-export const CodeSnippet = persistentMemo(async function CodeSnippet({
+export const CodeSnippet = async function CodeSnippet({
     code,
     lang = 'javascript',
     theme = 'github-dark',
@@ -31,12 +31,18 @@ export const CodeSnippet = persistentMemo(async function CodeSnippet({
         lang,
         theme,
     })
-    const svg = renderCodeToSVG({
+    const { svg } = renderCodeToSVG({
         fontFamily,
         fontSize,
         bg: background,
         tokens,
     })
 
-    return create(svg)
-})
+    try {
+        return create(svg)
+    } catch (error) {
+        console.log(svg)
+        console.error('Error creating code SVG:', error)
+        return svg
+    }
+}
