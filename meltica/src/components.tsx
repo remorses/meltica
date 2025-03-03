@@ -26,6 +26,7 @@ import {
     ObjectFit,
     ObjectPositionValue,
 } from 'meltica/src/objectfit'
+import { createCache } from 'meltica/src/cache'
 
 function useTrackContext() {
     const context = useContext(trackContext)
@@ -49,6 +50,41 @@ export function AudioGain({ volume = 0 }) {
     )
 }
 
+const memoCache = createCache({
+    cacheId: 'svg-cache',
+})
+
+const saveSvgToPng = memoCache.wrap(
+    'svg-to-png',
+    async ({ svgContent, width, id, filepath }) => {
+        console.time(`${id} svg render`)
+        // Render the SVG content
+        let renderedSvgContent =
+            typeof svgContent === 'string'
+                ? svgContent
+                : (await renderAsync(svgContent)).end({
+                      headless: true,
+                      allowEmptyTags: true,
+                      indentTextOnlyNodes: false,
+                      prettyPrint: true,
+                  })
+        fs.mkdirSync(melticaFolder, { recursive: true })
+
+        const { Resvg } = await import('@resvg/resvg-js')
+        const resvg = new Resvg(renderedSvgContent, {
+            fitTo: {
+                mode: 'width',
+                value: width,
+            },
+        })
+        const pngData = resvg.render()
+        const pngBuffer = pngData.asPng()
+        console.timeEnd(`${id} svg render`)
+
+        fs.writeFileSync(filepath, pngBuffer)
+    },
+)
+
 export const InlineSvg = async function InlineSvg({
     svg: svgContent,
     id,
@@ -69,31 +105,12 @@ export const InlineSvg = async function InlineSvg({
     let filepath = path.resolve(melticaFolder, `${id}.png`)
 
     if (isRegistrationStep) {
-        console.time(`${jobId} ${id} svg render`)
-        // Render the SVG content
-        let renderedSvgContent =
-            typeof svgContent === 'string'
-                ? svgContent
-                : (await renderAsync(svgContent)).end({
-                      headless: true,
-                      allowEmptyTags: true,
-                      indentTextOnlyNodes: false,
-                      prettyPrint: true,
-                  })
-        fs.mkdirSync(melticaFolder, { recursive: true })
-        console.time(`${id} svg render`)
-        const { Resvg } = await import('@resvg/resvg-js')
-        const resvg = new Resvg(renderedSvgContent, {
-            fitTo: {
-                mode: 'width',
-                value: width,
-            },
+        await saveSvgToPng({
+            svgContent,
+            width,
+            id,
+            filepath,
         })
-        const pngData = resvg.render()
-        const pngBuffer = pngData.asPng()
-        console.timeEnd(`${jobId} ${id} svg render`)
-
-        fs.writeFileSync(filepath, pngBuffer)
     }
 
     return (

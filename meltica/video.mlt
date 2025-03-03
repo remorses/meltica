@@ -249,6 +249,7 @@
   <playlist id="tracksvgCodeTrack">
     <property name="shotcut:name">track</property>
   </playlist>
+  <consumer ab="160k" acodec="aac" channels="2" crf="23" deinterlacer="onefield" f="mp4" g="15" in="0" out="00:00:08.000" mlt_service="avformat" movflags="+faststart" preset="veryfast" real_time="-1" rescale="bilinear" target="examples/svg.mp4" threads="0" vcodec="libx264"/>
   <profile description="PAL 4:3 DV or DVD" width="1080" height="1920" progressive="1" sample_aspect_num="1" sample_aspect_den="1" display_aspect_num="9" display_aspect_den="16" frame_rate_num="30" frame_rate_den="1" colorspace="709"/>
   <playlist id="main_bin">
     <property name="xml_retain">1</property>
