@@ -85,6 +85,40 @@ const saveSvgToPng = memoCache.wrap(
     },
 )
 
+export function Lottie({
+    filePath,
+    id,
+    in: inTime = 0,
+    out,
+    children,
+}: {
+    /**
+     * Path to a valid Lottie JSON file
+     */
+    filePath: string
+    id: string
+    in?: number
+    out: number
+    children?: any
+}) {
+    return (
+        <producer
+            id={id}
+            in={formatSecondsToTime(inTime)}
+            out={formatSecondsToTime(out)}
+        >
+            <property name='eof'>loop</property>
+            <property name='resource'>{filePath}</property>
+            {/* <property name='background'>#00000000</property> */}
+            <property name='aspect_ratio'>1</property>
+            <property name='progressive'>1</property>
+            <property name='seekable'>1</property>
+            <property name='mlt_service'>glaxnimate</property>
+            {children}
+        </producer>
+    )
+}
+
 export const InlineSvg = async function InlineSvg({
     svg: svgContent,
     id,
