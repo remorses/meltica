@@ -124,7 +124,7 @@ importers:
         version: 3.1.1
       xmlize:
         specifier: latest
-        version: 0.0.2
+        version: 0.0.3
     devDependencies:
       '@fal-ai/client':
         specifier: ^1.2.3
@@ -144,6 +144,15 @@ importers:
       yauzl:
         specifier: ^3.2.0
         version: 3.2.0
+
+  music:
+    dependencies:
+      '@types/mime':
+        specifier: ^4.0.0
+        version: 4.0.0
+      mime:
+        specifier: ^4.0.6
+        version: 4.0.6
 
   new-package-template: {}
 
@@ -946,6 +955,10 @@ packages:
 
   '@types/mime-types@2.1.4':
     resolution: {integrity: sha512-lfU4b34HOri+kAY5UheuFMWPDOI+OPceBSHZKp69gEyTL/mmJ4cnU6Y/rlme3UL3GyOn6Y42hyIEw0/q8sWx5w==}
+
+  '@types/mime@4.0.0':
+    resolution: {integrity: sha512-5eEkJZ/BLvTE3vXGKkWlyTSUVZuzj23Wj8PoyOq2lt5I3CYbiLBOPb3XmCW6QcuOibIUE6emHXHt9E/F/rCa6w==}
+    deprecated: This is a stub types definition. mime provides its own type definitions, so you do not need this installed.
 
   '@types/node-media-server@2.3.7':
     resolution: {integrity: sha512-JdBJzMxmOhLmjUf4irfYsvHFBr0atvWpRBfCTRQAdo5y4fzCFcMVW61wfpi7v/xq6fgFCeMMqu/td1GFzaWTmw==}
@@ -1880,6 +1893,11 @@ packages:
   mime@1.6.0:
     resolution: {integrity: sha512-x0Vn8spI+wuJ1O6S7gnbaQg8Pxh4NNHb7KSINmEWKiPE4RKOplvijn+NkmYmmRgP68mc70j2EbeTFRsrswaQeg==}
     engines: {node: '>=4'}
+    hasBin: true
+
+  mime@4.0.6:
+    resolution: {integrity: sha512-4rGt7rvQHBbaSOF9POGkk1ocRP16Md1x36Xma8sz8h8/vfCUI2OtEIeCqe4Ofes853x4xDoPiFLIT47J5fI/7A==}
+    engines: {node: '>=16'}
     hasBin: true
 
   mimic-fn@4.0.0:
@@ -2824,8 +2842,8 @@ packages:
     resolution: {integrity: sha512-WCSfbfZnQDdLQLiMdGUQpMxxckeQ4oZNMNhLVkcekTu7xhD4tuUDyAPoY8CwXvBYE6LwBHd6QW2WZXlOWr1vCw==}
     engines: {node: '>=12.0'}
 
-  xmlize@0.0.2:
-    resolution: {integrity: sha512-OCVqAV9UVfD9JRhdG+yJtPOS2q/LAG3j/wlJtUlsu/4Fmh9DR8QAhMj+oN+kxzp8jGOskDjsHTeO+SmT83+m+Q==}
+  xmlize@0.0.3:
+    resolution: {integrity: sha512-qNCXOvYi6JCF/64WDV7OPHYAXgWOXvoX4BXyeLBZDqv3MyJq4HsU4wEBJNH0NaZSWJ9LloqnZBDiEVL8AsWehQ==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
 
   yallist@2.1.2:
@@ -3533,6 +3551,10 @@ snapshots:
       '@types/unist': 3.0.3
 
   '@types/mime-types@2.1.4': {}
+
+  '@types/mime@4.0.0':
+    dependencies:
+      mime: 4.0.6
 
   '@types/node-media-server@2.3.7': {}
 
@@ -4577,6 +4599,8 @@ snapshots:
 
   mime@1.6.0: {}
 
+  mime@4.0.6: {}
+
   mimic-fn@4.0.0: {}
 
   mimic-response@3.1.0: {}
@@ -5511,7 +5535,7 @@ snapshots:
       '@oozcitak/util': 8.3.8
       js-yaml: 3.14.1
 
-  xmlize@0.0.2:
+  xmlize@0.0.3:
     dependencies:
       react-is: 19.0.0
       xmlbuilder2: 3.1.1
