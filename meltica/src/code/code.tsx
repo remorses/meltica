@@ -69,7 +69,7 @@ export const CodeSnippet = async function CodeSnippet({
         background,
     })
     try {
-        return create(svg)
+        return create(svg) as any
     } catch (error) {
         console.log(svg)
         console.error('Error creating code SVG:', error)

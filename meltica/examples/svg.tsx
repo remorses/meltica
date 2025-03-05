@@ -39,6 +39,17 @@ function Video({}) {
             duration={8}
             resultFilePath={'examples/svg.mp4'}
         >
+            {/* <Track id={'video'}>
+                <Asset
+                    type='video'
+                    id={'soundtrackx'}
+                    filepath={'shotcut.mp4'}
+                    in='00:00:00.000'
+                    out='00:02:15.067'
+                >
+                    <AudioGain volume={-14} />
+                </Asset>
+            </Track> */}
             <Track id={'svgCodeTrack'}>
                 <InlineSvg
                     id={'svgCode'}
@@ -116,4 +127,5 @@ function Video({}) {
 
 // fs.writeFileSync('examples/svg.mlt', await renderToXml(<Video />))
 
+await renderToVideo(<Video />)
 renderToPreview(<Video />)

@@ -4,11 +4,15 @@
     "description": "",
     "main": "index.js",
     "type": "module",
-    "scripts": {},
+    "scripts": {
+        "test": "doppler run -- pnpm vitest "
+    },
     "keywords": [],
     "author": "remorses <beats.by.morse@gmail.com>",
     "license": "ISC",
     "dependencies": {
+        "@ai-sdk/google": "^1.1.19",
+        "@ai-sdk/openai": "^1.2.0",
         "@kmamal/sdl": "^0.10.14",
         "@oozcitak/dom": "^1.15.10",
         "@resvg/resvg-js": "^2.6.2",
@@ -16,6 +20,7 @@
         "@types/node": "^22.13.5",
         "@types/node-media-server": "^2.3.7",
         "@types/uuid": "^10.0.0",
+        "ai": "^4.1.51",
         "canvas": "^3.1.0",
         "dedent": "^1.5.3",
         "dom-serializer": "^2.0.0",
@@ -24,7 +29,6 @@
         "font-scanner": "^0.2.1",
         "fontkit": "^2.0.4",
         "htmlparser2": "^10.0.0",
-        "xmlize": "latest",
         "meltica": "workspace:*",
         "mime-types": "^2.1.35",
         "node-media-server": "^4.0.7",
@@ -36,7 +40,8 @@
         "vite": "^6.2.0",
         "vite-tsconfig-paths": "^5.1.4",
         "vitest": "^3.0.6",
-        "xmlbuilder2": "^3.1.1"
+        "xmlbuilder2": "^3.1.1",
+        "xmlize": "latest"
     },
     "devDependencies": {
         "@fal-ai/client": "^1.2.3",
