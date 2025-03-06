@@ -18,7 +18,7 @@ describe(
         test('should upload audio file to MiniMax API', async () => {
             // Replace these with actual values when running the test
 
-            const filePath = 'edapollo.mp3'
+            const filePath = 'minecraft.mp3'
 
             const result = await uploadAudioToMiniMax({
                 apiKey,
@@ -42,9 +42,11 @@ describe(
         test('should generate music with MiniMax API', async () => {
             // Replace these with actual values when running the test
 
-            const referInstrumental = 'instrumental-2025030600113825-eXqF5sp7'
+            let referInstrumental = 'instrumental-2025030600113825-eXqF5sp7'
+            referInstrumental = 'instrumental-2025030600231125-kQXl8vPv'
+            referInstrumental = 'instrumental-2025030600413225-XYwZZxwE'
 
-            const lyrics = ''
+            const lyrics = ``
 
             const { audioBuffer } = await generateMusic({
                 apiKey,
@@ -60,7 +62,7 @@ describe(
                 // },
             })
 
-            const p = 'generated-music.mp3'
+            const p = 'generated-music-4.mp3'
             fs.writeFileSync(p, audioBuffer)
 
             console.log('Generated music data:', p)
