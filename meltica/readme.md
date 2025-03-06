@@ -229,3 +229,11 @@ it looks like the base is always the same and it is the object size, for example
 This means that a Transform will override the previous one and not apply on previous result. This makes things much simpler.
 
 There seems to be an exception if you change the size mode to be something else than fill, in fit mode it seems to fit the object to the rect, and the object seems to have the same aspect ratio of the video.
+
+## negative timestamps
+
+negative numbers work as frames since the end of the clip
+
+but negative timestamps in format 00:00:00.000 do not work.
+
+

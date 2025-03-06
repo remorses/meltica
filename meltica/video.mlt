@@ -46,8 +46,8 @@
       <property name="transition.fill">1</property>
       <property name="compositing"/>
       <property name="distort"/>
-      <property name="transition.rect">00:00:00.000=1080.000 420.000 1080.000 1080.000 1.000000;00:00:00.500g=0 420.000 1080.000 1080.000 1.000000</property>
-      <property name="rotation">00:00:00.000=0;00:00:00.500g=0</property>
+      <property name="transition.rect">00:00:00.000=1080.000 420.000 1080.000 1080.000 1.000000;00:00:00.500h=0 420.000 1080.000 1080.000 1.000000</property>
+      <property name="rotation">00:00:00.000=0;00:00:00.500h=0</property>
       <property name="shotcut:animIn">00:00:00.000</property>
       <property name="shotcut:animOut">00:00:00.000</property>
       <property name="kdenlive:collapsed">0</property>

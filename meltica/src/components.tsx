@@ -1241,7 +1241,7 @@ export function SlideIn({
     duration = 1,
     id,
     direction = 'left',
-    easing = 'cubic in',
+    easing = 'cubic out',
 }: {
     /** The duration of the fade in animation in seconds (as a number) */
     duration: number
