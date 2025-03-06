@@ -46,19 +46,23 @@ function Video({}) {
                 <Lottie
                     type='image'
                     id={'svgCode'}
-                    out={3}
                     filepath='examples/lottie.json'
                 >
-                    
-                    <Transform
-                        keyframes={[
-                            {
-                                objectFit: 'cover',
-                                time: 0,
-                            },
-                        ]}
-                    />
                     <SlideIn id='slideIn' direction='right' duration={0.5} />
+                    <SlideOut id='slideOut' direction='left' duration={0.5} />
+                </Lottie>
+                <Lottie
+                    type='image'
+                    id={'lottie2'}
+                    filepath='examples/docs.json'
+                >
+                    <SlideIn id='slideIn' direction='right' duration={0.5} />
+                </Lottie>
+                <Lottie
+                    type='image'
+                    id={'lottie3'}
+                    filepath='examples/docs.json'
+                >
                     <SlideOut id='slideOut' direction='left' duration={0.5} />
                 </Lottie>
             </Track>
