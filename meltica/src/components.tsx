@@ -20,7 +20,7 @@ import {
 import { render, renderAsync } from 'xmlize'
 import path from 'path'
 
-import { formatSecondsToTime } from 'meltica/src/time'
+import { formatSecondsToTime, parseTimeToSeconds } from 'meltica/src/time'
 import {
     objectFit,
     ObjectFit,
@@ -467,18 +467,19 @@ export function Transform({
     keyframes,
     compositing = 0,
     distort = 0,
-    in: inTime,
+
     out: outTime,
 }: {
     id?: string
     keyframes: TransformKeyframe[]
     compositing?: number
     distort?: number
-    in?: number | string
+    // in?: number | string
     out?: number | string
 }) {
     const videoContext = useContext(compositionContext)!
     const context = useContext(renderingContext)
+    const { producer, out: assetOut } = useAssetContext()
     // if (context.isRegistrationStep) {
     //     return <filter id={id + 'transformFilter'}></filter>
     // }
@@ -518,16 +519,22 @@ export function Transform({
     return (
         <filter
             id={id}
-            in={inTime && formatSecondsToTime(inTime)}
-            out={outTime && formatSecondsToTime(outTime)}
+            // in={formatSecondsToTime(inTime)}
+            out={formatSecondsToTime(outTime) ?? assetOut}
         >
             <property name='rotate_center'>1</property>
-            <property name='mlt_service'>qtblend</property>
-            <property name='kdenlive_id'>qtblend</property>
+            <property name='mlt_service'>affine</property>
+            <property name='shotcut:filter'>affineSizePosition</property>
+            <property name='transition.valign'>middle</property>
+            <property name='transition.halign'>center</property>
+            <property name='transition.fix_rotate_x'>0</property>
+            <property name='transition.fill'>1</property>
             <property name='compositing'>{compositing}</property>
             <property name='distort'>{distort}</property>
-            <property name='rect'>{rect}</property>
+            <property name='transition.rect'>{rect}</property>
             <property name='rotation'>{rotation}</property>
+            <property name='shotcut:animIn'>00:00:00.000</property>
+            <property name='shotcut:animOut'>00:00:00.000</property>
             <property name='kdenlive:collapsed'>0</property>
         </filter>
     )
@@ -1270,23 +1277,26 @@ export function SlideOut({
     easing?: EasingType
 }) {
     const { out } = useAssetContext()
+    const outInSeconds = parseTimeToSeconds(out!)
+    const durationSeconds = parseTimeToSeconds(duration)
     return (
         <SlideAnimation
-            in={-duration}
+            in={outInSeconds - durationSeconds}
             id={id}
             direction={direction}
             easing={easing}
+            isOut
             out={out!}
         />
     )
 }
-
 export function SlideAnimation({
     id,
     direction = 'left',
     easing = 'cubic in',
     in: inTime,
     out: outTime,
+    isOut = false,
 }: {
     /** Optional ID for the transform filter */
     id?: string
@@ -1298,8 +1308,10 @@ export function SlideAnimation({
     in: NumberLike
     /** End time of the animation in seconds */
     out: NumberLike
+    /** Whether this is a slide out animation */
+    isOut?: boolean
 }) {
-    const { producer } = useAssetContext()
+    const { producer, out: assetOut } = useAssetContext()
     const producerId = producer.id
     const size = useAssetSize()
 
@@ -1330,29 +1342,29 @@ export function SlideAnimation({
 
     // Define keyframes for slide animation using objectFit
     const startKeyframe = objectFit({
-        x: offsetX,
-        y: offsetY,
-        containerWidth: size.width,
-        containerHeight: size.height,
-        objectWidth: videoWidth,
-        objectHeight: videoHeight,
+        x: isOut ? 0 : offsetX,
+        y: isOut ? 0 : offsetY,
+        containerWidth: videoWidth,
+        containerHeight: videoHeight,
+        objectWidth: size.width,
+        objectHeight: size.height,
         objectFit: 'contain',
     })
 
     const endKeyframe = objectFit({
-        x: 0,
-        y: 0,
-        containerWidth: size.width,
-        containerHeight: size.height,
-        objectWidth: videoWidth,
-        objectHeight: videoHeight,
+        x: isOut ? offsetX : 0,
+        y: isOut ? offsetY : 0,
+        containerWidth: videoWidth,
+        containerHeight: videoHeight,
+        objectWidth: size.width,
+        objectHeight: size.height,
         objectFit: 'contain',
     })
 
     return (
         <Transform
             // in={inTime}
-            // out={outTime}
+            out={assetOut}
             keyframes={[
                 {
                     time: formatSecondsToTime(inTime),

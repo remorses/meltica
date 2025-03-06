@@ -217,3 +217,15 @@ keyframe interpolation:
 In melt these can happen when
 
 - using same ids for multiple resources, notice that ids are chared among producers, tracks, etc
+
+## filter does loop if you don't set an out property
+
+if a filter does not have an out prop, mlt assumes it will loop its keyframes, basically repeating the filter in a loop to fill parent clip
+
+## affine rect, what is the base on which the rect is applied?
+
+it looks like the base is always the same and it is the object size, for example the image size if producer is an image.
+
+This means that a Transform will override the previous one and not apply on previous result. This makes things much simpler.
+
+There seems to be an exception if you change the size mode to be something else than fill, in fit mode it seems to fit the object to the rect, and the object seems to have the same aspect ratio of the video.

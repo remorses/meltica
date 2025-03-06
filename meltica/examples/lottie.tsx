@@ -49,6 +49,7 @@ function Video({}) {
                     out={3}
                     filepath='examples/lottie.json'
                 >
+                    
                     <Transform
                         keyframes={[
                             {
@@ -58,20 +59,8 @@ function Video({}) {
                         ]}
                     />
                     <SlideIn id='slideIn' direction='right' duration={0.5} />
-                    <SlideOut id='slideIn' direction='left' duration={0.5} />
+                    <SlideOut id='slideOut' direction='left' duration={0.5} />
                 </Lottie>
-            </Track>
-
-            <Track id={'audio'}>
-                <Asset
-                    type='audio'
-                    id={'soundtrack'}
-                    filepath={'edapollo - Let It Go [bQ5glYCsv94].mp3'}
-                    in='00:00:00.000'
-                    out='00:02:15.067'
-                >
-                    <AudioGain volume={-14} />
-                </Asset>
             </Track>
         </Composition>
     )

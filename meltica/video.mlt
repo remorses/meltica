@@ -1,22 +1,7 @@
-<?xml version="1.0" standalone="no"?>
 <mlt LC_NUMERIC="C" version="7.30.0" title="Shotcut version 25.01.25" producer="main_bin">
+  <consumer ab="160k" acodec="aac" channels="2" crf="23" deinterlacer="onefield" f="mp4" g="15" in="0" out="00:00:08.000" mlt_service="avformat" movflags="+faststart" preset="veryfast" real_time="-1" rescale="bilinear" target="examples/lottie.mp4" threads="0" vcodec="libx264"/>
   <profile description="PAL 4:3 DV or DVD" width="1080" height="1920" progressive="1" sample_aspect_num="1" sample_aspect_den="1" display_aspect_num="9" display_aspect_den="16" frame_rate_num="30" frame_rate_den="1" colorspace="709"/>
-  <playlist id="main_bin">
-    <property name="xml_retain">1</property>
-  </playlist>
-  <producer id="black" in="00:00:00.000" out="00:00:02.767">
-    <property name="length">00:00:02.800</property>
-    <property name="eof">pause</property>
-    <property name="resource">0</property>
-    <property name="aspect_ratio">1</property>
-    <property name="mlt_service">color</property>
-    <property name="mlt_image_format">rgba</property>
-    <property name="set.test_audio">0</property>
-  </producer>
-  <playlist id="background">
-    <entry producer="black" in="00:00:00.000" out="00:00:02.767"/>
-  </playlist>
-  <producer id="assetsvgCode" in="00:00:00.000" out="00:00:02.767">
+  <producer id="assetsvgCode" in="00:00:00.000" out="00:00:02.769">
     <property name="length">84</property>
     <property name="eof">loop</property>
     <property name="resource">examples/lottie.json</property>
@@ -31,65 +16,79 @@
     <property name="meta.media.frame_rate">50</property>
     <property name="first_frame">0</property>
     <property name="mlt_service">glaxnimate</property>
+    <property name="mlt_service">glaxnimate</property>
+    <property name="resource">examples/lottie.json</property>
     <property name="shotcut:skipConvert">1</property>
     <property name="shotcut:caption">lottie.json</property>
-    <property name="shotcut:hash">93173849ca38259e3c67d712a5b8fb9f</property>
-    <property name="meta.shotcut.vui">1</property>
-    <filter id="qtblend" out="00:00:00.100">
-      <property name="background">color:#000000</property>
-      <property name="mlt_service">affine</property>
+    <filter id="qtblend" out="3">
       <property name="rotate_center">1</property>
+      <property name="mlt_service">affine</property>
       <property name="shotcut:filter">affineSizePosition</property>
       <property name="transition.valign">middle</property>
       <property name="transition.halign">center</property>
       <property name="transition.fix_rotate_x">0</property>
       <property name="transition.fill">1</property>
-      <property name="compositing"></property>
-      <property name="distort"></property>
+      <property name="compositing"/>
+      <property name="distort"/>
       <property name="transition.rect">00:00:00.000=-420.000 0 1920.000 1920.000 1.000000</property>
       <property name="rotation">00:00:00.000=0</property>
       <property name="shotcut:animIn">00:00:00.000</property>
       <property name="shotcut:animOut">00:00:00.000</property>
       <property name="kdenlive:collapsed">0</property>
-      <property name="disable">1</property>
     </filter>
     <filter id="slideIn" out="00:00:03.000">
-      <property name="background">color:#000000</property>
-      <property name="mlt_service">affine</property>
       <property name="rotate_center">1</property>
+      <property name="mlt_service">affine</property>
       <property name="shotcut:filter">affineSizePosition</property>
       <property name="transition.valign">middle</property>
       <property name="transition.halign">center</property>
       <property name="transition.fix_rotate_x">0</property>
       <property name="transition.fill">1</property>
-      <property name="compositing"></property>
-      <property name="distort"></property>
+      <property name="compositing"/>
+      <property name="distort"/>
       <property name="transition.rect">00:00:00.000=1080.000 420.000 1080.000 1080.000 1.000000;00:00:00.500g=0 420.000 1080.000 1080.000 1.000000</property>
       <property name="rotation">00:00:00.000=0;00:00:00.500g=0</property>
       <property name="shotcut:animIn">00:00:00.000</property>
       <property name="shotcut:animOut">00:00:00.000</property>
       <property name="kdenlive:collapsed">0</property>
     </filter>
-    <filter id="filter0" out="00:00:02.767">
-      <property name="background">color:#00000000</property>
+    <filter id="slideOut" out="00:00:03.000">
+      <property name="rotate_center">1</property>
       <property name="mlt_service">affine</property>
       <property name="shotcut:filter">affineSizePosition</property>
-      <property name="transition.fix_rotate_x">0</property>
-      <property name="transition.fill">1</property>
-      <property name="transition.distort">0</property>
-      <property name="transition.rect">00:00:02.233=0 420 1080 1080 1;00:00:02.767=-1087.86 428.67 1080 1080 1</property>
       <property name="transition.valign">middle</property>
       <property name="transition.halign">center</property>
+      <property name="transition.fix_rotate_x">0</property>
+      <property name="transition.fill">1</property>
+      <property name="compositing"/>
+      <property name="distort"/>
+      <property name="transition.rect">00:00:02.500=0 420.000 1080.000 1080.000 1.000000;00:00:03.000g=-1080.000 420.000 1080.000 1080.000 1.000000</property>
+      <property name="rotation">00:00:02.500=0;00:00:03.000g=0</property>
       <property name="shotcut:animIn">00:00:00.000</property>
       <property name="shotcut:animOut">00:00:00.000</property>
-      <property name="transition.threads">0</property>
+      <property name="kdenlive:collapsed">0</property>
     </filter>
   </producer>
   <playlist id="trackvideo">
     <property name="shotcut:name">track</property>
-    <entry producer="assetsvgCode" in="00:00:00.000" out="00:00:02.767"/>
+    <entry producer="assetsvgCode" in="00:00:00.000" out="00:00:03.000"/>
   </playlist>
-  <tractor id="mainTractor" title="Shotcut version 25.01.25" in="00:00:00.000" out="00:00:02.767">
+  <playlist id="main_bin">
+    <property name="xml_retain">1</property>
+  </playlist>
+  <producer id="black" in="00:00:00.000" out="2777:46:39.000">
+    <property name="length">2777:46:39.000</property>
+    <property name="eof">pause</property>
+    <property name="resource">0</property>
+    <property name="aspect_ratio">1</property>
+    <property name="mlt_service">color</property>
+    <property name="mlt_image_format">rgba</property>
+    <property name="set.test_audio">0</property>
+  </producer>
+  <playlist id="background">
+    <entry producer="black" in="00:00:00.000" out="2777:46:39.000"/>
+  </playlist>
+  <tractor id="mainTractor" title="Shotcut version 25.01.25" in="00:00:00.000">
     <property name="shotcut">1</property>
     <property name="shotcut:projectAudioChannels">2</property>
     <property name="shotcut:projectFolder">0</property>
@@ -110,7 +109,7 @@
       <property name="version">0.1</property>
       <property name="mlt_service">frei0r.cairoblend</property>
       <property name="threads">0</property>
-      <property name="disable">1</property>
+      <property name="disable">0</property>
     </transition>
   </tractor>
 </mlt>

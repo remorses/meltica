@@ -7,7 +7,7 @@ import { WorkflowIcon } from 'lucide-react'
 import { create, fragment } from 'xmlbuilder2'
 
 import { isXmlBuilder, sleep } from 'meltica/src/utils'
-import { formatSecondsToTime } from 'meltica/src/time'
+import { formatSecondsToTime, parseTimeToSeconds } from 'meltica/src/time'
 
 describe('renderAsync', () => {
     it('should render a component that returns xmlbuilder', async () => {
@@ -258,5 +258,22 @@ describe('formatSecondsToTime', () => {
         expect(formatSecondsToTime(-1.5)).toMatchInlineSnapshot(
             `"-00:00:01.500"`,
         )
+    })
+})
+
+
+describe('parseTimeToSeconds', () => {
+    it('parses HH:MM:SS.mmm format to seconds', () => {
+        expect(parseTimeToSeconds('00:00:00.000')).toBe(0)
+        expect(parseTimeToSeconds('00:00:01.500')).toBe(1.5)
+        expect(parseTimeToSeconds('00:01:01.000')).toBe(61)
+        expect(parseTimeToSeconds('01:01:01.123')).toBe(3661.123)
+        expect(parseTimeToSeconds('-00:00:01.500')).toBe(-1.5)
+    })
+
+    it('throws error for invalid time format', () => {
+        expect(() => parseTimeToSeconds('invalid')).toThrow('Invalid time format')
+        expect(() => parseTimeToSeconds('00:00')).toThrow('Invalid time format')
+        expect(() => parseTimeToSeconds('aa:bb:cc.ddd')).toThrow('Invalid time components')
     })
 })
