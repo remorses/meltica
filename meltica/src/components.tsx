@@ -540,7 +540,7 @@ export function Transform({
     )
 }
 
-export function BlankSpace({ id, length }) {
+export function BlankSpace({ id, duration }) {
     const context = useContext(renderingContext)
     const { trackId } = useTrackContext()
     if (context.isRegistrationStep) {
@@ -548,7 +548,7 @@ export function BlankSpace({ id, length }) {
             <AssetRegistrationComponent
                 id={id}
                 type='blank'
-                duration={length}
+                duration={formatSecondsToTime(duration)}
                 parentTrackId={trackId}
             />
         )
@@ -1225,7 +1225,7 @@ export function FadeInBrightness({
     let durationTime = formatSecondsToTime(duration)
 
     return (
-        <filter id={id + 'fadeInBrightness'}>
+        <filter id={id + 'fadeInBrightness'} out={durationTime}>
             <property name='start'>1</property>
             <property name='level'>{`00:00:00.000=${startLevel};${durationTime}=${endLevel}`}</property>
             <property name='mlt_service'>brightness</property>
@@ -1281,7 +1281,7 @@ export function SlideOut({
     const durationSeconds = parseTimeToSeconds(duration)
     return (
         <SlideAnimation
-            in={outInSeconds - durationSeconds}
+            in={Math.max(0, outInSeconds - durationSeconds)}
             id={id}
             direction={direction}
             easing={easing}
@@ -1386,7 +1386,6 @@ export function SlideAnimation({
         />
     )
 }
-
 export function FadeOutBrightness({
     duration = 1,
     startLevel = 1,
@@ -1399,17 +1398,26 @@ export function FadeOutBrightness({
     /** The ending brightness level (default 0) */
     endLevel?: number
 }) {
-    const { producer } = useAssetContext()
+    const { producer, out: assetOut } = useAssetContext()
     const id = producer.id
-    let durationTime = formatSecondsToTime(duration)
+
+    const durationSeconds = parseTimeToSeconds(duration)
+    if (!assetOut) {
+        throw new Error('Asset out time is required for fade out animation')
+    }
+    const clipDurationSeconds = parseTimeToSeconds(assetOut!)
+    let startTime = formatSecondsToTime(
+        Math.max(0, clipDurationSeconds - durationSeconds),
+    )
+
     return (
         <filter id={id + 'fadeOutBrightness'}>
             <property name='start'>1</property>
-            <property name='level'>{`00:00:00.000=${startLevel};-${durationTime}=${endLevel}`}</property>
+            <property name='level'>{`${startTime}=${startLevel};${assetOut}=${endLevel}`}</property>
             <property name='mlt_service'>brightness</property>
             <property name='shotcut:filter'>fadeOutBrightness</property>
             <property name='alpha'>1</property>
-            <property name='shotcut:animOut'>{durationTime}</property>
+            <property name='shotcut:animOut'>{formatSecondsToTime(durationSeconds)}</property>
             <property name='disable'>0</property>
         </filter>
     )
@@ -1432,7 +1440,7 @@ export function FadeInAudio({
     let durationTime = formatSecondsToTime(duration)
 
     return (
-        <filter id={id + 'fadeInVolume'}>
+        <filter id={id + 'fadeInVolume'} out={durationTime}>
             <property name='window'>75</property>
             <property name='max_gain'>20dB</property>
             <property name='level'>{`00:00:00.000=${startLevel};${durationTime}=${endLevel}`}</property>
@@ -1443,7 +1451,6 @@ export function FadeInAudio({
         </filter>
     )
 }
-
 export function FadeOutAudio({
     duration = 1,
     startLevel = 0,
@@ -1456,18 +1463,27 @@ export function FadeOutAudio({
     /** The ending volume level in dB (default -60) */
     endLevel?: number
 }) {
-    const { producer } = useAssetContext()
+    const { producer, out: assetOut } = useAssetContext()
     const id = producer.id
-    let durationTime = formatSecondsToTime(duration)
+
+    const durationSeconds = parseTimeToSeconds(duration)
+    if (!assetOut) {
+        throw new Error('Asset out time is required for fade out animation')
+    }
+    const clipDurationSeconds = parseTimeToSeconds(assetOut!)
+    let startTime = formatSecondsToTime(
+        Math.max(0, clipDurationSeconds - durationSeconds),
+    )
+    let endTime = formatSecondsToTime(clipDurationSeconds)
 
     return (
         <filter id={id + 'fadeOutVolume'}>
             <property name='window'>75</property>
             <property name='max_gain'>20dB</property>
-            <property name='level'>{`00:00:00.000=${startLevel};-${durationTime}=${endLevel}`}</property>
+            <property name='level'>{`${startTime}=${startLevel};${endTime}=${endLevel}`}</property>
             <property name='mlt_service'>volume</property>
             <property name='shotcut:filter'>fadeOutVolume</property>
-            <property name='shotcut:animOut'>{durationTime}</property>
+            <property name='shotcut:animOut'>{startTime}</property>
             <property name='disable'>0</property>
         </filter>
     )
@@ -1536,14 +1552,15 @@ export function BlendMode({
     )
 }
 
-
 export function Compressor({
     attack = 100,
     release = 400,
     threshold = 0,
     ratio = 1,
     kneeRadius = 3.25,
-    makeupGain = 12.1,
+    makeupGain = 0,
+    rms = -30.0415,
+    peak = -5.8108e-5,
 }: {
     /**
      * Attack time in milliseconds - how quickly the compressor responds to audio above threshold
@@ -1577,24 +1594,68 @@ export function Compressor({
      * Range: -12 to 24 dB
      */
     makeupGain?: number
+    /**
+     * RMS (Root Mean Square) level in dB - represents the average power of the signal
+     * Used for more natural-sounding compression compared to peak detection
+     * Range: -60 to 0 dB
+     */
+    rms?: number
+    /**
+     * Peak level in dB - represents the maximum amplitude of the signal
+     * Used for precise control of signal peaks
+     * Range: -60 to 0 dB
+     */
+    peak?: number
 }) {
     const { producer } = useAssetContext()
     const id = producer.id
 
     return (
         <filter id={id + 'compressor'}>
-            <property name="mlt_service">ladspa.1882</property>
-            <property name="0">0</property>
-            <property name="1">{attack}</property>
-            <property name="2">{release}</property>
-            <property name="3">{threshold}</property>
-            <property name="4">{ratio}</property>
-            <property name="5">{kneeRadius}</property>
-            <property name="6">{makeupGain}</property>
-            <property name="instances">1</property>
-            <property name="7[0]">-30.0415</property>
-            <property name="8[0]">-5.8108e-05</property>
+            <property name='mlt_service'>ladspa.1882</property>
+            <property name='0'>0</property>
+            <property name='1'>{attack}</property>
+            <property name='2'>{release}</property>
+            <property name='3'>{threshold}</property>
+            <property name='4'>{ratio}</property>
+            <property name='5'>{kneeRadius}</property>
+            <property name='6'>{makeupGain}</property>
+            <property name='instances'>1</property>
+            <property name='7[0]'>{rms}</property>
+            <property name='8[0]'>{peak}</property>
         </filter>
     )
 }
 
+export function Limiter({
+    /**
+     * Input gain in dB - controls the level of the signal entering the limiter
+     * Range: -24 to +24 dB
+     */
+    inputGain = 0,
+    /**
+     * Limit threshold in dB - sets the maximum output level
+     * Range: -24 to 0 dB
+     */
+    limit = 0,
+    /**
+     * Release time in seconds - how quickly the limiter stops limiting after the signal falls below threshold
+     * Range: 0.01 to 1.0 seconds
+     */
+    release = 0.51,
+}) {
+    const { producer } = useAssetContext()
+    const id = producer.id
+
+    return (
+        <filter id={id + 'limiter'}>
+            <property name='mlt_service'>ladspa.1913</property>
+            <property name='0'>{inputGain}</property>
+            <property name='1'>{limit}</property>
+            <property name='2'>{release}</property>
+            <property name='instances'>1</property>
+            <property name='3[0]'>1.08705</property>
+            <property name='8[0]'>240</property>
+        </filter>
+    )
+}

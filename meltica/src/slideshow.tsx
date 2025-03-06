@@ -10,12 +10,9 @@ import {
     PanningAnimation,
     Pitch,
     RichText,
-    Track
+    Track,
 } from 'meltica/src/components'
-import {
-    renderToPreview,
-    renderToVideo
-} from 'meltica/src/rendering'
+import { renderToPreview, renderToVideo } from 'meltica/src/rendering'
 
 function Video({}) {
     return (
@@ -122,7 +119,7 @@ function Video({}) {
                 })}
             </Track>
             <Track id={'audio1'}>
-                <BlankSpace id={'blank'} length={1} />
+                <BlankSpace id={'blank'} duration={1} />
                 <Asset
                     type='audio'
                     filepath={'narrator.wav'}

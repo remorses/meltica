@@ -54,8 +54,8 @@
     <entry producer="chain0" in="00:00:00.000" out="00:00:01.600"/>
     <entry producer="chain1" in="00:00:00.000" out="00:00:03.720"/>
   </playlist>
-  <producer id="black" in="00:00:00.000" out="00:00:05.360">
-    <property name="length">00:00:05.400</property>
+  <producer id="black" in="00:00:00.000" out="00:00:11.600">
+    <property name="length">00:00:11.640</property>
     <property name="eof">pause</property>
     <property name="resource">0</property>
     <property name="aspect_ratio">1</property>
@@ -64,7 +64,7 @@
     <property name="set.test_audio">0</property>
   </producer>
   <playlist id="background">
-    <entry producer="black" in="00:00:00.000" out="00:00:05.360"/>
+    <entry producer="black" in="00:00:00.000" out="00:00:11.600"/>
   </playlist>
   <chain id="chain2" title="Shotcut version 25.01.25" out="00:00:01.600">
     <property name="length">00:00:01.640</property>
@@ -97,7 +97,7 @@
       <property name="window">10</property>
       <property name="max_gain">15.0</property>
       <property name="min_gain">-15.0</property>
-      <property name="max_rate">3.0</property>
+      <property name="max_rate">5.2</property>
       <property name="discontinuity_reset">1</property>
       <property name="in_loudness">-27.0639</property>
       <property name="out_gain">4.24352</property>
@@ -114,16 +114,26 @@
     </filter>
     <filter id="filter2" out="00:00:01.600">
       <property name="mlt_service">ladspa.1882</property>
-      <property name="0">0</property>
+      <property name="0">0.002</property>
       <property name="1">100</property>
-      <property name="2">400</property>
-      <property name="3">0</property>
-      <property name="4">1</property>
+      <property name="2">310</property>
+      <property name="3">-30</property>
+      <property name="4">11</property>
       <property name="5">3.25</property>
-      <property name="6">12.1</property>
+      <property name="6">0</property>
       <property name="instances">1</property>
-      <property name="7[0]">-30.0415</property>
+      <property name="7[0]">-36.3048</property>
       <property name="8[0]">-5.8108e-05</property>
+      <property name="disable">1</property>
+    </filter>
+    <filter id="filter3" out="00:00:01.600">
+      <property name="mlt_service">ladspa.1913</property>
+      <property name="0">8</property>
+      <property name="1">0</property>
+      <property name="2">0.51</property>
+      <property name="instances">1</property>
+      <property name="3[0]">1.08705</property>
+      <property name="8[0]">240</property>
     </filter>
   </chain>
   <chain id="chain3" out="00:00:03.720">
@@ -150,8 +160,8 @@
     <property name="xml">was here</property>
     <property name="shotcut:hash">8f10aaed30ef397837396cacf67d72e8</property>
     <property name="shotcut:caption">speech-tts2.mp3</property>
-    <filter id="filter3" out="00:00:03.720">
-      <property name="target_loudness">-23.0</property>
+    <filter id="filter4" out="00:00:03.720">
+      <property name="target_loudness">-15.4</property>
       <property name="window">10</property>
       <property name="max_gain">15.0</property>
       <property name="min_gain">-15.0</property>
@@ -168,9 +178,10 @@
     <property name="shotcut:video">1</property>
     <property name="shotcut:name">V1</property>
     <entry producer="chain2" in="00:00:00.000" out="00:00:01.600"/>
+    <blank length="00:00:06.240"/>
     <entry producer="chain3" in="00:00:00.000" out="00:00:03.720"/>
   </playlist>
-  <tractor id="tractor0" title="Shotcut version 25.01.25" in="00:00:00.000" out="00:00:05.360">
+  <tractor id="tractor0" title="Shotcut version 25.01.25" in="00:00:00.000" out="00:00:11.600">
     <property name="shotcut">1</property>
     <property name="shotcut:scaleFactor">2.87329</property>
     <property name="shotcut:projectAudioChannels">2</property>

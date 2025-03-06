@@ -1,4 +1,5 @@
 import {
+    BlankSpace,
     Composition,
     Lottie,
     SlideIn,
@@ -6,6 +7,7 @@ import {
     Track,
 } from 'meltica/src/components'
 import { renderToVideo } from 'meltica/src/rendering'
+import { formatSecondsToTime } from 'meltica/src/time'
 import { TextToSpeech } from 'meltica/src/tts'
 
 function Video({}) {
@@ -23,13 +25,7 @@ function Video({}) {
                         type='image'
                         id={`lottie3_${i}`}
                         filepath='examples/docs.json'
-                    >
-                        <SlideOut
-                            id='slideOut'
-                            direction='left'
-                            duration={0.5}
-                        />
-                    </Lottie>
+                    ></Lottie>
                 ))}
             </Track>
             <Track id={'tts'}>
@@ -38,6 +34,7 @@ function Video({}) {
                     speed={-0.5}
                     text={`Hi everybody how is it going?`}
                 ></TextToSpeech>
+                <BlankSpace id={'blank'} duration={1} />
                 <TextToSpeech
                     id='tts2'
                     speed={-0.5}

@@ -18,22 +18,6 @@
     <property name="resource">examples/docs.json</property>
     <property name="shotcut:skipConvert">1</property>
     <property name="shotcut:caption">docs.json</property>
-    <filter id="slideOut" out="00:00:01.235">
-      <property name="rotate_center">1</property>
-      <property name="mlt_service">affine</property>
-      <property name="shotcut:filter">affineSizePosition</property>
-      <property name="transition.valign">middle</property>
-      <property name="transition.halign">center</property>
-      <property name="transition.fix_rotate_x">0</property>
-      <property name="transition.fill">1</property>
-      <property name="compositing"/>
-      <property name="distort"/>
-      <property name="transition.rect">00:00:00.734=0 420.000 1080.000 1080.000 1.000000;00:00:01.235g=-1080.000 420.000 1080.000 1080.000 1.000000</property>
-      <property name="rotation">00:00:00.734=0;00:00:01.235g=0</property>
-      <property name="shotcut:animIn">00:00:00.000</property>
-      <property name="shotcut:animOut">00:00:00.000</property>
-      <property name="kdenlive:collapsed">0</property>
-    </filter>
   </producer>
   <producer id="assetlottie3_1" in="00:00:00.000" out="00:00:01.235">
     <property name="length">38</property>
@@ -54,22 +38,6 @@
     <property name="resource">examples/docs.json</property>
     <property name="shotcut:skipConvert">1</property>
     <property name="shotcut:caption">docs.json</property>
-    <filter id="slideOut" out="00:00:01.235">
-      <property name="rotate_center">1</property>
-      <property name="mlt_service">affine</property>
-      <property name="shotcut:filter">affineSizePosition</property>
-      <property name="transition.valign">middle</property>
-      <property name="transition.halign">center</property>
-      <property name="transition.fix_rotate_x">0</property>
-      <property name="transition.fill">1</property>
-      <property name="compositing"/>
-      <property name="distort"/>
-      <property name="transition.rect">00:00:00.734=0 420.000 1080.000 1080.000 1.000000;00:00:01.235g=-1080.000 420.000 1080.000 1080.000 1.000000</property>
-      <property name="rotation">00:00:00.734=0;00:00:01.235g=0</property>
-      <property name="shotcut:animIn">00:00:00.000</property>
-      <property name="shotcut:animOut">00:00:00.000</property>
-      <property name="kdenlive:collapsed">0</property>
-    </filter>
   </producer>
   <producer id="assetlottie3_2" in="00:00:00.000" out="00:00:01.235">
     <property name="length">38</property>
@@ -90,22 +58,6 @@
     <property name="resource">examples/docs.json</property>
     <property name="shotcut:skipConvert">1</property>
     <property name="shotcut:caption">docs.json</property>
-    <filter id="slideOut" out="00:00:01.235">
-      <property name="rotate_center">1</property>
-      <property name="mlt_service">affine</property>
-      <property name="shotcut:filter">affineSizePosition</property>
-      <property name="transition.valign">middle</property>
-      <property name="transition.halign">center</property>
-      <property name="transition.fix_rotate_x">0</property>
-      <property name="transition.fill">1</property>
-      <property name="compositing"/>
-      <property name="distort"/>
-      <property name="transition.rect">00:00:00.734=0 420.000 1080.000 1080.000 1.000000;00:00:01.235g=-1080.000 420.000 1080.000 1080.000 1.000000</property>
-      <property name="rotation">00:00:00.734=0;00:00:01.235g=0</property>
-      <property name="shotcut:animIn">00:00:00.000</property>
-      <property name="shotcut:animOut">00:00:00.000</property>
-      <property name="kdenlive:collapsed">0</property>
-    </filter>
   </producer>
   <producer id="assetlottie3_3" in="00:00:00.000" out="00:00:01.235">
     <property name="length">38</property>
@@ -126,22 +78,6 @@
     <property name="resource">examples/docs.json</property>
     <property name="shotcut:skipConvert">1</property>
     <property name="shotcut:caption">docs.json</property>
-    <filter id="slideOut" out="00:00:01.235">
-      <property name="rotate_center">1</property>
-      <property name="mlt_service">affine</property>
-      <property name="shotcut:filter">affineSizePosition</property>
-      <property name="transition.valign">middle</property>
-      <property name="transition.halign">center</property>
-      <property name="transition.fix_rotate_x">0</property>
-      <property name="transition.fill">1</property>
-      <property name="compositing"/>
-      <property name="distort"/>
-      <property name="transition.rect">00:00:00.734=0 420.000 1080.000 1080.000 1.000000;00:00:01.235g=-1080.000 420.000 1080.000 1080.000 1.000000</property>
-      <property name="rotation">00:00:00.734=0;00:00:01.235g=0</property>
-      <property name="shotcut:animIn">00:00:00.000</property>
-      <property name="shotcut:animOut">00:00:00.000</property>
-      <property name="kdenlive:collapsed">0</property>
-    </filter>
   </producer>
   <producer id="assetlottie3_4" in="00:00:00.000" out="00:00:01.235">
     <property name="length">38</property>
@@ -162,22 +98,6 @@
     <property name="resource">examples/docs.json</property>
     <property name="shotcut:skipConvert">1</property>
     <property name="shotcut:caption">docs.json</property>
-    <filter id="slideOut" out="00:00:01.235">
-      <property name="rotate_center">1</property>
-      <property name="mlt_service">affine</property>
-      <property name="shotcut:filter">affineSizePosition</property>
-      <property name="transition.valign">middle</property>
-      <property name="transition.halign">center</property>
-      <property name="transition.fix_rotate_x">0</property>
-      <property name="transition.fill">1</property>
-      <property name="compositing"/>
-      <property name="distort"/>
-      <property name="transition.rect">00:00:00.734=0 420.000 1080.000 1080.000 1.000000;00:00:01.235g=-1080.000 420.000 1080.000 1080.000 1.000000</property>
-      <property name="rotation">00:00:00.734=0;00:00:01.235g=0</property>
-      <property name="shotcut:animIn">00:00:00.000</property>
-      <property name="shotcut:animOut">00:00:00.000</property>
-      <property name="kdenlive:collapsed">0</property>
-    </filter>
   </producer>
   <producer id="assetlottie3_5" in="00:00:00.000" out="00:00:01.235">
     <property name="length">38</property>
@@ -198,22 +118,6 @@
     <property name="resource">examples/docs.json</property>
     <property name="shotcut:skipConvert">1</property>
     <property name="shotcut:caption">docs.json</property>
-    <filter id="slideOut" out="00:00:01.235">
-      <property name="rotate_center">1</property>
-      <property name="mlt_service">affine</property>
-      <property name="shotcut:filter">affineSizePosition</property>
-      <property name="transition.valign">middle</property>
-      <property name="transition.halign">center</property>
-      <property name="transition.fix_rotate_x">0</property>
-      <property name="transition.fill">1</property>
-      <property name="compositing"/>
-      <property name="distort"/>
-      <property name="transition.rect">00:00:00.734=0 420.000 1080.000 1080.000 1.000000;00:00:01.235g=-1080.000 420.000 1080.000 1080.000 1.000000</property>
-      <property name="rotation">00:00:00.734=0;00:00:01.235g=0</property>
-      <property name="shotcut:animIn">00:00:00.000</property>
-      <property name="shotcut:animOut">00:00:00.000</property>
-      <property name="kdenlive:collapsed">0</property>
-    </filter>
   </producer>
   <producer id="assetlottie3_6" in="00:00:00.000" out="00:00:01.235">
     <property name="length">38</property>
@@ -234,22 +138,6 @@
     <property name="resource">examples/docs.json</property>
     <property name="shotcut:skipConvert">1</property>
     <property name="shotcut:caption">docs.json</property>
-    <filter id="slideOut" out="00:00:01.235">
-      <property name="rotate_center">1</property>
-      <property name="mlt_service">affine</property>
-      <property name="shotcut:filter">affineSizePosition</property>
-      <property name="transition.valign">middle</property>
-      <property name="transition.halign">center</property>
-      <property name="transition.fix_rotate_x">0</property>
-      <property name="transition.fill">1</property>
-      <property name="compositing"/>
-      <property name="distort"/>
-      <property name="transition.rect">00:00:00.734=0 420.000 1080.000 1080.000 1.000000;00:00:01.235g=-1080.000 420.000 1080.000 1080.000 1.000000</property>
-      <property name="rotation">00:00:00.734=0;00:00:01.235g=0</property>
-      <property name="shotcut:animIn">00:00:00.000</property>
-      <property name="shotcut:animOut">00:00:00.000</property>
-      <property name="kdenlive:collapsed">0</property>
-    </filter>
   </producer>
   <producer id="assetlottie3_7" in="00:00:00.000" out="00:00:01.235">
     <property name="length">38</property>
@@ -270,22 +158,6 @@
     <property name="resource">examples/docs.json</property>
     <property name="shotcut:skipConvert">1</property>
     <property name="shotcut:caption">docs.json</property>
-    <filter id="slideOut" out="00:00:01.235">
-      <property name="rotate_center">1</property>
-      <property name="mlt_service">affine</property>
-      <property name="shotcut:filter">affineSizePosition</property>
-      <property name="transition.valign">middle</property>
-      <property name="transition.halign">center</property>
-      <property name="transition.fix_rotate_x">0</property>
-      <property name="transition.fill">1</property>
-      <property name="compositing"/>
-      <property name="distort"/>
-      <property name="transition.rect">00:00:00.734=0 420.000 1080.000 1080.000 1.000000;00:00:01.235g=-1080.000 420.000 1080.000 1080.000 1.000000</property>
-      <property name="rotation">00:00:00.734=0;00:00:01.235g=0</property>
-      <property name="shotcut:animIn">00:00:00.000</property>
-      <property name="shotcut:animOut">00:00:00.000</property>
-      <property name="kdenlive:collapsed">0</property>
-    </filter>
   </producer>
   <producer id="assetlottie3_8" in="00:00:00.000" out="00:00:01.235">
     <property name="length">38</property>
@@ -306,22 +178,6 @@
     <property name="resource">examples/docs.json</property>
     <property name="shotcut:skipConvert">1</property>
     <property name="shotcut:caption">docs.json</property>
-    <filter id="slideOut" out="00:00:01.235">
-      <property name="rotate_center">1</property>
-      <property name="mlt_service">affine</property>
-      <property name="shotcut:filter">affineSizePosition</property>
-      <property name="transition.valign">middle</property>
-      <property name="transition.halign">center</property>
-      <property name="transition.fix_rotate_x">0</property>
-      <property name="transition.fill">1</property>
-      <property name="compositing"/>
-      <property name="distort"/>
-      <property name="transition.rect">00:00:00.734=0 420.000 1080.000 1080.000 1.000000;00:00:01.235g=-1080.000 420.000 1080.000 1080.000 1.000000</property>
-      <property name="rotation">00:00:00.734=0;00:00:01.235g=0</property>
-      <property name="shotcut:animIn">00:00:00.000</property>
-      <property name="shotcut:animOut">00:00:00.000</property>
-      <property name="kdenlive:collapsed">0</property>
-    </filter>
   </producer>
   <producer id="assetlottie3_9" in="00:00:00.000" out="00:00:01.235">
     <property name="length">38</property>
@@ -342,22 +198,6 @@
     <property name="resource">examples/docs.json</property>
     <property name="shotcut:skipConvert">1</property>
     <property name="shotcut:caption">docs.json</property>
-    <filter id="slideOut" out="00:00:01.235">
-      <property name="rotate_center">1</property>
-      <property name="mlt_service">affine</property>
-      <property name="shotcut:filter">affineSizePosition</property>
-      <property name="transition.valign">middle</property>
-      <property name="transition.halign">center</property>
-      <property name="transition.fix_rotate_x">0</property>
-      <property name="transition.fill">1</property>
-      <property name="compositing"/>
-      <property name="distort"/>
-      <property name="transition.rect">00:00:00.734=0 420.000 1080.000 1080.000 1.000000;00:00:01.235g=-1080.000 420.000 1080.000 1080.000 1.000000</property>
-      <property name="rotation">00:00:00.734=0;00:00:01.235g=0</property>
-      <property name="shotcut:animIn">00:00:00.000</property>
-      <property name="shotcut:animOut">00:00:00.000</property>
-      <property name="kdenlive:collapsed">0</property>
-    </filter>
   </producer>
   <playlist id="trackvideo">
     <property name="shotcut:name">track</property>
@@ -372,60 +212,79 @@
     <entry producer="assetlottie3_8" in="00:00:00.000" out="00:00:01.235"/>
     <entry producer="assetlottie3_9" in="00:00:00.000" out="00:00:01.235"/>
   </playlist>
-  <chain id="assettts1" in="00:00:00.000" out="00:00:01.602">
-    <property name="length">49</property>
+  <chain id="assettts1" in="00:00:00.000" out="00:00:01.635">
+    <property name="length">50</property>
     <property name="eof">pause</property>
-    <property name="resource">.meltica/speech-tts1.mp3</property>
+    <property name="resource">.meltica/speech-tts1.wav</property>
     <property name="meta.media.nb_streams">1</property>
     <property name="meta.media.0.stream.type">audio</property>
-    <property name="meta.media.0.codec.sample_fmt">fltp</property>
+    <property name="meta.media.0.codec.sample_fmt">s16</property>
     <property name="meta.media.0.codec.sample_rate">44100</property>
     <property name="meta.media.0.codec.channels">1</property>
     <property name="meta.media.0.codec.layout">mono</property>
-    <property name="meta.media.0.codec.name">mp3float</property>
-    <property name="meta.media.0.codec.long_name">MP3 (MPEG audio layer 3)</property>
-    <property name="meta.media.0.codec.bit_rate">128000</property>
+    <property name="meta.media.0.codec.name">pcm_s16le</property>
+    <property name="meta.media.0.codec.long_name">PCM signed 16-bit little-endian</property>
+    <property name="meta.media.0.codec.bit_rate">705600</property>
     <property name="meta.attr.encoder.markup">Lavf60.16.100</property>
     <property name="seekable">1</property>
     <property name="audio_index">0</property>
     <property name="video_index">-1</property>
     <property name="mute_on_pause">0</property>
     <property name="mlt_service">avformat</property>
-    <property name="resource">.meltica/speech-tts1.mp3</property>
+    <property name="resource">.meltica/speech-tts1.wav</property>
     <property name="shotcut:skipConvert">1</property>
-    <property name="shotcut:caption">speech-tts1.mp3</property>
+    <property name="shotcut:caption">speech-tts1.wav</property>
+    <filter id="assettts1fadeOutVolume">
+      <property name="window">75</property>
+      <property name="max_gain">20dB</property>
+      <property name="level">00:00:01.585=0;00:00:01.635=-60</property>
+      <property name="mlt_service">volume</property>
+      <property name="shotcut:filter">fadeOutVolume</property>
+      <property name="shotcut:animOut">00:00:01.585</property>
+      <property name="disable">0</property>
+    </filter>
   </chain>
-  <chain id="assettts2" in="00:00:00.000" out="00:00:03.737">
-    <property name="length">113</property>
+  <chain id="assettts2" in="00:00:00.000" out="00:00:04.505">
+    <property name="length">136</property>
     <property name="eof">pause</property>
-    <property name="resource">.meltica/speech-tts2.mp3</property>
+    <property name="resource">.meltica/speech-tts2.wav</property>
     <property name="meta.media.nb_streams">1</property>
     <property name="meta.media.0.stream.type">audio</property>
-    <property name="meta.media.0.codec.sample_fmt">fltp</property>
+    <property name="meta.media.0.codec.sample_fmt">s16</property>
     <property name="meta.media.0.codec.sample_rate">44100</property>
     <property name="meta.media.0.codec.channels">1</property>
     <property name="meta.media.0.codec.layout">mono</property>
-    <property name="meta.media.0.codec.name">mp3float</property>
-    <property name="meta.media.0.codec.long_name">MP3 (MPEG audio layer 3)</property>
-    <property name="meta.media.0.codec.bit_rate">128000</property>
+    <property name="meta.media.0.codec.name">pcm_s16le</property>
+    <property name="meta.media.0.codec.long_name">PCM signed 16-bit little-endian</property>
+    <property name="meta.media.0.codec.bit_rate">705600</property>
     <property name="meta.attr.encoder.markup">Lavf60.16.100</property>
     <property name="seekable">1</property>
     <property name="audio_index">0</property>
     <property name="video_index">-1</property>
     <property name="mute_on_pause">0</property>
     <property name="mlt_service">avformat</property>
-    <property name="resource">.meltica/speech-tts2.mp3</property>
+    <property name="resource">.meltica/speech-tts2.wav</property>
     <property name="shotcut:skipConvert">1</property>
-    <property name="shotcut:caption">speech-tts2.mp3</property>
+    <property name="shotcut:caption">speech-tts2.wav</property>
+    <filter id="assettts2fadeOutVolume">
+      <property name="window">75</property>
+      <property name="max_gain">20dB</property>
+      <property name="level">00:00:04.455=0;00:00:04.504=-60</property>
+      <property name="mlt_service">volume</property>
+      <property name="shotcut:filter">fadeOutVolume</property>
+      <property name="shotcut:animOut">00:00:04.455</property>
+      <property name="disable">0</property>
+    </filter>
   </chain>
   <playlist id="tracktts">
     <property name="shotcut:audio">1</property>
     <property name="shotcut:name">track</property>
-    <entry producer="assettts1" in="00:00:00.000" out="00:00:01.602"/>
-    <entry producer="assettts2" in="00:00:00.000" out="00:00:03.737"/>
+    <entry producer="assettts1" in="00:00:00.000" out="00:00:01.635"/>
+    <blank length="00:00:01.000"/>
+    <entry producer="assettts2" in="00:00:00.000" out="00:00:04.505"/>
   </playlist>
   <consumer ab="160k" acodec="aac" channels="2" crf="23" deinterlacer="onefield" f="mp4" g="15" in="0" out="00:00:08.000" mlt_service="avformat" movflags="+faststart" preset="veryfast" real_time="-1" rescale="bilinear" target="examples/tts.mp4" threads="0" vcodec="libx264"/>
-  <profile description="PAL 4:3 DV or DVD" width="1080" height="1920" progressive="1" sample_aspect_num="1" sample_aspect_den="1" display_aspect_num="9" display_aspect_den="16" frame_rate_num="30" frame_rate_den="1" colorspace="709"/>
+  <profile description="PAL 4:3 DV or DVD" width="1080" height="1920" progressive="1" sample_aspect_num="1" sample_aspect_den="1" display_aspect_num="9" display_aspect_den="16" frame_rate_num="25" frame_rate_den="1" colorspace="709"/>
   <playlist id="main_bin">
     <property name="xml_retain">1</property>
   </playlist>

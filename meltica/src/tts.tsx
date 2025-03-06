@@ -3,7 +3,7 @@ import process from 'node:process'
 import fs from 'node:fs'
 import { createCache } from 'meltica/src/cache'
 import { Emotion, SupportedLanguage } from '@cartesia/cartesia-js/api/index'
-import { Asset } from 'meltica/src/components'
+import { Asset, FadeOutAudio } from 'meltica/src/components'
 import { melticaFolder } from 'meltica/src/rendering'
 import path from 'node:path'
 
@@ -24,6 +24,8 @@ type Props = {
     id: string
     in?: number
     out?: number
+    children?: any
+
     /**
      *  0.0 is the default speed, -1.0 is the slowest speed, and 1.0 is the fastest speed.
      */
@@ -38,6 +40,7 @@ const generateSpeechToFile = ttsCache.wrap(
         language = 'en',
         id,
     }: Props) {
+        const container = 'wav' as const
         console.time(`Generate speech for ${id}`)
         const response = await client.tts.bytes({
             modelId: 'sonic-english',
@@ -52,9 +55,10 @@ const generateSpeechToFile = ttsCache.wrap(
             },
             language: language,
             outputFormat: {
-                container: 'mp3',
+                container: container,
                 sampleRate: 44100,
-                bitRate: 128000,
+                bitRate: 320000,
+                encoding: 'pcm_s16le',
             },
         })
 
@@ -64,22 +68,26 @@ const generateSpeechToFile = ttsCache.wrap(
         }
 
         // Save the file
-        const filePath = path.join(melticaFolder, `speech-${id}.mp3`)
+        const filePath = path.join(melticaFolder, `speech-${id}.${container}`)
         await fs.promises.writeFile(filePath, Buffer.from(response))
         console.timeEnd(`Generate speech for ${id}`)
         return { filePath }
     },
 )
 
-export async function TextToSpeech(args: Props) {
-    const { filePath } = await generateSpeechToFile(args)
+export async function TextToSpeech(props: Props) {
+    const { filePath } = await generateSpeechToFile(props)
     return (
         <Asset
-            id={args.id}
+            id={props.id}
             type='audio'
             filepath={filePath}
-            in={args.in}
-            out={args.out}
-        />
+            in={props.in}
+            out={props.out}
+        >
+            {/* sometimes there is a pop sound at the end */}
+            <FadeOutAudio duration={0.05} />
+            {props.children}
+        </Asset>
     )
 }

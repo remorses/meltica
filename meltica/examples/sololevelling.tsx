@@ -42,7 +42,7 @@ function Video({}) {
                 ))}
             </Track>
             <Track id={'audio1'}>
-                <BlankSpace id={'blank'} length={formatSecondsToTime(1)} />
+                <BlankSpace id={'blank'} duration={formatSecondsToTime(1)} />
                 <Asset
                     type='audio'
                     filepath={'narrator.wav'}
