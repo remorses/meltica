@@ -114,6 +114,7 @@ declare global {
                 internal_added?: string
                 disable?: string
                 out?: NumberLike
+                in?: NumberLike
                 children?: ReactNode
             }
             playlist: {

@@ -26,6 +26,7 @@ export type AssetRegistration =
           filepath: string
           id: string
           parentTrackId: string
+          mltService?: string
           in?: NumberLike
           out?: NumberLike
           type: AssetTypeWithPath
@@ -224,6 +225,22 @@ export async function renderToXml(jsx: any) {
         await extractProducersDataFromAssets(initialNode)
     // console.log(producers.map((x) => x.id))
 
+    // Check that all asset file paths exist
+    await Promise.all(
+        assets
+            .filter((asset) => 'filepath' in asset)
+            .map(async (asset) => {
+                const exists = await fs.promises
+                    .access(asset.filepath)
+                    .then(() => true)
+                    .catch(() => false)
+
+                if (!exists) {
+                    throw new Error(`Asset file not found: ${asset.filepath}`)
+                }
+                return exists
+            }),
+    )
     let xml = (
         await renderAsync(
             <renderingContext.Provider
@@ -264,7 +281,9 @@ export async function renderToVideo(jsx: any, xmlFilename = 'video.mlt') {
     const tempXmlFile = xmlFilename
     fs.writeFileSync(tempXmlFile, xml)
     const meltPath = '/Applications/Shotcut.app/Contents/MacOS/melt'
-    await execWithInheritedStdio(`"${meltPath}" ${tempXmlFile}`)
+    const command = `"${meltPath}" ${tempXmlFile}`
+    // console.log(command)
+    await execWithInheritedStdio(command)
     // Restore terminal to normal mode after melt command
 
     console.timeEnd(`${renderId} melt processing`)
@@ -448,13 +467,21 @@ export async function extractProducersDataFromAssets(
     const profile = `hdv_1080_30p`
     // https://github.com/mltframework/mlt/blob/master/src/modules/xml/consumer_xml.yml#L91
     const timeFormat = 'clock'
-    const command = `melt ${assets
+    let meltPath = '/Applications/Shotcut.app/Contents/MacOS/melt'
+    const command = `"${meltPath}" ${assets
         .filter((x) => x.type !== 'blank' && x.type !== 'text')
-        .map((a) => `"${a.filepath}" id=${a.id}`)
+        .map((a) => {
+            let withId = `"${a.filepath}" id=${a.id}`
+            if (a.mltService) {
+                withId += ` mlt_service=${a.mltService}`
+            }
+            return withId
+        })
         .join(
             ' ',
         )} -profile ${profile} -consumer xml:${tempXmlFile} time_format=${timeFormat}`
 
+    console.log(command)
     await fs.writeFileSync(tempXmlFile, '')
     const { fullOut } = await execWithInheritedStdio(command)
     const xml = fs.readFileSync(tempXmlFile).toString()

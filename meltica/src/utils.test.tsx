@@ -255,5 +255,8 @@ describe('formatSecondsToTime', () => {
         expect(formatSecondsToTime(undefined)).toMatchInlineSnapshot(
             `undefined`,
         )
+        expect(formatSecondsToTime(-1.5)).toMatchInlineSnapshot(
+            `"-00:00:01.500"`,
+        )
     })
 })

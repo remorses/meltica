@@ -1,3 +1,7 @@
+export function formatSecondsToTime(secs: number | string): string
+export function formatSecondsToTime(
+    secs?: number | string | null,
+): string | undefined
 export function formatSecondsToTime(secs?: number | string | null) {
     if (secs == null) {
         return undefined
@@ -11,6 +15,9 @@ export function formatSecondsToTime(secs?: number | string | null) {
             throw new Error(`Invalid time string: ${secs}`)
         }
         return formatSecondsToTime(parsed)
+    }
+    if (secs < 0) {
+        return '-' + formatSecondsToTime(Math.abs(secs))
     }
     const hours = Math.floor(secs / 3600)
     const minutes = Math.floor((secs % 3600) / 60)

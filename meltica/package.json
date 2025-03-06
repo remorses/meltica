@@ -41,7 +41,7 @@
         "vite-tsconfig-paths": "^5.1.4",
         "vitest": "^3.0.6",
         "xmlbuilder2": "^3.1.1",
-        "xmlize": "latest"
+        "xmlize": "^0.0.3"
     },
     "devDependencies": {
         "@fal-ai/client": "^1.2.3",

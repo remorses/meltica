@@ -22,11 +22,12 @@ import path from 'path'
 
 import { formatSecondsToTime } from 'meltica/src/time'
 import {
-    calculateBasicImageDimensions,
+    objectFit,
     ObjectFit,
     ObjectPositionValue,
 } from 'meltica/src/objectfit'
 import { createCache } from 'meltica/src/cache'
+import { NumberLike } from 'meltica/src/types'
 
 function useTrackContext() {
     const context = useContext(trackContext)
@@ -85,39 +86,39 @@ const saveSvgToPng = memoCache.wrap(
     },
 )
 
-export function Lottie({
-    filePath,
-    id,
-    in: inTime = 0,
-    out,
-    children,
-}: {
-    /**
-     * Path to a valid Lottie JSON file
-     */
-    filePath: string
-    id: string
-    in?: number
-    out: number
-    children?: any
-}) {
-    return (
-        <producer
-            id={id}
-            in={formatSecondsToTime(inTime)}
-            out={formatSecondsToTime(out)}
-        >
-            <property name='eof'>loop</property>
-            <property name='resource'>{filePath}</property>
-            {/* <property name='background'>#00000000</property> */}
-            <property name='aspect_ratio'>1</property>
-            <property name='progressive'>1</property>
-            <property name='seekable'>1</property>
-            <property name='mlt_service'>glaxnimate</property>
-            {children}
-        </producer>
-    )
-}
+// export function Lottie({
+//     filePath,
+//     id,
+//     in: inTime = 0,
+//     out,
+//     children,
+// }: {
+//     /**
+//      * Path to a valid Lottie JSON file
+//      */
+//     filePath: string
+//     id: string
+//     in?: number
+//     out: number
+//     children?: any
+// }) {
+//     return (
+//         <producer
+//             id={id}
+//             in={formatSecondsToTime(inTime)}
+//             out={formatSecondsToTime(out)}
+//         >
+//             <property name='eof'>loop</property>
+//             <property name='resource'>{filePath}</property>
+//             {/* <property name='background'>#00000000</property> */}
+//             <property name='aspect_ratio'>1</property>
+//             <property name='progressive'>1</property>
+//             <property name='seekable'>1</property>
+//             <property name='mlt_service'>glaxnimate</property>
+//             {children}
+//         </producer>
+//     )
+// }
 
 export const InlineSvg = async function InlineSvg({
     svg: svgContent,
@@ -159,6 +160,15 @@ export const InlineSvg = async function InlineSvg({
     )
 }
 
+type AssetProps = {
+    id: string
+    filepath: string
+    in?: number | string
+    out?: number | string
+    type: AssetTypeWithPath
+    mltService?: string
+    children?: any
+}
 export function Asset({
     id,
     filepath,
@@ -166,14 +176,8 @@ export function Asset({
     out,
     type,
     children,
-}: {
-    id: string
-    filepath: string
-    in?: number | string
-    out?: number | string
-    type: AssetTypeWithPath
-    children?: any
-}) {
+    mltService,
+}: AssetProps) {
     id = 'asset' + id
     const context = useContext(renderingContext)
     const { trackId } = useTrackContext()
@@ -188,6 +192,7 @@ export function Asset({
                 type={type}
                 in={inWithDefault}
                 out={outWithDefault}
+                mltService={mltService}
                 parentTrackId={trackId}
             />
         )
@@ -212,6 +217,9 @@ export function Asset({
                 <assetContext.Provider value={assetCtx}>
                     {producer.children}
                 </assetContext.Provider>
+                {mltService && (
+                    <property name='mlt_service'>{mltService}</property>
+                )}
                 <property name='resource'>{filepath}</property>
                 <property name='shotcut:skipConvert'>1</property>
                 <property name='shotcut:caption'>{basename}</property>
@@ -228,9 +236,14 @@ export function Asset({
             <property name='resource'>{filepath}</property>
             <property name='shotcut:skipConvert'>1</property>
             <property name='shotcut:caption'>{basename}</property>
+            {mltService && <property name='mlt_service'>{mltService}</property>}
             {children}
         </chain>
     )
+}
+
+export function Lottie(props: AssetProps) {
+    return <Asset {...props} type='image' mltService='glaxnimate' />
 }
 
 function useAssetContext() {
@@ -439,16 +452,30 @@ function extractObjectPositions(position?: string | number) {
     }
 }
 
+function formatFloat(value?: number) {
+    if (value == null) {
+        return value
+    }
+    if (value === 0) {
+        return '0'
+    }
+    return value.toFixed(3)
+}
+
 export function Transform({
     id = 'qtblend',
     keyframes,
     compositing = 0,
     distort = 0,
+    in: inTime,
+    out: outTime,
 }: {
     id?: string
     keyframes: TransformKeyframe[]
     compositing?: number
     distort?: number
+    in?: number | string
+    out?: number | string
 }) {
     const videoContext = useContext(compositionContext)!
     const context = useContext(renderingContext)
@@ -463,34 +490,37 @@ export function Transform({
             const animationLetter =
                 easingTypeToLetter[keyframe.easing || 'linear']
             if ('objectFit' in keyframe) {
-                const { left, top, width, height } =
-                    calculateBasicImageDimensions({
-                        containerWidth: videoContext.width,
-                        containerHeight: videoContext.height,
-                        objectWidth: assetWidth,
-                        objectHeight: assetHeight,
-                        objectFit: keyframe.objectFit,
-                        ...extractObjectPositions(keyframe.objectPosition),
-                    })
-                return `${time}${animationLetter}=${left} ${top} ${width} ${height} 1.000000`
+                const { left, top, width, height } = objectFit({
+                    containerWidth: videoContext.width,
+                    containerHeight: videoContext.height,
+                    objectWidth: assetWidth,
+                    objectHeight: assetHeight,
+                    objectFit: keyframe.objectFit,
+                    ...extractObjectPositions(keyframe.objectPosition),
+                })
+                return `${time}${animationLetter}=${formatFloat(left)} ${formatFloat(top)} ${formatFloat(width)} ${formatFloat(height)} 1.000000`
             }
             const left = keyframe.left
             const top = keyframe.top
             const width = keyframe.width || videoContext.width
             const height = keyframe.height || videoContext.height
-            return `${time}${animationLetter}=${left} ${top} ${width} ${height} 1.000000`
+            return `${time}${animationLetter}=${formatFloat(left)} ${formatFloat(top)} ${formatFloat(width)} ${formatFloat(height)} 1.000000`
         })
         .join(';')
     const rotation = keyframes
         .map((keyframe) => {
             const animationLetter =
                 easingTypeToLetter[keyframe.easing || 'linear']
-            return `${formatSecondsToTime(keyframe.time)}${animationLetter}=${keyframe.rotation || 0}`
+            return `${formatSecondsToTime(keyframe.time)}${animationLetter}=${formatFloat(keyframe.rotation || 0)}`
         })
         .join(';')
 
     return (
-        <filter id={id}>
+        <filter
+            id={id}
+            in={inTime && formatSecondsToTime(inTime)}
+            out={outTime && formatSecondsToTime(outTime)}
+        >
             <property name='rotate_center'>1</property>
             <property name='mlt_service'>qtblend</property>
             <property name='kdenlive_id'>qtblend</property>
@@ -1197,6 +1227,151 @@ export function FadeInBrightness({
             <property name='shotcut:animIn'>{durationTime}</property>
             <property name='disable'>0</property>
         </filter>
+    )
+}
+
+export function SlideIn({
+    duration = 1,
+    id,
+    direction = 'left',
+    easing = 'cubic in',
+}: {
+    /** The duration of the fade in animation in seconds (as a number) */
+    duration: number
+    /** Optional ID for the transform filter */
+    id?: string
+    /** Direction to slide from (left, right, top, bottom) */
+    direction?: 'left' | 'right' | 'top' | 'bottom'
+    easing?: EasingType
+}) {
+    return (
+        <SlideAnimation
+            in={0}
+            out={duration}
+            id={id}
+            direction={direction}
+            easing={easing}
+        />
+    )
+}
+
+export function SlideOut({
+    duration = 1,
+    id,
+    direction = 'left',
+    easing = 'cubic in',
+}: {
+    /** The duration of the fade out animation in seconds (as a number) */
+    duration: number
+    /** Optional ID for the transform filter */
+    id?: string
+    /** Direction to slide to (left, right, top, bottom) */
+    direction?: 'left' | 'right' | 'top' | 'bottom'
+    easing?: EasingType
+}) {
+    const { out } = useAssetContext()
+    return (
+        <SlideAnimation
+            in={-duration}
+            id={id}
+            direction={direction}
+            easing={easing}
+            out={out!}
+        />
+    )
+}
+
+export function SlideAnimation({
+    id,
+    direction = 'left',
+    easing = 'cubic in',
+    in: inTime,
+    out: outTime,
+}: {
+    /** Optional ID for the transform filter */
+    id?: string
+    /** Direction to slide from/to (left, right, top, bottom) */
+    direction?: 'left' | 'right' | 'top' | 'bottom'
+    /** Easing function for the animation */
+    easing?: EasingType
+    /** Start time of the animation in seconds */
+    in: NumberLike
+    /** End time of the animation in seconds */
+    out: NumberLike
+}) {
+    const { producer } = useAssetContext()
+    const producerId = producer.id
+    const size = useAssetSize()
+
+    const { width: videoWidth, height: videoHeight } =
+        useContext(compositionContext)!
+
+    // Use provided id or generate one based on producer id
+    const filterId = id || producerId + 'slide'
+
+    // Calculate position based on direction
+    let offsetX = 0
+    let offsetY = 0
+
+    switch (direction) {
+        case 'left':
+            offsetX = -videoWidth
+            break
+        case 'right':
+            offsetX = videoWidth
+            break
+        case 'top':
+            offsetY = -videoHeight
+            break
+        case 'bottom':
+            offsetY = videoHeight
+            break
+    }
+
+    // Define keyframes for slide animation using objectFit
+    const startKeyframe = objectFit({
+        x: offsetX,
+        y: offsetY,
+        containerWidth: size.width,
+        containerHeight: size.height,
+        objectWidth: videoWidth,
+        objectHeight: videoHeight,
+        objectFit: 'contain',
+    })
+
+    const endKeyframe = objectFit({
+        x: 0,
+        y: 0,
+        containerWidth: size.width,
+        containerHeight: size.height,
+        objectWidth: videoWidth,
+        objectHeight: videoHeight,
+        objectFit: 'contain',
+    })
+
+    return (
+        <Transform
+            // in={inTime}
+            // out={outTime}
+            keyframes={[
+                {
+                    time: formatSecondsToTime(inTime),
+                    left: startKeyframe.left,
+                    top: startKeyframe.top,
+                    width: startKeyframe.width,
+                    height: startKeyframe.height,
+                },
+                {
+                    time: formatSecondsToTime(outTime),
+                    left: endKeyframe.left,
+                    top: endKeyframe.top,
+                    width: endKeyframe.width,
+                    height: endKeyframe.height,
+                    easing,
+                },
+            ]}
+            id={filterId}
+        />
     )
 }
 

@@ -4,7 +4,7 @@ import { describe, it, expect, beforeAll } from 'vitest'
 import { toMatchImageSnapshot } from 'jest-image-snapshot'
 
 import fs from 'fs'
-import { calculateBasicImageDimensions } from 'meltica/src/objectfit'
+import { objectFit } from 'meltica/src/objectfit'
 
 // const mkdirpAsync = Promise.promisify(mkdirp);
 // const tmpPath = `${fixturesPath}/../.tmp`;
@@ -52,7 +52,7 @@ for (const [width, height] of canvasSizes) {
                     expect(Buffer.isBuffer(bufferA)).toBeTruthy()
                     context.clearRect(0, 0, canvas.width, canvas.height)
                     // Then draw using custom API
-                    const dimensions = calculateBasicImageDimensions({
+                    const dimensions = objectFit({
                         objectWidth: image.width,
                         objectHeight: image.height,
                         
@@ -81,7 +81,7 @@ for (const [width, height] of canvasSizes) {
                     image.src = await fs.readFileSync(
                         `${fixturesPath}/${horizontalImageFile}`,
                     )
-                    const dimensions = calculateBasicImageDimensions({
+                    const dimensions = objectFit({
                         objectWidth: image.width,
                         objectHeight: image.height,
                         
@@ -110,7 +110,7 @@ for (const [width, height] of canvasSizes) {
                     image.src = await fs.readFileSync(
                         `${fixturesPath}/${horizontalImageFile}`,
                     )
-                    const dimensions = calculateBasicImageDimensions({
+                    const dimensions = objectFit({
                         objectWidth: image.width,
                         objectHeight: image.height,
                         containerWidth: canvas.width,
@@ -138,7 +138,7 @@ for (const [width, height] of canvasSizes) {
                     image.src = await fs.readFileSync(
                         `${fixturesPath}/${horizontalImageFile}`,
                     )
-                    const dimensions = calculateBasicImageDimensions({
+                    const dimensions = objectFit({
                         objectWidth: image.width,
                         objectHeight: image.height,
                         
@@ -177,7 +177,7 @@ for (const [width, height] of canvasSizes) {
                     expect(Buffer.isBuffer(bufferA)).toBeTruthy()
                     context.clearRect(0, 0, canvas.width, canvas.height)
                     // Then draw using custom API
-                    const dimensions = calculateBasicImageDimensions({
+                    const dimensions = objectFit({
                         objectWidth: image.width,
                         objectHeight: image.height,
                         
@@ -206,7 +206,7 @@ for (const [width, height] of canvasSizes) {
                     image.src = await fs.readFileSync(
                         `${fixturesPath}/${verticalImageFile}`,
                     )
-                    const dimensions = calculateBasicImageDimensions({
+                    const dimensions = objectFit({
                         objectWidth: image.width,
                         objectHeight: image.height,
                         
@@ -235,7 +235,7 @@ for (const [width, height] of canvasSizes) {
                     image.src = await fs.readFileSync(
                         `${fixturesPath}/${verticalImageFile}`,
                     )
-                    const dimensions = calculateBasicImageDimensions({
+                    const dimensions = objectFit({
                         objectWidth: image.width,
                         objectHeight: image.height,
                         
@@ -264,7 +264,7 @@ for (const [width, height] of canvasSizes) {
                     image.src = await fs.readFileSync(
                         `${fixturesPath}/${verticalImageFile}`,
                     )
-                    const dimensions = calculateBasicImageDimensions({
+                    const dimensions = objectFit({
                         objectWidth: image.width,
                         objectHeight: image.height,
                         

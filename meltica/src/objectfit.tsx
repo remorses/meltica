@@ -1,47 +1,5 @@
 // https://github.com/mgcrea/js-canvas-object-fit/tree/master
 
-export type ObjectPositionValue =
-    | number
-    | 'left'
-    | 'center'
-    | 'right'
-    | 'top'
-    | 'bottom'
-    | `${number}%`
-
-// Function to convert object-position value to pixels
-const convertObjectPositionToPixels = (
-    value: ObjectPositionValue,
-    containerSize: number,
-    objectSize: number,
-): number => {
-    if (typeof value === 'number') {
-        // Direct pixel value
-        return value
-    }
-
-    // Handle percentage values
-    if (typeof value === 'string' && value.endsWith('%')) {
-        const percentage = parseFloat(value) / 100
-        return (containerSize - objectSize) * percentage
-    }
-
-    // Handle keywords
-    switch (value) {
-        case 'left':
-        case 'top':
-            return 0
-        case 'right':
-        case 'bottom':
-            return containerSize - objectSize
-        case 'center':
-        default:
-            return (containerSize - objectSize) / 2
-    }
-}
-
-export type ObjectFit = 'none' | 'cover' | 'contain' | 'fill'
-
 /**
  * Calculates image dimensions and position based on CSS object-fit and object-position properties.
  *
@@ -60,7 +18,7 @@ export type ObjectFit = 'none' | 'cover' | 'contain' | 'fill'
  * - Can be specified using percentages or direct pixel values
  * - Controls positioning of the image within its container
  */
-export const calculateBasicImageDimensions = ({
+export const objectFit = ({
     x = 0,
     y = 0,
     containerWidth,
@@ -140,3 +98,45 @@ export const calculateBasicImageDimensions = ({
 
     return { left, top, width: newWidth, height: newHeight }
 }
+
+export type ObjectPositionValue =
+    | number
+    | 'left'
+    | 'center'
+    | 'right'
+    | 'top'
+    | 'bottom'
+    | `${number}%`
+
+// Function to convert object-position value to pixels
+const convertObjectPositionToPixels = (
+    value: ObjectPositionValue,
+    containerSize: number,
+    objectSize: number,
+): number => {
+    if (typeof value === 'number') {
+        // Direct pixel value
+        return value
+    }
+
+    // Handle percentage values
+    if (typeof value === 'string' && value.endsWith('%')) {
+        const percentage = parseFloat(value) / 100
+        return (containerSize - objectSize) * percentage
+    }
+
+    // Handle keywords
+    switch (value) {
+        case 'left':
+        case 'top':
+            return 0
+        case 'right':
+        case 'bottom':
+            return containerSize - objectSize
+        case 'center':
+        default:
+            return (containerSize - objectSize) / 2
+    }
+}
+
+export type ObjectFit = 'none' | 'cover' | 'contain' | 'fill'

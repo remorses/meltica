@@ -123,7 +123,7 @@ importers:
         specifier: ^3.1.1
         version: 3.1.1
       xmlize:
-        specifier: latest
+        specifier: ^0.0.3
         version: 0.0.3
     devDependencies:
       '@fal-ai/client':
