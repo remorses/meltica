@@ -212,8 +212,8 @@
     <entry producer="assetlottie3_8" in="00:00:00.000" out="00:00:01.235"/>
     <entry producer="assetlottie3_9" in="00:00:00.000" out="00:00:01.235"/>
   </playlist>
-  <chain id="assettts1" in="00:00:00.000" out="00:00:01.635">
-    <property name="length">50</property>
+  <chain id="assettts1" in="00:00:00.000" out="00:00:02.069">
+    <property name="length">63</property>
     <property name="eof">pause</property>
     <property name="resource">.meltica/speech-tts1.wav</property>
     <property name="meta.media.nb_streams">1</property>
@@ -237,15 +237,24 @@
     <filter id="assettts1fadeOutVolume">
       <property name="window">75</property>
       <property name="max_gain">20dB</property>
-      <property name="level">00:00:01.585=0;00:00:01.635=-60</property>
+      <property name="level">00:00:02.019=0;00:00:02.068=-60</property>
       <property name="mlt_service">volume</property>
       <property name="shotcut:filter">fadeOutVolume</property>
-      <property name="shotcut:animOut">00:00:01.585</property>
+      <property name="shotcut:animOut">00:00:02.019</property>
       <property name="disable">0</property>
     </filter>
+    <filter id="assettts1limiter">
+      <property name="mlt_service">ladspa.1913</property>
+      <property name="0">6</property>
+      <property name="1">-10</property>
+      <property name="2">0.51</property>
+      <property name="instances">1</property>
+      <property name="3[0]">1.08705</property>
+      <property name="8[0]">240</property>
+    </filter>
   </chain>
-  <chain id="assettts2" in="00:00:00.000" out="00:00:04.505">
-    <property name="length">136</property>
+  <chain id="assettts2" in="00:00:00.000" out="00:00:03.437">
+    <property name="length">104</property>
     <property name="eof">pause</property>
     <property name="resource">.meltica/speech-tts2.wav</property>
     <property name="meta.media.nb_streams">1</property>
@@ -269,19 +278,28 @@
     <filter id="assettts2fadeOutVolume">
       <property name="window">75</property>
       <property name="max_gain">20dB</property>
-      <property name="level">00:00:04.455=0;00:00:04.504=-60</property>
+      <property name="level">00:00:03.387=0;00:00:03.436=-60</property>
       <property name="mlt_service">volume</property>
       <property name="shotcut:filter">fadeOutVolume</property>
-      <property name="shotcut:animOut">00:00:04.455</property>
+      <property name="shotcut:animOut">00:00:03.387</property>
       <property name="disable">0</property>
+    </filter>
+    <filter id="assettts2limiter">
+      <property name="mlt_service">ladspa.1913</property>
+      <property name="0">6</property>
+      <property name="1">-10</property>
+      <property name="2">0.51</property>
+      <property name="instances">1</property>
+      <property name="3[0]">1.08705</property>
+      <property name="8[0]">240</property>
     </filter>
   </chain>
   <playlist id="tracktts">
     <property name="shotcut:audio">1</property>
     <property name="shotcut:name">track</property>
-    <entry producer="assettts1" in="00:00:00.000" out="00:00:01.635"/>
+    <entry producer="assettts1" in="00:00:00.000" out="00:00:02.069"/>
     <blank length="00:00:01.000"/>
-    <entry producer="assettts2" in="00:00:00.000" out="00:00:04.505"/>
+    <entry producer="assettts2" in="00:00:00.000" out="00:00:03.437"/>
   </playlist>
   <consumer ab="160k" acodec="aac" channels="2" crf="23" deinterlacer="onefield" f="mp4" g="15" in="0" out="00:00:08.000" mlt_service="avformat" movflags="+faststart" preset="veryfast" real_time="-1" rescale="bilinear" target="examples/tts.mp4" threads="0" vcodec="libx264"/>
   <profile description="PAL 4:3 DV or DVD" width="1080" height="1920" progressive="1" sample_aspect_num="1" sample_aspect_den="1" display_aspect_num="9" display_aspect_den="16" frame_rate_num="25" frame_rate_den="1" colorspace="709"/>

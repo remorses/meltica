@@ -1,6 +1,7 @@
 import {
     BlankSpace,
     Composition,
+    Limiter,
     Lottie,
     SlideIn,
     SlideOut,
@@ -33,13 +34,17 @@ function Video({}) {
                     id='tts1'
                     speed={-0.5}
                     text={`Hi everybody how is it going?`}
-                ></TextToSpeech>
+                >
+                    <Limiter inputGain={6} limit={-10} />
+                </TextToSpeech>
                 <BlankSpace id={'blank'} duration={1} />
                 <TextToSpeech
                     id='tts2'
                     speed={-0.5}
                     text={`Today is a new day, and today we will talk about Dune.`}
-                ></TextToSpeech>
+                >
+                    <Limiter inputGain={6} limit={-10} />
+                </TextToSpeech>
             </Track>
         </Composition>
     )
