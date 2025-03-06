@@ -1,37 +1,11 @@
-import fs from 'fs'
-import { WholeWordIcon } from 'lucide-react'
-
-import { CodeSnippet } from 'meltica/src/code/code'
 import {
-    Asset,
-    AudioGain,
-    InlineSvg,
-    Track,
     Composition,
-    Transform,
-    SlideIn,
     Lottie,
+    SlideIn,
     SlideOut,
+    Track,
 } from 'meltica/src/components'
-import {
-    renderToPreview,
-    renderToVideo,
-    renderToXml,
-} from 'meltica/src/rendering'
-import { sleep } from 'meltica/src/utils'
-
-const codeSnippet = `
-import React from 'react'
-import { CodeSnippet } from 'meltica/src/code/code'
-
-export const code = <CodeSnippet
-    code={
-        <div>
-            <h1>Hello World</h1>
-        </div>
-    }
-/>
-`
+import { renderToVideo } from 'meltica/src/rendering'
 
 function Video({}) {
     return (

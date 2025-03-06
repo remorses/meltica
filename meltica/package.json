@@ -13,6 +13,7 @@
     "dependencies": {
         "@ai-sdk/google": "^1.1.19",
         "@ai-sdk/openai": "^1.2.0",
+        "@cartesia/cartesia-js": "^2.1.7",
         "@kmamal/sdl": "^0.10.14",
         "@oozcitak/dom": "^1.15.10",
         "@resvg/resvg-js": "^2.6.2",
