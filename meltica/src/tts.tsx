@@ -15,7 +15,7 @@ if (!apiKey) {
 const client = new CartesiaClient({ apiKey })
 
 const ttsCache = createCache({
-    cacheId: 'tts-cache',
+    cacheId: 'tts-cache.json',
 })
 
 type Props = {

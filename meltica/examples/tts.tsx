@@ -11,7 +11,7 @@ import { TextToSpeech } from 'meltica/src/tts'
 function Video({}) {
     return (
         <Composition
-            fps={30}
+            fps={25}
             width={1080}
             height={1920}
             duration={8}

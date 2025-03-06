@@ -1,0 +1,196 @@
+<?xml version="1.0" standalone="no"?>
+<mlt LC_NUMERIC="C" version="7.30.0" title="Shotcut version 25.01.25" producer="main_bin">
+  <profile description="PAL 4:3 DV or DVD" width="1920" height="1080" progressive="1" sample_aspect_num="1" sample_aspect_den="1" display_aspect_num="16" display_aspect_den="9" frame_rate_num="25" frame_rate_den="1" colorspace="709"/>
+  <chain id="chain0" out="00:00:01.600">
+    <property name="length">00:00:01.640</property>
+    <property name="eof">pause</property>
+    <property name="resource">.meltica/speech-tts1.mp3</property>
+    <property name="mlt_service">avformat-novalidate</property>
+    <property name="meta.media.nb_streams">1</property>
+    <property name="meta.media.0.stream.type">audio</property>
+    <property name="meta.media.0.codec.sample_fmt">fltp</property>
+    <property name="meta.media.0.codec.sample_rate">44100</property>
+    <property name="meta.media.0.codec.channels">1</property>
+    <property name="meta.media.0.codec.layout">mono</property>
+    <property name="meta.media.0.codec.name">mp3float</property>
+    <property name="meta.media.0.codec.long_name">MP3 (MPEG audio layer 3)</property>
+    <property name="meta.media.0.codec.bit_rate">128000</property>
+    <property name="meta.attr.encoder.markup">Lavf60.16.100</property>
+    <property name="seekable">1</property>
+    <property name="audio_index">0</property>
+    <property name="video_index">-1</property>
+    <property name="creation_time">2025-03-06T16:31:26</property>
+    <property name="astream">0</property>
+    <property name="shotcut:skipConvert">1</property>
+    <property name="xml">was here</property>
+    <property name="shotcut:hash">053e42464a35d4ddd293f97411120b03</property>
+  </chain>
+  <chain id="chain1" out="00:00:03.720">
+    <property name="length">00:00:03.760</property>
+    <property name="eof">pause</property>
+    <property name="resource">.meltica/speech-tts2.mp3</property>
+    <property name="mlt_service">avformat-novalidate</property>
+    <property name="meta.media.nb_streams">1</property>
+    <property name="meta.media.0.stream.type">audio</property>
+    <property name="meta.media.0.codec.sample_fmt">fltp</property>
+    <property name="meta.media.0.codec.sample_rate">44100</property>
+    <property name="meta.media.0.codec.channels">1</property>
+    <property name="meta.media.0.codec.layout">mono</property>
+    <property name="meta.media.0.codec.name">mp3float</property>
+    <property name="meta.media.0.codec.long_name">MP3 (MPEG audio layer 3)</property>
+    <property name="meta.media.0.codec.bit_rate">128000</property>
+    <property name="meta.attr.encoder.markup">Lavf60.16.100</property>
+    <property name="seekable">1</property>
+    <property name="audio_index">0</property>
+    <property name="video_index">-1</property>
+    <property name="creation_time">2025-03-06T16:31:26</property>
+    <property name="astream">0</property>
+    <property name="shotcut:skipConvert">1</property>
+    <property name="xml">was here</property>
+    <property name="shotcut:hash">8f10aaed30ef397837396cacf67d72e8</property>
+  </chain>
+  <playlist id="main_bin">
+    <property name="xml_retain">1</property>
+    <entry producer="chain0" in="00:00:00.000" out="00:00:01.600"/>
+    <entry producer="chain1" in="00:00:00.000" out="00:00:03.720"/>
+  </playlist>
+  <producer id="black" in="00:00:00.000" out="00:00:05.360">
+    <property name="length">00:00:05.400</property>
+    <property name="eof">pause</property>
+    <property name="resource">0</property>
+    <property name="aspect_ratio">1</property>
+    <property name="mlt_service">color</property>
+    <property name="mlt_image_format">rgba</property>
+    <property name="set.test_audio">0</property>
+  </producer>
+  <playlist id="background">
+    <entry producer="black" in="00:00:00.000" out="00:00:05.360"/>
+  </playlist>
+  <chain id="chain2" title="Shotcut version 25.01.25" out="00:00:01.600">
+    <property name="length">00:00:01.640</property>
+    <property name="eof">pause</property>
+    <property name="resource">.meltica/speech-tts1.mp3</property>
+    <property name="mlt_service">avformat-novalidate</property>
+    <property name="meta.media.nb_streams">1</property>
+    <property name="meta.media.0.stream.type">audio</property>
+    <property name="meta.media.0.codec.sample_fmt">fltp</property>
+    <property name="meta.media.0.codec.sample_rate">44100</property>
+    <property name="meta.media.0.codec.channels">1</property>
+    <property name="meta.media.0.codec.layout">mono</property>
+    <property name="meta.media.0.codec.name">mp3float</property>
+    <property name="meta.media.0.codec.long_name">MP3 (MPEG audio layer 3)</property>
+    <property name="meta.media.0.codec.bit_rate">128000</property>
+    <property name="meta.attr.encoder.markup">Lavf60.16.100</property>
+    <property name="seekable">1</property>
+    <property name="audio_index">0</property>
+    <property name="video_index">-1</property>
+    <property name="creation_time">2025-03-06T16:31:26</property>
+    <property name="astream">0</property>
+    <property name="shotcut:skipConvert">1</property>
+    <property name="xml">was here</property>
+    <property name="shotcut:hash">053e42464a35d4ddd293f97411120b03</property>
+    <property name="shotcut:caption">speech-tts1.mp3</property>
+    <property name="shotcut:projectAudioChannels">2</property>
+    <property name="shotcut:projectFolder">0</property>
+    <filter id="filter0" out="00:00:01.600">
+      <property name="target_loudness">-23.0</property>
+      <property name="window">10</property>
+      <property name="max_gain">15.0</property>
+      <property name="min_gain">-15.0</property>
+      <property name="max_rate">3.0</property>
+      <property name="discontinuity_reset">1</property>
+      <property name="in_loudness">-27.0639</property>
+      <property name="out_gain">4.24352</property>
+      <property name="reset_count">14</property>
+      <property name="mlt_service">dynamic_loudness</property>
+      <property name="disable">1</property>
+    </filter>
+    <filter id="filter1" out="00:00:01.600">
+      <property name="program">-23.0</property>
+      <property name="mlt_service">loudness</property>
+      <property name="results">L: -27.691907	R: 0.000000	P 0.209357</property>
+      <property name="disable">1</property>
+      <property name="reload">1</property>
+    </filter>
+    <filter id="filter2" out="00:00:01.600">
+      <property name="mlt_service">ladspa.1882</property>
+      <property name="0">0</property>
+      <property name="1">100</property>
+      <property name="2">400</property>
+      <property name="3">0</property>
+      <property name="4">1</property>
+      <property name="5">3.25</property>
+      <property name="6">12.1</property>
+      <property name="instances">1</property>
+      <property name="7[0]">-30.0415</property>
+      <property name="8[0]">-5.8108e-05</property>
+    </filter>
+  </chain>
+  <chain id="chain3" out="00:00:03.720">
+    <property name="length">00:00:03.760</property>
+    <property name="eof">pause</property>
+    <property name="resource">.meltica/speech-tts2.mp3</property>
+    <property name="mlt_service">avformat-novalidate</property>
+    <property name="meta.media.nb_streams">1</property>
+    <property name="meta.media.0.stream.type">audio</property>
+    <property name="meta.media.0.codec.sample_fmt">fltp</property>
+    <property name="meta.media.0.codec.sample_rate">44100</property>
+    <property name="meta.media.0.codec.channels">1</property>
+    <property name="meta.media.0.codec.layout">mono</property>
+    <property name="meta.media.0.codec.name">mp3float</property>
+    <property name="meta.media.0.codec.long_name">MP3 (MPEG audio layer 3)</property>
+    <property name="meta.media.0.codec.bit_rate">128000</property>
+    <property name="meta.attr.encoder.markup">Lavf60.16.100</property>
+    <property name="seekable">1</property>
+    <property name="audio_index">0</property>
+    <property name="video_index">-1</property>
+    <property name="creation_time">2025-03-06T16:31:26</property>
+    <property name="astream">0</property>
+    <property name="shotcut:skipConvert">1</property>
+    <property name="xml">was here</property>
+    <property name="shotcut:hash">8f10aaed30ef397837396cacf67d72e8</property>
+    <property name="shotcut:caption">speech-tts2.mp3</property>
+    <filter id="filter3" out="00:00:03.720">
+      <property name="target_loudness">-23.0</property>
+      <property name="window">10</property>
+      <property name="max_gain">15.0</property>
+      <property name="min_gain">-15.0</property>
+      <property name="max_rate">3.0</property>
+      <property name="discontinuity_reset">1</property>
+      <property name="in_loudness">-20.2157</property>
+      <property name="out_gain">-3.77061</property>
+      <property name="reset_count">31</property>
+      <property name="mlt_service">dynamic_loudness</property>
+      <property name="disable">1</property>
+    </filter>
+  </chain>
+  <playlist id="playlist0">
+    <property name="shotcut:video">1</property>
+    <property name="shotcut:name">V1</property>
+    <entry producer="chain2" in="00:00:00.000" out="00:00:01.600"/>
+    <entry producer="chain3" in="00:00:00.000" out="00:00:03.720"/>
+  </playlist>
+  <tractor id="tractor0" title="Shotcut version 25.01.25" in="00:00:00.000" out="00:00:05.360">
+    <property name="shotcut">1</property>
+    <property name="shotcut:scaleFactor">2.87329</property>
+    <property name="shotcut:projectAudioChannels">2</property>
+    <property name="shotcut:projectFolder">0</property>
+    <track producer="background"/>
+    <track producer="playlist0"/>
+    <transition id="transition0">
+      <property name="a_track">0</property>
+      <property name="b_track">1</property>
+      <property name="mlt_service">mix</property>
+      <property name="always_active">1</property>
+      <property name="sum">1</property>
+    </transition>
+    <transition id="transition1">
+      <property name="a_track">0</property>
+      <property name="b_track">1</property>
+      <property name="version">0.1</property>
+      <property name="mlt_service">frei0r.cairoblend</property>
+      <property name="threads">0</property>
+      <property name="disable">1</property>
+    </transition>
+  </tractor>
+</mlt>

@@ -1535,3 +1535,66 @@ export function BlendMode({
         </filter>
     )
 }
+
+
+export function Compressor({
+    attack = 100,
+    release = 400,
+    threshold = 0,
+    ratio = 1,
+    kneeRadius = 3.25,
+    makeupGain = 12.1,
+}: {
+    /**
+     * Attack time in milliseconds - how quickly the compressor responds to audio above threshold
+     * Range: 0-1000ms
+     */
+    attack?: number
+    /**
+     * Release time in milliseconds - how quickly the compressor stops compressing when audio falls below threshold
+     * Range: 0-1000ms
+     */
+    release?: number
+    /**
+     * Threshold level in dB - the audio level at which compression begins
+     * Range: -60 to 0 dB
+     */
+    threshold?: number
+    /**
+     * Compression ratio - how much the output level changes relative to input level changes
+     * Example: 4:1 means for every 4dB increase in input, output only increases by 1dB
+     * Range: 1:1 (no compression) to 20:1 (heavy compression)
+     */
+    ratio?: number
+    /**
+     * Knee radius in dB - smooths the transition around threshold for more natural compression
+     * Lower values = harder knee (more aggressive), Higher values = softer knee (more gradual)
+     * Range: 1-10 dB
+     */
+    kneeRadius?: number
+    /**
+     * Makeup gain in dB - amplification applied after compression to compensate for reduced levels
+     * Range: -12 to 24 dB
+     */
+    makeupGain?: number
+}) {
+    const { producer } = useAssetContext()
+    const id = producer.id
+
+    return (
+        <filter id={id + 'compressor'}>
+            <property name="mlt_service">ladspa.1882</property>
+            <property name="0">0</property>
+            <property name="1">{attack}</property>
+            <property name="2">{release}</property>
+            <property name="3">{threshold}</property>
+            <property name="4">{ratio}</property>
+            <property name="5">{kneeRadius}</property>
+            <property name="6">{makeupGain}</property>
+            <property name="instances">1</property>
+            <property name="7[0]">-30.0415</property>
+            <property name="8[0]">-5.8108e-05</property>
+        </filter>
+    )
+}
+
