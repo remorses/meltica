@@ -1,11 +1,31 @@
-<?xml version="1.0" standalone="no"?>
 <mlt LC_NUMERIC="C" version="7.30.0" title="Shotcut version 25.01.25" producer="main_bin">
+  <producer id="assetsvgsvgRect" in="00:00:00.000" out="00:08:20.487">
+    <property name="length">15000</property>
+    <property name="eof">pause</property>
+    <property name="resource">.meltica/svgsvgRect.png</property>
+    <property name="ttl">25</property>
+    <property name="aspect_ratio">1</property>
+    <property name="meta.media.progressive">1</property>
+    <property name="seekable">1</property>
+    <property name="format">2</property>
+    <property name="meta.media.width">1080</property>
+    <property name="meta.media.height">1080</property>
+    <property name="mlt_service">qimage</property>
+    <property name="resource">/Users/morse/Documents/meltica/meltica/.meltica/svgsvgRect.png</property>
+    <property name="shotcut:skipConvert">1</property>
+    <property name="shotcut:caption">svgsvgRect.png</property>
+  </producer>
+  <playlist id="tracksvgRectTrack">
+    <property name="shotcut:name">track</property>
+    <entry producer="assetsvgsvgRect" in="00:00:00.000" out="00:00:03.000"/>
+  </playlist>
+  <consumer ab="160k" acodec="aac" channels="2" crf="23" deinterlacer="onefield" f="mp4" g="15" in="0" out="00:00:03.000" mlt_service="avformat" movflags="+faststart" preset="veryfast" real_time="-1" rescale="bilinear" target="examples/corners.mp4" threads="0" vcodec="libx264"/>
   <profile description="PAL 4:3 DV or DVD" width="1080" height="1920" progressive="1" sample_aspect_num="1" sample_aspect_den="1" display_aspect_num="9" display_aspect_den="16" frame_rate_num="25" frame_rate_den="1" colorspace="709"/>
   <playlist id="main_bin">
     <property name="xml_retain">1</property>
   </playlist>
-  <producer id="black" in="00:00:00.000" out="00:00:12.760">
-    <property name="length">00:00:12.800</property>
+  <producer id="black" in="00:00:00.000" out="2777:46:39.000">
+    <property name="length">2777:46:39.000</property>
     <property name="eof">pause</property>
     <property name="resource">0</property>
     <property name="aspect_ratio">1</property>
@@ -14,345 +34,19 @@
     <property name="set.test_audio">0</property>
   </producer>
   <playlist id="background">
-    <entry producer="black" in="00:00:00.000" out="00:00:12.760"/>
+    <entry producer="black" in="00:00:00.000" out="2777:46:39.000"/>
   </playlist>
-  <producer id="assetlottie3_0" in="00:00:00.000" out="00:00:01.240">
-    <property name="length">38</property>
-    <property name="eof">loop</property>
-    <property name="resource">examples/docs.json</property>
-    <property name="background">#00000000</property>
-    <property name="aspect_ratio">1</property>
-    <property name="progressive">1</property>
-    <property name="seekable">1</property>
-    <property name="meta.media.width">1080</property>
-    <property name="meta.media.height">1080</property>
-    <property name="meta.media.sample_aspect_num">1</property>
-    <property name="meta.media.sample_aspect_den">1</property>
-    <property name="meta.media.frame_rate">29.97</property>
-    <property name="first_frame">0</property>
-    <property name="mlt_service">glaxnimate</property>
-    <property name="shotcut:skipConvert">1</property>
-    <property name="shotcut:caption">docs.json</property>
-    <property name="shotcut:hash">6427c0b7d6947306ebe372d7a360500b</property>
-    <property name="meta.shotcut.vui">1</property>
-    <filter id="filter0" out="00:00:01.240">
-      <property name="version">0.2</property>
-      <property name="mlt_service">frei0r.c0rners</property>
-      <property name="0">0.333333</property>
-      <property name="1">0.333333</property>
-      <property name="2">0.685577</property>
-      <property name="3">0.303171</property>
-      <property name="4">0.666667</property>
-      <property name="5">0.666667</property>
-      <property name="6">0.333333</property>
-      <property name="7">0.666667</property>
-      <property name="8">1</property>
-      <property name="9">0.5</property>
-      <property name="10">0.5</property>
-      <property name="11">0.333333</property>
-      <property name="12">1</property>
-      <property name="14">0</property>
-      <property name="13">0.01</property>
-      <property name="shotcut:corner1">0.333333 0.333333 1</property>
-      <property name="shotcut:corner2">0.685577 0.303171 1</property>
-      <property name="shotcut:corner3">0.666667 0.666667 1</property>
-      <property name="shotcut:corner4">0.333333 0.666667 1</property>
-    </filter>
-  </producer>
-  <producer id="assetlottie3_1" in="00:00:00.000" out="00:00:01.240">
-    <property name="length">38</property>
-    <property name="eof">loop</property>
-    <property name="resource">examples/docs.json</property>
-    <property name="background">#00000000</property>
-    <property name="aspect_ratio">1</property>
-    <property name="progressive">1</property>
-    <property name="seekable">1</property>
-    <property name="meta.media.width">1080</property>
-    <property name="meta.media.height">1080</property>
-    <property name="meta.media.sample_aspect_num">1</property>
-    <property name="meta.media.sample_aspect_den">1</property>
-    <property name="meta.media.frame_rate">29.97</property>
-    <property name="first_frame">0</property>
-    <property name="mlt_service">glaxnimate</property>
-    <property name="shotcut:skipConvert">1</property>
-    <property name="shotcut:caption">docs.json</property>
-    <property name="shotcut:hash">6427c0b7d6947306ebe372d7a360500b</property>
-  </producer>
-  <producer id="assetlottie3_2" in="00:00:00.000" out="00:00:01.240">
-    <property name="length">38</property>
-    <property name="eof">loop</property>
-    <property name="resource">examples/docs.json</property>
-    <property name="background">#00000000</property>
-    <property name="aspect_ratio">1</property>
-    <property name="progressive">1</property>
-    <property name="seekable">1</property>
-    <property name="meta.media.width">1080</property>
-    <property name="meta.media.height">1080</property>
-    <property name="meta.media.sample_aspect_num">1</property>
-    <property name="meta.media.sample_aspect_den">1</property>
-    <property name="meta.media.frame_rate">29.97</property>
-    <property name="first_frame">0</property>
-    <property name="mlt_service">glaxnimate</property>
-    <property name="shotcut:skipConvert">1</property>
-    <property name="shotcut:caption">docs.json</property>
-    <property name="shotcut:hash">6427c0b7d6947306ebe372d7a360500b</property>
-  </producer>
-  <producer id="assetlottie3_3" in="00:00:00.000" out="00:00:01.240">
-    <property name="length">38</property>
-    <property name="eof">loop</property>
-    <property name="resource">examples/docs.json</property>
-    <property name="background">#00000000</property>
-    <property name="aspect_ratio">1</property>
-    <property name="progressive">1</property>
-    <property name="seekable">1</property>
-    <property name="meta.media.width">1080</property>
-    <property name="meta.media.height">1080</property>
-    <property name="meta.media.sample_aspect_num">1</property>
-    <property name="meta.media.sample_aspect_den">1</property>
-    <property name="meta.media.frame_rate">29.97</property>
-    <property name="first_frame">0</property>
-    <property name="mlt_service">glaxnimate</property>
-    <property name="shotcut:skipConvert">1</property>
-    <property name="shotcut:caption">docs.json</property>
-    <property name="shotcut:hash">6427c0b7d6947306ebe372d7a360500b</property>
-  </producer>
-  <producer id="assetlottie3_4" in="00:00:00.000" out="00:00:01.240">
-    <property name="length">38</property>
-    <property name="eof">loop</property>
-    <property name="resource">examples/docs.json</property>
-    <property name="background">#00000000</property>
-    <property name="aspect_ratio">1</property>
-    <property name="progressive">1</property>
-    <property name="seekable">1</property>
-    <property name="meta.media.width">1080</property>
-    <property name="meta.media.height">1080</property>
-    <property name="meta.media.sample_aspect_num">1</property>
-    <property name="meta.media.sample_aspect_den">1</property>
-    <property name="meta.media.frame_rate">29.97</property>
-    <property name="first_frame">0</property>
-    <property name="mlt_service">glaxnimate</property>
-    <property name="shotcut:skipConvert">1</property>
-    <property name="shotcut:caption">docs.json</property>
-    <property name="shotcut:hash">6427c0b7d6947306ebe372d7a360500b</property>
-  </producer>
-  <producer id="assetlottie3_5" in="00:00:00.000" out="00:00:01.240">
-    <property name="length">38</property>
-    <property name="eof">loop</property>
-    <property name="resource">examples/docs.json</property>
-    <property name="background">#00000000</property>
-    <property name="aspect_ratio">1</property>
-    <property name="progressive">1</property>
-    <property name="seekable">1</property>
-    <property name="meta.media.width">1080</property>
-    <property name="meta.media.height">1080</property>
-    <property name="meta.media.sample_aspect_num">1</property>
-    <property name="meta.media.sample_aspect_den">1</property>
-    <property name="meta.media.frame_rate">29.97</property>
-    <property name="first_frame">0</property>
-    <property name="mlt_service">glaxnimate</property>
-    <property name="shotcut:skipConvert">1</property>
-    <property name="shotcut:caption">docs.json</property>
-    <property name="shotcut:hash">6427c0b7d6947306ebe372d7a360500b</property>
-  </producer>
-  <producer id="assetlottie3_6" in="00:00:00.000" out="00:00:01.240">
-    <property name="length">38</property>
-    <property name="eof">loop</property>
-    <property name="resource">examples/docs.json</property>
-    <property name="background">#00000000</property>
-    <property name="aspect_ratio">1</property>
-    <property name="progressive">1</property>
-    <property name="seekable">1</property>
-    <property name="meta.media.width">1080</property>
-    <property name="meta.media.height">1080</property>
-    <property name="meta.media.sample_aspect_num">1</property>
-    <property name="meta.media.sample_aspect_den">1</property>
-    <property name="meta.media.frame_rate">29.97</property>
-    <property name="first_frame">0</property>
-    <property name="mlt_service">glaxnimate</property>
-    <property name="shotcut:skipConvert">1</property>
-    <property name="shotcut:caption">docs.json</property>
-    <property name="shotcut:hash">6427c0b7d6947306ebe372d7a360500b</property>
-  </producer>
-  <producer id="assetlottie3_7" in="00:00:00.000" out="00:00:01.240">
-    <property name="length">38</property>
-    <property name="eof">loop</property>
-    <property name="resource">examples/docs.json</property>
-    <property name="background">#00000000</property>
-    <property name="aspect_ratio">1</property>
-    <property name="progressive">1</property>
-    <property name="seekable">1</property>
-    <property name="meta.media.width">1080</property>
-    <property name="meta.media.height">1080</property>
-    <property name="meta.media.sample_aspect_num">1</property>
-    <property name="meta.media.sample_aspect_den">1</property>
-    <property name="meta.media.frame_rate">29.97</property>
-    <property name="first_frame">0</property>
-    <property name="mlt_service">glaxnimate</property>
-    <property name="shotcut:skipConvert">1</property>
-    <property name="shotcut:caption">docs.json</property>
-    <property name="shotcut:hash">6427c0b7d6947306ebe372d7a360500b</property>
-  </producer>
-  <producer id="assetlottie3_8" in="00:00:00.000" out="00:00:01.240">
-    <property name="length">38</property>
-    <property name="eof">loop</property>
-    <property name="resource">examples/docs.json</property>
-    <property name="background">#00000000</property>
-    <property name="aspect_ratio">1</property>
-    <property name="progressive">1</property>
-    <property name="seekable">1</property>
-    <property name="meta.media.width">1080</property>
-    <property name="meta.media.height">1080</property>
-    <property name="meta.media.sample_aspect_num">1</property>
-    <property name="meta.media.sample_aspect_den">1</property>
-    <property name="meta.media.frame_rate">29.97</property>
-    <property name="first_frame">0</property>
-    <property name="mlt_service">glaxnimate</property>
-    <property name="shotcut:skipConvert">1</property>
-    <property name="shotcut:caption">docs.json</property>
-    <property name="shotcut:hash">6427c0b7d6947306ebe372d7a360500b</property>
-  </producer>
-  <producer id="assetlottie3_9" in="00:00:00.000" out="00:00:01.240">
-    <property name="length">38</property>
-    <property name="eof">loop</property>
-    <property name="resource">examples/docs.json</property>
-    <property name="background">#00000000</property>
-    <property name="aspect_ratio">1</property>
-    <property name="progressive">1</property>
-    <property name="seekable">1</property>
-    <property name="meta.media.width">1080</property>
-    <property name="meta.media.height">1080</property>
-    <property name="meta.media.sample_aspect_num">1</property>
-    <property name="meta.media.sample_aspect_den">1</property>
-    <property name="meta.media.frame_rate">29.97</property>
-    <property name="first_frame">0</property>
-    <property name="mlt_service">glaxnimate</property>
-    <property name="shotcut:skipConvert">1</property>
-    <property name="shotcut:caption">docs.json</property>
-    <property name="shotcut:hash">6427c0b7d6947306ebe372d7a360500b</property>
-  </producer>
-  <playlist id="trackvideo">
-    <property name="shotcut:name">track</property>
-    <entry producer="assetlottie3_0" in="00:00:00.000" out="00:00:01.240"/>
-    <entry producer="assetlottie3_1" in="00:00:00.000" out="00:00:01.240"/>
-    <entry producer="assetlottie3_2" in="00:00:00.000" out="00:00:01.240"/>
-    <entry producer="assetlottie3_3" in="00:00:00.000" out="00:00:01.240"/>
-    <entry producer="assetlottie3_4" in="00:00:00.000" out="00:00:01.240"/>
-    <entry producer="assetlottie3_5" in="00:00:00.000" out="00:00:01.240"/>
-    <entry producer="assetlottie3_6" in="00:00:00.000" out="00:00:01.240"/>
-    <entry producer="assetlottie3_7" in="00:00:00.000" out="00:00:01.240"/>
-    <entry producer="assetlottie3_8" in="00:00:00.000" out="00:00:01.240"/>
-    <entry producer="assetlottie3_9" in="00:00:00.000" out="00:00:01.240"/>
-  </playlist>
-  <chain id="assettts1" out="00:00:01.520">
-    <property name="length">47</property>
-    <property name="eof">pause</property>
-    <property name="resource">.meltica/speech-tts1.wav</property>
-    <property name="mlt_service">avformat</property>
-    <property name="meta.media.nb_streams">1</property>
-    <property name="meta.media.0.stream.type">audio</property>
-    <property name="meta.media.0.codec.sample_fmt">s16</property>
-    <property name="meta.media.0.codec.sample_rate">44100</property>
-    <property name="meta.media.0.codec.channels">1</property>
-    <property name="meta.media.0.codec.layout">mono</property>
-    <property name="meta.media.0.codec.name">pcm_s16le</property>
-    <property name="meta.media.0.codec.long_name">PCM signed 16-bit little-endian</property>
-    <property name="meta.media.0.codec.bit_rate">705600</property>
-    <property name="meta.attr.encoder.markup">Lavf60.16.100</property>
-    <property name="seekable">1</property>
-    <property name="audio_index">0</property>
-    <property name="video_index">-1</property>
-    <property name="mute_on_pause">0</property>
-    <property name="shotcut:skipConvert">1</property>
-    <property name="shotcut:caption">speech-tts1.wav</property>
-    <property name="astream">0</property>
-    <property name="shotcut:hash">9d681f7c224c5faa0a97f10c0dc093c5</property>
-    <filter id="assettts1fadeOutVolume" out="00:00:01.520">
-      <property name="window">75</property>
-      <property name="max_gain">20dB</property>
-      <property name="level">00:00:01.480=0;00:00:01.520=-60</property>
-      <property name="mlt_service">volume</property>
-      <property name="shotcut:filter">fadeOutVolume</property>
-      <property name="shotcut:animOut">00:00:01.485</property>
-      <property name="disable">1</property>
-    </filter>
-    <filter id="assettts1limiter">
-      <property name="mlt_service">ladspa.1913</property>
-      <property name="0">6</property>
-      <property name="1">-10</property>
-      <property name="2">0.51</property>
-      <property name="instances">1</property>
-      <property name="3[0]">1.7337</property>
-      <property name="8[0]">240</property>
-    </filter>
-  </chain>
-  <chain id="assettts2" out="00:00:08.960">
-    <property name="length">269</property>
-    <property name="eof">pause</property>
-    <property name="resource">.meltica/speech-tts2.wav</property>
-    <property name="mlt_service">avformat</property>
-    <property name="meta.media.nb_streams">1</property>
-    <property name="meta.media.0.stream.type">audio</property>
-    <property name="meta.media.0.codec.sample_fmt">s16</property>
-    <property name="meta.media.0.codec.sample_rate">44100</property>
-    <property name="meta.media.0.codec.channels">1</property>
-    <property name="meta.media.0.codec.layout">mono</property>
-    <property name="meta.media.0.codec.name">pcm_s16le</property>
-    <property name="meta.media.0.codec.long_name">PCM signed 16-bit little-endian</property>
-    <property name="meta.media.0.codec.bit_rate">705600</property>
-    <property name="meta.attr.encoder.markup">Lavf60.16.100</property>
-    <property name="seekable">1</property>
-    <property name="audio_index">0</property>
-    <property name="video_index">-1</property>
-    <property name="mute_on_pause">0</property>
-    <property name="shotcut:skipConvert">1</property>
-    <property name="shotcut:caption">speech-tts2.wav</property>
-    <property name="astream">0</property>
-    <property name="shotcut:hash">af273b42e1959e278a963a54346826c3</property>
-    <filter id="assettts2fadeOutVolume" out="00:00:10.200">
-      <property name="window">75</property>
-      <property name="max_gain">20dB</property>
-      <property name="level">00:00:01.360=0;00:00:10.200=-60</property>
-      <property name="mlt_service">volume</property>
-      <property name="shotcut:filter">fadeOutVolume</property>
-      <property name="shotcut:animOut">00:00:08.891</property>
-      <property name="disable">1</property>
-    </filter>
-    <filter id="assettts2limiter">
-      <property name="mlt_service">ladspa.1913</property>
-      <property name="0">6</property>
-      <property name="1">-10</property>
-      <property name="2">0.51</property>
-      <property name="instances">1</property>
-      <property name="3[0]">3.50324</property>
-      <property name="8[0]">240</property>
-    </filter>
-  </chain>
-  <playlist id="tracktts">
-    <property name="shotcut:audio">1</property>
-    <property name="shotcut:name">track</property>
-    <entry producer="assettts1" in="00:00:00.000" out="00:00:01.520"/>
-    <blank length="00:00:01.000"/>
-    <entry producer="assettts2" in="00:00:00.000" out="00:00:10.200"/>
-  </playlist>
-  <tractor id="mainTractor" title="Shotcut version 25.01.25" in="00:00:00.000" out="00:00:12.760">
+  <tractor id="mainTractor" title="Shotcut version 25.01.25" in="00:00:00.000">
     <property name="shotcut">1</property>
     <property name="shotcut:projectAudioChannels">2</property>
     <property name="shotcut:projectFolder">0</property>
     <property name="shotcut:trackHeight">50</property>
     <property name="shotcut:skipConvert">0</property>
     <track producer="background"/>
-    <track producer="trackvideo"/>
-    <track producer="tracktts" hide="video"/>
+    <track producer="tracksvgRectTrack"/>
     <transition id="transition0">
       <property name="a_track">0</property>
       <property name="b_track">1</property>
-      <property name="mlt_service">mix</property>
-      <property name="always_active">1</property>
-      <property name="sum">1</property>
-    </transition>
-    <transition id="transition1">
-      <property name="a_track">0</property>
-      <property name="b_track">2</property>
       <property name="mlt_service">mix</property>
       <property name="always_active">1</property>
       <property name="sum">1</property>
@@ -363,7 +57,7 @@
       <property name="version">0.1</property>
       <property name="mlt_service">frei0r.cairoblend</property>
       <property name="threads">0</property>
-      <property name="disable">1</property>
+      <property name="disable">0</property>
     </transition>
   </tractor>
 </mlt>

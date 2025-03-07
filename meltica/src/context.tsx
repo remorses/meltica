@@ -1,5 +1,5 @@
 import { AssetProducer, AssetRegistration } from 'meltica/src/rendering'
-import { createContext } from 'xmlize'
+import { createContext, useContext } from 'xmlize'
 
 export type CompositionContext = {
     width: number
@@ -30,3 +30,12 @@ export let defaultRenderingContext = {
 }
 
 export const renderingContext = createContext(defaultRenderingContext)
+
+export function useAssetContext() {
+    const producer = useContext(assetContext)
+    const { producers } = useContext(renderingContext)
+    if (!producer) {
+        throw new Error(`No asset context found`)
+    }
+    return producer
+}
