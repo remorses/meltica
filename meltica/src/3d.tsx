@@ -169,11 +169,11 @@ export function CornerPin({
     /** Amount of edge feathering (0=sharp, 1=smooth) */
     feather = 0.624,
     /** Alpha blend amount (0=transparent, 1=opaque) */
-    alpha = 0.333333,
+    alpha = 0,
     /** Whether to enable transparency */
     transparent = true,
     /** Amount of alpha channel feathering (0=sharp, 1=smooth) */
-    featherAlpha = 0.01,
+    featherAlpha = 0.00,
 }) {
     const { producer } = useAssetContext()
     const id = producer.id

@@ -1,11 +1,70 @@
-<?xml version="1.0" standalone="no"?>
 <mlt LC_NUMERIC="C" version="7.30.0" title="Shotcut version 25.01.25" producer="main_bin">
+  <producer id="assetsvgsvgRect" in="00:00:00.000" out="00:08:20.487">
+    <property name="length">15000</property>
+    <property name="eof">pause</property>
+    <property name="resource">.meltica/svgsvgRect.png</property>
+    <property name="ttl">25</property>
+    <property name="aspect_ratio">1</property>
+    <property name="meta.media.progressive">1</property>
+    <property name="seekable">1</property>
+    <property name="format">2</property>
+    <property name="meta.media.width">1080</property>
+    <property name="meta.media.height">608</property>
+    <property name="mlt_service">qimage</property>
+    <property name="resource">/Users/morse/Documents/meltica/meltica/.meltica/svgsvgRect.png</property>
+    <property name="shotcut:skipConvert">1</property>
+    <property name="shotcut:caption">svgsvgRect.png</property>
+    <filter id="qtblend" out="1">
+      <property name="rotate_center">1</property>
+      <property name="mlt_service">affine</property>
+      <property name="shotcut:filter">affineSizePosition</property>
+      <property name="transition.valign">middle</property>
+      <property name="transition.halign">center</property>
+      <property name="transition.fix_rotate_x">0</property>
+      <property name="transition.fill">1</property>
+      <property name="compositing"/>
+      <property name="distort"/>
+      <property name="transition.rect">00:00:00.000=0 656.000 1080.000 608.000 1.000000</property>
+      <property name="rotation">00:00:00.000=0</property>
+      <property name="shotcut:animIn">00:00:00.000</property>
+      <property name="shotcut:animOut">00:00:00.000</property>
+      <property name="kdenlive:collapsed">0</property>
+    </filter>
+    <filter id="assetsvgsvgRectcornerPin">
+      <property name="version">0.2</property>
+      <property name="mlt_service">frei0r.c0rners</property>
+      <property name="0">0.34234017619555207</property>
+      <property name="1">0.3203476579387368</property>
+      <property name="2">0.7005983537361367</property>
+      <property name="3">0.2714183243394068</property>
+      <property name="4">0.7005983537361367</property>
+      <property name="5">0.728580675660593</property>
+      <property name="6">0.34234017619555207</property>
+      <property name="7">0.6796513420612631</property>
+      <property name="8">1</property>
+      <property name="9">0.627</property>
+      <property name="10">0.624</property>
+      <property name="11">0.333333</property>
+      <property name="12">1</property>
+      <property name="13">0.01</property>
+      <property name="14">0</property>
+      <property name="shotcut:corner1">0.34234017619555207 0.3203476579387368 1</property>
+      <property name="shotcut:corner2">0.7005983537361367 0.2714183243394068 1</property>
+      <property name="shotcut:corner3">0.7005983537361367 0.728580675660593 1</property>
+      <property name="shotcut:corner4">0.34234017619555207 0.6796513420612631 1</property>
+    </filter>
+  </producer>
+  <playlist id="tracksvgRectTrack">
+    <property name="shotcut:name">track</property>
+    <entry producer="assetsvgsvgRect" in="00:00:00.000" out="00:00:01.000"/>
+  </playlist>
+  <consumer ab="160k" acodec="aac" channels="2" crf="23" deinterlacer="onefield" f="mp4" g="15" in="0" out="00:00:01.000" mlt_service="avformat" movflags="+faststart" preset="veryfast" real_time="-1" rescale="bilinear" target="examples/corners.mp4" threads="0" vcodec="libx264"/>
   <profile description="PAL 4:3 DV or DVD" width="1080" height="1920" progressive="1" sample_aspect_num="1" sample_aspect_den="1" display_aspect_num="9" display_aspect_den="16" frame_rate_num="25" frame_rate_den="1" colorspace="709"/>
   <playlist id="main_bin">
     <property name="xml_retain">1</property>
   </playlist>
-  <producer id="black" in="00:00:00.000" out="00:00:12.040">
-    <property name="length">00:00:12.080</property>
+  <producer id="black" in="00:00:00.000" out="2777:46:39.000">
+    <property name="length">2777:46:39.000</property>
     <property name="eof">pause</property>
     <property name="resource">0</property>
     <property name="aspect_ratio">1</property>
@@ -14,71 +73,9 @@
     <property name="set.test_audio">0</property>
   </producer>
   <playlist id="background">
-    <entry producer="black" in="00:00:00.000" out="00:00:12.040"/>
+    <entry producer="black" in="00:00:00.000" out="2777:46:39.000"/>
   </playlist>
-  <producer id="assetsvgsvgRect" in="00:00:00.000" out="00:08:20.480">
-    <property name="length">15000</property>
-    <property name="eof">pause</property>
-    <property name="resource">.meltica/svgsvgRect.png</property>
-    <property name="ttl">1</property>
-    <property name="aspect_ratio">1</property>
-    <property name="meta.media.progressive">1</property>
-    <property name="seekable">1</property>
-    <property name="format">2</property>
-    <property name="meta.media.width">1080</property>
-    <property name="meta.media.height">608</property>
-    <property name="mlt_service">qimage</property>
-    <property name="shotcut:skipConvert">1</property>
-    <property name="shotcut:caption">svgsvgRect.png</property>
-    <property name="shotcut:hash">481d244505bd04eab157dd28fe1b9149</property>
-    <property name="meta.shotcut.vui">1</property>
-    <filter id="qtblend" out="00:00:00.040">
-      <property name="background">color:#000000</property>
-      <property name="mlt_service">affine</property>
-      <property name="rotate_center">1</property>
-      <property name="shotcut:filter">affineSizePosition</property>
-      <property name="transition.valign">middle</property>
-      <property name="transition.halign">center</property>
-      <property name="transition.fix_rotate_x">0</property>
-      <property name="transition.fill">1</property>
-      <property name="compositing"></property>
-      <property name="distort"></property>
-      <property name="transition.rect">00:00:00.000=0 656.000 1080.000 608.000 1.000000</property>
-      <property name="rotation">00:00:00.000=0</property>
-      <property name="shotcut:animIn">00:00:00.000</property>
-      <property name="shotcut:animOut">00:00:00.000</property>
-      <property name="kdenlive:collapsed">0</property>
-      <property name="disable">1</property>
-    </filter>
-    <filter id="assetsvgsvgRectcornerPin">
-      <property name="version">0.2</property>
-      <property name="mlt_service">frei0r.c0rners</property>
-      <property name="0">0.49</property>
-      <property name="1">0.333333</property>
-      <property name="2">0.666667</property>
-      <property name="3">0.333333</property>
-      <property name="4">0.666667</property>
-      <property name="5">0.666667</property>
-      <property name="6">0.333333</property>
-      <property name="7">0.666667</property>
-      <property name="8">1</property>
-      <property name="9">0.5</property>
-      <property name="10">0.5</property>
-      <property name="11">0</property>
-      <property name="12">1</property>
-      <property name="13">0</property>
-      <property name="14">0</property>
-      <property name="shotcut:corner1">0.49 0.333333 1</property>
-      <property name="shotcut:corner2">0.666667 0.333333 1</property>
-      <property name="shotcut:corner3">0.666667 0.666667 1</property>
-      <property name="shotcut:corner4">0.333333 0.666667 1</property>
-    </filter>
-  </producer>
-  <playlist id="tracksvgRectTrack">
-    <property name="shotcut:name">track</property>
-    <entry producer="assetsvgsvgRect" in="00:00:00.000" out="00:00:12.040"/>
-  </playlist>
-  <tractor id="mainTractor" title="Shotcut version 25.01.25" in="00:00:00.000" out="00:00:12.040">
+  <tractor id="mainTractor" title="Shotcut version 25.01.25" in="00:00:00.000">
     <property name="shotcut">1</property>
     <property name="shotcut:projectAudioChannels">2</property>
     <property name="shotcut:projectFolder">0</property>
@@ -99,7 +96,7 @@
       <property name="version">0.1</property>
       <property name="mlt_service">frei0r.cairoblend</property>
       <property name="threads">0</property>
-      <property name="disable">1</property>
+      <property name="disable">0</property>
     </transition>
   </tractor>
 </mlt>

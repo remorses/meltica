@@ -1,3 +1,4 @@
+import { Transform3D } from 'meltica/src/3d'
 import {
     BlankSpace,
     Composition,
@@ -19,13 +20,13 @@ function Video({}) {
             fps={25}
             width={1080}
             height={1920}
-            duration={3}
+            duration={1}
             resultFilePath={'examples/corners.mp4'}
         >
             <Track id={'svgRectTrack'}>
                 <InlineSvg
                     id={'svgRect'}
-                    duration={3}
+                    duration={1}
                     svg={
                         <svg
                             xmlns='http://www.w3.org/2000/svg'
@@ -42,7 +43,12 @@ function Video({}) {
                             />
                         </svg>
                     }
-                ></InlineSvg>
+                >
+                    <Transform3D
+                        rotation={{ x: 0, y: 0.5, z: 0 }}
+                        translation={[0, 0, 2]}
+                    />
+                </InlineSvg>
             </Track>
         </Composition>
     )
