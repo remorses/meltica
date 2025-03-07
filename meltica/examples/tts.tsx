@@ -17,7 +17,7 @@ function Video({}) {
             fps={25}
             width={1080}
             height={1920}
-            duration={8}
+            // duration={13}
             resultFilePath={'examples/tts.mp4'}
         >
             <Track id={'video'}>
@@ -33,7 +33,7 @@ function Video({}) {
                 <TextToSpeech
                     id='tts1'
                     speed={-0.5}
-                    text={`Hi everybody how is it going?`}
+                    text={`Hi everybody how is it going? `}
                 >
                     <Limiter inputGain={6} limit={-10} />
                 </TextToSpeech>
@@ -41,7 +41,7 @@ function Video({}) {
                 <TextToSpeech
                     id='tts2'
                     speed={-0.5}
-                    text={`Today is a new day, and today we will talk about Dune.`}
+                    text={`Today is a new day, and today we will talk about Dune. and now what should we do? longer text that is`}
                 >
                     <Limiter inputGain={6} limit={-10} />
                 </TextToSpeech>

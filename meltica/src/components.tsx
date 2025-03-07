@@ -1477,7 +1477,7 @@ export function FadeOutAudio({
     let endTime = formatSecondsToTime(clipDurationSeconds)
 
     return (
-        <filter id={id + 'fadeOutVolume'}>
+        <filter id={id + 'fadeOutVolume'} out={endTime}>
             <property name='window'>75</property>
             <property name='max_gain'>20dB</property>
             <property name='level'>{`${startTime}=${startLevel};${endTime}=${endLevel}`}</property>
@@ -1659,3 +1659,77 @@ export function Limiter({
         </filter>
     )
 }
+
+
+/** Represents a 2D vector with x,y coordinates between 0-1 */
+export type Vec2 = [number, number]
+/** Represents a 2D vector with x,y coordinates between 0-1 */
+export type Vec2 = [number, number]
+
+/**
+ * Corner Pin effect - Distorts video by moving its corners
+ * @param vertices Array of 4 [x,y] coordinates (0-1) for the corners, in order:
+ *                top-left, top-right, bottom-right, bottom-left
+ * Default values create a normal rectangle:
+ * - Top left: [0.333, 0.333]
+ * - Top right: [0.667, 0.333] 
+ * - Bottom right: [0.667, 0.667]
+ * - Bottom left: [0.333, 0.667]
+ */
+export function CornerPin({
+    vertices = [
+        [0.333333, 0.333333], // Top left
+        [0.666667, 0.333333], // Top right  
+        [0.666667, 0.666667], // Bottom right
+        [0.333333, 0.666667], // Bottom left
+    ] as Vec2[],
+    /** Whether to stretch the image to fill the corners */
+    stretch = true,
+    /** Interpolation quality between corners (0=low, 1=high) */
+    interpolator = 0.627,
+    /** Amount of edge feathering (0=sharp, 1=smooth) */
+    feather = 0.624,
+    /** Alpha blend amount (0=transparent, 1=opaque) */
+    alpha = 0.333333,
+    /** Whether to enable transparency */
+    transparent = true,
+    /** Amount of alpha channel feathering (0=sharp, 1=smooth) */
+    featherAlpha = 0.01
+}) {
+    const { producer } = useAssetContext()
+    const id = producer.id
+
+    if (vertices.length !== 4) {
+        throw new Error('CornerPin requires exactly 4 vertices')
+    }
+
+    const [[x1,y1], [x2,y2], [x3,y3], [x4,y4]] = vertices
+
+    return (
+        <filter id={id + 'cornerPin'}>
+            <property name="version">0.2</property>
+            <property name="mlt_service">frei0r.c0rners</property>
+            <property name="0">{x1}</property>
+            <property name="1">{y1}</property>
+            <property name="2">{x2}</property>
+            <property name="3">{y2}</property>
+            <property name="4">{x3}</property>
+            <property name="5">{y3}</property>
+            <property name="6">{x4}</property>
+            <property name="7">{y4}</property>
+            <property name="8">{stretch ? 1 : 0}</property>
+            <property name="9">{interpolator}</property>
+            <property name="10">{feather}</property>
+            <property name="11">{alpha}</property>
+            <property name="12">{transparent ? 1 : 0}</property>
+            <property name="13">{featherAlpha}</property>
+            <property name="14">0</property>
+            <property name="shotcut:corner1">{x1} {y1} 1</property>
+            <property name="shotcut:corner2">{x2} {y2} 1</property>
+            <property name="shotcut:corner3">{x3} {y3} 1</property>
+            <property name="shotcut:corner4">{x4} {y4} 1</property>
+        </filter>
+    )
+}
+// End of Selection
+
