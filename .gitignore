@@ -23,3 +23,5 @@ node_modules
 !src/fixtures/*
 .meltica
 *.exe
+zig-out
+.zig-cache
