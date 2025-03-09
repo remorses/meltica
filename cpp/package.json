@@ -9,6 +9,7 @@
     "_compile:no-sdl": "gcc -o melt.exe melt.c io.c -I/usr/local/include/mlt-7 -L/usr/local/lib -lmlt-7 -std=c11 -Wl,-rpath,/usr/local/lib",
     "zig:build": "zig build && cp zig-out/bin/* ../shotcut-binaries/mac/Shotcut.app/Contents/MacOS/",
     "zig:run": "zig build run",
+    "exe": "../shotcut-binaries/mac/Shotcut.app/Contents/MacOS/melt-zig",
     "zig:test": "zig build test"
   },
   "keywords": [],

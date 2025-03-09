@@ -25,7 +25,8 @@ pub fn build(b: *std.Build) void {
     exe.addIncludePath(.{ .cwd_relative = "./mlt-7" });
     exe.addIncludePath(.{ .cwd_relative = "./src" });
     exe.addLibraryPath(.{ .cwd_relative = "../shotcut-binaries/mac/Shotcut.app/Contents/Frameworks" });
-
+    // @executable_path is Mac-specific, on Linux use $ORIGIN instead
+    exe.root_module.addRPathSpecial("@executable_path/../Frameworks");
     exe.linkSystemLibrary(
         "mlt-7.7",
     );

@@ -1,0 +1,12 @@
+{
+  "name": "@shotcut/mac",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "melt:mac": "./Shotcut.app/Contents/MacOS/melt-zig"
+  },
+  "keywords": [],
+  "author": "remorses <beats.by.morse@gmail.com>",
+  "license": "ISC"
+}
