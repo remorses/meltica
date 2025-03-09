@@ -7,7 +7,7 @@
     "compile": "gcc -o melt.exe melt.c io.c -I/usr/local/include/mlt-7 -I/opt/homebrew/include -L/usr/local/lib -L/opt/homebrew/lib -lmlt-7 -lSDL2 -std=c11 -Wl,-rpath,/usr/local/lib -Wl,-rpath,/opt/homebrew/lib",
     "run": "./melt.exe ../video.mp4",
     "compile:no-sdl": "gcc -o melt.exe melt.c io.c -I/usr/local/include/mlt-7 -L/usr/local/lib -lmlt-7 -std=c11 -Wl,-rpath,/usr/local/lib",
-    "zig:build": "zig build",
+    "zig:build": "zig build -Dtarget=x86_64-macos",
     "zig:run": "zig build run",
     "zig:test": "zig build test"
   },

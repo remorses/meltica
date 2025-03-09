@@ -282,9 +282,8 @@ export async function renderToVideo(jsx: any, xmlFilename = 'video.mlt') {
     fs.writeFileSync(tempXmlFile, xml)
     const meltPath = '/Applications/Shotcut.app/Contents/MacOS/melt'
     const command = `"${meltPath}" ${tempXmlFile}`
-    // console.log(command)
+    console.log(command)
     await execWithInheritedStdio(command)
-    // Restore terminal to normal mode after melt command
 
     console.timeEnd(`${renderId} melt processing`)
 }

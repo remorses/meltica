@@ -17,7 +17,7 @@ function Video({}) {
             fps={25}
             width={1080}
             height={1920}
-            // duration={13}
+            duration={10}
             resultFilePath={'examples/tts.mp4'}
         >
             <Track id={'video'}>

@@ -4,85 +4,112 @@ const c = @cImport({
 });
 
 pub fn main() !void {
-    const stdout = std.io.getStdOut().writer();
     var arena = std.heap.ArenaAllocator.init(std.heap.page_allocator);
     defer arena.deinit();
     const allocator = arena.allocator();
-
+    c.mlt_log_set_level(c.MLT_LOG_VERBOSE);
     // Get command line arguments
     const args = try std.process.argsAlloc(allocator);
     defer std.process.argsFree(allocator, args);
 
-    // Initialize MLT framework
-    _ = c.mlt_factory_init(null);
+    // Initialize the factory
+    if (c.mlt_factory_init("/Users/morse/Documents/meltica/shotcut-binaries/mac/Shotcut.app/Contents/PlugIns/mlt") == null) {
+        std.debug.print("Unable to locate factory modules\n", .{});
+        return;
+    }
     defer c.mlt_factory_close();
 
-    try stdout.print("MLT Framework initialized successfully!\n", .{});
+    // Get the repository
+    const repository = c.mlt_factory_repository();
+    if (repository == null) {
+        std.debug.print("Failed to get repository\n", .{});
+        return;
+    }
+
+    // Get properties containing producer services
+    const producers = c.mlt_repository_producers(repository);
+    if (producers == null) {
+        std.debug.print("Failed to get producer services\n", .{});
+        return;
+    }
+
+    // Get count of producers
+    const producer_count = c.mlt_properties_count(producers);
+
+    std.debug.print("\nAvailable producer services:\n", .{});
+    var i: i32 = 0;
+    while (i < producer_count) : (i += 1) {
+        const name = c.mlt_properties_get_name(producers, i);
+        if (name != null) {
+            std.debug.print("  {s}\n", .{name});
+        }
+    }
+    std.debug.print("\n", .{});
 
     // Create a profile
     const profile = c.mlt_profile_init(null);
     if (profile == null) {
-        try stdout.print("Failed to create profile\n", .{});
-        return error.ProfileCreationFailed;
+        std.debug.print("Failed to create profile\n", .{});
+        return;
     }
     defer c.mlt_profile_close(profile);
 
-    const frame_rate = @as(f64, @floatFromInt(profile.*.frame_rate_num)) / @as(f64, @floatFromInt(profile.*.frame_rate_den));
-
-    try stdout.print("Profile created: {}x{} {d:.2}fps\n", .{ profile.*.width, profile.*.height, frame_rate });
-
-    // Display MLT version
-    try stdout.print("MLT Framework version: {s}\n", .{c.mlt_version_get_string()});
-
-    // Check if a file was provided
-    if (args.len < 2) {
-        try stdout.print("Usage: {s} <video_file>\n", .{args[0]});
+    // Create the default consumer
+    const consumer = c.mlt_factory_consumer(profile, "avformat", "file.mp4");
+    if (consumer == null) {
+        std.debug.print("Failed to create SDL2 consumer\n", .{});
         return;
     }
 
-    // Create a producer for the input file
-    const producer = c.mlt_factory_producer(profile, null, args[1].ptr);
+    // Check if a file was provided
+    if (args.len < 2) {
+        std.debug.print("Usage: {s} <video_file>\n", .{args[0]});
+        // try displayHelp();
+        return;
+    }
+
+    // Create via the default producer
+    const producer = c.mlt_factory_producer(profile, "xml", args[1].ptr);
     if (producer == null) {
-        try stdout.print("Failed to create producer for file: {s}\n", .{args[1]});
-        return error.ProducerCreationFailed;
+        std.debug.print("Failed to create producer for file: {s}\n", .{args[1]});
+        return;
     }
     defer c.mlt_producer_close(producer);
 
-    try stdout.print("Producer created for file: {s}\n", .{args[1]});
+    // Set transport properties
+    // const is_progress = 1; // Enable progress reporting
+    // _ = c.mlt_properties_set_data(c.MLT_CONSUMER_PROPERTIES(consumer), "transport_producer", producer, 0, null, null);
+    // _ = c.mlt_properties_set_data(c.MLT_PRODUCER_PROPERTIES(producer), "transport_consumer", consumer, 0, null, null);
+    // _ = c.mlt_properties_set_int(c.MLT_CONSUMER_PROPERTIES(consumer), "progress", is_progress);
 
-    // Get duration
-    const duration = c.mlt_producer_get_length(producer);
-    const duration_time = @as(f64, @floatFromInt(duration)) / frame_rate;
-
-    try stdout.print("Duration: {} frames (approx. {d:.2} seconds)\n", .{ duration, duration_time });
-
-    // Create a consumer
-    const consumer = c.mlt_factory_consumer(profile, "sdl2", null);
-    if (consumer == null) {
-        try stdout.print("Failed to create SDL2 consumer. Try using the no-sdl version.\n", .{});
-        return error.ConsumerCreationFailed;
-    }
     defer c.mlt_consumer_close(consumer);
-
-    try stdout.print("Created consumer: sdl2\n", .{});
 
     // Connect the producer to the consumer
     if (c.mlt_consumer_connect(consumer, c.mlt_producer_service(producer)) != 0) {
-        try stdout.print("Failed to connect consumer to producer\n", .{});
-        return error.ConsumerConnectionFailed;
+        std.debug.print("Failed to connect consumer to producer\n", .{});
+        return;
     }
 
     // Start the consumer
-    _ = c.mlt_consumer_start(consumer);
+    if (c.mlt_consumer_start(consumer) != 0) {
+        std.debug.print("Failed to start consumer\n", .{});
+        return;
+    }
+    // Set up signal handlers for graceful termination
 
-    // Wait for the user to press a key
-    try stdout.print("Press Enter to stop playback...\n", .{});
-    _ = try std.io.getStdIn().reader().readByte();
+    std.debug.print("Press Ctrl+C to exit...\n", .{});
 
-    // Stop the consumer
-    _ = c.mlt_consumer_stop(consumer);
+    // Wait for the consumer to terminate
+    var count: usize = 0;
+    while (c.mlt_consumer_is_stopped(consumer) == 0) {
+        if (count % 10 == 0) {
+            std.debug.print("Waiting for consumer to terminate... (Press Ctrl+C to exit)\n", .{});
+        }
+        count += 1;
+        std.time.sleep(std.time.ns_per_s);
+    }
 
-    try stdout.print("\nPlayback completed.\n", .{});
+    // End of program - cleanup is handled by defer statements
 }
 
 fn displayHelp() !void {
