@@ -2,10 +2,14 @@ const std = @import("std");
 const c = @cImport({
     @cInclude("framework/mlt.h");
 });
+const melt = @cImport({
+    @cInclude("./melt.h");
+});
 
 pub fn main() !void {
     var arena = std.heap.ArenaAllocator.init(std.heap.page_allocator);
     defer arena.deinit();
+    _ = melt.fakemain(0, null);
     const allocator = arena.allocator();
     c.mlt_log_set_level(c.MLT_LOG_VERBOSE);
     // Get command line arguments

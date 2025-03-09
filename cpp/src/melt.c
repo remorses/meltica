@@ -744,7 +744,7 @@ static mlt_repository setup_factory(const char *repo_path, int set_locale)
     return repo;
 }
 
-int main(int argc, char **argv)
+int fakemain(int argc, char **argv)
 {
     int i;
     mlt_consumer consumer = NULL;
