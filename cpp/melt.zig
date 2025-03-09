@@ -13,7 +13,7 @@ pub fn main() !void {
     defer std.process.argsFree(allocator, args);
 
     // Initialize the factory
-    if (c.mlt_factory_init("/Users/morse/Documents/meltica/shotcut-binaries/mac/Shotcut.app/Contents/PlugIns/mlt") == null) {
+    if (c.mlt_factory_init(null) == null) {
         std.debug.print("Unable to locate factory modules\n", .{});
         return;
     }
@@ -56,10 +56,29 @@ pub fn main() !void {
 
     // Create the default consumer
     const consumer = c.mlt_factory_consumer(profile, "avformat", "file.mp4");
+
     if (consumer == null) {
         std.debug.print("Failed to create SDL2 consumer\n", .{});
         return;
     }
+    // Set consumer properties for video encoding
+    _ = c.mlt_properties_set(c.MLT_CONSUMER_PROPERTIES(consumer), "ab", "160k");
+    _ = c.mlt_properties_set(c.MLT_CONSUMER_PROPERTIES(consumer), "acodec", "aac");
+    _ = c.mlt_properties_set_int(c.MLT_CONSUMER_PROPERTIES(consumer), "channels", 2);
+    _ = c.mlt_properties_set_int(c.MLT_CONSUMER_PROPERTIES(consumer), "crf", 23);
+    _ = c.mlt_properties_set(c.MLT_CONSUMER_PROPERTIES(consumer), "deinterlacer", "onefield");
+    _ = c.mlt_properties_set(c.MLT_CONSUMER_PROPERTIES(consumer), "f", "mp4");
+    _ = c.mlt_properties_set_int(c.MLT_CONSUMER_PROPERTIES(consumer), "g", 15);
+    _ = c.mlt_properties_set_int(c.MLT_CONSUMER_PROPERTIES(consumer), "in", 0);
+    _ = c.mlt_properties_set(c.MLT_CONSUMER_PROPERTIES(consumer), "out", "00:00:10.000");
+    _ = c.mlt_properties_set(c.MLT_CONSUMER_PROPERTIES(consumer), "mlt_service", "avformat");
+    _ = c.mlt_properties_set(c.MLT_CONSUMER_PROPERTIES(consumer), "movflags", "+faststart");
+    _ = c.mlt_properties_set(c.MLT_CONSUMER_PROPERTIES(consumer), "preset", "veryfast");
+    _ = c.mlt_properties_set_int(c.MLT_CONSUMER_PROPERTIES(consumer), "real_time", -1);
+    _ = c.mlt_properties_set(c.MLT_CONSUMER_PROPERTIES(consumer), "rescale", "bilinear");
+    _ = c.mlt_properties_set(c.MLT_CONSUMER_PROPERTIES(consumer), "target", "examples/tts.mp4");
+    _ = c.mlt_properties_set_int(c.MLT_CONSUMER_PROPERTIES(consumer), "threads", 0);
+    _ = c.mlt_properties_set(c.MLT_CONSUMER_PROPERTIES(consumer), "vcodec", "libx264");
 
     // Check if a file was provided
     if (args.len < 2) {

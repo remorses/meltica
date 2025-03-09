@@ -9,12 +9,13 @@ import { Readable } from 'stream'
 import util from 'util'
 import { createGunzip } from 'zlib'
 import { execWithInheritedStdio } from 'meltica/src/utils'
+import { Os } from 'meltica/scripts/artifacts'
 
 const SHOTCUT_VERSION = 'v25.01.25'
 const SHOTCUT_VERSION_NO_DOTS = '250125'
 const DOWNLOAD_BASE_URL = `https://github.com/mltframework/shotcut/releases/download/${SHOTCUT_VERSION}`
 
-type Os = 'win64' | 'linux' | 'mac'
+
 // Define the releases to download
 const releases = [
     {
@@ -262,99 +263,6 @@ async function main() {
 
     console.log('All downloads completed!')
 }
-
-// Function to get all artifacts from GitHub Actions
-async function getGitHubArtifacts(
-    beforeDate?: Date,
-): Promise<Record<Os, string>> {
-    try {
-        console.log('Fetching GitHub artifacts...')
-        const { stdout } = await execWithInheritedStdio(
-            'gh api repos/mltframework/shotcut/actions/artifacts --cache 60m --paginate --slurp',
-        )
-
-        // Parse the JSON response
-        const response = JSON.parse(stdout)
-
-        // Define types for the artifact structure
-        type Artifact = {
-            id: number
-            name: string
-            archive_download_url: string
-            created_at: string
-            expired: boolean
-            size_in_bytes: number
-        }
-
-        type ArtifactsResponse = {
-            total_count: number
-            artifacts: Artifact[]
-        }
-
-        const typedResponse = response as ArtifactsResponse[]
-
-        // Map artifact names to OS types
-        const artifactNameToOs: Record<string, Os> = {
-            'unsigned-dmg': 'mac',
-            'windows-portable': 'win64',
-            'linux-portable': 'linux',
-        }
-
-        // Initialize result object
-        const result: Record<Os, string> = {
-            mac: '',
-            win64: '',
-            linux: '',
-        }
-
-        for (let page of typedResponse) {
-            // Find the first valid artifact for each OS
-            for (const artifact of page.artifacts) {
-                const artifactName = artifact.name
-                const artifactDate = new Date(artifact.created_at)
-
-                // Skip artifacts created after the beforeDate if specified
-                if (beforeDate && artifactDate > beforeDate) {
-                    continue
-                }
-
-                if (artifactName in artifactNameToOs && !artifact.expired) {
-                    const os = artifactNameToOs[artifactName]
-
-                    // Only set the URL if we haven't found one for this OS yet
-                    if (!result[os]) {
-                        result[os] = artifact.archive_download_url
-
-                        // Log information about the selected artifact
-                        const createdDate = artifactDate.toLocaleString()
-                        const sizeMB = (
-                            artifact.size_in_bytes /
-                            (1024 * 1024)
-                        ).toFixed(2)
-                        console.log(
-                            `Selected ${artifactName} for ${os} (${sizeMB} MB) created on ${createdDate}`,
-                        )
-                    }
-                }
-
-                // Check if we have found one for each OS
-                if (Object.values(result).every((url) => url !== '')) {
-                    break
-                }
-            }
-        }
-
-        return result
-    } catch (error) {
-        console.error('Error fetching GitHub artifacts:', error)
-        return {
-            mac: '',
-            win64: '',
-            linux: '',
-        }
-    }
-}
-
 
 main().catch((error) => {
     console.error('Error:', error)
