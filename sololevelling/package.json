@@ -18,9 +18,9 @@
     "keywords": [],
     "author": "Tommaso De Rossi, morse <beats.by.morse@gmail.com>",
     "license": "",
-    "devDependencies": {},
     "dependencies": {
-        "meltica": "workspace:*"
-    },
-    "peerDependencies": {}
+        "async-sema": "^3.1.1",
+        "meltica": "workspace:*",
+        "node-poppler": "^7.2.4"
+    }
 }

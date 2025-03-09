@@ -270,7 +270,8 @@ function renderRectKeyframe({ time, top, left, width, height }) {
     // format is keyframes delimited by semicolons, with keyframes in format {start}={left} {top} {width} {height} 1
     return `${formatSecondsToTime(time)}=${left} ${top} ${width} ${height} 1`
 }
-export function PanningAnimation({}) {
+
+export function PanningAnimation({ maxPixelsPerSecond = 100 }) {
     const { producer, in: inTime, out: outTime } = useAssetContext()
 
     const { height: videoHeight, width: videoWidth } =
@@ -286,6 +287,12 @@ export function PanningAnimation({}) {
         throw new Error('Media width and height must be defined')
     }
 
+    if (outTime == null) {
+        throw new Error(`panning effect requires attribute out on asset ${id}`)
+    }
+    // Calculate duration in seconds
+    const durationInSeconds = parseTimeToSeconds(outTime)
+
     // This effect creates a dynamic pan and zoom effect across images
     // Uses negative positioning to allow movement from outside the frame
     // Zooms in slightly and pans across the image for a more dramatic effect
@@ -298,10 +305,28 @@ export function PanningAnimation({}) {
 
     // Calculate random starting and ending positions
     // Using negative values allows the image to move from outside the frame
-    const startLeft = -scaledWidth * 0.2 // Start with image partially off-screen
-    const startTop = -scaledHeight * 0.1
-    const endLeft = -(scaledWidth - videoWidth) // Pan to show other side
-    const endTop = -(scaledHeight - videoHeight)
+    let startLeft = -scaledWidth * 0.2 // Start with image partially off-screen
+    let startTop = -scaledHeight * 0.1
+    let endLeft = -(scaledWidth - videoWidth) // Pan to show other side
+    let endTop = -(scaledHeight - videoHeight)
+
+    // Calculate total pixel movement
+    const totalHorizontalMovement = Math.abs(endLeft - startLeft)
+    const totalVerticalMovement = Math.abs(endTop - startTop)
+    const totalMovement = Math.sqrt(
+        Math.pow(totalHorizontalMovement, 2) + Math.pow(totalVerticalMovement, 2)
+    )
+
+    // Calculate current pixels per second
+    const currentPixelsPerSecond = totalMovement / durationInSeconds
+
+    // If movement is too fast, scale it down
+    if (currentPixelsPerSecond > maxPixelsPerSecond) {
+        const scale = maxPixelsPerSecond / currentPixelsPerSecond
+        // Scale the movement while keeping the direction
+        endLeft = startLeft + (endLeft - startLeft) * scale
+        endTop = startTop + (endTop - startTop) * scale
+    }
 
     const start = renderRectKeyframe({
         time: 0,

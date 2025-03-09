@@ -1,4 +1,6 @@
 import { CartesiaClient } from '@cartesia/cartesia-js'
+import { AudioContext } from 'node-web-audio-api'
+import crypto from 'node:crypto'
 import process from 'node:process'
 import fs from 'node:fs'
 import { createCache } from 'meltica/src/cache'
@@ -32,7 +34,7 @@ type Props = {
     speed?: number
 }
 
-const generateSpeechToFile = ttsCache.wrap(
+export const generateSpeechToFile = ttsCache.wrap(
     'generateSpeechToFile',
     async function generateSpeechToFile({
         text,
@@ -51,8 +53,10 @@ const generateSpeechToFile = ttsCache.wrap(
                     speed,
                     emotion: [],
                 },
+
                 id: 'bbf93c49-e188-4eb9-b731-c31ebb049399',
             },
+            
             language: language,
             outputFormat: {
                 container: container,
@@ -66,12 +70,22 @@ const generateSpeechToFile = ttsCache.wrap(
         if (!fs.existsSync(melticaFolder)) {
             fs.mkdirSync(melticaFolder, { recursive: true })
         }
-
+        // Create a hash of the text for caching purposes
+        const textHash = crypto.createHash('md5').update(text).digest('hex')
+        // Create an AudioContext and decode the audio data to get duration
+        const audioContext = new AudioContext()
+        const buffer = Buffer.from(response)
+        const audioBuffer = await audioContext.decodeAudioData(buffer.buffer)
+        const durationInSeconds = audioBuffer.duration
+        audioContext.close()
         // Save the file
-        const filePath = path.join(melticaFolder, `speech-${id}.${container}`)
-        await fs.promises.writeFile(filePath, Buffer.from(response))
+        const filePath = path.join(
+            melticaFolder,
+            `speech-${id}-${textHash}.${container}`,
+        )
+        await fs.promises.writeFile(filePath, buffer)
         console.timeEnd(`Generate speech for ${id}`)
-        return { filePath }
+        return { filePath, durationInSeconds }
     },
 )
 

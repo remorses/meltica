@@ -4,8 +4,10 @@
         "types": ["meltica/src/types"],
         "jsx": "react-jsx",
         "jsxImportSource": "meltica/src",
-        "rootDir": "src",
-        "outDir": "dist"
+        "outDir": "dist",
+        "paths": {
+            "@/*": ["./src/*"]
+        }
     },
-    "include": ["src"]
+    "include": ["src", "scripts"]
 }
