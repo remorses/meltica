@@ -237,3 +237,8 @@ negative numbers work as frames since the end of the clip
 but negative timestamps in format 00:00:00.000 do not work.
 
 
+
+## building melt.c with zig
+
+- the output always needs to be passed a -consumer prop for some reason, it no longer guess the default consumer to be sdl2 for some reason, basically this does not work: `consumer = create_consumer(profile, NULL);` it returns a null pointer. one cool thing is that building with zig tells me if i access a null pointer and tells me the line.
+- 
