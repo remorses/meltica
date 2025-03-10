@@ -27,13 +27,16 @@ export async function getSmartCropBoundingBoxes(
 
     // Prompt for Gemini
     const prompt = dedent`
-    draw bounding boxes for the main elements of this image, each bounding box will create a different scene in a video, with a different crop and zoom, contain all the visual elements inside the bounding box, if there is only one main subject in the image and it can fit completely in the video 16:9 aspect ratio, just draw a bounding box that cover the full image
+    - return bounding boxes for the main subject areas of this image, each bounding box will be used to create a different scene in a slideshow video, with a different crop and zoom
+    - text should not be considered a subject, only return bounding box for content in the image, not written text or annotations
+    - ignore text annotations
 
-    Return bounding boxes as JSON arrays [ymin, xmin, ymax, xmax]
-
-    the bounding box should have a horizontal video aspect ratio
-  `
+    `
     const { width, height } = imageSize(imageBuffer)
+    if (!width || !height) {
+        throw new Error('Image size is not defined')
+    }
+    console.log(`image size to crop: ${width}x${height}`)
     const fileTypeResult = await fileTypeFromBuffer(imageBuffer)
     const mimeType = fileTypeResult?.mime || 'image/jpeg'
 
@@ -41,16 +44,22 @@ export async function getSmartCropBoundingBoxes(
         // Send the request to Gemini
         const result = await generateObject({
             model,
-            schema: z.array(z.array(z.number()).length(4)),
+            system: `Return bounding boxes as JSON [ymin, xmin, ymax, xmax] in a coordinate system that is 1000x1000 pixels`,
+            schema: z.array(
+                z.object({
+                    box_2d: z.array(z.number()).length(4),
+                    label: z.string(),
+                }),
+            ),
             messages: [
                 {
                     role: 'user',
                     content: [
-                        { type: 'text', text: prompt },
                         {
                             type: 'image',
                             image: `data:${mimeType};base64,${base64Image}`,
                         },
+                        { type: 'text', text: prompt },
                     ],
                 },
             ],
@@ -61,7 +70,8 @@ export async function getSmartCropBoundingBoxes(
 
         // Convert the raw arrays to BoundingBox objects
         const boundingBoxes: BoundingBox[] = boundingBoxesRaw.map(
-            (box: number[]) => {
+            ({ box_2d: box, label }) => {
+                console.log({ box, label })
                 const ymin = box[0]
                 const xmin = box[1]
                 const ymax = box[2]
