@@ -267,8 +267,8 @@ function useAssetSize() {
 }
 
 function renderRectKeyframe({ time, top, left, width, height }) {
-    // format is keyframes delimited by semicolons, with keyframes in format {start}={left} {top} {width} {height} 1
-    return `${formatSecondsToTime(time)}=${left} ${top} ${width} ${height} 1`
+    const keyframeValue = `${left} ${top} ${width} ${height} 1`
+    return `${formatSecondsToTime(time)}=${keyframeValue}`
 }
 
 export function PanningAnimation({ maxPixelsPerSecond = 100 }) {
