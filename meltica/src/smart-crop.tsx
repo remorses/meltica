@@ -16,9 +16,20 @@ export interface BoundingBox {
 import { imageSize } from 'image-size'
 import { fileTypeFromBuffer } from 'file-type'
 
+
+
+
+
+
+
+
+
+
+
+
 export async function getSmartCropBoundingBoxes(imageBuffer: Buffer) {
     // Initialize the Gemini model
-    const model = google('gemini-2.0-flash-lite-preview-02-05')
+    const model = google('gemini-2.0-flash-exp')
 
     // Convert buffer to base64 for the API
     const base64Image = imageBuffer.toString('base64')
@@ -41,13 +52,13 @@ export async function getSmartCropBoundingBoxes(imageBuffer: Buffer) {
                     label: z
                         .string()
                         .describe(
-                            'descriptive label for the content inside the bounding box. do not use generic labels like "person", "dog", "cat", etc. use more specific labels like "scene" or "subject". always return this field first.',
+                            'descriptive label for the content inside the bounding box. do not use generic labels like "person", "scene" or "subject". always return this field first.',
                         ),
                     box_2d: z
                         .array(z.number())
                         .length(4)
                         .describe(
-                            `[ymin, xmin, ymax, xmax] in a coordinate system that is 1000x1000 pixels. bounding boxes must never intersect`,
+                            `[ymin, xmin, ymax, xmax] in a coordinate system that is 1000x1000 pixels`,
                         ),
                 }),
             ),
@@ -57,11 +68,11 @@ export async function getSmartCropBoundingBoxes(imageBuffer: Buffer) {
                 {
                     role: 'system',
                     content: dedent`
-                    - return bounding boxes for the main subjects of this image
+                    - return bounding boxes for the main characters of this image
                     - each bounding box will be used to create a different zoomed scene in a video, with a different crop size and zoom
                     - ignore text annotations and text bubbles
                     - ignore comics text bubbles
-                    - ignore speech bubbles
+                    - ignore speech bubbles and text boxes
                     - ignore text annotations and text information
                     - bounding boxes must not intersect. each bounding box should cover different parts of the image. 2 bounding boxes must never overlap 
                     - one bounding box must not be inside another bounding box. 

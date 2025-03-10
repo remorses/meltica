@@ -18,7 +18,8 @@ describe(
         test('should upload audio file to MiniMax API', async () => {
             // Replace these with actual values when running the test
 
-            const filePath = 'minecraft.mp3'
+            let  filePath = 'minecraft.mp3'
+            // filePath = '/Volumes/1tb sabrent/downloaded youtube videos/Blod Besvimelse - Misanthrop (Remastered) [0iAL29pwpcY].mp3'
 
             const result = await uploadAudioToMiniMax({
                 apiKey,
@@ -45,6 +46,7 @@ describe(
             let referInstrumental = 'instrumental-2025030600113825-eXqF5sp7'
             referInstrumental = 'instrumental-2025030600231125-kQXl8vPv'
             referInstrumental = 'instrumental-2025030600413225-XYwZZxwE'
+            referInstrumental = 'instrumental-2025031103263025-DP0kpnV7'
 
             const lyrics = ``
 
@@ -62,7 +64,7 @@ describe(
                 // },
             })
 
-            const p = 'generated-music-4.mp3'
+            const p = 'generated-music-5.mp3'
             fs.writeFileSync(p, audioBuffer)
 
             console.log('Generated music data:', p)
