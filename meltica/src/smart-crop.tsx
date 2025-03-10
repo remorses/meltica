@@ -16,22 +16,13 @@ export interface BoundingBox {
 import { imageSize } from 'image-size'
 import { fileTypeFromBuffer } from 'file-type'
 
-export async function getSmartCropBoundingBoxes(
-    imageBuffer: Buffer,
-): Promise<BoundingBox[]> {
+export async function getSmartCropBoundingBoxes(imageBuffer: Buffer) {
     // Initialize the Gemini model
-    const model = google('gemini-2.0-flash-001')
+    const model = google('gemini-2.0-flash-lite-preview-02-05')
 
     // Convert buffer to base64 for the API
     const base64Image = imageBuffer.toString('base64')
 
-    // Prompt for Gemini
-    const prompt = dedent`
-    - return bounding boxes for the main subject areas of this image, each bounding box will be used to create a different scene in a slideshow video, with a different crop and zoom
-    - text should not be considered a subject, only return bounding box for content in the image, not written text or annotations
-    - ignore text annotations
-
-    `
     const { width, height } = imageSize(imageBuffer)
     if (!width || !height) {
         throw new Error('Image size is not defined')
@@ -44,14 +35,42 @@ export async function getSmartCropBoundingBoxes(
         // Send the request to Gemini
         const result = await generateObject({
             model,
-            system: `Return bounding boxes as JSON [ymin, xmin, ymax, xmax] in a coordinate system that is 1000x1000 pixels`,
+            // mode: 'tool',
             schema: z.array(
                 z.object({
-                    box_2d: z.array(z.number()).length(4),
-                    label: z.string(),
+                    label: z
+                        .string()
+                        .describe(
+                            'descriptive label for the content inside the bounding box. do not use generic labels like "person", "dog", "cat", etc. use more specific labels like "scene" or "subject". always return this field first.',
+                        ),
+                    box_2d: z
+                        .array(z.number())
+                        .length(4)
+                        .describe(
+                            `[ymin, xmin, ymax, xmax] in a coordinate system that is 1000x1000 pixels. bounding boxes must never intersect`,
+                        ),
                 }),
             ),
+            maxRetries: 0,
+
             messages: [
+                {
+                    role: 'system',
+                    content: dedent`
+                    - return bounding boxes for the main subjects of this image
+                    - each bounding box will be used to create a different zoomed scene in a video, with a different crop size and zoom
+                    - ignore text annotations and text bubbles
+                    - ignore comics text bubbles
+                    - ignore speech bubbles
+                    - ignore text annotations and text information
+                    - bounding boxes must not intersect. each bounding box should cover different parts of the image. 2 bounding boxes must never overlap 
+                    - one bounding box must not be inside another bounding box. 
+                    - vertices of bounding boxes must not be outside the image.
+                    - ignore content that is cut from the image and you only see a small slice of it
+                    
+                    
+                    `,
+                },
                 {
                     role: 'user',
                     content: [
@@ -59,7 +78,7 @@ export async function getSmartCropBoundingBoxes(
                             type: 'image',
                             image: `data:${mimeType};base64,${base64Image}`,
                         },
-                        { type: 'text', text: prompt },
+                        // { type: 'text', text: prompt },
                     ],
                 },
             ],
@@ -69,15 +88,16 @@ export async function getSmartCropBoundingBoxes(
         const boundingBoxesRaw = result.object
 
         // Convert the raw arrays to BoundingBox objects
-        const boundingBoxes: BoundingBox[] = boundingBoxesRaw.map(
-            ({ box_2d: box, label }) => {
-                console.log({ box, label })
-                const ymin = box[0]
-                const xmin = box[1]
-                const ymax = box[2]
-                const xmax = box[3]
+        const boundingBoxes = boundingBoxesRaw.map(({ box_2d: box, label }) => {
+            console.log({ box, label })
+            const ymin = box[0]
+            const xmin = box[1]
+            const ymax = box[2]
+            const xmax = box[3]
 
-                return boundingBoxToPixelCoordinates(
+            return {
+                label,
+                box: boundingBoxToPixelCoordinates(
                     {
                         ymin: ymin,
                         xmin: xmin,
@@ -86,9 +106,9 @@ export async function getSmartCropBoundingBoxes(
                     },
                     width!,
                     height!,
-                )
-            },
-        )
+                ),
+            }
+        })
 
         return boundingBoxes
     } catch (error) {

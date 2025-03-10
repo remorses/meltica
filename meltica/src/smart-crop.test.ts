@@ -73,7 +73,7 @@ describe(
                     ctx.drawImage(image, 0, 0, image.width, image.height)
 
                     // Draw each bounding box
-                    boundingBoxes.forEach((box: BoundingBox, index: number) => {
+                    boundingBoxes.forEach(({ box, label }, index: number) => {
                         // Verify box properties
                         expect(box).toHaveProperty('ymin')
                         expect(box).toHaveProperty('xmin')
@@ -122,7 +122,7 @@ describe(
                         ctx.fillStyle = color
                         ctx.font = 'bold 16px Arial'
                         ctx.fillText(
-                            `Box ${index + 1}`,
+                            label || 'Box ' + index,
                             box.xmin + 5,
                             box.ymin + 20,
                         )
