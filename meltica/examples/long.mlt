@@ -88,22 +88,8 @@
     <property name="shotcut:projectFolder">0</property>
     <property name="shotcut:skipConvert">0</property>
     <property name="shotcut:scaleFactor">1.91662</property>
-    <track producer="background"/>
+    
     <track producer="playlist0"/>
-    <transition id="transition0">
-      <property name="a_track">0</property>
-      <property name="b_track">1</property>
-      <property name="mlt_service">mix</property>
-      <property name="always_active">1</property>
-      <property name="sum">1</property>
-    </transition>
-    <transition id="transition1">
-      <property name="a_track">0</property>
-      <property name="b_track">1</property>
-      <property name="version">0.1</property>
-      <property name="mlt_service">frei0r.cairoblend</property>
-      <property name="threads">0</property>
-      <property name="disable">1</property>
-    </transition>
+    
   </tractor>
 </mlt>
