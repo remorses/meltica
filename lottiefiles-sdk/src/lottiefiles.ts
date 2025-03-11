@@ -148,4 +148,72 @@ async function writeAnimationsToFile(
     }
 }
 
+/**
+ * Deduplicates animations in the JSON file based on their IDs.
+ * @param filePath - Path to the JSON file containing animations
+ * @returns Promise that resolves with the number of duplicates removed
+ */
+export async function deduplicateAnimations(
+    filePath: string = 'lottiefiles-animations.json',
+): Promise<number> {
+    try {
+        console.log(`Deduplicating animations in ${filePath}...`)
+        
+        // Check if file exists
+        if (!fs.existsSync(filePath)) {
+            console.error(`File not found: ${filePath}`)
+            return 0
+        }
+        
+        // Read and parse the file
+        const fileContent = await fs.promises.readFile(filePath, 'utf8')
+        const data = JSON.parse(fileContent)
+        
+        if (!data.animations || !Array.isArray(data.animations)) {
+            console.error('Invalid file format: animations array not found')
+            return 0
+        }
+        
+        const originalCount = data.animations.length
+        console.log(`Original animation count: ${originalCount}`)
+        
+        // Create a Map to track unique animations by ID
+        const uniqueAnimations = new Map()
+        
+        // Keep only the first occurrence of each animation ID
+        data.animations.forEach((animation: any) => {
+            if (animation.id && !uniqueAnimations.has(animation.id)) {
+                uniqueAnimations.set(animation.id, animation)
+            }
+        })
+        
+        // Convert back to array
+        const dedupedAnimations = Array.from(uniqueAnimations.values())
+        const newCount = dedupedAnimations.length
+        const duplicatesRemoved = originalCount - newCount
+        
+        // Update the data object
+        data.animations = dedupedAnimations
+        data.metadata.totalCount = newCount
+        data.metadata.lastUpdated = new Date().toISOString()
+        data.metadata.deduplicationPerformed = true
+        
+        // Write the deduplicated data back to the file
+        await fs.promises.writeFile(
+            filePath,
+            JSON.stringify(data, null, 2),
+            'utf8'
+        )
+        
+        console.log(`Deduplication complete!`)
+        console.log(`Removed ${duplicatesRemoved} duplicates`)
+        console.log(`New animation count: ${newCount}`)
+        
+        return duplicatesRemoved
+    } catch (error) {
+        console.error('Error deduplicating animations:', error)
+        throw error
+    }
+}
+
 
