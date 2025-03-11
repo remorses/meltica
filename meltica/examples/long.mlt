@@ -1,95 +1,34 @@
-<?xml version="1.0" standalone="no"?>
-<mlt LC_NUMERIC="C" version="7.30.0" title="Shotcut version 25.01.25" producer="main_bin">
-  <profile description="automatic" width="1920" height="1080" progressive="1" sample_aspect_num="1" sample_aspect_den="1" display_aspect_num="16" display_aspect_den="9" frame_rate_num="30000" frame_rate_den="1001" colorspace="709"/>
-  <playlist id="main_bin">
-    <property name="xml_retain">1</property>
-  </playlist>
-  <producer id="black" in="00:00:00.000" out="00:00:08.475">
-    <property name="length">00:00:08.508</property>
-    <property name="eof">pause</property>
-    <property name="resource">0</property>
-    <property name="aspect_ratio">1</property>
-    <property name="mlt_service">color</property>
-    <property name="mlt_image_format">rgba</property>
-    <property name="set.test_audio">0</property>
+<?xml version="1.0" encoding="utf-8"?>
+<mlt>
+  <producer id="video">
+    <property name="resource">/Users/morse/Documents/meltica/meltica/examples/lottie.mp4</property>
   </producer>
-  <playlist id="background">
-    <entry producer="black" in="00:00:00.000" out="00:00:08.475"/>
-  </playlist>
-  <chain id="chain0" out="00:21:34.268">
-    <property name="length">00:21:34.301</property>
-    <property name="eof">pause</property>
-    <property name="resource">/Volumes/1tb sabrent/downloaded youtube videos/Indestructible Money Printer Is Breaking, More Shorts in 2025 ｜ Mastercard Stock ｜ Martin Shkreli [oUTjAir3mkc].mp4</property>
-    <property name="mlt_service">avformat-novalidate</property>
-    <property name="meta.media.nb_streams">2</property>
-    <property name="meta.media.0.stream.type">video</property>
-    <property name="meta.media.0.stream.frame_rate">29.97</property>
-    <property name="meta.media.0.stream.sample_aspect_ratio">1</property>
-    <property name="meta.media.0.codec.width">1920</property>
-    <property name="meta.media.0.codec.height">1080</property>
-    <property name="meta.media.0.codec.rotate">0</property>
-    <property name="meta.media.0.codec.pix_fmt">yuv420p</property>
-    <property name="meta.media.0.codec.sample_aspect_ratio">1</property>
-    <property name="meta.media.0.codec.colorspace">709</property>
-    <property name="meta.media.0.codec.color_trc">1</property>
-    <property name="meta.media.0.codec.name">h264</property>
-    <property name="meta.media.0.codec.long_name">H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10</property>
-    <property name="meta.media.0.codec.bit_rate">1021285</property>
-    <property name="meta.attr.0.stream.handler_name.markup">VideoHandler</property>
-    <property name="meta.attr.0.stream.vendor_id.markup">[0][0][0][0]</property>
-    <property name="meta.attr.0.stream.encoder.markup">Lavc61.19.101 libx264</property>
-    <property name="meta.media.1.stream.type">audio</property>
-    <property name="meta.media.1.codec.sample_fmt">fltp</property>
-    <property name="meta.media.1.codec.sample_rate">48000</property>
-    <property name="meta.media.1.codec.channels">2</property>
-    <property name="meta.media.1.codec.layout">stereo</property>
-    <property name="meta.media.1.codec.name">aac</property>
-    <property name="meta.media.1.codec.long_name">AAC (Advanced Audio Coding)</property>
-    <property name="meta.media.1.codec.bit_rate">127122</property>
-    <property name="meta.attr.1.stream.language.markup">eng</property>
-    <property name="meta.attr.1.stream.handler_name.markup">SoundHandler</property>
-    <property name="meta.attr.1.stream.vendor_id.markup">[0][0][0][0]</property>
-    <property name="meta.attr.major_brand.markup">isom</property>
-    <property name="meta.attr.minor_version.markup">512</property>
-    <property name="meta.attr.compatible_brands.markup">isomiso2avc1mp41</property>
-    <property name="meta.attr.encoder.markup">Lavf61.7.100</property>
-    <property name="seekable">1</property>
-    <property name="meta.media.sample_aspect_num">1</property>
-    <property name="meta.media.sample_aspect_den">1</property>
-    <property name="audio_index">1</property>
-    <property name="video_index">0</property>
-    <property name="creation_time">2025-03-09T16:19:09</property>
-    <property name="vstream">0</property>
-    <property name="meta.media.frame_rate_num">30000</property>
-    <property name="meta.media.frame_rate_den">1001</property>
-    <property name="meta.media.colorspace">709</property>
-    <property name="meta.media.color_trc">1</property>
-    <property name="meta.media.has_b_frames">2</property>
-    <property name="meta.media.width">1920</property>
-    <property name="meta.media.height">1080</property>
-    <property name="meta.media.aspect_ratio">1</property>
-    <property name="meta.media.color_range">mpeg</property>
-    <property name="astream">0</property>
-    <property name="shotcut:skipConvert">1</property>
-    <property name="shotcut:hash">e60dcb28e542a94beb25c852958ffcb5</property>
-    <property name="meta.media.top_field_first">0</property>
-    <property name="meta.media.progressive">1</property>
-    <property name="shotcut:caption">Indestructible Money Printer Is Breaking, More Shorts in 2025 ｜ Mastercard Stock ｜ Martin Shkreli [oUTjAir3mkc].mp4</property>
-    <property name="xml">was here</property>
-  </chain>
-  <playlist id="playlist0">
-    <property name="shotcut:video">1</property>
-    <property name="shotcut:name">V1</property>
-    <entry producer="chain0" in="00:00:00.000" out="00:00:08.475"/>
-  </playlist>
-  <tractor id="tractor0" title="Shotcut version 25.01.25" in="00:00:00.000" out="00:00:08.475">
-    <property name="shotcut">1</property>
+  <producer id="title">
+    <property name="mlt_service">pango</property>
+    <property name="resource">+.txt</property>
+    <property name="family">GJ-TTAvantika</property>
+    <property name="size">36</property>
+    <property name="align">1</property>
+    <property name="fgcolour">0xffffddff</property>
+    <property name="bgcolour">0x8c101080</property>
+    <property name="pad">8</property>
+    <property name="text">hello everyone</property>
+  </producer>
+  <tractor>
+     <property name="shotcut">1</property>
     <property name="shotcut:projectAudioChannels">2</property>
     <property name="shotcut:projectFolder">0</property>
+    <property name="shotcut:trackHeight">50</property>
     <property name="shotcut:skipConvert">0</property>
-    <property name="shotcut:scaleFactor">1.91662</property>
+    <track producer="title"/>
+    <track producer="video"/>
     
-    <track producer="playlist0"/>
-    
+    <transition in="0" >
+      <property name="mlt_service">composite</property>
+      <property name="a_track">1</property>
+      <property name="b_track">0</property>
+      <property name="halign">centre</property>
+      <property name="valign">centre</property>
+    </transition>
   </tractor>
 </mlt>

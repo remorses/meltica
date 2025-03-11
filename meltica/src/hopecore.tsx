@@ -14,8 +14,10 @@ import {
 } from 'meltica/src/components'
 import { transcribeAudioFileCached } from 'meltica/src/transcript'
 import { TypewriterEffect } from 'meltica/src/components/TypewriterEffect'
+import { extractAudioFromVideo } from 'meltica/src/ffmpeg'
 
 export async function HopeCoreVideo({ videoPath }) {
+    const audioPath = await extractAudioFromVideo(videoPath)
     const transcription = await transcribeAudioFileCached({
         filePath: videoPath,
     })
@@ -42,9 +44,8 @@ export async function HopeCoreVideo({ videoPath }) {
                 </Asset>
             </Track>
 
-            <Track id={'titles'}>
-                <TypewriterEffect words={transcription.words} />
-            </Track>
+            <TypewriterEffect words={transcription.words} />
+
             <Track id={'audio1'}>
                 <BlankSpace id={'blank'} duration={1} />
                 <Asset
