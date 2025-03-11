@@ -2,7 +2,7 @@
     "name": "root",
     "private": true,
     "scripts": {
-        "test": "NODE_ENV=test vitest",
+        "test": "doppler run -- pnpm vitest ",
         "watch": "pnpm -r watch",
         "build": "pnpm -r build",
         "release": "pnpm build && changeset"

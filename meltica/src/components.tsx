@@ -57,7 +57,7 @@ const memoCache = createCache({
 })
 
 const saveSvgToPng = memoCache.wrap(
-    'svg-to-png',
+    { key: 'svg-to-png' },
     async ({ svgContent, width, id, filepath }) => {
         console.time(`${id} svg render`)
         // Render the SVG content

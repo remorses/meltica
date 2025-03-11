@@ -515,6 +515,10 @@ export function attributesToObject(
 
 export const melticaFolder = '.meltica'
 
+if (!fs.existsSync(melticaFolder)) {
+    fs.mkdirSync(melticaFolder)
+}
+
 function extractPropertiesFromNodes(nodes: ChildNode[]): Properties {
     const properties: Record<string, string> = {}
 

@@ -220,7 +220,9 @@ describe('memo', () => {
             cacheId: 'transcription',
         })
         const transcribeAudio = cache.wrap(
-            'transcription',
+            {
+                key: 'transcription',
+            },
             async function transcribeAudio({ audioPath }) {
                 const audioUrl = await createDataUrlFromPath(audioPath)
 
@@ -237,7 +239,7 @@ describe('memo', () => {
                 return { words: chunks }
             },
         )
-        
+
         function Video({}) {
             return (
                 <Composition

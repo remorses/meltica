@@ -4,6 +4,7 @@ import mime from 'mime-types'
 import fs from 'fs'
 import path from 'path'
 import { execSync, spawn } from 'child_process'
+import { fileTypeFromBuffer } from 'file-type'
 
 /**
  * Utility function that creates a promise that resolves after the specified time.
@@ -54,9 +55,9 @@ export function isXmlBuilder(value: any): boolean {
     )
 }
 
-export async function fastFileHash(filepath: string): Promise<string> {
+export function fastFileHash(filepath: string): string {
     try {
-        const stats = await fs.promises.stat(filepath)
+        const stats = fs.statSync(filepath)
         const fileSizeInMB = stats.size / (1024 * 1024)
 
         // If file is larger than 5MB, just use the file size as a simple hash
@@ -65,7 +66,7 @@ export async function fastFileHash(filepath: string): Promise<string> {
         }
 
         // For smaller files, compute MD5 hash of the content
-        const fileContent = await fs.promises.readFile(filepath)
+        const fileContent = fs.readFileSync(filepath)
         return crypto.createHash('md5').update(fileContent).digest('hex')
     } catch (error) {
         console.error(`Error hashing file ${filepath}:`, error)
@@ -75,21 +76,38 @@ export async function fastFileHash(filepath: string): Promise<string> {
 }
 
 /**
- * Creates a data URL for an audio file.
+ * Creates a data URL from a file path.
  *
- * @param filePath - The path to the audio file
- * @returns A Promise that resolves to a data URL string that can be used as an audio source
+ * @param filePath - The path to the file
+ * @returns A Promise that resolves to a data URL string
  */
 export async function createDataUrlFromPath(filePath: string): Promise<string> {
     // Read the file
     const buffer = await fs.promises.readFile(filePath)
-
+    
     // Determine MIME type from file extension using mime-types package
-    const mimeType = mime.lookup(filePath) || 'audio/mp3'
+    const mimeType = mime.lookup(filePath) || 'application/octet-stream'
+    
+    return createDataUrlFromBuffer(buffer, mimeType)
+}
 
+/**
+ * Creates a data URL from a buffer.
+ *
+ * @param buffer - The buffer containing file data
+ * @param mimeType - The MIME type of the data (optional)
+ * @returns A Promise that resolves to a data URL string
+ */
+export async function createDataUrlFromBuffer(buffer: Buffer, mimeType?: string): Promise<string> {
+    // If mimeType is not provided, try to detect it from the buffer
+    if (!mimeType) {
+        const fileType = await fileTypeFromBuffer(buffer);
+        mimeType = fileType?.mime || 'application/octet-stream';
+    }
+    
     // Convert buffer to base64
     const base64Data = buffer.toString('base64')
-
+    
     // Create and return the data URL
     return `data:${mimeType};base64,${base64Data}`
 }

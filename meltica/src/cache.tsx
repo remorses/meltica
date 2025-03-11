@@ -1,4 +1,11 @@
 import { FlatCache } from 'flat-cache'
+import { fastFileHash } from './utils'
+import fs from 'fs'
+
+export interface WrapOptions {
+    key: string
+    replacer?: (key: string, value: any) => string
+}
 
 export function createCache({
     cacheId,
@@ -14,12 +21,21 @@ export function createCache({
     })
     cache.on('error', (e) => console.error(`error loading cache`, e))
     cache.load()
+
     // Wrap a function with caching functionality
-    const wrap = <T extends Function>(key: string, fn: T): T => {
+    const wrap = <T extends Function>(options: WrapOptions, fn: T): T => {
+        // Handle string case for backward compatibility
+        const key = options.key
+        const replacer = options.replacer
+
         return ((...args) => {
             // Create a unique cache key based on the function arguments
-            const argsKey = JSON.stringify(args)
-            const cacheKey = `${key}:${argsKey}`
+            const argsKey = JSON.stringify(args, replacer)
+
+            // Include function implementation hash in the key for better cache invalidation
+            // when the function implementation changes
+            const fnHash = fn.toString()
+            const cacheKey = `${key}:${argsKey}:${fnHash}`
 
             // Check if result is already in cache
             const cachedResult = cache.getKey(cacheKey) as any

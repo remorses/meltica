@@ -35,7 +35,7 @@ type Props = {
 }
 
 export const generateSpeechToFile = ttsCache.wrap(
-    'generateSpeechToFile',
+    { key: 'generateSpeechToFile' },
     async function generateSpeechToFile({
         text,
         speed = 0,

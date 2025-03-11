@@ -15,19 +15,37 @@ export interface BoundingBox {
 }
 import { imageSize } from 'image-size'
 import { fileTypeFromBuffer } from 'file-type'
+import fs from 'fs'
+import { createCache } from './cache'
+import { fastFileHash } from 'meltica/src/utils'
 
+const smartCropCache = createCache({
+    cacheId: 'smart-crop',
+    ttl: 1000 * 60 * 60 * 24 * 7, // 7 days
+})
 
+export const getSmartCropFromFileCached = smartCropCache.wrap(
+    {
+        key: 'getSmartCropFromFile',
+        replacer(key, value) {
+            if (key === 'filePath' && value) {
+                return fastFileHash(value)
+            }
+            return value
+        },
+    },
+    async ({ filePath }) => {
+        const imageBuffer = fs.readFileSync(filePath)
+        
+        const boundingBoxes = await getSmartCropBoundingBoxes(imageBuffer)
 
-
-
-
-
-
-
-
-
+        return boundingBoxes
+    },
+)
 
 export async function getSmartCropBoundingBoxes(imageBuffer: Buffer) {
+    const timeId = Math.random().toString(36).substring(2, 8)
+    console.time(`getSmartCropBoundingBoxes ${timeId}`)
     // Initialize the Gemini model
     const model = google('gemini-2.0-flash-exp')
 
@@ -120,6 +138,8 @@ export async function getSmartCropBoundingBoxes(imageBuffer: Buffer) {
     } catch (error) {
         console.error('Error analyzing image with Gemini:', error)
         throw error
+    } finally {
+        console.timeEnd(`getSmartCropBoundingBoxes ${timeId}`)
     }
 }
 
