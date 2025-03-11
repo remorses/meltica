@@ -48,13 +48,19 @@ const transcriptionCache = createCache({
     cacheId: 'transcription',
     ttl: 1000 * 60 * 60 * 24 * 30, // 30 days
 })
+
 /**
  * Uploads a buffer to fal.ai storage and returns the URL
- * @param fileBuffer - Buffer containing file data
- * @returns Promise resolving to the URL of the uploaded file
- * @throws Error if MIME type cannot be detected
  */
 export async function uploadBufferToFal(fileBuffer: Buffer): Promise<string> {
+    // Check if buffer is smaller than 500kb
+    if (fileBuffer.length < 400 * 1024) {
+        const dataUrl = await createDataUrlFromBuffer(fileBuffer)
+
+        return dataUrl
+    }
+
+    // For larger files, use fal.ai storage
     // Detect MIME type from buffer
     const mimeType = await fileTypeFromBuffer(fileBuffer)
     if (!mimeType || !mimeType.mime) {

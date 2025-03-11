@@ -9,4 +9,5 @@ node_modules
 *.mov
 *.flv
 !src/fixtures/*
+src/fixtures/.DS_Store
 .meltica
