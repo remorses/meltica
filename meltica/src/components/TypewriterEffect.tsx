@@ -5,16 +5,19 @@ interface Word {
     text: string
     timestamp: [number, number]
 }
+
 export function TypewriterEffect({
     words,
     id,
     in: inTime = 0,
     holdTime = 0,
+    fontSize = 100,
 }: {
     words: Word[]
     id: string
     in?: number
     holdTime?: number
+    fontSize?: number
 }) {
     const colors = [
         '#ff0000',
@@ -56,7 +59,7 @@ export function TypewriterEffect({
                         id={`${id}_text_${i}`}
                         html={
                             <div
-                                style="margin: 100px; font-size: 150px; font-family: 'Times New Roman', serif;"
+                                style={`margin: 100px; font-size: ${fontSize}px; font-family: 'Times New Roman', serif;`}
                                 align='center'
                             >
                                 {visibleWords.map((visibleWord, wordIndex) => (
