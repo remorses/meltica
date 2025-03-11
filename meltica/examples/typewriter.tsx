@@ -9,6 +9,7 @@ async function Video({}) {
         filePath: speechPath,
         prompt: 'super precise timestamps',
     })
+    
     return (
         <Composition
             fps={30}
@@ -18,30 +19,29 @@ async function Video({}) {
             resultFilePath={'examples/typewriter.mp4'}
         >
             <Track id={'typewriter'}>
-                {/* <TypewriterEffect
+                <TypewriterEffect
                     id='0'
                     words={words.words.map((x) => {
-                        x.text += '\n'
                         return x
                     })}
-                /> */}
+                />
                 <TypewriterEffect
                     id='1'
                     words={[
-                        { text: 'Hello ', timestamp: [0, 0] }, //
-                        { text: 'how ', timestamp: [0, 0] }, //
-                        { text: 'are ', timestamp: [0.1, 0.5] }, //
-                        { text: 'you?', timestamp: [0.5, 1] }, //
+                        { text: 'Hello ', start: 0, end: 0 }, //
+                        { text: 'how ', start: 0, end: 0 }, //
+                        { text: 'are ', start: 0.1, end: 0.5 }, //
+                        { text: 'you?', start: 0.5, end: 1 }, //
                     ]}
                 />
 
                 <TypewriterEffect
                     id='2'
                     words={[
-                        { text: 'Again ', timestamp: [0, 0] }, //
-                        { text: 'how ', timestamp: [0, 0] }, //
-                        { text: 'are ', timestamp: [0.1, 0.5] }, //
-                        { text: 'you?', timestamp: [0.5, 1] }, //
+                        { text: 'Again ', start: 0, end: 0 }, //
+                        { text: 'how ', start: 0, end: 0 }, //
+                        { text: 'are ', start: 0.1, end: 0.5 }, //
+                        { text: 'you?', start: 0.5, end: 1 }, //
                     ]}
                 />
             </Track>

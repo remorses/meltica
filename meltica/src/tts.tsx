@@ -75,7 +75,7 @@ export const generateSpeechToFile = ttsCache.wrap(
         // Create an AudioContext and decode the audio data to get duration
         const audioContext = new AudioContext()
         const buffer = Buffer.from(response)
-        const audioBuffer = await audioContext.decodeAudioData(buffer.buffer)
+        const audioBuffer = await audioContext.decodeAudioData(buffer.buffer as any)
         const durationInSeconds = audioBuffer.duration
         audioContext.close()
         // Save the file

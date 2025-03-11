@@ -11,7 +11,6 @@ import {
     CodeToTokensOptions,
 } from 'shiki'
 
-
 import { createCache } from 'meltica/src/cache'
 
 const codeCache = createCache({
@@ -19,7 +18,7 @@ const codeCache = createCache({
 })
 
 const renderCodeSnippetToSVG = codeCache.wrap(
-    'code-to-svg',
+    { key: 'code-to-svg' },
     async ({
         code,
         lang,

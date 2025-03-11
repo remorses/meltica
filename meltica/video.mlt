@@ -1,6 +1,1480 @@
 <mlt LC_NUMERIC="C" version="7.30.0" title="Shotcut version 25.01.25" producer="main_bin">
   <consumer ab="160k" acodec="aac" channels="2" crf="23" deinterlacer="onefield" f="mp4" g="15" in="0" out="00:00:08.000" mlt_service="avformat" movflags="+faststart" preset="veryfast" real_time="-1" rescale="bilinear" target="examples/typewriter.mp4" threads="0" vcodec="libx264"/>
   <profile description="PAL 4:3 DV or DVD" width="1080" height="1920" progressive="1" sample_aspect_num="1" sample_aspect_den="1" display_aspect_num="9" display_aspect_den="16" frame_rate_num="30" frame_rate_den="1" colorspace="709"/>
+  <producer id="0_text_0" in="00:00:00.000" out="03:59:59.960">
+    <property name="length">04:00:00.000</property>
+    <property name="eof">pause</property>
+    <property name="resource">#00000000</property>
+    <property name="aspect_ratio">1</property>
+    <property name="mlt_service">color</property>
+    <property name="mlt_image_format">rgba</property>
+    <property name="shotcut:caption">transparent and text</property>
+    <property name="shotcut:detail">transparent</property>
+    <property name="ignore_points">0</property>
+    <property name="seekable">1</property>
+    <property name="meta.shotcut.vui">1</property>
+    <filter id="0_text_0Filter" out="00:00:03.960">
+      <property name="argument">text</property>
+      <property name="geometry">0 200 1080 100 1</property>
+      <property name="family">Helvetica</property>
+      <property name="size">60</property>
+      <property name="weight">7000</property>
+      <property name="style">normal</property>
+      <property name="fgcolour">#fff</property>
+      <property name="bgcolour">#00000000</property>
+      <property name="olcolour">#aa000000</property>
+      <property name="pad">0</property>
+      <property name="halign">center</property>
+      <property name="valign">top</property>
+      <property name="outline">3</property>
+      <property name="pixel_ratio">1</property>
+      <property name="opacity">1</property>
+      <property name="mlt_service">qtext</property>
+      <property name="shotcut:filter">richText</property>
+      <property name="html">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta name="qrichtext" content="1" /&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;style type="text/css"&gt;
+            p,
+            li {
+                white-space: pre-wrap;
+            }
+            hr {
+                height: 1px;
+                border-width: 0;
+            }
+            li.unchecked::marker {
+                content: '\\2610';
+            }
+            li.checked::marker {
+                content: '\\2612';
+            }
+        &lt;/style&gt;
+    &lt;/head&gt;
+    &lt;body
+        style="
+            font-family: 'Inter', '.AppleSystemUIFont', sans-serif;
+            font-size: 70;
+            color: #fff;
+            font-weight: 400;
+            font-style: normal;
+        "
+    &gt;&lt;div style="margin: 100px; font-size: 100px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;span align="left" style="color: #ff0000"&gt;Today &lt;/span&gt;&lt;/div&gt;&lt;/body&gt;
+&lt;/html&gt;</property>
+      <property name="shotcut:usePointSize">1</property>
+      <property name="shotcut:pointSize">60</property>
+      <property name="overflow-y">1</property>
+    </filter>
+  </producer>
+  <producer id="0_text_1" in="00:00:00.000" out="03:59:59.960">
+    <property name="length">04:00:00.000</property>
+    <property name="eof">pause</property>
+    <property name="resource">#00000000</property>
+    <property name="aspect_ratio">1</property>
+    <property name="mlt_service">color</property>
+    <property name="mlt_image_format">rgba</property>
+    <property name="shotcut:caption">transparent and text</property>
+    <property name="shotcut:detail">transparent</property>
+    <property name="ignore_points">0</property>
+    <property name="seekable">1</property>
+    <property name="meta.shotcut.vui">1</property>
+    <filter id="0_text_1Filter" out="00:00:03.960">
+      <property name="argument">text</property>
+      <property name="geometry">0 200 1080 100 1</property>
+      <property name="family">Helvetica</property>
+      <property name="size">60</property>
+      <property name="weight">7000</property>
+      <property name="style">normal</property>
+      <property name="fgcolour">#fff</property>
+      <property name="bgcolour">#00000000</property>
+      <property name="olcolour">#aa000000</property>
+      <property name="pad">0</property>
+      <property name="halign">center</property>
+      <property name="valign">top</property>
+      <property name="outline">3</property>
+      <property name="pixel_ratio">1</property>
+      <property name="opacity">1</property>
+      <property name="mlt_service">qtext</property>
+      <property name="shotcut:filter">richText</property>
+      <property name="html">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta name="qrichtext" content="1" /&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;style type="text/css"&gt;
+            p,
+            li {
+                white-space: pre-wrap;
+            }
+            hr {
+                height: 1px;
+                border-width: 0;
+            }
+            li.unchecked::marker {
+                content: '\\2610';
+            }
+            li.checked::marker {
+                content: '\\2612';
+            }
+        &lt;/style&gt;
+    &lt;/head&gt;
+    &lt;body
+        style="
+            font-family: 'Inter', '.AppleSystemUIFont', sans-serif;
+            font-size: 70;
+            color: #fff;
+            font-weight: 400;
+            font-style: normal;
+        "
+    &gt;&lt;div style="margin: 100px; font-size: 100px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;span align="left" style="color: #ff0000"&gt;Today &lt;/span&gt;&lt;span align="right" style="color: #00ff00"&gt; is &lt;/span&gt;&lt;/div&gt;&lt;/body&gt;
+&lt;/html&gt;</property>
+      <property name="shotcut:usePointSize">1</property>
+      <property name="shotcut:pointSize">60</property>
+      <property name="overflow-y">1</property>
+    </filter>
+  </producer>
+  <producer id="0_text_2" in="00:00:00.000" out="03:59:59.960">
+    <property name="length">04:00:00.000</property>
+    <property name="eof">pause</property>
+    <property name="resource">#00000000</property>
+    <property name="aspect_ratio">1</property>
+    <property name="mlt_service">color</property>
+    <property name="mlt_image_format">rgba</property>
+    <property name="shotcut:caption">transparent and text</property>
+    <property name="shotcut:detail">transparent</property>
+    <property name="ignore_points">0</property>
+    <property name="seekable">1</property>
+    <property name="meta.shotcut.vui">1</property>
+    <filter id="0_text_2Filter" out="00:00:03.960">
+      <property name="argument">text</property>
+      <property name="geometry">0 200 1080 100 1</property>
+      <property name="family">Helvetica</property>
+      <property name="size">60</property>
+      <property name="weight">7000</property>
+      <property name="style">normal</property>
+      <property name="fgcolour">#fff</property>
+      <property name="bgcolour">#00000000</property>
+      <property name="olcolour">#aa000000</property>
+      <property name="pad">0</property>
+      <property name="halign">center</property>
+      <property name="valign">top</property>
+      <property name="outline">3</property>
+      <property name="pixel_ratio">1</property>
+      <property name="opacity">1</property>
+      <property name="mlt_service">qtext</property>
+      <property name="shotcut:filter">richText</property>
+      <property name="html">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta name="qrichtext" content="1" /&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;style type="text/css"&gt;
+            p,
+            li {
+                white-space: pre-wrap;
+            }
+            hr {
+                height: 1px;
+                border-width: 0;
+            }
+            li.unchecked::marker {
+                content: '\\2610';
+            }
+            li.checked::marker {
+                content: '\\2612';
+            }
+        &lt;/style&gt;
+    &lt;/head&gt;
+    &lt;body
+        style="
+            font-family: 'Inter', '.AppleSystemUIFont', sans-serif;
+            font-size: 70;
+            color: #fff;
+            font-weight: 400;
+            font-style: normal;
+        "
+    &gt;&lt;div style="margin: 100px; font-size: 100px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;span align="left" style="color: #ff0000"&gt;Today &lt;/span&gt;&lt;span align="right" style="color: #00ff00"&gt; is &lt;/span&gt;&lt;span align="left" style="color: #0000ff"&gt; a &lt;/span&gt;&lt;/div&gt;&lt;/body&gt;
+&lt;/html&gt;</property>
+      <property name="shotcut:usePointSize">1</property>
+      <property name="shotcut:pointSize">60</property>
+      <property name="overflow-y">1</property>
+    </filter>
+  </producer>
+  <producer id="0_text_3" in="00:00:00.000" out="03:59:59.960">
+    <property name="length">04:00:00.000</property>
+    <property name="eof">pause</property>
+    <property name="resource">#00000000</property>
+    <property name="aspect_ratio">1</property>
+    <property name="mlt_service">color</property>
+    <property name="mlt_image_format">rgba</property>
+    <property name="shotcut:caption">transparent and text</property>
+    <property name="shotcut:detail">transparent</property>
+    <property name="ignore_points">0</property>
+    <property name="seekable">1</property>
+    <property name="meta.shotcut.vui">1</property>
+    <filter id="0_text_3Filter" out="00:00:03.960">
+      <property name="argument">text</property>
+      <property name="geometry">0 200 1080 100 1</property>
+      <property name="family">Helvetica</property>
+      <property name="size">60</property>
+      <property name="weight">7000</property>
+      <property name="style">normal</property>
+      <property name="fgcolour">#fff</property>
+      <property name="bgcolour">#00000000</property>
+      <property name="olcolour">#aa000000</property>
+      <property name="pad">0</property>
+      <property name="halign">center</property>
+      <property name="valign">top</property>
+      <property name="outline">3</property>
+      <property name="pixel_ratio">1</property>
+      <property name="opacity">1</property>
+      <property name="mlt_service">qtext</property>
+      <property name="shotcut:filter">richText</property>
+      <property name="html">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta name="qrichtext" content="1" /&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;style type="text/css"&gt;
+            p,
+            li {
+                white-space: pre-wrap;
+            }
+            hr {
+                height: 1px;
+                border-width: 0;
+            }
+            li.unchecked::marker {
+                content: '\\2610';
+            }
+            li.checked::marker {
+                content: '\\2612';
+            }
+        &lt;/style&gt;
+    &lt;/head&gt;
+    &lt;body
+        style="
+            font-family: 'Inter', '.AppleSystemUIFont', sans-serif;
+            font-size: 70;
+            color: #fff;
+            font-weight: 400;
+            font-style: normal;
+        "
+    &gt;&lt;div style="margin: 100px; font-size: 100px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;span align="left" style="color: #ff0000"&gt;Today &lt;/span&gt;&lt;span align="right" style="color: #00ff00"&gt; is &lt;/span&gt;&lt;span align="left" style="color: #0000ff"&gt; a &lt;/span&gt;&lt;span align="right" style="color: #ffff00"&gt; new &lt;/span&gt;&lt;/div&gt;&lt;/body&gt;
+&lt;/html&gt;</property>
+      <property name="shotcut:usePointSize">1</property>
+      <property name="shotcut:pointSize">60</property>
+      <property name="overflow-y">1</property>
+    </filter>
+  </producer>
+  <producer id="0_text_4" in="00:00:00.000" out="03:59:59.960">
+    <property name="length">04:00:00.000</property>
+    <property name="eof">pause</property>
+    <property name="resource">#00000000</property>
+    <property name="aspect_ratio">1</property>
+    <property name="mlt_service">color</property>
+    <property name="mlt_image_format">rgba</property>
+    <property name="shotcut:caption">transparent and text</property>
+    <property name="shotcut:detail">transparent</property>
+    <property name="ignore_points">0</property>
+    <property name="seekable">1</property>
+    <property name="meta.shotcut.vui">1</property>
+    <filter id="0_text_4Filter" out="00:00:03.960">
+      <property name="argument">text</property>
+      <property name="geometry">0 200 1080 100 1</property>
+      <property name="family">Helvetica</property>
+      <property name="size">60</property>
+      <property name="weight">7000</property>
+      <property name="style">normal</property>
+      <property name="fgcolour">#fff</property>
+      <property name="bgcolour">#00000000</property>
+      <property name="olcolour">#aa000000</property>
+      <property name="pad">0</property>
+      <property name="halign">center</property>
+      <property name="valign">top</property>
+      <property name="outline">3</property>
+      <property name="pixel_ratio">1</property>
+      <property name="opacity">1</property>
+      <property name="mlt_service">qtext</property>
+      <property name="shotcut:filter">richText</property>
+      <property name="html">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta name="qrichtext" content="1" /&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;style type="text/css"&gt;
+            p,
+            li {
+                white-space: pre-wrap;
+            }
+            hr {
+                height: 1px;
+                border-width: 0;
+            }
+            li.unchecked::marker {
+                content: '\\2610';
+            }
+            li.checked::marker {
+                content: '\\2612';
+            }
+        &lt;/style&gt;
+    &lt;/head&gt;
+    &lt;body
+        style="
+            font-family: 'Inter', '.AppleSystemUIFont', sans-serif;
+            font-size: 70;
+            color: #fff;
+            font-weight: 400;
+            font-style: normal;
+        "
+    &gt;&lt;div style="margin: 100px; font-size: 100px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;span align="left" style="color: #ff0000"&gt;Today &lt;/span&gt;&lt;span align="right" style="color: #00ff00"&gt; is &lt;/span&gt;&lt;span align="left" style="color: #0000ff"&gt; a &lt;/span&gt;&lt;span align="right" style="color: #ffff00"&gt; new &lt;/span&gt;&lt;span align="left" style="color: #ff00ff"&gt; day &lt;/span&gt;&lt;/div&gt;&lt;/body&gt;
+&lt;/html&gt;</property>
+      <property name="shotcut:usePointSize">1</property>
+      <property name="shotcut:pointSize">60</property>
+      <property name="overflow-y">1</property>
+    </filter>
+  </producer>
+  <producer id="0_text_5" in="00:00:00.000" out="03:59:59.960">
+    <property name="length">04:00:00.000</property>
+    <property name="eof">pause</property>
+    <property name="resource">#00000000</property>
+    <property name="aspect_ratio">1</property>
+    <property name="mlt_service">color</property>
+    <property name="mlt_image_format">rgba</property>
+    <property name="shotcut:caption">transparent and text</property>
+    <property name="shotcut:detail">transparent</property>
+    <property name="ignore_points">0</property>
+    <property name="seekable">1</property>
+    <property name="meta.shotcut.vui">1</property>
+    <filter id="0_text_5Filter" out="00:00:03.960">
+      <property name="argument">text</property>
+      <property name="geometry">0 200 1080 100 1</property>
+      <property name="family">Helvetica</property>
+      <property name="size">60</property>
+      <property name="weight">7000</property>
+      <property name="style">normal</property>
+      <property name="fgcolour">#fff</property>
+      <property name="bgcolour">#00000000</property>
+      <property name="olcolour">#aa000000</property>
+      <property name="pad">0</property>
+      <property name="halign">center</property>
+      <property name="valign">top</property>
+      <property name="outline">3</property>
+      <property name="pixel_ratio">1</property>
+      <property name="opacity">1</property>
+      <property name="mlt_service">qtext</property>
+      <property name="shotcut:filter">richText</property>
+      <property name="html">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta name="qrichtext" content="1" /&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;style type="text/css"&gt;
+            p,
+            li {
+                white-space: pre-wrap;
+            }
+            hr {
+                height: 1px;
+                border-width: 0;
+            }
+            li.unchecked::marker {
+                content: '\\2610';
+            }
+            li.checked::marker {
+                content: '\\2612';
+            }
+        &lt;/style&gt;
+    &lt;/head&gt;
+    &lt;body
+        style="
+            font-family: 'Inter', '.AppleSystemUIFont', sans-serif;
+            font-size: 70;
+            color: #fff;
+            font-weight: 400;
+            font-style: normal;
+        "
+    &gt;&lt;div style="margin: 100px; font-size: 100px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;span align="left" style="color: #ff0000"&gt;Today &lt;/span&gt;&lt;span align="right" style="color: #00ff00"&gt; is &lt;/span&gt;&lt;span align="left" style="color: #0000ff"&gt; a &lt;/span&gt;&lt;span align="right" style="color: #ffff00"&gt; new &lt;/span&gt;&lt;span align="left" style="color: #ff00ff"&gt; day &lt;/span&gt;&lt;span align="right" style="color: #00ffff"&gt; and &lt;/span&gt;&lt;/div&gt;&lt;/body&gt;
+&lt;/html&gt;</property>
+      <property name="shotcut:usePointSize">1</property>
+      <property name="shotcut:pointSize">60</property>
+      <property name="overflow-y">1</property>
+    </filter>
+  </producer>
+  <producer id="0_text_6" in="00:00:00.000" out="03:59:59.960">
+    <property name="length">04:00:00.000</property>
+    <property name="eof">pause</property>
+    <property name="resource">#00000000</property>
+    <property name="aspect_ratio">1</property>
+    <property name="mlt_service">color</property>
+    <property name="mlt_image_format">rgba</property>
+    <property name="shotcut:caption">transparent and text</property>
+    <property name="shotcut:detail">transparent</property>
+    <property name="ignore_points">0</property>
+    <property name="seekable">1</property>
+    <property name="meta.shotcut.vui">1</property>
+    <filter id="0_text_6Filter" out="00:00:03.960">
+      <property name="argument">text</property>
+      <property name="geometry">0 200 1080 100 1</property>
+      <property name="family">Helvetica</property>
+      <property name="size">60</property>
+      <property name="weight">7000</property>
+      <property name="style">normal</property>
+      <property name="fgcolour">#fff</property>
+      <property name="bgcolour">#00000000</property>
+      <property name="olcolour">#aa000000</property>
+      <property name="pad">0</property>
+      <property name="halign">center</property>
+      <property name="valign">top</property>
+      <property name="outline">3</property>
+      <property name="pixel_ratio">1</property>
+      <property name="opacity">1</property>
+      <property name="mlt_service">qtext</property>
+      <property name="shotcut:filter">richText</property>
+      <property name="html">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta name="qrichtext" content="1" /&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;style type="text/css"&gt;
+            p,
+            li {
+                white-space: pre-wrap;
+            }
+            hr {
+                height: 1px;
+                border-width: 0;
+            }
+            li.unchecked::marker {
+                content: '\\2610';
+            }
+            li.checked::marker {
+                content: '\\2612';
+            }
+        &lt;/style&gt;
+    &lt;/head&gt;
+    &lt;body
+        style="
+            font-family: 'Inter', '.AppleSystemUIFont', sans-serif;
+            font-size: 70;
+            color: #fff;
+            font-weight: 400;
+            font-style: normal;
+        "
+    &gt;&lt;div style="margin: 100px; font-size: 100px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;span align="left" style="color: #ff0000"&gt;Today &lt;/span&gt;&lt;span align="right" style="color: #00ff00"&gt; is &lt;/span&gt;&lt;span align="left" style="color: #0000ff"&gt; a &lt;/span&gt;&lt;span align="right" style="color: #ffff00"&gt; new &lt;/span&gt;&lt;span align="left" style="color: #ff00ff"&gt; day &lt;/span&gt;&lt;span align="right" style="color: #00ffff"&gt; and &lt;/span&gt;&lt;span align="left" style="color: #ff8000"&gt; today &lt;/span&gt;&lt;/div&gt;&lt;/body&gt;
+&lt;/html&gt;</property>
+      <property name="shotcut:usePointSize">1</property>
+      <property name="shotcut:pointSize">60</property>
+      <property name="overflow-y">1</property>
+    </filter>
+  </producer>
+  <producer id="0_text_7" in="00:00:00.000" out="03:59:59.960">
+    <property name="length">04:00:00.000</property>
+    <property name="eof">pause</property>
+    <property name="resource">#00000000</property>
+    <property name="aspect_ratio">1</property>
+    <property name="mlt_service">color</property>
+    <property name="mlt_image_format">rgba</property>
+    <property name="shotcut:caption">transparent and text</property>
+    <property name="shotcut:detail">transparent</property>
+    <property name="ignore_points">0</property>
+    <property name="seekable">1</property>
+    <property name="meta.shotcut.vui">1</property>
+    <filter id="0_text_7Filter" out="00:00:03.960">
+      <property name="argument">text</property>
+      <property name="geometry">0 200 1080 100 1</property>
+      <property name="family">Helvetica</property>
+      <property name="size">60</property>
+      <property name="weight">7000</property>
+      <property name="style">normal</property>
+      <property name="fgcolour">#fff</property>
+      <property name="bgcolour">#00000000</property>
+      <property name="olcolour">#aa000000</property>
+      <property name="pad">0</property>
+      <property name="halign">center</property>
+      <property name="valign">top</property>
+      <property name="outline">3</property>
+      <property name="pixel_ratio">1</property>
+      <property name="opacity">1</property>
+      <property name="mlt_service">qtext</property>
+      <property name="shotcut:filter">richText</property>
+      <property name="html">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta name="qrichtext" content="1" /&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;style type="text/css"&gt;
+            p,
+            li {
+                white-space: pre-wrap;
+            }
+            hr {
+                height: 1px;
+                border-width: 0;
+            }
+            li.unchecked::marker {
+                content: '\\2610';
+            }
+            li.checked::marker {
+                content: '\\2612';
+            }
+        &lt;/style&gt;
+    &lt;/head&gt;
+    &lt;body
+        style="
+            font-family: 'Inter', '.AppleSystemUIFont', sans-serif;
+            font-size: 70;
+            color: #fff;
+            font-weight: 400;
+            font-style: normal;
+        "
+    &gt;&lt;div style="margin: 100px; font-size: 100px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;span align="left" style="color: #ff0000"&gt;Today &lt;/span&gt;&lt;span align="right" style="color: #00ff00"&gt; is &lt;/span&gt;&lt;span align="left" style="color: #0000ff"&gt; a &lt;/span&gt;&lt;span align="right" style="color: #ffff00"&gt; new &lt;/span&gt;&lt;span align="left" style="color: #ff00ff"&gt; day &lt;/span&gt;&lt;span align="right" style="color: #00ffff"&gt; and &lt;/span&gt;&lt;span align="left" style="color: #ff8000"&gt; today &lt;/span&gt;&lt;span align="right" style="color: #8000ff"&gt; we &lt;/span&gt;&lt;/div&gt;&lt;/body&gt;
+&lt;/html&gt;</property>
+      <property name="shotcut:usePointSize">1</property>
+      <property name="shotcut:pointSize">60</property>
+      <property name="overflow-y">1</property>
+    </filter>
+  </producer>
+  <producer id="0_text_8" in="00:00:00.000" out="03:59:59.960">
+    <property name="length">04:00:00.000</property>
+    <property name="eof">pause</property>
+    <property name="resource">#00000000</property>
+    <property name="aspect_ratio">1</property>
+    <property name="mlt_service">color</property>
+    <property name="mlt_image_format">rgba</property>
+    <property name="shotcut:caption">transparent and text</property>
+    <property name="shotcut:detail">transparent</property>
+    <property name="ignore_points">0</property>
+    <property name="seekable">1</property>
+    <property name="meta.shotcut.vui">1</property>
+    <filter id="0_text_8Filter" out="00:00:03.960">
+      <property name="argument">text</property>
+      <property name="geometry">0 200 1080 100 1</property>
+      <property name="family">Helvetica</property>
+      <property name="size">60</property>
+      <property name="weight">7000</property>
+      <property name="style">normal</property>
+      <property name="fgcolour">#fff</property>
+      <property name="bgcolour">#00000000</property>
+      <property name="olcolour">#aa000000</property>
+      <property name="pad">0</property>
+      <property name="halign">center</property>
+      <property name="valign">top</property>
+      <property name="outline">3</property>
+      <property name="pixel_ratio">1</property>
+      <property name="opacity">1</property>
+      <property name="mlt_service">qtext</property>
+      <property name="shotcut:filter">richText</property>
+      <property name="html">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta name="qrichtext" content="1" /&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;style type="text/css"&gt;
+            p,
+            li {
+                white-space: pre-wrap;
+            }
+            hr {
+                height: 1px;
+                border-width: 0;
+            }
+            li.unchecked::marker {
+                content: '\\2610';
+            }
+            li.checked::marker {
+                content: '\\2612';
+            }
+        &lt;/style&gt;
+    &lt;/head&gt;
+    &lt;body
+        style="
+            font-family: 'Inter', '.AppleSystemUIFont', sans-serif;
+            font-size: 70;
+            color: #fff;
+            font-weight: 400;
+            font-style: normal;
+        "
+    &gt;&lt;div style="margin: 100px; font-size: 100px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;span align="left" style="color: #ff0000"&gt;Today &lt;/span&gt;&lt;span align="right" style="color: #00ff00"&gt; is &lt;/span&gt;&lt;span align="left" style="color: #0000ff"&gt; a &lt;/span&gt;&lt;span align="right" style="color: #ffff00"&gt; new &lt;/span&gt;&lt;span align="left" style="color: #ff00ff"&gt; day &lt;/span&gt;&lt;span align="right" style="color: #00ffff"&gt; and &lt;/span&gt;&lt;span align="left" style="color: #ff8000"&gt; today &lt;/span&gt;&lt;span align="right" style="color: #8000ff"&gt; we &lt;/span&gt;&lt;span align="left" style="color: #0080ff"&gt; will &lt;/span&gt;&lt;/div&gt;&lt;/body&gt;
+&lt;/html&gt;</property>
+      <property name="shotcut:usePointSize">1</property>
+      <property name="shotcut:pointSize">60</property>
+      <property name="overflow-y">1</property>
+    </filter>
+  </producer>
+  <producer id="0_text_9" in="00:00:00.000" out="03:59:59.960">
+    <property name="length">04:00:00.000</property>
+    <property name="eof">pause</property>
+    <property name="resource">#00000000</property>
+    <property name="aspect_ratio">1</property>
+    <property name="mlt_service">color</property>
+    <property name="mlt_image_format">rgba</property>
+    <property name="shotcut:caption">transparent and text</property>
+    <property name="shotcut:detail">transparent</property>
+    <property name="ignore_points">0</property>
+    <property name="seekable">1</property>
+    <property name="meta.shotcut.vui">1</property>
+    <filter id="0_text_9Filter" out="00:00:03.960">
+      <property name="argument">text</property>
+      <property name="geometry">0 200 1080 100 1</property>
+      <property name="family">Helvetica</property>
+      <property name="size">60</property>
+      <property name="weight">7000</property>
+      <property name="style">normal</property>
+      <property name="fgcolour">#fff</property>
+      <property name="bgcolour">#00000000</property>
+      <property name="olcolour">#aa000000</property>
+      <property name="pad">0</property>
+      <property name="halign">center</property>
+      <property name="valign">top</property>
+      <property name="outline">3</property>
+      <property name="pixel_ratio">1</property>
+      <property name="opacity">1</property>
+      <property name="mlt_service">qtext</property>
+      <property name="shotcut:filter">richText</property>
+      <property name="html">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta name="qrichtext" content="1" /&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;style type="text/css"&gt;
+            p,
+            li {
+                white-space: pre-wrap;
+            }
+            hr {
+                height: 1px;
+                border-width: 0;
+            }
+            li.unchecked::marker {
+                content: '\\2610';
+            }
+            li.checked::marker {
+                content: '\\2612';
+            }
+        &lt;/style&gt;
+    &lt;/head&gt;
+    &lt;body
+        style="
+            font-family: 'Inter', '.AppleSystemUIFont', sans-serif;
+            font-size: 70;
+            color: #fff;
+            font-weight: 400;
+            font-style: normal;
+        "
+    &gt;&lt;div style="margin: 100px; font-size: 100px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;span align="left" style="color: #ff0000"&gt;Today &lt;/span&gt;&lt;span align="right" style="color: #00ff00"&gt; is &lt;/span&gt;&lt;span align="left" style="color: #0000ff"&gt; a &lt;/span&gt;&lt;span align="right" style="color: #ffff00"&gt; new &lt;/span&gt;&lt;span align="left" style="color: #ff00ff"&gt; day &lt;/span&gt;&lt;span align="right" style="color: #00ffff"&gt; and &lt;/span&gt;&lt;span align="left" style="color: #ff8000"&gt; today &lt;/span&gt;&lt;span align="right" style="color: #8000ff"&gt; we &lt;/span&gt;&lt;span align="left" style="color: #0080ff"&gt; will &lt;/span&gt;&lt;span align="right" style="color: #ff0080"&gt; talk &lt;/span&gt;&lt;/div&gt;&lt;/body&gt;
+&lt;/html&gt;</property>
+      <property name="shotcut:usePointSize">1</property>
+      <property name="shotcut:pointSize">60</property>
+      <property name="overflow-y">1</property>
+    </filter>
+  </producer>
+  <producer id="0_text_10" in="00:00:00.000" out="03:59:59.960">
+    <property name="length">04:00:00.000</property>
+    <property name="eof">pause</property>
+    <property name="resource">#00000000</property>
+    <property name="aspect_ratio">1</property>
+    <property name="mlt_service">color</property>
+    <property name="mlt_image_format">rgba</property>
+    <property name="shotcut:caption">transparent and text</property>
+    <property name="shotcut:detail">transparent</property>
+    <property name="ignore_points">0</property>
+    <property name="seekable">1</property>
+    <property name="meta.shotcut.vui">1</property>
+    <filter id="0_text_10Filter" out="00:00:03.960">
+      <property name="argument">text</property>
+      <property name="geometry">0 200 1080 100 1</property>
+      <property name="family">Helvetica</property>
+      <property name="size">60</property>
+      <property name="weight">7000</property>
+      <property name="style">normal</property>
+      <property name="fgcolour">#fff</property>
+      <property name="bgcolour">#00000000</property>
+      <property name="olcolour">#aa000000</property>
+      <property name="pad">0</property>
+      <property name="halign">center</property>
+      <property name="valign">top</property>
+      <property name="outline">3</property>
+      <property name="pixel_ratio">1</property>
+      <property name="opacity">1</property>
+      <property name="mlt_service">qtext</property>
+      <property name="shotcut:filter">richText</property>
+      <property name="html">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta name="qrichtext" content="1" /&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;style type="text/css"&gt;
+            p,
+            li {
+                white-space: pre-wrap;
+            }
+            hr {
+                height: 1px;
+                border-width: 0;
+            }
+            li.unchecked::marker {
+                content: '\\2610';
+            }
+            li.checked::marker {
+                content: '\\2612';
+            }
+        &lt;/style&gt;
+    &lt;/head&gt;
+    &lt;body
+        style="
+            font-family: 'Inter', '.AppleSystemUIFont', sans-serif;
+            font-size: 70;
+            color: #fff;
+            font-weight: 400;
+            font-style: normal;
+        "
+    &gt;&lt;div style="margin: 100px; font-size: 100px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;span align="left" style="color: #ff0000"&gt;Today &lt;/span&gt;&lt;span align="right" style="color: #00ff00"&gt; is &lt;/span&gt;&lt;span align="left" style="color: #0000ff"&gt; a &lt;/span&gt;&lt;span align="right" style="color: #ffff00"&gt; new &lt;/span&gt;&lt;span align="left" style="color: #ff00ff"&gt; day &lt;/span&gt;&lt;span align="right" style="color: #00ffff"&gt; and &lt;/span&gt;&lt;span align="left" style="color: #ff8000"&gt; today &lt;/span&gt;&lt;span align="right" style="color: #8000ff"&gt; we &lt;/span&gt;&lt;span align="left" style="color: #0080ff"&gt; will &lt;/span&gt;&lt;span align="right" style="color: #ff0080"&gt; talk &lt;/span&gt;&lt;span align="left" style="color: #ff0000"&gt; about &lt;/span&gt;&lt;/div&gt;&lt;/body&gt;
+&lt;/html&gt;</property>
+      <property name="shotcut:usePointSize">1</property>
+      <property name="shotcut:pointSize">60</property>
+      <property name="overflow-y">1</property>
+    </filter>
+  </producer>
+  <producer id="0_text_11" in="00:00:00.000" out="03:59:59.960">
+    <property name="length">04:00:00.000</property>
+    <property name="eof">pause</property>
+    <property name="resource">#00000000</property>
+    <property name="aspect_ratio">1</property>
+    <property name="mlt_service">color</property>
+    <property name="mlt_image_format">rgba</property>
+    <property name="shotcut:caption">transparent and text</property>
+    <property name="shotcut:detail">transparent</property>
+    <property name="ignore_points">0</property>
+    <property name="seekable">1</property>
+    <property name="meta.shotcut.vui">1</property>
+    <filter id="0_text_11Filter" out="00:00:03.960">
+      <property name="argument">text</property>
+      <property name="geometry">0 200 1080 100 1</property>
+      <property name="family">Helvetica</property>
+      <property name="size">60</property>
+      <property name="weight">7000</property>
+      <property name="style">normal</property>
+      <property name="fgcolour">#fff</property>
+      <property name="bgcolour">#00000000</property>
+      <property name="olcolour">#aa000000</property>
+      <property name="pad">0</property>
+      <property name="halign">center</property>
+      <property name="valign">top</property>
+      <property name="outline">3</property>
+      <property name="pixel_ratio">1</property>
+      <property name="opacity">1</property>
+      <property name="mlt_service">qtext</property>
+      <property name="shotcut:filter">richText</property>
+      <property name="html">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta name="qrichtext" content="1" /&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;style type="text/css"&gt;
+            p,
+            li {
+                white-space: pre-wrap;
+            }
+            hr {
+                height: 1px;
+                border-width: 0;
+            }
+            li.unchecked::marker {
+                content: '\\2610';
+            }
+            li.checked::marker {
+                content: '\\2612';
+            }
+        &lt;/style&gt;
+    &lt;/head&gt;
+    &lt;body
+        style="
+            font-family: 'Inter', '.AppleSystemUIFont', sans-serif;
+            font-size: 70;
+            color: #fff;
+            font-weight: 400;
+            font-style: normal;
+        "
+    &gt;&lt;div style="margin: 100px; font-size: 100px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;span align="left" style="color: #ff0000"&gt;Today &lt;/span&gt;&lt;span align="right" style="color: #00ff00"&gt; is &lt;/span&gt;&lt;span align="left" style="color: #0000ff"&gt; a &lt;/span&gt;&lt;span align="right" style="color: #ffff00"&gt; new &lt;/span&gt;&lt;span align="left" style="color: #ff00ff"&gt; day &lt;/span&gt;&lt;span align="right" style="color: #00ffff"&gt; and &lt;/span&gt;&lt;span align="left" style="color: #ff8000"&gt; today &lt;/span&gt;&lt;span align="right" style="color: #8000ff"&gt; we &lt;/span&gt;&lt;span align="left" style="color: #0080ff"&gt; will &lt;/span&gt;&lt;span align="right" style="color: #ff0080"&gt; talk &lt;/span&gt;&lt;span align="left" style="color: #ff0000"&gt; about &lt;/span&gt;&lt;span align="right" style="color: #00ff00"&gt; Dune. &lt;/span&gt;&lt;/div&gt;&lt;/body&gt;
+&lt;/html&gt;</property>
+      <property name="shotcut:usePointSize">1</property>
+      <property name="shotcut:pointSize">60</property>
+      <property name="overflow-y">1</property>
+    </filter>
+  </producer>
+  <producer id="0_text_12" in="00:00:00.000" out="03:59:59.960">
+    <property name="length">04:00:00.000</property>
+    <property name="eof">pause</property>
+    <property name="resource">#00000000</property>
+    <property name="aspect_ratio">1</property>
+    <property name="mlt_service">color</property>
+    <property name="mlt_image_format">rgba</property>
+    <property name="shotcut:caption">transparent and text</property>
+    <property name="shotcut:detail">transparent</property>
+    <property name="ignore_points">0</property>
+    <property name="seekable">1</property>
+    <property name="meta.shotcut.vui">1</property>
+    <filter id="0_text_12Filter" out="00:00:03.960">
+      <property name="argument">text</property>
+      <property name="geometry">0 200 1080 100 1</property>
+      <property name="family">Helvetica</property>
+      <property name="size">60</property>
+      <property name="weight">7000</property>
+      <property name="style">normal</property>
+      <property name="fgcolour">#fff</property>
+      <property name="bgcolour">#00000000</property>
+      <property name="olcolour">#aa000000</property>
+      <property name="pad">0</property>
+      <property name="halign">center</property>
+      <property name="valign">top</property>
+      <property name="outline">3</property>
+      <property name="pixel_ratio">1</property>
+      <property name="opacity">1</property>
+      <property name="mlt_service">qtext</property>
+      <property name="shotcut:filter">richText</property>
+      <property name="html">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta name="qrichtext" content="1" /&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;style type="text/css"&gt;
+            p,
+            li {
+                white-space: pre-wrap;
+            }
+            hr {
+                height: 1px;
+                border-width: 0;
+            }
+            li.unchecked::marker {
+                content: '\\2610';
+            }
+            li.checked::marker {
+                content: '\\2612';
+            }
+        &lt;/style&gt;
+    &lt;/head&gt;
+    &lt;body
+        style="
+            font-family: 'Inter', '.AppleSystemUIFont', sans-serif;
+            font-size: 70;
+            color: #fff;
+            font-weight: 400;
+            font-style: normal;
+        "
+    &gt;&lt;div style="margin: 100px; font-size: 100px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;span align="left" style="color: #ff0000"&gt;Today &lt;/span&gt;&lt;span align="right" style="color: #00ff00"&gt; is &lt;/span&gt;&lt;span align="left" style="color: #0000ff"&gt; a &lt;/span&gt;&lt;span align="right" style="color: #ffff00"&gt; new &lt;/span&gt;&lt;span align="left" style="color: #ff00ff"&gt; day &lt;/span&gt;&lt;span align="right" style="color: #00ffff"&gt; and &lt;/span&gt;&lt;span align="left" style="color: #ff8000"&gt; today &lt;/span&gt;&lt;span align="right" style="color: #8000ff"&gt; we &lt;/span&gt;&lt;span align="left" style="color: #0080ff"&gt; will &lt;/span&gt;&lt;span align="right" style="color: #ff0080"&gt; talk &lt;/span&gt;&lt;span align="left" style="color: #ff0000"&gt; about &lt;/span&gt;&lt;span align="right" style="color: #00ff00"&gt; Dune. &lt;/span&gt;&lt;span align="left" style="color: #0000ff"&gt; And &lt;/span&gt;&lt;/div&gt;&lt;/body&gt;
+&lt;/html&gt;</property>
+      <property name="shotcut:usePointSize">1</property>
+      <property name="shotcut:pointSize">60</property>
+      <property name="overflow-y">1</property>
+    </filter>
+  </producer>
+  <producer id="0_text_13" in="00:00:00.000" out="03:59:59.960">
+    <property name="length">04:00:00.000</property>
+    <property name="eof">pause</property>
+    <property name="resource">#00000000</property>
+    <property name="aspect_ratio">1</property>
+    <property name="mlt_service">color</property>
+    <property name="mlt_image_format">rgba</property>
+    <property name="shotcut:caption">transparent and text</property>
+    <property name="shotcut:detail">transparent</property>
+    <property name="ignore_points">0</property>
+    <property name="seekable">1</property>
+    <property name="meta.shotcut.vui">1</property>
+    <filter id="0_text_13Filter" out="00:00:03.960">
+      <property name="argument">text</property>
+      <property name="geometry">0 200 1080 100 1</property>
+      <property name="family">Helvetica</property>
+      <property name="size">60</property>
+      <property name="weight">7000</property>
+      <property name="style">normal</property>
+      <property name="fgcolour">#fff</property>
+      <property name="bgcolour">#00000000</property>
+      <property name="olcolour">#aa000000</property>
+      <property name="pad">0</property>
+      <property name="halign">center</property>
+      <property name="valign">top</property>
+      <property name="outline">3</property>
+      <property name="pixel_ratio">1</property>
+      <property name="opacity">1</property>
+      <property name="mlt_service">qtext</property>
+      <property name="shotcut:filter">richText</property>
+      <property name="html">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta name="qrichtext" content="1" /&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;style type="text/css"&gt;
+            p,
+            li {
+                white-space: pre-wrap;
+            }
+            hr {
+                height: 1px;
+                border-width: 0;
+            }
+            li.unchecked::marker {
+                content: '\\2610';
+            }
+            li.checked::marker {
+                content: '\\2612';
+            }
+        &lt;/style&gt;
+    &lt;/head&gt;
+    &lt;body
+        style="
+            font-family: 'Inter', '.AppleSystemUIFont', sans-serif;
+            font-size: 70;
+            color: #fff;
+            font-weight: 400;
+            font-style: normal;
+        "
+    &gt;&lt;div style="margin: 100px; font-size: 100px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;span align="left" style="color: #ff0000"&gt;Today &lt;/span&gt;&lt;span align="right" style="color: #00ff00"&gt; is &lt;/span&gt;&lt;span align="left" style="color: #0000ff"&gt; a &lt;/span&gt;&lt;span align="right" style="color: #ffff00"&gt; new &lt;/span&gt;&lt;span align="left" style="color: #ff00ff"&gt; day &lt;/span&gt;&lt;span align="right" style="color: #00ffff"&gt; and &lt;/span&gt;&lt;span align="left" style="color: #ff8000"&gt; today &lt;/span&gt;&lt;span align="right" style="color: #8000ff"&gt; we &lt;/span&gt;&lt;span align="left" style="color: #0080ff"&gt; will &lt;/span&gt;&lt;span align="right" style="color: #ff0080"&gt; talk &lt;/span&gt;&lt;span align="left" style="color: #ff0000"&gt; about &lt;/span&gt;&lt;span align="right" style="color: #00ff00"&gt; Dune. &lt;/span&gt;&lt;span align="left" style="color: #0000ff"&gt; And &lt;/span&gt;&lt;span align="right" style="color: #ffff00"&gt; now &lt;/span&gt;&lt;/div&gt;&lt;/body&gt;
+&lt;/html&gt;</property>
+      <property name="shotcut:usePointSize">1</property>
+      <property name="shotcut:pointSize">60</property>
+      <property name="overflow-y">1</property>
+    </filter>
+  </producer>
+  <producer id="0_text_14" in="00:00:00.000" out="03:59:59.960">
+    <property name="length">04:00:00.000</property>
+    <property name="eof">pause</property>
+    <property name="resource">#00000000</property>
+    <property name="aspect_ratio">1</property>
+    <property name="mlt_service">color</property>
+    <property name="mlt_image_format">rgba</property>
+    <property name="shotcut:caption">transparent and text</property>
+    <property name="shotcut:detail">transparent</property>
+    <property name="ignore_points">0</property>
+    <property name="seekable">1</property>
+    <property name="meta.shotcut.vui">1</property>
+    <filter id="0_text_14Filter" out="00:00:03.960">
+      <property name="argument">text</property>
+      <property name="geometry">0 200 1080 100 1</property>
+      <property name="family">Helvetica</property>
+      <property name="size">60</property>
+      <property name="weight">7000</property>
+      <property name="style">normal</property>
+      <property name="fgcolour">#fff</property>
+      <property name="bgcolour">#00000000</property>
+      <property name="olcolour">#aa000000</property>
+      <property name="pad">0</property>
+      <property name="halign">center</property>
+      <property name="valign">top</property>
+      <property name="outline">3</property>
+      <property name="pixel_ratio">1</property>
+      <property name="opacity">1</property>
+      <property name="mlt_service">qtext</property>
+      <property name="shotcut:filter">richText</property>
+      <property name="html">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta name="qrichtext" content="1" /&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;style type="text/css"&gt;
+            p,
+            li {
+                white-space: pre-wrap;
+            }
+            hr {
+                height: 1px;
+                border-width: 0;
+            }
+            li.unchecked::marker {
+                content: '\\2610';
+            }
+            li.checked::marker {
+                content: '\\2612';
+            }
+        &lt;/style&gt;
+    &lt;/head&gt;
+    &lt;body
+        style="
+            font-family: 'Inter', '.AppleSystemUIFont', sans-serif;
+            font-size: 70;
+            color: #fff;
+            font-weight: 400;
+            font-style: normal;
+        "
+    &gt;&lt;div style="margin: 100px; font-size: 100px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;span align="left" style="color: #ff0000"&gt;Today &lt;/span&gt;&lt;span align="right" style="color: #00ff00"&gt; is &lt;/span&gt;&lt;span align="left" style="color: #0000ff"&gt; a &lt;/span&gt;&lt;span align="right" style="color: #ffff00"&gt; new &lt;/span&gt;&lt;span align="left" style="color: #ff00ff"&gt; day &lt;/span&gt;&lt;span align="right" style="color: #00ffff"&gt; and &lt;/span&gt;&lt;span align="left" style="color: #ff8000"&gt; today &lt;/span&gt;&lt;span align="right" style="color: #8000ff"&gt; we &lt;/span&gt;&lt;span align="left" style="color: #0080ff"&gt; will &lt;/span&gt;&lt;span align="right" style="color: #ff0080"&gt; talk &lt;/span&gt;&lt;span align="left" style="color: #ff0000"&gt; about &lt;/span&gt;&lt;span align="right" style="color: #00ff00"&gt; Dune. &lt;/span&gt;&lt;span align="left" style="color: #0000ff"&gt; And &lt;/span&gt;&lt;span align="right" style="color: #ffff00"&gt; now &lt;/span&gt;&lt;span align="left" style="color: #ff00ff"&gt; what &lt;/span&gt;&lt;/div&gt;&lt;/body&gt;
+&lt;/html&gt;</property>
+      <property name="shotcut:usePointSize">1</property>
+      <property name="shotcut:pointSize">60</property>
+      <property name="overflow-y">1</property>
+    </filter>
+  </producer>
+  <producer id="0_text_15" in="00:00:00.000" out="03:59:59.960">
+    <property name="length">04:00:00.000</property>
+    <property name="eof">pause</property>
+    <property name="resource">#00000000</property>
+    <property name="aspect_ratio">1</property>
+    <property name="mlt_service">color</property>
+    <property name="mlt_image_format">rgba</property>
+    <property name="shotcut:caption">transparent and text</property>
+    <property name="shotcut:detail">transparent</property>
+    <property name="ignore_points">0</property>
+    <property name="seekable">1</property>
+    <property name="meta.shotcut.vui">1</property>
+    <filter id="0_text_15Filter" out="00:00:03.960">
+      <property name="argument">text</property>
+      <property name="geometry">0 200 1080 100 1</property>
+      <property name="family">Helvetica</property>
+      <property name="size">60</property>
+      <property name="weight">7000</property>
+      <property name="style">normal</property>
+      <property name="fgcolour">#fff</property>
+      <property name="bgcolour">#00000000</property>
+      <property name="olcolour">#aa000000</property>
+      <property name="pad">0</property>
+      <property name="halign">center</property>
+      <property name="valign">top</property>
+      <property name="outline">3</property>
+      <property name="pixel_ratio">1</property>
+      <property name="opacity">1</property>
+      <property name="mlt_service">qtext</property>
+      <property name="shotcut:filter">richText</property>
+      <property name="html">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta name="qrichtext" content="1" /&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;style type="text/css"&gt;
+            p,
+            li {
+                white-space: pre-wrap;
+            }
+            hr {
+                height: 1px;
+                border-width: 0;
+            }
+            li.unchecked::marker {
+                content: '\\2610';
+            }
+            li.checked::marker {
+                content: '\\2612';
+            }
+        &lt;/style&gt;
+    &lt;/head&gt;
+    &lt;body
+        style="
+            font-family: 'Inter', '.AppleSystemUIFont', sans-serif;
+            font-size: 70;
+            color: #fff;
+            font-weight: 400;
+            font-style: normal;
+        "
+    &gt;&lt;div style="margin: 100px; font-size: 100px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;span align="left" style="color: #ff0000"&gt;Today &lt;/span&gt;&lt;span align="right" style="color: #00ff00"&gt; is &lt;/span&gt;&lt;span align="left" style="color: #0000ff"&gt; a &lt;/span&gt;&lt;span align="right" style="color: #ffff00"&gt; new &lt;/span&gt;&lt;span align="left" style="color: #ff00ff"&gt; day &lt;/span&gt;&lt;span align="right" style="color: #00ffff"&gt; and &lt;/span&gt;&lt;span align="left" style="color: #ff8000"&gt; today &lt;/span&gt;&lt;span align="right" style="color: #8000ff"&gt; we &lt;/span&gt;&lt;span align="left" style="color: #0080ff"&gt; will &lt;/span&gt;&lt;span align="right" style="color: #ff0080"&gt; talk &lt;/span&gt;&lt;span align="left" style="color: #ff0000"&gt; about &lt;/span&gt;&lt;span align="right" style="color: #00ff00"&gt; Dune. &lt;/span&gt;&lt;span align="left" style="color: #0000ff"&gt; And &lt;/span&gt;&lt;span align="right" style="color: #ffff00"&gt; now &lt;/span&gt;&lt;span align="left" style="color: #ff00ff"&gt; what &lt;/span&gt;&lt;span align="right" style="color: #00ffff"&gt; should &lt;/span&gt;&lt;/div&gt;&lt;/body&gt;
+&lt;/html&gt;</property>
+      <property name="shotcut:usePointSize">1</property>
+      <property name="shotcut:pointSize">60</property>
+      <property name="overflow-y">1</property>
+    </filter>
+  </producer>
+  <producer id="0_text_16" in="00:00:00.000" out="03:59:59.960">
+    <property name="length">04:00:00.000</property>
+    <property name="eof">pause</property>
+    <property name="resource">#00000000</property>
+    <property name="aspect_ratio">1</property>
+    <property name="mlt_service">color</property>
+    <property name="mlt_image_format">rgba</property>
+    <property name="shotcut:caption">transparent and text</property>
+    <property name="shotcut:detail">transparent</property>
+    <property name="ignore_points">0</property>
+    <property name="seekable">1</property>
+    <property name="meta.shotcut.vui">1</property>
+    <filter id="0_text_16Filter" out="00:00:03.960">
+      <property name="argument">text</property>
+      <property name="geometry">0 200 1080 100 1</property>
+      <property name="family">Helvetica</property>
+      <property name="size">60</property>
+      <property name="weight">7000</property>
+      <property name="style">normal</property>
+      <property name="fgcolour">#fff</property>
+      <property name="bgcolour">#00000000</property>
+      <property name="olcolour">#aa000000</property>
+      <property name="pad">0</property>
+      <property name="halign">center</property>
+      <property name="valign">top</property>
+      <property name="outline">3</property>
+      <property name="pixel_ratio">1</property>
+      <property name="opacity">1</property>
+      <property name="mlt_service">qtext</property>
+      <property name="shotcut:filter">richText</property>
+      <property name="html">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta name="qrichtext" content="1" /&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;style type="text/css"&gt;
+            p,
+            li {
+                white-space: pre-wrap;
+            }
+            hr {
+                height: 1px;
+                border-width: 0;
+            }
+            li.unchecked::marker {
+                content: '\\2610';
+            }
+            li.checked::marker {
+                content: '\\2612';
+            }
+        &lt;/style&gt;
+    &lt;/head&gt;
+    &lt;body
+        style="
+            font-family: 'Inter', '.AppleSystemUIFont', sans-serif;
+            font-size: 70;
+            color: #fff;
+            font-weight: 400;
+            font-style: normal;
+        "
+    &gt;&lt;div style="margin: 100px; font-size: 100px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;span align="left" style="color: #ff0000"&gt;Today &lt;/span&gt;&lt;span align="right" style="color: #00ff00"&gt; is &lt;/span&gt;&lt;span align="left" style="color: #0000ff"&gt; a &lt;/span&gt;&lt;span align="right" style="color: #ffff00"&gt; new &lt;/span&gt;&lt;span align="left" style="color: #ff00ff"&gt; day &lt;/span&gt;&lt;span align="right" style="color: #00ffff"&gt; and &lt;/span&gt;&lt;span align="left" style="color: #ff8000"&gt; today &lt;/span&gt;&lt;span align="right" style="color: #8000ff"&gt; we &lt;/span&gt;&lt;span align="left" style="color: #0080ff"&gt; will &lt;/span&gt;&lt;span align="right" style="color: #ff0080"&gt; talk &lt;/span&gt;&lt;span align="left" style="color: #ff0000"&gt; about &lt;/span&gt;&lt;span align="right" style="color: #00ff00"&gt; Dune. &lt;/span&gt;&lt;span align="left" style="color: #0000ff"&gt; And &lt;/span&gt;&lt;span align="right" style="color: #ffff00"&gt; now &lt;/span&gt;&lt;span align="left" style="color: #ff00ff"&gt; what &lt;/span&gt;&lt;span align="right" style="color: #00ffff"&gt; should &lt;/span&gt;&lt;span align="left" style="color: #ff8000"&gt; we &lt;/span&gt;&lt;/div&gt;&lt;/body&gt;
+&lt;/html&gt;</property>
+      <property name="shotcut:usePointSize">1</property>
+      <property name="shotcut:pointSize">60</property>
+      <property name="overflow-y">1</property>
+    </filter>
+  </producer>
+  <producer id="0_text_17" in="00:00:00.000" out="03:59:59.960">
+    <property name="length">04:00:00.000</property>
+    <property name="eof">pause</property>
+    <property name="resource">#00000000</property>
+    <property name="aspect_ratio">1</property>
+    <property name="mlt_service">color</property>
+    <property name="mlt_image_format">rgba</property>
+    <property name="shotcut:caption">transparent and text</property>
+    <property name="shotcut:detail">transparent</property>
+    <property name="ignore_points">0</property>
+    <property name="seekable">1</property>
+    <property name="meta.shotcut.vui">1</property>
+    <filter id="0_text_17Filter" out="00:00:03.960">
+      <property name="argument">text</property>
+      <property name="geometry">0 200 1080 100 1</property>
+      <property name="family">Helvetica</property>
+      <property name="size">60</property>
+      <property name="weight">7000</property>
+      <property name="style">normal</property>
+      <property name="fgcolour">#fff</property>
+      <property name="bgcolour">#00000000</property>
+      <property name="olcolour">#aa000000</property>
+      <property name="pad">0</property>
+      <property name="halign">center</property>
+      <property name="valign">top</property>
+      <property name="outline">3</property>
+      <property name="pixel_ratio">1</property>
+      <property name="opacity">1</property>
+      <property name="mlt_service">qtext</property>
+      <property name="shotcut:filter">richText</property>
+      <property name="html">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta name="qrichtext" content="1" /&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;style type="text/css"&gt;
+            p,
+            li {
+                white-space: pre-wrap;
+            }
+            hr {
+                height: 1px;
+                border-width: 0;
+            }
+            li.unchecked::marker {
+                content: '\\2610';
+            }
+            li.checked::marker {
+                content: '\\2612';
+            }
+        &lt;/style&gt;
+    &lt;/head&gt;
+    &lt;body
+        style="
+            font-family: 'Inter', '.AppleSystemUIFont', sans-serif;
+            font-size: 70;
+            color: #fff;
+            font-weight: 400;
+            font-style: normal;
+        "
+    &gt;&lt;div style="margin: 100px; font-size: 100px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;span align="left" style="color: #ff0000"&gt;Today &lt;/span&gt;&lt;span align="right" style="color: #00ff00"&gt; is &lt;/span&gt;&lt;span align="left" style="color: #0000ff"&gt; a &lt;/span&gt;&lt;span align="right" style="color: #ffff00"&gt; new &lt;/span&gt;&lt;span align="left" style="color: #ff00ff"&gt; day &lt;/span&gt;&lt;span align="right" style="color: #00ffff"&gt; and &lt;/span&gt;&lt;span align="left" style="color: #ff8000"&gt; today &lt;/span&gt;&lt;span align="right" style="color: #8000ff"&gt; we &lt;/span&gt;&lt;span align="left" style="color: #0080ff"&gt; will &lt;/span&gt;&lt;span align="right" style="color: #ff0080"&gt; talk &lt;/span&gt;&lt;span align="left" style="color: #ff0000"&gt; about &lt;/span&gt;&lt;span align="right" style="color: #00ff00"&gt; Dune. &lt;/span&gt;&lt;span align="left" style="color: #0000ff"&gt; And &lt;/span&gt;&lt;span align="right" style="color: #ffff00"&gt; now &lt;/span&gt;&lt;span align="left" style="color: #ff00ff"&gt; what &lt;/span&gt;&lt;span align="right" style="color: #00ffff"&gt; should &lt;/span&gt;&lt;span align="left" style="color: #ff8000"&gt; we &lt;/span&gt;&lt;span align="right" style="color: #8000ff"&gt; do? &lt;/span&gt;&lt;/div&gt;&lt;/body&gt;
+&lt;/html&gt;</property>
+      <property name="shotcut:usePointSize">1</property>
+      <property name="shotcut:pointSize">60</property>
+      <property name="overflow-y">1</property>
+    </filter>
+  </producer>
+  <producer id="0_text_18" in="00:00:00.000" out="03:59:59.960">
+    <property name="length">04:00:00.000</property>
+    <property name="eof">pause</property>
+    <property name="resource">#00000000</property>
+    <property name="aspect_ratio">1</property>
+    <property name="mlt_service">color</property>
+    <property name="mlt_image_format">rgba</property>
+    <property name="shotcut:caption">transparent and text</property>
+    <property name="shotcut:detail">transparent</property>
+    <property name="ignore_points">0</property>
+    <property name="seekable">1</property>
+    <property name="meta.shotcut.vui">1</property>
+    <filter id="0_text_18Filter" out="00:00:03.960">
+      <property name="argument">text</property>
+      <property name="geometry">0 200 1080 100 1</property>
+      <property name="family">Helvetica</property>
+      <property name="size">60</property>
+      <property name="weight">7000</property>
+      <property name="style">normal</property>
+      <property name="fgcolour">#fff</property>
+      <property name="bgcolour">#00000000</property>
+      <property name="olcolour">#aa000000</property>
+      <property name="pad">0</property>
+      <property name="halign">center</property>
+      <property name="valign">top</property>
+      <property name="outline">3</property>
+      <property name="pixel_ratio">1</property>
+      <property name="opacity">1</property>
+      <property name="mlt_service">qtext</property>
+      <property name="shotcut:filter">richText</property>
+      <property name="html">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta name="qrichtext" content="1" /&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;style type="text/css"&gt;
+            p,
+            li {
+                white-space: pre-wrap;
+            }
+            hr {
+                height: 1px;
+                border-width: 0;
+            }
+            li.unchecked::marker {
+                content: '\\2610';
+            }
+            li.checked::marker {
+                content: '\\2612';
+            }
+        &lt;/style&gt;
+    &lt;/head&gt;
+    &lt;body
+        style="
+            font-family: 'Inter', '.AppleSystemUIFont', sans-serif;
+            font-size: 70;
+            color: #fff;
+            font-weight: 400;
+            font-style: normal;
+        "
+    &gt;&lt;div style="margin: 100px; font-size: 100px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;span align="left" style="color: #ff0000"&gt;Today &lt;/span&gt;&lt;span align="right" style="color: #00ff00"&gt; is &lt;/span&gt;&lt;span align="left" style="color: #0000ff"&gt; a &lt;/span&gt;&lt;span align="right" style="color: #ffff00"&gt; new &lt;/span&gt;&lt;span align="left" style="color: #ff00ff"&gt; day &lt;/span&gt;&lt;span align="right" style="color: #00ffff"&gt; and &lt;/span&gt;&lt;span align="left" style="color: #ff8000"&gt; today &lt;/span&gt;&lt;span align="right" style="color: #8000ff"&gt; we &lt;/span&gt;&lt;span align="left" style="color: #0080ff"&gt; will &lt;/span&gt;&lt;span align="right" style="color: #ff0080"&gt; talk &lt;/span&gt;&lt;span align="left" style="color: #ff0000"&gt; about &lt;/span&gt;&lt;span align="right" style="color: #00ff00"&gt; Dune. &lt;/span&gt;&lt;span align="left" style="color: #0000ff"&gt; And &lt;/span&gt;&lt;span align="right" style="color: #ffff00"&gt; now &lt;/span&gt;&lt;span align="left" style="color: #ff00ff"&gt; what &lt;/span&gt;&lt;span align="right" style="color: #00ffff"&gt; should &lt;/span&gt;&lt;span align="left" style="color: #ff8000"&gt; we &lt;/span&gt;&lt;span align="right" style="color: #8000ff"&gt; do? &lt;/span&gt;&lt;span align="left" style="color: #0080ff"&gt; Longer &lt;/span&gt;&lt;/div&gt;&lt;/body&gt;
+&lt;/html&gt;</property>
+      <property name="shotcut:usePointSize">1</property>
+      <property name="shotcut:pointSize">60</property>
+      <property name="overflow-y">1</property>
+    </filter>
+  </producer>
+  <producer id="0_text_19" in="00:00:00.000" out="03:59:59.960">
+    <property name="length">04:00:00.000</property>
+    <property name="eof">pause</property>
+    <property name="resource">#00000000</property>
+    <property name="aspect_ratio">1</property>
+    <property name="mlt_service">color</property>
+    <property name="mlt_image_format">rgba</property>
+    <property name="shotcut:caption">transparent and text</property>
+    <property name="shotcut:detail">transparent</property>
+    <property name="ignore_points">0</property>
+    <property name="seekable">1</property>
+    <property name="meta.shotcut.vui">1</property>
+    <filter id="0_text_19Filter" out="00:00:03.960">
+      <property name="argument">text</property>
+      <property name="geometry">0 200 1080 100 1</property>
+      <property name="family">Helvetica</property>
+      <property name="size">60</property>
+      <property name="weight">7000</property>
+      <property name="style">normal</property>
+      <property name="fgcolour">#fff</property>
+      <property name="bgcolour">#00000000</property>
+      <property name="olcolour">#aa000000</property>
+      <property name="pad">0</property>
+      <property name="halign">center</property>
+      <property name="valign">top</property>
+      <property name="outline">3</property>
+      <property name="pixel_ratio">1</property>
+      <property name="opacity">1</property>
+      <property name="mlt_service">qtext</property>
+      <property name="shotcut:filter">richText</property>
+      <property name="html">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta name="qrichtext" content="1" /&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;style type="text/css"&gt;
+            p,
+            li {
+                white-space: pre-wrap;
+            }
+            hr {
+                height: 1px;
+                border-width: 0;
+            }
+            li.unchecked::marker {
+                content: '\\2610';
+            }
+            li.checked::marker {
+                content: '\\2612';
+            }
+        &lt;/style&gt;
+    &lt;/head&gt;
+    &lt;body
+        style="
+            font-family: 'Inter', '.AppleSystemUIFont', sans-serif;
+            font-size: 70;
+            color: #fff;
+            font-weight: 400;
+            font-style: normal;
+        "
+    &gt;&lt;div style="margin: 100px; font-size: 100px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;span align="left" style="color: #ff0000"&gt;Today &lt;/span&gt;&lt;span align="right" style="color: #00ff00"&gt; is &lt;/span&gt;&lt;span align="left" style="color: #0000ff"&gt; a &lt;/span&gt;&lt;span align="right" style="color: #ffff00"&gt; new &lt;/span&gt;&lt;span align="left" style="color: #ff00ff"&gt; day &lt;/span&gt;&lt;span align="right" style="color: #00ffff"&gt; and &lt;/span&gt;&lt;span align="left" style="color: #ff8000"&gt; today &lt;/span&gt;&lt;span align="right" style="color: #8000ff"&gt; we &lt;/span&gt;&lt;span align="left" style="color: #0080ff"&gt; will &lt;/span&gt;&lt;span align="right" style="color: #ff0080"&gt; talk &lt;/span&gt;&lt;span align="left" style="color: #ff0000"&gt; about &lt;/span&gt;&lt;span align="right" style="color: #00ff00"&gt; Dune. &lt;/span&gt;&lt;span align="left" style="color: #0000ff"&gt; And &lt;/span&gt;&lt;span align="right" style="color: #ffff00"&gt; now &lt;/span&gt;&lt;span align="left" style="color: #ff00ff"&gt; what &lt;/span&gt;&lt;span align="right" style="color: #00ffff"&gt; should &lt;/span&gt;&lt;span align="left" style="color: #ff8000"&gt; we &lt;/span&gt;&lt;span align="right" style="color: #8000ff"&gt; do? &lt;/span&gt;&lt;span align="left" style="color: #0080ff"&gt; Longer &lt;/span&gt;&lt;span align="right" style="color: #ff0080"&gt; text, &lt;/span&gt;&lt;/div&gt;&lt;/body&gt;
+&lt;/html&gt;</property>
+      <property name="shotcut:usePointSize">1</property>
+      <property name="shotcut:pointSize">60</property>
+      <property name="overflow-y">1</property>
+    </filter>
+  </producer>
+  <producer id="0_text_20" in="00:00:00.000" out="03:59:59.960">
+    <property name="length">04:00:00.000</property>
+    <property name="eof">pause</property>
+    <property name="resource">#00000000</property>
+    <property name="aspect_ratio">1</property>
+    <property name="mlt_service">color</property>
+    <property name="mlt_image_format">rgba</property>
+    <property name="shotcut:caption">transparent and text</property>
+    <property name="shotcut:detail">transparent</property>
+    <property name="ignore_points">0</property>
+    <property name="seekable">1</property>
+    <property name="meta.shotcut.vui">1</property>
+    <filter id="0_text_20Filter" out="00:00:03.960">
+      <property name="argument">text</property>
+      <property name="geometry">0 200 1080 100 1</property>
+      <property name="family">Helvetica</property>
+      <property name="size">60</property>
+      <property name="weight">7000</property>
+      <property name="style">normal</property>
+      <property name="fgcolour">#fff</property>
+      <property name="bgcolour">#00000000</property>
+      <property name="olcolour">#aa000000</property>
+      <property name="pad">0</property>
+      <property name="halign">center</property>
+      <property name="valign">top</property>
+      <property name="outline">3</property>
+      <property name="pixel_ratio">1</property>
+      <property name="opacity">1</property>
+      <property name="mlt_service">qtext</property>
+      <property name="shotcut:filter">richText</property>
+      <property name="html">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta name="qrichtext" content="1" /&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;style type="text/css"&gt;
+            p,
+            li {
+                white-space: pre-wrap;
+            }
+            hr {
+                height: 1px;
+                border-width: 0;
+            }
+            li.unchecked::marker {
+                content: '\\2610';
+            }
+            li.checked::marker {
+                content: '\\2612';
+            }
+        &lt;/style&gt;
+    &lt;/head&gt;
+    &lt;body
+        style="
+            font-family: 'Inter', '.AppleSystemUIFont', sans-serif;
+            font-size: 70;
+            color: #fff;
+            font-weight: 400;
+            font-style: normal;
+        "
+    &gt;&lt;div style="margin: 100px; font-size: 100px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;span align="left" style="color: #ff0000"&gt;Today &lt;/span&gt;&lt;span align="right" style="color: #00ff00"&gt; is &lt;/span&gt;&lt;span align="left" style="color: #0000ff"&gt; a &lt;/span&gt;&lt;span align="right" style="color: #ffff00"&gt; new &lt;/span&gt;&lt;span align="left" style="color: #ff00ff"&gt; day &lt;/span&gt;&lt;span align="right" style="color: #00ffff"&gt; and &lt;/span&gt;&lt;span align="left" style="color: #ff8000"&gt; today &lt;/span&gt;&lt;span align="right" style="color: #8000ff"&gt; we &lt;/span&gt;&lt;span align="left" style="color: #0080ff"&gt; will &lt;/span&gt;&lt;span align="right" style="color: #ff0080"&gt; talk &lt;/span&gt;&lt;span align="left" style="color: #ff0000"&gt; about &lt;/span&gt;&lt;span align="right" style="color: #00ff00"&gt; Dune. &lt;/span&gt;&lt;span align="left" style="color: #0000ff"&gt; And &lt;/span&gt;&lt;span align="right" style="color: #ffff00"&gt; now &lt;/span&gt;&lt;span align="left" style="color: #ff00ff"&gt; what &lt;/span&gt;&lt;span align="right" style="color: #00ffff"&gt; should &lt;/span&gt;&lt;span align="left" style="color: #ff8000"&gt; we &lt;/span&gt;&lt;span align="right" style="color: #8000ff"&gt; do? &lt;/span&gt;&lt;span align="left" style="color: #0080ff"&gt; Longer &lt;/span&gt;&lt;span align="right" style="color: #ff0080"&gt; text, &lt;/span&gt;&lt;span align="left" style="color: #ff0000"&gt; that &lt;/span&gt;&lt;/div&gt;&lt;/body&gt;
+&lt;/html&gt;</property>
+      <property name="shotcut:usePointSize">1</property>
+      <property name="shotcut:pointSize">60</property>
+      <property name="overflow-y">1</property>
+    </filter>
+  </producer>
+  <producer id="0_text_21" in="00:00:00.000" out="03:59:59.960">
+    <property name="length">04:00:00.000</property>
+    <property name="eof">pause</property>
+    <property name="resource">#00000000</property>
+    <property name="aspect_ratio">1</property>
+    <property name="mlt_service">color</property>
+    <property name="mlt_image_format">rgba</property>
+    <property name="shotcut:caption">transparent and text</property>
+    <property name="shotcut:detail">transparent</property>
+    <property name="ignore_points">0</property>
+    <property name="seekable">1</property>
+    <property name="meta.shotcut.vui">1</property>
+    <filter id="0_text_21Filter" out="00:00:03.960">
+      <property name="argument">text</property>
+      <property name="geometry">0 200 1080 100 1</property>
+      <property name="family">Helvetica</property>
+      <property name="size">60</property>
+      <property name="weight">7000</property>
+      <property name="style">normal</property>
+      <property name="fgcolour">#fff</property>
+      <property name="bgcolour">#00000000</property>
+      <property name="olcolour">#aa000000</property>
+      <property name="pad">0</property>
+      <property name="halign">center</property>
+      <property name="valign">top</property>
+      <property name="outline">3</property>
+      <property name="pixel_ratio">1</property>
+      <property name="opacity">1</property>
+      <property name="mlt_service">qtext</property>
+      <property name="shotcut:filter">richText</property>
+      <property name="html">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta name="qrichtext" content="1" /&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;style type="text/css"&gt;
+            p,
+            li {
+                white-space: pre-wrap;
+            }
+            hr {
+                height: 1px;
+                border-width: 0;
+            }
+            li.unchecked::marker {
+                content: '\\2610';
+            }
+            li.checked::marker {
+                content: '\\2612';
+            }
+        &lt;/style&gt;
+    &lt;/head&gt;
+    &lt;body
+        style="
+            font-family: 'Inter', '.AppleSystemUIFont', sans-serif;
+            font-size: 70;
+            color: #fff;
+            font-weight: 400;
+            font-style: normal;
+        "
+    &gt;&lt;div style="margin: 100px; font-size: 100px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;span align="left" style="color: #ff0000"&gt;Today &lt;/span&gt;&lt;span align="right" style="color: #00ff00"&gt; is &lt;/span&gt;&lt;span align="left" style="color: #0000ff"&gt; a &lt;/span&gt;&lt;span align="right" style="color: #ffff00"&gt; new &lt;/span&gt;&lt;span align="left" style="color: #ff00ff"&gt; day &lt;/span&gt;&lt;span align="right" style="color: #00ffff"&gt; and &lt;/span&gt;&lt;span align="left" style="color: #ff8000"&gt; today &lt;/span&gt;&lt;span align="right" style="color: #8000ff"&gt; we &lt;/span&gt;&lt;span align="left" style="color: #0080ff"&gt; will &lt;/span&gt;&lt;span align="right" style="color: #ff0080"&gt; talk &lt;/span&gt;&lt;span align="left" style="color: #ff0000"&gt; about &lt;/span&gt;&lt;span align="right" style="color: #00ff00"&gt; Dune. &lt;/span&gt;&lt;span align="left" style="color: #0000ff"&gt; And &lt;/span&gt;&lt;span align="right" style="color: #ffff00"&gt; now &lt;/span&gt;&lt;span align="left" style="color: #ff00ff"&gt; what &lt;/span&gt;&lt;span align="right" style="color: #00ffff"&gt; should &lt;/span&gt;&lt;span align="left" style="color: #ff8000"&gt; we &lt;/span&gt;&lt;span align="right" style="color: #8000ff"&gt; do? &lt;/span&gt;&lt;span align="left" style="color: #0080ff"&gt; Longer &lt;/span&gt;&lt;span align="right" style="color: #ff0080"&gt; text, &lt;/span&gt;&lt;span align="left" style="color: #ff0000"&gt; that &lt;/span&gt;&lt;span align="right" style="color: #00ff00"&gt; is. &lt;/span&gt;&lt;/div&gt;&lt;/body&gt;
+&lt;/html&gt;</property>
+      <property name="shotcut:usePointSize">1</property>
+      <property name="shotcut:pointSize">60</property>
+      <property name="overflow-y">1</property>
+    </filter>
+  </producer>
   <producer id="1_text_0" in="00:00:00.000" out="03:59:59.960">
     <property name="length">04:00:00.000</property>
     <property name="eof">pause</property>
@@ -61,7 +1535,7 @@
             font-weight: 400;
             font-style: normal;
         "
-    &gt;&lt;div style="margin: 100px; font-size: 100px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;div align="left" style="color: #ff0000"&gt;Hello  &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
+    &gt;&lt;div style="margin: 100px; font-size: 100px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;span align="left" style="color: #ff0000"&gt;Hello  &lt;/span&gt;&lt;/div&gt;&lt;/body&gt;
 &lt;/html&gt;</property>
       <property name="shotcut:usePointSize">1</property>
       <property name="shotcut:pointSize">60</property>
@@ -128,7 +1602,7 @@
             font-weight: 400;
             font-style: normal;
         "
-    &gt;&lt;div style="margin: 100px; font-size: 100px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;div align="left" style="color: #ff0000"&gt;Hello  &lt;/div&gt;&lt;div align="right" style="color: #00ff00"&gt;how  &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
+    &gt;&lt;div style="margin: 100px; font-size: 100px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;span align="left" style="color: #ff0000"&gt;Hello  &lt;/span&gt;&lt;span align="right" style="color: #00ff00"&gt;how  &lt;/span&gt;&lt;/div&gt;&lt;/body&gt;
 &lt;/html&gt;</property>
       <property name="shotcut:usePointSize">1</property>
       <property name="shotcut:pointSize">60</property>
@@ -195,7 +1669,7 @@
             font-weight: 400;
             font-style: normal;
         "
-    &gt;&lt;div style="margin: 100px; font-size: 100px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;div align="left" style="color: #ff0000"&gt;Hello  &lt;/div&gt;&lt;div align="right" style="color: #00ff00"&gt;how  &lt;/div&gt;&lt;div align="left" style="color: #0000ff"&gt;are  &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
+    &gt;&lt;div style="margin: 100px; font-size: 100px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;span align="left" style="color: #ff0000"&gt;Hello  &lt;/span&gt;&lt;span align="right" style="color: #00ff00"&gt;how  &lt;/span&gt;&lt;span align="left" style="color: #0000ff"&gt;are  &lt;/span&gt;&lt;/div&gt;&lt;/body&gt;
 &lt;/html&gt;</property>
       <property name="shotcut:usePointSize">1</property>
       <property name="shotcut:pointSize">60</property>
@@ -262,7 +1736,7 @@
             font-weight: 400;
             font-style: normal;
         "
-    &gt;&lt;div style="margin: 100px; font-size: 100px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;div align="left" style="color: #ff0000"&gt;Hello  &lt;/div&gt;&lt;div align="right" style="color: #00ff00"&gt;how  &lt;/div&gt;&lt;div align="left" style="color: #0000ff"&gt;are  &lt;/div&gt;&lt;div align="right" style="color: #ffff00"&gt;you? &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
+    &gt;&lt;div style="margin: 100px; font-size: 100px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;span align="left" style="color: #ff0000"&gt;Hello  &lt;/span&gt;&lt;span align="right" style="color: #00ff00"&gt;how  &lt;/span&gt;&lt;span align="left" style="color: #0000ff"&gt;are  &lt;/span&gt;&lt;span align="right" style="color: #ffff00"&gt;you? &lt;/span&gt;&lt;/div&gt;&lt;/body&gt;
 &lt;/html&gt;</property>
       <property name="shotcut:usePointSize">1</property>
       <property name="shotcut:pointSize">60</property>
@@ -329,7 +1803,7 @@
             font-weight: 400;
             font-style: normal;
         "
-    &gt;&lt;div style="margin: 100px; font-size: 100px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;div align="left" style="color: #ff0000"&gt;Again  &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
+    &gt;&lt;div style="margin: 100px; font-size: 100px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;span align="left" style="color: #ff0000"&gt;Again  &lt;/span&gt;&lt;/div&gt;&lt;/body&gt;
 &lt;/html&gt;</property>
       <property name="shotcut:usePointSize">1</property>
       <property name="shotcut:pointSize">60</property>
@@ -396,7 +1870,7 @@
             font-weight: 400;
             font-style: normal;
         "
-    &gt;&lt;div style="margin: 100px; font-size: 100px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;div align="left" style="color: #ff0000"&gt;Again  &lt;/div&gt;&lt;div align="right" style="color: #00ff00"&gt;how  &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
+    &gt;&lt;div style="margin: 100px; font-size: 100px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;span align="left" style="color: #ff0000"&gt;Again  &lt;/span&gt;&lt;span align="right" style="color: #00ff00"&gt;how  &lt;/span&gt;&lt;/div&gt;&lt;/body&gt;
 &lt;/html&gt;</property>
       <property name="shotcut:usePointSize">1</property>
       <property name="shotcut:pointSize">60</property>
@@ -463,7 +1937,7 @@
             font-weight: 400;
             font-style: normal;
         "
-    &gt;&lt;div style="margin: 100px; font-size: 100px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;div align="left" style="color: #ff0000"&gt;Again  &lt;/div&gt;&lt;div align="right" style="color: #00ff00"&gt;how  &lt;/div&gt;&lt;div align="left" style="color: #0000ff"&gt;are  &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
+    &gt;&lt;div style="margin: 100px; font-size: 100px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;span align="left" style="color: #ff0000"&gt;Again  &lt;/span&gt;&lt;span align="right" style="color: #00ff00"&gt;how  &lt;/span&gt;&lt;span align="left" style="color: #0000ff"&gt;are  &lt;/span&gt;&lt;/div&gt;&lt;/body&gt;
 &lt;/html&gt;</property>
       <property name="shotcut:usePointSize">1</property>
       <property name="shotcut:pointSize">60</property>
@@ -530,7 +2004,7 @@
             font-weight: 400;
             font-style: normal;
         "
-    &gt;&lt;div style="margin: 100px; font-size: 100px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;div align="left" style="color: #ff0000"&gt;Again  &lt;/div&gt;&lt;div align="right" style="color: #00ff00"&gt;how  &lt;/div&gt;&lt;div align="left" style="color: #0000ff"&gt;are  &lt;/div&gt;&lt;div align="right" style="color: #ffff00"&gt;you? &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
+    &gt;&lt;div style="margin: 100px; font-size: 100px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;span align="left" style="color: #ff0000"&gt;Again  &lt;/span&gt;&lt;span align="right" style="color: #00ff00"&gt;how  &lt;/span&gt;&lt;span align="left" style="color: #0000ff"&gt;are  &lt;/span&gt;&lt;span align="right" style="color: #ffff00"&gt;you? &lt;/span&gt;&lt;/div&gt;&lt;/body&gt;
 &lt;/html&gt;</property>
       <property name="shotcut:usePointSize">1</property>
       <property name="shotcut:pointSize">60</property>
@@ -539,7 +2013,29 @@
   </producer>
   <playlist id="tracktypewriter">
     <property name="shotcut:name">track</property>
-    <blank length="00:00:00.000"/>
+    <blank length="-00:00:00.059"/>
+    <entry producer="0_text_0" in="00:00:00.000" out="00:00:00.340"/>
+    <entry producer="0_text_1" in="00:00:00.000" out="00:00:00.260"/>
+    <entry producer="0_text_2" in="00:00:00.000" out="00:00:00.099"/>
+    <entry producer="0_text_3" in="00:00:00.000" out="00:00:00.259"/>
+    <entry producer="0_text_4" in="00:00:00.000" out="00:00:00.560"/>
+    <entry producer="0_text_5" in="00:00:00.000" out="00:00:00.500"/>
+    <entry producer="0_text_6" in="00:00:00.000" out="00:00:00.520"/>
+    <entry producer="0_text_7" in="00:00:00.000" out="00:00:00.319"/>
+    <entry producer="0_text_8" in="00:00:00.000" out="00:00:00.239"/>
+    <entry producer="0_text_9" in="00:00:00.000" out="00:00:00.280"/>
+    <entry producer="0_text_10" in="00:00:00.000" out="00:00:00.301"/>
+    <entry producer="0_text_11" in="00:00:00.000" out="00:00:00.639"/>
+    <entry producer="0_text_12" in="00:00:00.000" out="00:00:00.959"/>
+    <entry producer="0_text_13" in="00:00:00.000" out="00:00:00.399"/>
+    <entry producer="0_text_14" in="00:00:00.000" out="00:00:00.299"/>
+    <entry producer="0_text_15" in="00:00:00.000" out="00:00:00.381"/>
+    <entry producer="0_text_16" in="00:00:00.000" out="00:00:00.278"/>
+    <entry producer="0_text_17" in="00:00:00.000" out="00:00:00.500"/>
+    <entry producer="0_text_18" in="00:00:00.000" out="00:00:00.880"/>
+    <entry producer="0_text_19" in="00:00:00.000" out="00:00:00.539"/>
+    <entry producer="0_text_20" in="00:00:00.000" out="00:00:00.181"/>
+    <entry producer="0_text_21" in="00:00:00.000" out="00:00:00.160"/>
     <entry producer="1_text_0" in="00:00:00.000" out="00:00:00.000"/>
     <entry producer="1_text_1" in="00:00:00.000" out="00:00:00.100"/>
     <entry producer="1_text_2" in="00:00:00.000" out="00:00:00.400"/>

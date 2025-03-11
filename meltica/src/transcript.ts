@@ -1,6 +1,12 @@
 import { fal } from '@fal-ai/client'
+import { ElevenLabsClient, ElevenLabs } from 'elevenlabs'
+
 import mime from 'mime-types'
-import { WhisperChunk, WhisperInput, WhisperOutput } from '@fal-ai/client/endpoints'
+import {
+    WhisperChunk,
+    WhisperInput,
+    WhisperOutput,
+} from '@fal-ai/client/endpoints'
 import fs from 'fs'
 import path from 'path'
 import {
@@ -105,9 +111,42 @@ export async function transcribeAudioBuffer({
     prompt = 'Transcribe the following audio',
 }: TranscriptionOptions & {
     audioBuffer: Buffer
-}): Promise<TranscriptionResult> {
+}) {
     const timerId = `transcribe ${Math.random().toString(36).substring(2, 10)}`
     console.time(timerId)
+
+    const client = new ElevenLabsClient({
+        apiKey: process.env.ELEVENLABS_API_KEY,
+    })
+    const res = await client.speechToText.convert({
+        file: new Blob([audioBuffer]),
+        model_id: 'scribe_v1',
+        timestamps_granularity: 'word',
+    })
+    let prevWords = res.words.slice()
+    // Process words to combine spacing with previous word using reduce
+    res.words = prevWords.reduce<ElevenLabs.SpeechToTextWordResponseModel[]>(
+        (acc, currentWord, index) => {
+            if (currentWord.type === 'spacing') {
+                // If there's a next word, add the space to it instead
+                if (index < prevWords.length - 1 && acc.length > 0) {
+                    // Get the next word (which will be added in the next iteration)
+                    const nextWord = prevWords[index + 1]
+                    // Prepend the spacing text to the next word
+                    nextWord.text = currentWord.text + nextWord.text
+                    // Update the start time of the next word to include the spacing
+                    nextWord.start = currentWord.start
+                    return acc
+                }
+                return acc
+            } else {
+                // Add non-spacing words to the processed array
+                return [...acc, currentWord]
+            }
+        },
+        [],
+    )
+    return res
 
     const audioUrl = await uploadBufferToFal(audioBuffer)
     // Use fal.ai to transcribe audio with Whisper
@@ -161,7 +200,7 @@ export const transcribeAudioFileCached = transcriptionCache.wrap(
         prompt = 'Transcribe the following audio',
     }: TranscriptionOptions & {
         filePath: string
-    }): Promise<TranscriptionResult> => {
+    }) => {
         // Read the file into a buffer
         const audioBuffer = await fs.promises.readFile(filePath)
 

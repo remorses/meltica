@@ -44,7 +44,9 @@ export async function HopeCoreVideo({ videoPath }) {
                 </Asset>
             </Track>
 
-            <TypewriterEffect words={transcription.words} />
+            <Track id={'typewriter'}>
+                <TypewriterEffect id='typewriter' words={transcription.words} />
+            </Track>
 
             <Track id={'audio1'}>
                 <BlankSpace id={'blank'} duration={1} />
