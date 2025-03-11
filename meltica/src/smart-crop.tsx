@@ -68,16 +68,11 @@ export async function getSmartCropBoundingBoxes(imageBuffer: Buffer) {
                 {
                     role: 'system',
                     content: dedent`
-                    - return bounding boxes for the main characters of this image
-                    - each bounding box will be used to create a different zoomed scene in a video, with a different crop size and zoom
-                    - ignore text annotations and text bubbles
-                    - ignore comics text bubbles
-                    - ignore speech bubbles and text boxes
+                    - return bounding boxes for the main scenes of this image
+                    - ignore text annotations, text bubbles, speech bubbles and text boxes
                     - ignore text annotations and text information
-                    - bounding boxes must not intersect. each bounding box should cover different parts of the image. 2 bounding boxes must never overlap 
-                    - one bounding box must not be inside another bounding box. 
-                    - vertices of bounding boxes must not be outside the image.
-                    - ignore content that is cut from the image and you only see a small slice of it
+                    - returned bounding boxes must not intersect. each bounding box should cover different parts of the image. 2 bounding boxes must never overlap 
+                    - ignore content that is cut out of the image partly and you only see a small slice of it
                     
                     
                     `,
