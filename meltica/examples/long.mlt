@@ -4,8 +4,8 @@
   <playlist id="main_bin">
     <property name="xml_retain">1</property>
   </playlist>
-  <producer id="black" in="00:00:00.000" out="00:21:34.268">
-    <property name="length">00:21:34.301</property>
+  <producer id="black" in="00:00:00.000" out="00:00:08.475">
+    <property name="length">00:00:08.508</property>
     <property name="eof">pause</property>
     <property name="resource">0</property>
     <property name="aspect_ratio">1</property>
@@ -14,7 +14,7 @@
     <property name="set.test_audio">0</property>
   </producer>
   <playlist id="background">
-    <entry producer="black" in="00:00:00.000" out="00:21:34.268"/>
+    <entry producer="black" in="00:00:00.000" out="00:00:08.475"/>
   </playlist>
   <chain id="chain0" out="00:21:34.268">
     <property name="length">00:21:34.301</property>
@@ -75,16 +75,19 @@
     <property name="meta.media.top_field_first">0</property>
     <property name="meta.media.progressive">1</property>
     <property name="shotcut:caption">Indestructible Money Printer Is Breaking, More Shorts in 2025 ｜ Mastercard Stock ｜ Martin Shkreli [oUTjAir3mkc].mp4</property>
+    <property name="xml">was here</property>
   </chain>
   <playlist id="playlist0">
     <property name="shotcut:video">1</property>
     <property name="shotcut:name">V1</property>
-    <entry producer="chain0" in="00:00:00.000" out="00:21:34.268"/>
+    <entry producer="chain0" in="00:00:00.000" out="00:00:08.475"/>
   </playlist>
-  <tractor id="tractor0" title="Shotcut version 25.01.25" in="00:00:00.000" out="00:21:34.268">
+  <tractor id="tractor0" title="Shotcut version 25.01.25" in="00:00:00.000" out="00:00:08.475">
     <property name="shotcut">1</property>
     <property name="shotcut:projectAudioChannels">2</property>
     <property name="shotcut:projectFolder">0</property>
+    <property name="shotcut:skipConvert">0</property>
+    <property name="shotcut:scaleFactor">1.91662</property>
     <track producer="background"/>
     <track producer="playlist0"/>
     <transition id="transition0">

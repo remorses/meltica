@@ -1,6 +1,6 @@
 import { fal } from '@fal-ai/client'
 import mime from 'mime-types'
-import { WhisperInput, WhisperOutput } from '@fal-ai/client/endpoints'
+import { WhisperChunk, WhisperInput, WhisperOutput } from '@fal-ai/client/endpoints'
 import fs from 'fs'
 import path from 'path'
 import {
@@ -31,14 +31,14 @@ type TranscriptionOptions = {
 type TranscriptionResult = {
     text: string
     words: {
-        timestamp: number[]
+        timestamp: [number, number]
         /**
          * Transcription of the chunk
          */
         text: string
     }[]
     diarizationSegments?: {
-        timestamp: number[]
+        timestamp: [number, number]
         speaker: string
     }
 }
