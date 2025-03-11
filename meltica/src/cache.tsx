@@ -1,5 +1,5 @@
 import { FlatCache } from 'flat-cache'
-import { fastFileHash } from './utils'
+import { fastFileHashFromPath } from './utils'
 import fs from 'fs'
 
 export interface WrapOptions {

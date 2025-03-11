@@ -17,7 +17,7 @@ import { imageSize } from 'image-size'
 import { fileTypeFromBuffer } from 'file-type'
 import fs from 'fs'
 import { createCache } from './cache'
-import { fastFileHash } from 'meltica/src/utils'
+import { fastFileHashFromPath } from 'meltica/src/utils'
 
 const smartCropCache = createCache({
     cacheId: 'smart-crop',
@@ -29,7 +29,7 @@ export const getSmartCropFromFileCached = smartCropCache.wrap(
         key: 'getSmartCropFromFile',
         replacer(key, value) {
             if (key === 'filePath' && value) {
-                return fastFileHash(value)
+                return fastFileHashFromPath(value)
             }
             return value
         },

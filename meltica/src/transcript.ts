@@ -1,14 +1,17 @@
 import { fal } from '@fal-ai/client'
+import mime from 'mime-types'
 import { WhisperInput, WhisperOutput } from '@fal-ai/client/endpoints'
 import fs from 'fs'
 import path from 'path'
 import {
     createDataUrlFromBuffer,
     createDataUrlFromPath,
-    fastFileHash,
+    fastFileHashFromBuffer,
+    fastFileHashFromPath,
 } from 'meltica/src/utils'
 import { createCache } from './cache'
 import { melticaFolder } from 'meltica/src/rendering'
+import { fileTypeFromBuffer } from 'file-type'
 
 // Configure fal.ai client
 fal.config({
@@ -45,6 +48,43 @@ const transcriptionCache = createCache({
     cacheId: 'transcription',
     ttl: 1000 * 60 * 60 * 24 * 30, // 30 days
 })
+/**
+ * Uploads a buffer to fal.ai storage and returns the URL
+ * @param fileBuffer - Buffer containing file data
+ * @returns Promise resolving to the URL of the uploaded file
+ * @throws Error if MIME type cannot be detected
+ */
+export async function uploadBufferToFal(fileBuffer: Buffer): Promise<string> {
+    // Detect MIME type from buffer
+    const mimeType = await fileTypeFromBuffer(fileBuffer)
+    if (!mimeType || !mimeType.mime) {
+        throw new Error('Could not detect MIME type from buffer')
+    }
+
+    // Get file extension from MIME type
+    const extension = mime.extension(mimeType.mime)
+    if (!extension) {
+        throw new Error(
+            `Could not determine file extension for MIME type: ${mimeType.mime}`,
+        )
+    }
+
+    // Get file hash
+    const fileHash = fastFileHashFromBuffer(fileBuffer)
+
+    // Start timer with hash in the label
+    console.time(`buffer-to-url ${fileHash}`)
+
+    // Create a file from the buffer and upload it to fal.ai storage
+    const file = new File([fileBuffer], `${fileHash}.${extension}`, {
+        type: mimeType.mime,
+    })
+
+    const fileUrl = await fal.storage.upload(file)
+    console.timeEnd(`buffer-to-url ${fileHash}`)
+
+    return fileUrl
+}
 
 /**
  * Transcribes audio using the fal.ai whisper model
@@ -63,9 +103,7 @@ export async function transcribeAudioBuffer({
     const timerId = `transcribe ${Math.random().toString(36).substring(2, 10)}`
     console.time(timerId)
 
-    // Convert buffer to data URL
-    const audioUrl = await createDataUrlFromBuffer(audioBuffer)
-
+    const audioUrl = await uploadBufferToFal(audioBuffer)
     // Use fal.ai to transcribe audio with Whisper
     const transcription = await fal.subscribe('fal-ai/whisper', {
         input: {
@@ -106,7 +144,7 @@ export const transcribeAudioFileCached = transcriptionCache.wrap(
         key: 'transcribeAudioFile',
         replacer(key, value) {
             if (key === 'filePath' && value) {
-                return fastFileHash(value)
+                return fastFileHashFromPath(value)
             }
             return value
         },

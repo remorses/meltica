@@ -3,7 +3,7 @@ import mime from 'mime-types'
 import {
     createDataUrlFromBuffer,
     createDataUrlFromPath,
-    fastFileHash,
+    fastFileHashFromPath,
 } from 'meltica/src/utils'
 import fs from 'fs'
 import { createCache } from './cache'
@@ -57,14 +57,14 @@ export const upscaleImageFileCached = upscaleCache.wrap(
         key: 'upscaleImageFile',
         replacer(key, value) {
             if (key === 'filePath' && value) {
-                return fastFileHash(value)
+                return fastFileHashFromPath(value)
             }
             return value
         },
     },
     async ({ filePath }) => {
         const imageBuffer = fs.readFileSync(filePath)
-        const hash = fastFileHash(filePath)
+        const hash = fastFileHashFromPath(filePath)
         const result = await upscaleImage({ imageBuffer })
         // Extract the image data from the result
         const imageUrl = result.image.url

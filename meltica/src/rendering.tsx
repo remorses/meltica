@@ -8,7 +8,7 @@ import type { XMLBuilder } from 'xmlbuilder2/lib/interfaces'
 import { defaultRenderingContext, renderingContext } from 'meltica/src/context'
 import {
     execWithInheritedStdio,
-    fastFileHash,
+    fastFileHashFromPath,
     isTruthy,
     randomString,
 } from 'meltica/src/utils'
@@ -368,7 +368,7 @@ async function computeAssetsKey(assets: AssetRegistration[]) {
 
     const assetKeys = await Promise.all(
         filteredAssets.map(async (a) => {
-            const hash = await fastFileHash(a.filepath)
+            const hash = await fastFileHashFromPath(a.filepath)
             return a.filepath + a.id + hash
         }),
     )
