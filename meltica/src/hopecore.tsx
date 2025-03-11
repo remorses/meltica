@@ -19,7 +19,7 @@ import { extractAudioFromVideo } from 'meltica/src/ffmpeg'
 export async function HopeCoreVideo({ videoPath }) {
     const audioPath = await extractAudioFromVideo(videoPath)
     const transcription = await transcribeAudioFileCached({
-        filePath: videoPath,
+        filePath: audioPath,
     })
 
     const duration =

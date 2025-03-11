@@ -1,308 +1,554 @@
 <mlt LC_NUMERIC="C" version="7.30.0" title="Shotcut version 25.01.25" producer="main_bin">
-  <producer id="assetlottie3_0" in="00:00:00.000" out="00:00:01.235">
-    <property name="length">38</property>
-    <property name="eof">loop</property>
-    <property name="resource">examples/docs.json</property>
-    <property name="background">#00000000</property>
-    <property name="aspect_ratio">1</property>
-    <property name="progressive">1</property>
-    <property name="seekable">1</property>
-    <property name="meta.media.width">1080</property>
-    <property name="meta.media.height">1080</property>
-    <property name="meta.media.sample_aspect_num">1</property>
-    <property name="meta.media.sample_aspect_den">1</property>
-    <property name="meta.media.frame_rate">29.97</property>
-    <property name="first_frame">0</property>
-    <property name="mlt_service">glaxnimate</property>
-    <property name="mlt_service">glaxnimate</property>
-    <property name="resource">examples/docs.json</property>
-    <property name="shotcut:skipConvert">1</property>
-    <property name="shotcut:caption">docs.json</property>
-  </producer>
-  <producer id="assetlottie3_1" in="00:00:00.000" out="00:00:01.235">
-    <property name="length">38</property>
-    <property name="eof">loop</property>
-    <property name="resource">examples/docs.json</property>
-    <property name="background">#00000000</property>
-    <property name="aspect_ratio">1</property>
-    <property name="progressive">1</property>
-    <property name="seekable">1</property>
-    <property name="meta.media.width">1080</property>
-    <property name="meta.media.height">1080</property>
-    <property name="meta.media.sample_aspect_num">1</property>
-    <property name="meta.media.sample_aspect_den">1</property>
-    <property name="meta.media.frame_rate">29.97</property>
-    <property name="first_frame">0</property>
-    <property name="mlt_service">glaxnimate</property>
-    <property name="mlt_service">glaxnimate</property>
-    <property name="resource">examples/docs.json</property>
-    <property name="shotcut:skipConvert">1</property>
-    <property name="shotcut:caption">docs.json</property>
-  </producer>
-  <producer id="assetlottie3_2" in="00:00:00.000" out="00:00:01.235">
-    <property name="length">38</property>
-    <property name="eof">loop</property>
-    <property name="resource">examples/docs.json</property>
-    <property name="background">#00000000</property>
-    <property name="aspect_ratio">1</property>
-    <property name="progressive">1</property>
-    <property name="seekable">1</property>
-    <property name="meta.media.width">1080</property>
-    <property name="meta.media.height">1080</property>
-    <property name="meta.media.sample_aspect_num">1</property>
-    <property name="meta.media.sample_aspect_den">1</property>
-    <property name="meta.media.frame_rate">29.97</property>
-    <property name="first_frame">0</property>
-    <property name="mlt_service">glaxnimate</property>
-    <property name="mlt_service">glaxnimate</property>
-    <property name="resource">examples/docs.json</property>
-    <property name="shotcut:skipConvert">1</property>
-    <property name="shotcut:caption">docs.json</property>
-  </producer>
-  <producer id="assetlottie3_3" in="00:00:00.000" out="00:00:01.235">
-    <property name="length">38</property>
-    <property name="eof">loop</property>
-    <property name="resource">examples/docs.json</property>
-    <property name="background">#00000000</property>
-    <property name="aspect_ratio">1</property>
-    <property name="progressive">1</property>
-    <property name="seekable">1</property>
-    <property name="meta.media.width">1080</property>
-    <property name="meta.media.height">1080</property>
-    <property name="meta.media.sample_aspect_num">1</property>
-    <property name="meta.media.sample_aspect_den">1</property>
-    <property name="meta.media.frame_rate">29.97</property>
-    <property name="first_frame">0</property>
-    <property name="mlt_service">glaxnimate</property>
-    <property name="mlt_service">glaxnimate</property>
-    <property name="resource">examples/docs.json</property>
-    <property name="shotcut:skipConvert">1</property>
-    <property name="shotcut:caption">docs.json</property>
-  </producer>
-  <producer id="assetlottie3_4" in="00:00:00.000" out="00:00:01.235">
-    <property name="length">38</property>
-    <property name="eof">loop</property>
-    <property name="resource">examples/docs.json</property>
-    <property name="background">#00000000</property>
-    <property name="aspect_ratio">1</property>
-    <property name="progressive">1</property>
-    <property name="seekable">1</property>
-    <property name="meta.media.width">1080</property>
-    <property name="meta.media.height">1080</property>
-    <property name="meta.media.sample_aspect_num">1</property>
-    <property name="meta.media.sample_aspect_den">1</property>
-    <property name="meta.media.frame_rate">29.97</property>
-    <property name="first_frame">0</property>
-    <property name="mlt_service">glaxnimate</property>
-    <property name="mlt_service">glaxnimate</property>
-    <property name="resource">examples/docs.json</property>
-    <property name="shotcut:skipConvert">1</property>
-    <property name="shotcut:caption">docs.json</property>
-  </producer>
-  <producer id="assetlottie3_5" in="00:00:00.000" out="00:00:01.235">
-    <property name="length">38</property>
-    <property name="eof">loop</property>
-    <property name="resource">examples/docs.json</property>
-    <property name="background">#00000000</property>
-    <property name="aspect_ratio">1</property>
-    <property name="progressive">1</property>
-    <property name="seekable">1</property>
-    <property name="meta.media.width">1080</property>
-    <property name="meta.media.height">1080</property>
-    <property name="meta.media.sample_aspect_num">1</property>
-    <property name="meta.media.sample_aspect_den">1</property>
-    <property name="meta.media.frame_rate">29.97</property>
-    <property name="first_frame">0</property>
-    <property name="mlt_service">glaxnimate</property>
-    <property name="mlt_service">glaxnimate</property>
-    <property name="resource">examples/docs.json</property>
-    <property name="shotcut:skipConvert">1</property>
-    <property name="shotcut:caption">docs.json</property>
-  </producer>
-  <producer id="assetlottie3_6" in="00:00:00.000" out="00:00:01.235">
-    <property name="length">38</property>
-    <property name="eof">loop</property>
-    <property name="resource">examples/docs.json</property>
-    <property name="background">#00000000</property>
-    <property name="aspect_ratio">1</property>
-    <property name="progressive">1</property>
-    <property name="seekable">1</property>
-    <property name="meta.media.width">1080</property>
-    <property name="meta.media.height">1080</property>
-    <property name="meta.media.sample_aspect_num">1</property>
-    <property name="meta.media.sample_aspect_den">1</property>
-    <property name="meta.media.frame_rate">29.97</property>
-    <property name="first_frame">0</property>
-    <property name="mlt_service">glaxnimate</property>
-    <property name="mlt_service">glaxnimate</property>
-    <property name="resource">examples/docs.json</property>
-    <property name="shotcut:skipConvert">1</property>
-    <property name="shotcut:caption">docs.json</property>
-  </producer>
-  <producer id="assetlottie3_7" in="00:00:00.000" out="00:00:01.235">
-    <property name="length">38</property>
-    <property name="eof">loop</property>
-    <property name="resource">examples/docs.json</property>
-    <property name="background">#00000000</property>
-    <property name="aspect_ratio">1</property>
-    <property name="progressive">1</property>
-    <property name="seekable">1</property>
-    <property name="meta.media.width">1080</property>
-    <property name="meta.media.height">1080</property>
-    <property name="meta.media.sample_aspect_num">1</property>
-    <property name="meta.media.sample_aspect_den">1</property>
-    <property name="meta.media.frame_rate">29.97</property>
-    <property name="first_frame">0</property>
-    <property name="mlt_service">glaxnimate</property>
-    <property name="mlt_service">glaxnimate</property>
-    <property name="resource">examples/docs.json</property>
-    <property name="shotcut:skipConvert">1</property>
-    <property name="shotcut:caption">docs.json</property>
-  </producer>
-  <producer id="assetlottie3_8" in="00:00:00.000" out="00:00:01.235">
-    <property name="length">38</property>
-    <property name="eof">loop</property>
-    <property name="resource">examples/docs.json</property>
-    <property name="background">#00000000</property>
-    <property name="aspect_ratio">1</property>
-    <property name="progressive">1</property>
-    <property name="seekable">1</property>
-    <property name="meta.media.width">1080</property>
-    <property name="meta.media.height">1080</property>
-    <property name="meta.media.sample_aspect_num">1</property>
-    <property name="meta.media.sample_aspect_den">1</property>
-    <property name="meta.media.frame_rate">29.97</property>
-    <property name="first_frame">0</property>
-    <property name="mlt_service">glaxnimate</property>
-    <property name="mlt_service">glaxnimate</property>
-    <property name="resource">examples/docs.json</property>
-    <property name="shotcut:skipConvert">1</property>
-    <property name="shotcut:caption">docs.json</property>
-  </producer>
-  <producer id="assetlottie3_9" in="00:00:00.000" out="00:00:01.235">
-    <property name="length">38</property>
-    <property name="eof">loop</property>
-    <property name="resource">examples/docs.json</property>
-    <property name="background">#00000000</property>
-    <property name="aspect_ratio">1</property>
-    <property name="progressive">1</property>
-    <property name="seekable">1</property>
-    <property name="meta.media.width">1080</property>
-    <property name="meta.media.height">1080</property>
-    <property name="meta.media.sample_aspect_num">1</property>
-    <property name="meta.media.sample_aspect_den">1</property>
-    <property name="meta.media.frame_rate">29.97</property>
-    <property name="first_frame">0</property>
-    <property name="mlt_service">glaxnimate</property>
-    <property name="mlt_service">glaxnimate</property>
-    <property name="resource">examples/docs.json</property>
-    <property name="shotcut:skipConvert">1</property>
-    <property name="shotcut:caption">docs.json</property>
-  </producer>
-  <playlist id="trackvideo">
-    <property name="shotcut:name">track</property>
-    <entry producer="assetlottie3_0" in="00:00:00.000" out="00:00:01.235"/>
-    <entry producer="assetlottie3_1" in="00:00:00.000" out="00:00:01.235"/>
-    <entry producer="assetlottie3_2" in="00:00:00.000" out="00:00:01.235"/>
-    <entry producer="assetlottie3_3" in="00:00:00.000" out="00:00:01.235"/>
-    <entry producer="assetlottie3_4" in="00:00:00.000" out="00:00:01.235"/>
-    <entry producer="assetlottie3_5" in="00:00:00.000" out="00:00:01.235"/>
-    <entry producer="assetlottie3_6" in="00:00:00.000" out="00:00:01.235"/>
-    <entry producer="assetlottie3_7" in="00:00:00.000" out="00:00:01.235"/>
-    <entry producer="assetlottie3_8" in="00:00:00.000" out="00:00:01.235"/>
-    <entry producer="assetlottie3_9" in="00:00:00.000" out="00:00:01.235"/>
-  </playlist>
-  <chain id="assettts1" in="00:00:00.000" out="00:00:01.535">
-    <property name="length">47</property>
+  <consumer ab="160k" acodec="aac" channels="2" crf="23" deinterlacer="onefield" f="mp4" g="15" in="0" out="00:00:08.000" mlt_service="avformat" movflags="+faststart" preset="veryfast" real_time="-1" rescale="bilinear" target="examples/typewriter.mp4" threads="0" vcodec="libx264"/>
+  <profile description="PAL 4:3 DV or DVD" width="1080" height="1920" progressive="1" sample_aspect_num="1" sample_aspect_den="1" display_aspect_num="9" display_aspect_den="16" frame_rate_num="30" frame_rate_den="1" colorspace="709"/>
+  <producer id="1_text_0" in="00:00:00.000" out="03:59:59.960">
+    <property name="length">04:00:00.000</property>
     <property name="eof">pause</property>
-    <property name="resource">.meltica/speech-tts1.wav</property>
-    <property name="meta.media.nb_streams">1</property>
-    <property name="meta.media.0.stream.type">audio</property>
-    <property name="meta.media.0.codec.sample_fmt">s16</property>
-    <property name="meta.media.0.codec.sample_rate">44100</property>
-    <property name="meta.media.0.codec.channels">1</property>
-    <property name="meta.media.0.codec.layout">mono</property>
-    <property name="meta.media.0.codec.name">pcm_s16le</property>
-    <property name="meta.media.0.codec.long_name">PCM signed 16-bit little-endian</property>
-    <property name="meta.media.0.codec.bit_rate">705600</property>
-    <property name="meta.attr.encoder.markup">Lavf60.16.100</property>
+    <property name="resource">#00000000</property>
+    <property name="aspect_ratio">1</property>
+    <property name="mlt_service">color</property>
+    <property name="mlt_image_format">rgba</property>
+    <property name="shotcut:caption">transparent and text</property>
+    <property name="shotcut:detail">transparent</property>
+    <property name="ignore_points">0</property>
     <property name="seekable">1</property>
-    <property name="audio_index">0</property>
-    <property name="video_index">-1</property>
-    <property name="mute_on_pause">0</property>
-    <property name="mlt_service">avformat</property>
-    <property name="resource">.meltica/speech-tts1.wav</property>
-    <property name="shotcut:skipConvert">1</property>
-    <property name="shotcut:caption">speech-tts1.wav</property>
-    <filter id="assettts1fadeOutVolume" out="00:00:01.535">
-      <property name="window">75</property>
-      <property name="max_gain">20dB</property>
-      <property name="level">00:00:01.485=0;00:00:01.535=-60</property>
-      <property name="mlt_service">volume</property>
-      <property name="shotcut:filter">fadeOutVolume</property>
-      <property name="shotcut:animOut">00:00:01.485</property>
-      <property name="disable">0</property>
+    <property name="meta.shotcut.vui">1</property>
+    <filter id="1_text_0Filter" out="00:00:03.960">
+      <property name="argument">text</property>
+      <property name="geometry">0 200 1080 100 1</property>
+      <property name="family">Helvetica</property>
+      <property name="size">60</property>
+      <property name="weight">7000</property>
+      <property name="style">normal</property>
+      <property name="fgcolour">#fff</property>
+      <property name="bgcolour">#00000000</property>
+      <property name="olcolour">#aa000000</property>
+      <property name="pad">0</property>
+      <property name="halign">center</property>
+      <property name="valign">top</property>
+      <property name="outline">3</property>
+      <property name="pixel_ratio">1</property>
+      <property name="opacity">1</property>
+      <property name="mlt_service">qtext</property>
+      <property name="shotcut:filter">richText</property>
+      <property name="html">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta name="qrichtext" content="1" /&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;style type="text/css"&gt;
+            p,
+            li {
+                white-space: pre-wrap;
+            }
+            hr {
+                height: 1px;
+                border-width: 0;
+            }
+            li.unchecked::marker {
+                content: '\\2610';
+            }
+            li.checked::marker {
+                content: '\\2612';
+            }
+        &lt;/style&gt;
+    &lt;/head&gt;
+    &lt;body
+        style="
+            font-family: 'Inter', '.AppleSystemUIFont', sans-serif;
+            font-size: 70;
+            color: #fff;
+            font-weight: 400;
+            font-style: normal;
+        "
+    &gt;&lt;div style="margin: 100px; font-size: 150px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;div align="left" style="color: #ff0000"&gt;Hello  &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
+&lt;/html&gt;</property>
+      <property name="shotcut:usePointSize">1</property>
+      <property name="shotcut:pointSize">60</property>
+      <property name="overflow-y">1</property>
     </filter>
-    <filter id="assettts1limiter">
-      <property name="mlt_service">ladspa.1913</property>
-      <property name="0">6</property>
-      <property name="1">-10</property>
-      <property name="2">0.51</property>
-      <property name="instances">1</property>
-      <property name="3[0]">1.08705</property>
-      <property name="8[0]">240</property>
-    </filter>
-  </chain>
-  <chain id="assettts2" in="00:00:00.000" out="00:00:08.942">
-    <property name="length">269</property>
+  </producer>
+  <producer id="1_text_1" in="00:00:00.000" out="03:59:59.960">
+    <property name="length">04:00:00.000</property>
     <property name="eof">pause</property>
-    <property name="resource">.meltica/speech-tts2.wav</property>
-    <property name="meta.media.nb_streams">1</property>
-    <property name="meta.media.0.stream.type">audio</property>
-    <property name="meta.media.0.codec.sample_fmt">s16</property>
-    <property name="meta.media.0.codec.sample_rate">44100</property>
-    <property name="meta.media.0.codec.channels">1</property>
-    <property name="meta.media.0.codec.layout">mono</property>
-    <property name="meta.media.0.codec.name">pcm_s16le</property>
-    <property name="meta.media.0.codec.long_name">PCM signed 16-bit little-endian</property>
-    <property name="meta.media.0.codec.bit_rate">705600</property>
-    <property name="meta.attr.encoder.markup">Lavf60.16.100</property>
+    <property name="resource">#00000000</property>
+    <property name="aspect_ratio">1</property>
+    <property name="mlt_service">color</property>
+    <property name="mlt_image_format">rgba</property>
+    <property name="shotcut:caption">transparent and text</property>
+    <property name="shotcut:detail">transparent</property>
+    <property name="ignore_points">0</property>
     <property name="seekable">1</property>
-    <property name="audio_index">0</property>
-    <property name="video_index">-1</property>
-    <property name="mute_on_pause">0</property>
-    <property name="mlt_service">avformat</property>
-    <property name="resource">.meltica/speech-tts2.wav</property>
-    <property name="shotcut:skipConvert">1</property>
-    <property name="shotcut:caption">speech-tts2.wav</property>
-    <filter id="assettts2fadeOutVolume" out="00:00:08.942">
-      <property name="window">75</property>
-      <property name="max_gain">20dB</property>
-      <property name="level">00:00:08.891=0;00:00:08.942=-60</property>
-      <property name="mlt_service">volume</property>
-      <property name="shotcut:filter">fadeOutVolume</property>
-      <property name="shotcut:animOut">00:00:08.891</property>
-      <property name="disable">0</property>
+    <property name="meta.shotcut.vui">1</property>
+    <filter id="1_text_1Filter" out="00:00:03.960">
+      <property name="argument">text</property>
+      <property name="geometry">0 200 1080 100 1</property>
+      <property name="family">Helvetica</property>
+      <property name="size">60</property>
+      <property name="weight">7000</property>
+      <property name="style">normal</property>
+      <property name="fgcolour">#fff</property>
+      <property name="bgcolour">#00000000</property>
+      <property name="olcolour">#aa000000</property>
+      <property name="pad">0</property>
+      <property name="halign">center</property>
+      <property name="valign">top</property>
+      <property name="outline">3</property>
+      <property name="pixel_ratio">1</property>
+      <property name="opacity">1</property>
+      <property name="mlt_service">qtext</property>
+      <property name="shotcut:filter">richText</property>
+      <property name="html">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta name="qrichtext" content="1" /&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;style type="text/css"&gt;
+            p,
+            li {
+                white-space: pre-wrap;
+            }
+            hr {
+                height: 1px;
+                border-width: 0;
+            }
+            li.unchecked::marker {
+                content: '\\2610';
+            }
+            li.checked::marker {
+                content: '\\2612';
+            }
+        &lt;/style&gt;
+    &lt;/head&gt;
+    &lt;body
+        style="
+            font-family: 'Inter', '.AppleSystemUIFont', sans-serif;
+            font-size: 70;
+            color: #fff;
+            font-weight: 400;
+            font-style: normal;
+        "
+    &gt;&lt;div style="margin: 100px; font-size: 150px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;div align="left" style="color: #ff0000"&gt;Hello  &lt;/div&gt;&lt;div align="right" style="color: #00ff00"&gt;how  &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
+&lt;/html&gt;</property>
+      <property name="shotcut:usePointSize">1</property>
+      <property name="shotcut:pointSize">60</property>
+      <property name="overflow-y">1</property>
     </filter>
-    <filter id="assettts2limiter">
-      <property name="mlt_service">ladspa.1913</property>
-      <property name="0">6</property>
-      <property name="1">-10</property>
-      <property name="2">0.51</property>
-      <property name="instances">1</property>
-      <property name="3[0]">1.08705</property>
-      <property name="8[0]">240</property>
+  </producer>
+  <producer id="1_text_2" in="00:00:00.000" out="03:59:59.960">
+    <property name="length">04:00:00.000</property>
+    <property name="eof">pause</property>
+    <property name="resource">#00000000</property>
+    <property name="aspect_ratio">1</property>
+    <property name="mlt_service">color</property>
+    <property name="mlt_image_format">rgba</property>
+    <property name="shotcut:caption">transparent and text</property>
+    <property name="shotcut:detail">transparent</property>
+    <property name="ignore_points">0</property>
+    <property name="seekable">1</property>
+    <property name="meta.shotcut.vui">1</property>
+    <filter id="1_text_2Filter" out="00:00:03.960">
+      <property name="argument">text</property>
+      <property name="geometry">0 200 1080 100 1</property>
+      <property name="family">Helvetica</property>
+      <property name="size">60</property>
+      <property name="weight">7000</property>
+      <property name="style">normal</property>
+      <property name="fgcolour">#fff</property>
+      <property name="bgcolour">#00000000</property>
+      <property name="olcolour">#aa000000</property>
+      <property name="pad">0</property>
+      <property name="halign">center</property>
+      <property name="valign">top</property>
+      <property name="outline">3</property>
+      <property name="pixel_ratio">1</property>
+      <property name="opacity">1</property>
+      <property name="mlt_service">qtext</property>
+      <property name="shotcut:filter">richText</property>
+      <property name="html">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta name="qrichtext" content="1" /&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;style type="text/css"&gt;
+            p,
+            li {
+                white-space: pre-wrap;
+            }
+            hr {
+                height: 1px;
+                border-width: 0;
+            }
+            li.unchecked::marker {
+                content: '\\2610';
+            }
+            li.checked::marker {
+                content: '\\2612';
+            }
+        &lt;/style&gt;
+    &lt;/head&gt;
+    &lt;body
+        style="
+            font-family: 'Inter', '.AppleSystemUIFont', sans-serif;
+            font-size: 70;
+            color: #fff;
+            font-weight: 400;
+            font-style: normal;
+        "
+    &gt;&lt;div style="margin: 100px; font-size: 150px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;div align="left" style="color: #ff0000"&gt;Hello  &lt;/div&gt;&lt;div align="right" style="color: #00ff00"&gt;how  &lt;/div&gt;&lt;div align="left" style="color: #0000ff"&gt;are  &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
+&lt;/html&gt;</property>
+      <property name="shotcut:usePointSize">1</property>
+      <property name="shotcut:pointSize">60</property>
+      <property name="overflow-y">1</property>
     </filter>
-  </chain>
-  <playlist id="tracktts">
-    <property name="shotcut:audio">1</property>
+  </producer>
+  <producer id="1_text_3" in="00:00:00.000" out="03:59:59.960">
+    <property name="length">04:00:00.000</property>
+    <property name="eof">pause</property>
+    <property name="resource">#00000000</property>
+    <property name="aspect_ratio">1</property>
+    <property name="mlt_service">color</property>
+    <property name="mlt_image_format">rgba</property>
+    <property name="shotcut:caption">transparent and text</property>
+    <property name="shotcut:detail">transparent</property>
+    <property name="ignore_points">0</property>
+    <property name="seekable">1</property>
+    <property name="meta.shotcut.vui">1</property>
+    <filter id="1_text_3Filter" out="00:00:03.960">
+      <property name="argument">text</property>
+      <property name="geometry">0 200 1080 100 1</property>
+      <property name="family">Helvetica</property>
+      <property name="size">60</property>
+      <property name="weight">7000</property>
+      <property name="style">normal</property>
+      <property name="fgcolour">#fff</property>
+      <property name="bgcolour">#00000000</property>
+      <property name="olcolour">#aa000000</property>
+      <property name="pad">0</property>
+      <property name="halign">center</property>
+      <property name="valign">top</property>
+      <property name="outline">3</property>
+      <property name="pixel_ratio">1</property>
+      <property name="opacity">1</property>
+      <property name="mlt_service">qtext</property>
+      <property name="shotcut:filter">richText</property>
+      <property name="html">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta name="qrichtext" content="1" /&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;style type="text/css"&gt;
+            p,
+            li {
+                white-space: pre-wrap;
+            }
+            hr {
+                height: 1px;
+                border-width: 0;
+            }
+            li.unchecked::marker {
+                content: '\\2610';
+            }
+            li.checked::marker {
+                content: '\\2612';
+            }
+        &lt;/style&gt;
+    &lt;/head&gt;
+    &lt;body
+        style="
+            font-family: 'Inter', '.AppleSystemUIFont', sans-serif;
+            font-size: 70;
+            color: #fff;
+            font-weight: 400;
+            font-style: normal;
+        "
+    &gt;&lt;div style="margin: 100px; font-size: 150px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;div align="left" style="color: #ff0000"&gt;Hello  &lt;/div&gt;&lt;div align="right" style="color: #00ff00"&gt;how  &lt;/div&gt;&lt;div align="left" style="color: #0000ff"&gt;are  &lt;/div&gt;&lt;div align="right" style="color: #ffff00"&gt;you? &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
+&lt;/html&gt;</property>
+      <property name="shotcut:usePointSize">1</property>
+      <property name="shotcut:pointSize">60</property>
+      <property name="overflow-y">1</property>
+    </filter>
+  </producer>
+  <producer id="2_text_0" in="00:00:00.000" out="03:59:59.960">
+    <property name="length">04:00:00.000</property>
+    <property name="eof">pause</property>
+    <property name="resource">#00000000</property>
+    <property name="aspect_ratio">1</property>
+    <property name="mlt_service">color</property>
+    <property name="mlt_image_format">rgba</property>
+    <property name="shotcut:caption">transparent and text</property>
+    <property name="shotcut:detail">transparent</property>
+    <property name="ignore_points">0</property>
+    <property name="seekable">1</property>
+    <property name="meta.shotcut.vui">1</property>
+    <filter id="2_text_0Filter" out="00:00:03.960">
+      <property name="argument">text</property>
+      <property name="geometry">0 200 1080 100 1</property>
+      <property name="family">Helvetica</property>
+      <property name="size">60</property>
+      <property name="weight">7000</property>
+      <property name="style">normal</property>
+      <property name="fgcolour">#fff</property>
+      <property name="bgcolour">#00000000</property>
+      <property name="olcolour">#aa000000</property>
+      <property name="pad">0</property>
+      <property name="halign">center</property>
+      <property name="valign">top</property>
+      <property name="outline">3</property>
+      <property name="pixel_ratio">1</property>
+      <property name="opacity">1</property>
+      <property name="mlt_service">qtext</property>
+      <property name="shotcut:filter">richText</property>
+      <property name="html">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta name="qrichtext" content="1" /&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;style type="text/css"&gt;
+            p,
+            li {
+                white-space: pre-wrap;
+            }
+            hr {
+                height: 1px;
+                border-width: 0;
+            }
+            li.unchecked::marker {
+                content: '\\2610';
+            }
+            li.checked::marker {
+                content: '\\2612';
+            }
+        &lt;/style&gt;
+    &lt;/head&gt;
+    &lt;body
+        style="
+            font-family: 'Inter', '.AppleSystemUIFont', sans-serif;
+            font-size: 70;
+            color: #fff;
+            font-weight: 400;
+            font-style: normal;
+        "
+    &gt;&lt;div style="margin: 100px; font-size: 150px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;div align="left" style="color: #ff0000"&gt;Again  &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
+&lt;/html&gt;</property>
+      <property name="shotcut:usePointSize">1</property>
+      <property name="shotcut:pointSize">60</property>
+      <property name="overflow-y">1</property>
+    </filter>
+  </producer>
+  <producer id="2_text_1" in="00:00:00.000" out="03:59:59.960">
+    <property name="length">04:00:00.000</property>
+    <property name="eof">pause</property>
+    <property name="resource">#00000000</property>
+    <property name="aspect_ratio">1</property>
+    <property name="mlt_service">color</property>
+    <property name="mlt_image_format">rgba</property>
+    <property name="shotcut:caption">transparent and text</property>
+    <property name="shotcut:detail">transparent</property>
+    <property name="ignore_points">0</property>
+    <property name="seekable">1</property>
+    <property name="meta.shotcut.vui">1</property>
+    <filter id="2_text_1Filter" out="00:00:03.960">
+      <property name="argument">text</property>
+      <property name="geometry">0 200 1080 100 1</property>
+      <property name="family">Helvetica</property>
+      <property name="size">60</property>
+      <property name="weight">7000</property>
+      <property name="style">normal</property>
+      <property name="fgcolour">#fff</property>
+      <property name="bgcolour">#00000000</property>
+      <property name="olcolour">#aa000000</property>
+      <property name="pad">0</property>
+      <property name="halign">center</property>
+      <property name="valign">top</property>
+      <property name="outline">3</property>
+      <property name="pixel_ratio">1</property>
+      <property name="opacity">1</property>
+      <property name="mlt_service">qtext</property>
+      <property name="shotcut:filter">richText</property>
+      <property name="html">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta name="qrichtext" content="1" /&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;style type="text/css"&gt;
+            p,
+            li {
+                white-space: pre-wrap;
+            }
+            hr {
+                height: 1px;
+                border-width: 0;
+            }
+            li.unchecked::marker {
+                content: '\\2610';
+            }
+            li.checked::marker {
+                content: '\\2612';
+            }
+        &lt;/style&gt;
+    &lt;/head&gt;
+    &lt;body
+        style="
+            font-family: 'Inter', '.AppleSystemUIFont', sans-serif;
+            font-size: 70;
+            color: #fff;
+            font-weight: 400;
+            font-style: normal;
+        "
+    &gt;&lt;div style="margin: 100px; font-size: 150px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;div align="left" style="color: #ff0000"&gt;Again  &lt;/div&gt;&lt;div align="right" style="color: #00ff00"&gt;how  &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
+&lt;/html&gt;</property>
+      <property name="shotcut:usePointSize">1</property>
+      <property name="shotcut:pointSize">60</property>
+      <property name="overflow-y">1</property>
+    </filter>
+  </producer>
+  <producer id="2_text_2" in="00:00:00.000" out="03:59:59.960">
+    <property name="length">04:00:00.000</property>
+    <property name="eof">pause</property>
+    <property name="resource">#00000000</property>
+    <property name="aspect_ratio">1</property>
+    <property name="mlt_service">color</property>
+    <property name="mlt_image_format">rgba</property>
+    <property name="shotcut:caption">transparent and text</property>
+    <property name="shotcut:detail">transparent</property>
+    <property name="ignore_points">0</property>
+    <property name="seekable">1</property>
+    <property name="meta.shotcut.vui">1</property>
+    <filter id="2_text_2Filter" out="00:00:03.960">
+      <property name="argument">text</property>
+      <property name="geometry">0 200 1080 100 1</property>
+      <property name="family">Helvetica</property>
+      <property name="size">60</property>
+      <property name="weight">7000</property>
+      <property name="style">normal</property>
+      <property name="fgcolour">#fff</property>
+      <property name="bgcolour">#00000000</property>
+      <property name="olcolour">#aa000000</property>
+      <property name="pad">0</property>
+      <property name="halign">center</property>
+      <property name="valign">top</property>
+      <property name="outline">3</property>
+      <property name="pixel_ratio">1</property>
+      <property name="opacity">1</property>
+      <property name="mlt_service">qtext</property>
+      <property name="shotcut:filter">richText</property>
+      <property name="html">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta name="qrichtext" content="1" /&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;style type="text/css"&gt;
+            p,
+            li {
+                white-space: pre-wrap;
+            }
+            hr {
+                height: 1px;
+                border-width: 0;
+            }
+            li.unchecked::marker {
+                content: '\\2610';
+            }
+            li.checked::marker {
+                content: '\\2612';
+            }
+        &lt;/style&gt;
+    &lt;/head&gt;
+    &lt;body
+        style="
+            font-family: 'Inter', '.AppleSystemUIFont', sans-serif;
+            font-size: 70;
+            color: #fff;
+            font-weight: 400;
+            font-style: normal;
+        "
+    &gt;&lt;div style="margin: 100px; font-size: 150px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;div align="left" style="color: #ff0000"&gt;Again  &lt;/div&gt;&lt;div align="right" style="color: #00ff00"&gt;how  &lt;/div&gt;&lt;div align="left" style="color: #0000ff"&gt;are  &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
+&lt;/html&gt;</property>
+      <property name="shotcut:usePointSize">1</property>
+      <property name="shotcut:pointSize">60</property>
+      <property name="overflow-y">1</property>
+    </filter>
+  </producer>
+  <producer id="2_text_3" in="00:00:00.000" out="03:59:59.960">
+    <property name="length">04:00:00.000</property>
+    <property name="eof">pause</property>
+    <property name="resource">#00000000</property>
+    <property name="aspect_ratio">1</property>
+    <property name="mlt_service">color</property>
+    <property name="mlt_image_format">rgba</property>
+    <property name="shotcut:caption">transparent and text</property>
+    <property name="shotcut:detail">transparent</property>
+    <property name="ignore_points">0</property>
+    <property name="seekable">1</property>
+    <property name="meta.shotcut.vui">1</property>
+    <filter id="2_text_3Filter" out="00:00:03.960">
+      <property name="argument">text</property>
+      <property name="geometry">0 200 1080 100 1</property>
+      <property name="family">Helvetica</property>
+      <property name="size">60</property>
+      <property name="weight">7000</property>
+      <property name="style">normal</property>
+      <property name="fgcolour">#fff</property>
+      <property name="bgcolour">#00000000</property>
+      <property name="olcolour">#aa000000</property>
+      <property name="pad">0</property>
+      <property name="halign">center</property>
+      <property name="valign">top</property>
+      <property name="outline">3</property>
+      <property name="pixel_ratio">1</property>
+      <property name="opacity">1</property>
+      <property name="mlt_service">qtext</property>
+      <property name="shotcut:filter">richText</property>
+      <property name="html">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd"&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta name="qrichtext" content="1" /&gt;
+        &lt;meta charset="utf-8" /&gt;
+        &lt;style type="text/css"&gt;
+            p,
+            li {
+                white-space: pre-wrap;
+            }
+            hr {
+                height: 1px;
+                border-width: 0;
+            }
+            li.unchecked::marker {
+                content: '\\2610';
+            }
+            li.checked::marker {
+                content: '\\2612';
+            }
+        &lt;/style&gt;
+    &lt;/head&gt;
+    &lt;body
+        style="
+            font-family: 'Inter', '.AppleSystemUIFont', sans-serif;
+            font-size: 70;
+            color: #fff;
+            font-weight: 400;
+            font-style: normal;
+        "
+    &gt;&lt;div style="margin: 100px; font-size: 150px; font-family: 'Times New Roman', serif;" align="center"&gt;&lt;div align="left" style="color: #ff0000"&gt;Again  &lt;/div&gt;&lt;div align="right" style="color: #00ff00"&gt;how  &lt;/div&gt;&lt;div align="left" style="color: #0000ff"&gt;are  &lt;/div&gt;&lt;div align="right" style="color: #ffff00"&gt;you? &lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
+&lt;/html&gt;</property>
+      <property name="shotcut:usePointSize">1</property>
+      <property name="shotcut:pointSize">60</property>
+      <property name="overflow-y">1</property>
+    </filter>
+  </producer>
+  <playlist id="tracktypewriter">
     <property name="shotcut:name">track</property>
-    <entry producer="assettts1" in="00:00:00.000" out="00:00:01.535"/>
-    <blank length="00:00:01.000"/>
-    <entry producer="assettts2" in="00:00:00.000" out="00:00:08.942"/>
+    <blank length="00:00:00.000"/>
+    <entry producer="1_text_0" in="00:00:00.000" out="00:00:00.000"/>
+    <entry producer="1_text_1" in="00:00:00.000" out="00:00:00.100"/>
+    <entry producer="1_text_2" in="00:00:00.000" out="00:00:00.400"/>
+    <entry producer="1_text_3" in="00:00:00.000" out="00:00:00.500"/>
+    <entry producer="2_text_0" in="00:00:00.000" out="00:00:00.000"/>
+    <entry producer="2_text_1" in="00:00:00.000" out="00:00:00.100"/>
+    <entry producer="2_text_2" in="00:00:00.000" out="00:00:00.400"/>
+    <entry producer="2_text_3" in="00:00:00.000" out="00:00:00.500"/>
   </playlist>
-  <consumer ab="160k" acodec="aac" channels="2" crf="23" deinterlacer="onefield" f="mp4" g="15" in="0" out="00:00:10.000" mlt_service="avformat" movflags="+faststart" preset="veryfast" real_time="-1" rescale="bilinear" target="examples/tts.mp4" threads="0" vcodec="libx264"/>
-  <profile description="PAL 4:3 DV or DVD" width="1080" height="1920" progressive="1" sample_aspect_num="1" sample_aspect_den="1" display_aspect_num="9" display_aspect_den="16" frame_rate_num="25" frame_rate_den="1" colorspace="709"/>
   <playlist id="main_bin">
     <property name="xml_retain">1</property>
   </playlist>
@@ -325,18 +571,10 @@
     <property name="shotcut:trackHeight">50</property>
     <property name="shotcut:skipConvert">0</property>
     <track producer="background"/>
-    <track producer="trackvideo"/>
-    <track producer="tracktts" hide="video"/>
+    <track producer="tracktypewriter"/>
     <transition id="transition0">
       <property name="a_track">0</property>
       <property name="b_track">1</property>
-      <property name="mlt_service">mix</property>
-      <property name="always_active">1</property>
-      <property name="sum">1</property>
-    </transition>
-    <transition id="transition1">
-      <property name="a_track">0</property>
-      <property name="b_track">2</property>
       <property name="mlt_service">mix</property>
       <property name="always_active">1</property>
       <property name="sum">1</property>
@@ -351,9 +589,3 @@
     </transition>
   </tractor>
 </mlt>
-
-
-
-
-
-

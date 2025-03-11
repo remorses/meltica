@@ -247,7 +247,6 @@ export function Lottie(props: AssetProps) {
     return <Asset {...props} type='image' mltService='glaxnimate' />
 }
 
-
 function useAssetSize() {
     const { producer } = useAssetContext()
     const width = parseInt(
@@ -314,7 +313,8 @@ export function PanningAnimation({ maxPixelsPerSecond = 100 }) {
     const totalHorizontalMovement = Math.abs(endLeft - startLeft)
     const totalVerticalMovement = Math.abs(endTop - startTop)
     const totalMovement = Math.sqrt(
-        Math.pow(totalHorizontalMovement, 2) + Math.pow(totalVerticalMovement, 2)
+        Math.pow(totalHorizontalMovement, 2) +
+            Math.pow(totalVerticalMovement, 2),
     )
 
     // Calculate current pixels per second
@@ -831,6 +831,8 @@ export function RichText({
         )
         return <producer id={id} />
     }
+    const { height: videoHeight, width: videoWidth } =
+        useContext(compositionContext)!
     const renderedHtmlText = render(htmlText, {}).end({
         headless: true,
         allowEmptyTags: true,
@@ -871,8 +873,7 @@ export function RichText({
     </html>
 
     `
-    const { height: videoHeight, width: videoWidth } =
-        useContext(compositionContext)!
+
     let left = left_ ?? 0
     let top = top_ ?? 0
     let width = width_ ?? videoWidth
@@ -1679,4 +1680,3 @@ export function Limiter({
         </filter>
     )
 }
-

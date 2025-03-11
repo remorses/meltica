@@ -454,7 +454,8 @@ export async function extractProducersDataFromAssets(
             const producers = getProducersFromXml(xml)
             return { producers, assets }
         } else {
-            console.error(new Error('No producers found in cached XML'))
+            console.error('No producers found in cached XML')
+            // return { producers: [], assets }
         }
     }
     if (!assets.length) {
@@ -467,8 +468,14 @@ export async function extractProducersDataFromAssets(
     // https://github.com/mltframework/mlt/blob/master/src/modules/xml/consumer_xml.yml#L91
     const timeFormat = 'clock'
     let meltPath = '/Applications/Shotcut.app/Contents/MacOS/melt'
-    const command = `"${meltPath}" ${assets
-        .filter((x) => x.type !== 'blank' && x.type !== 'text')
+    const assetsToProcess = assets.filter(
+        (x) => x.type !== 'blank' && x.type !== 'text',
+    )
+    if (!assetsToProcess.length) {
+        // console.warn('No assets found in XML')
+        return { producers: [], assets }
+    }
+    const command = `"${meltPath}" ${assetsToProcess
         .map((a) => {
             let withId = `"${a.filepath}" id=${a.id}`
             if (a.mltService) {
