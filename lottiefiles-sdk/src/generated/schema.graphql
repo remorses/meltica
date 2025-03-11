@@ -1,0 +1,6448 @@
+type Query {
+  """Initiates the Enterprise Login process."""
+  enterpriseLoginAuthorizationUrl(state: String, email: String!): String!
+
+  """Initiates the Enterprise Login process using an org internal id."""
+  enterpriseOrganizationLogin(state: String, orgInternalId: String!): OrganizationSsoLogin!
+
+  """Generates new lookup secrets for a user"""
+  lookupSecretsReveal: LookupSecret!
+
+  """Start process to link a TOTP authenticator to the user"""
+  totpLinkStart: TotpLink!
+  authVersion: String!
+  jwt: String
+
+  """Returns a list of locales available for selection."""
+  locales: LocaleListing
+
+  """Gets user's notification preferences"""
+  viewerNotificationPreferences: [ViewerNotificationPreference!]!
+
+  """
+  Fetches the consent request for the given consent challenge and returns whether the consent step can be skiped, and the list of requested scopes or redirect URL.
+  """
+  oAuthConsentRequest(consentChallenge: String!): OAuthConsentRequest!
+
+  """
+  Fetches the login request for the given login challenge and returns whether the login step can be skiped.
+  """
+  oAuthLoginRequest(loginChallenge: String!): OAuthLoginRequest!
+
+  """Returns a list of user segments available for choosing."""
+  userSegments: UserSegmentListing
+
+  """Checks if a username is available for use."""
+  isUsernameAvailable(username: String!): Boolean!
+
+  """Get a user's public information based on ID."""
+  user(id: String!): User
+
+  """Check if self-service account deletion is available for this user."""
+  userSelfDeleteAvailable: Boolean!
+
+  """Batch get users' public information based on ID."""
+  users(ids: [String]!): [User]!
+
+  """Information about who owns the current session."""
+  viewer: User!
+
+  """List of types of credentials enabled for this account."""
+  viewerCredentials: [ViewerCredential!]!
+  blogs(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first <n> elements from the list."""
+    first: Int
+
+    """Returns the last <n> elements from the list."""
+    last: Int
+
+    """Set sorting options"""
+    orderBy: QuerySortOptions
+  ): BlogConnection!
+  colorPalettes(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first <n> elements from the list."""
+    first: Int
+
+    """Returns the last <n> elements from the list."""
+    last: Int
+
+    """Set sorting options"""
+    orderBy: QuerySortOptions
+  ): ColorPaletteConnection!
+  featuredAnimators(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first <n> elements from the list."""
+    first: Int
+
+    """Returns the last <n> elements from the list."""
+    last: Int
+
+    """Set sorting options"""
+    orderBy: QuerySortOptions
+  ): AnimatorConnection!
+  featuredPublicAnimations(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first <n> elements from the list."""
+    first: Int
+
+    """Returns the last <n> elements from the list."""
+    last: Int
+
+    """Set sorting options"""
+    orderBy: QuerySortOptions
+
+    """Set filter options"""
+    filters: AnimationFilter
+  ): PublicAnimationConnection!
+  legacyVersion: String!
+  notifications: [Notification!]
+  popularPublicAnimations(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first <n> elements from the list."""
+    first: Int
+
+    """Returns the last <n> elements from the list."""
+    last: Int
+
+    """Set sorting options"""
+    orderBy: QuerySortOptions
+    sort: DurationFilterType
+
+    """Set filter options"""
+    filters: AnimationFilter
+  ): PublicAnimationConnection!
+  publicAnimation(id: Int!): PublicAnimation
+  publicAnimationByHash(hash: String!): PublicAnimation
+  publicAnimationCollection(id: String!): PublicCollection!
+  publicAnimationCollections(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first <n> elements from the list."""
+    first: Int
+    input: CollectionAnimationTypeInput
+
+    """Returns the last <n> elements from the list."""
+    last: Int
+
+    """Set sorting options"""
+    orderBy: QuerySortOptions
+    userId: String
+  ): PublicCollectionConnection!
+  publicAnimationCollectionsByUser(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first <n> elements from the list."""
+    first: Int
+
+    """Returns the last <n> elements from the list."""
+    last: Int
+
+    """Set sorting options"""
+    orderBy: QuerySortOptions
+    userId: String
+  ): PublicCollectionConnection
+  publicAnimationsByUser(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first <n> elements from the list."""
+    first: Int
+    input: PublicAnimationStatusFilterTypeInput
+
+    """Returns the last <n> elements from the list."""
+    last: Int
+
+    """Set sorting options"""
+    orderBy: QuerySortOptions
+    userId: ID!
+  ): PublicAnimationConnection
+
+  """Animations of a collection"""
+  publicCollectionAnimations(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+    collectionId: Float!
+
+    """Returns the first <n> elements from the list."""
+    first: Int
+
+    """Returns the last <n> elements from the list."""
+    last: Int
+
+    """Set sorting options"""
+    orderBy: QuerySortOptions
+
+    """Set filter options"""
+    filters: AnimationFilter
+  ): PublicAnimationConnection!
+  publicAnimationTags(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first <n> elements from the list."""
+    first: Int
+
+    """Returns the last <n> elements from the list."""
+    last: Int
+  ): PublicAnimationTagConnection!
+  recentPublicAnimations(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first <n> elements from the list."""
+    first: Int
+
+    """Returns the last <n> elements from the list."""
+    last: Int
+
+    """Set sorting options"""
+    orderBy: QuerySortOptions
+
+    """Set filter options"""
+    filters: AnimationFilter
+  ): PublicAnimationConnection!
+  searchPublicAnimations(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first <n> elements from the list."""
+    first: Int
+
+    """Returns the last <n> elements from the list."""
+    last: Int
+
+    """Set sorting options"""
+    orderBy: QuerySortOptions
+    query: String!
+    withAep: Boolean
+
+    """Set filter options"""
+    filters: AnimationFilter
+  ): PublicAnimationConnection!
+  softwareUpdates(app: String!, version: String): SoftwareUpdate!
+  trendingSearches: [TrendingItem!]!
+  userAchievements(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first <n> elements from the list."""
+    first: Int
+
+    """Returns the last <n> elements from the list."""
+    last: Int
+
+    """Set sorting options"""
+    orderBy: QuerySortOptions
+  ): UserAchievementConnection
+  userStats: UserStats
+  viewerPublicAnimationDownloads(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first <n> elements from the list."""
+    first: Int
+
+    """Returns the last <n> elements from the list."""
+    last: Int
+
+    """Set sorting options"""
+    orderBy: QuerySortOptions
+  ): PublicAnimationConnection!
+  viewerPublicAnimationLikes(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first <n> elements from the list."""
+    first: Int
+
+    """Returns the last <n> elements from the list."""
+    last: Int
+
+    """Set sorting options"""
+    orderBy: QuerySortOptions
+  ): PublicAnimationConnection!
+  services: [Service!]!
+
+  """
+  WARNING: this query/mutation is experimental. Names, fields or types can possibly have breaking changes. ---
+  Gets the status of a raster to lottie conversion job.
+  """
+  rasterToLottieStatus(jobId: ID!): RasterToLottieJob!
+  rasterToLottieVersion: String!
+
+  """Indicates if the user has requested to join the suggested workspace"""
+  workspaceHasRequestedToJoin(workspaceId: ID!): Boolean!
+
+  """Look up membership requests by workspace id"""
+  workspaceJoinRequests(
+    """A keyword to do a simple keyword based search."""
+    query: String
+
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first <n> elements from the list."""
+    first: Float
+
+    """Returns the last <n> elements from the list."""
+    last: Float
+
+    """Set sorting options"""
+    orderBy: QuerySortOptions
+
+    """Members who have accepted and active"""
+    accepted: Boolean
+
+    """Filter by only admins"""
+    adminsOnly: Boolean
+
+    """Filter by only member access"""
+    editorsOnly: Boolean
+    workspaceId: ID!
+  ): WorkspaceMemberConnection!
+
+  """Get the number of members in a workspace"""
+  workspaceMemberCount(workspaceId: ID!): Float!
+
+  """Look up invitations by workspace id."""
+  workspaceMembers(
+    refreshCache: Boolean = false
+
+    """A keyword to do a simple keyword based search."""
+    query: String
+
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first <n> elements from the list."""
+    first: Float
+
+    """Returns the last <n> elements from the list."""
+    last: Float
+
+    """Set sorting options"""
+    orderBy: QuerySortOptions
+
+    """Members who have accepted and active"""
+    accepted: Boolean
+
+    """Filter by only admins"""
+    adminsOnly: Boolean
+
+    """Filter by only member access"""
+    editorsOnly: Boolean
+    workspaceId: ID!
+  ): WorkspaceMemberConnection!
+
+  """Search workspace members"""
+  workspaceMembersSearch(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first <n> elements from the list."""
+    first: Float
+
+    """Returns the last <n> elements from the list."""
+    last: Float
+
+    """Set sorting options"""
+    orderBy: QuerySortOptions
+
+    """Filter by access role"""
+    access: String
+
+    """Filter by domain"""
+    byDomain: Boolean
+
+    """Search query"""
+    query: String
+
+    """Filter by workspace ID"""
+    workspaceId: ID
+  ): WorkspaceMemberSearchConnection
+
+  """Look up organization by workspace id."""
+  accountByWorkspaceId(workspaceId: ID!): Account!
+  workspaceAuditLogs(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first <n> elements from the list."""
+    first: Float
+
+    """Returns the last <n> elements from the list."""
+    last: Float
+
+    """Set sorting options"""
+    orderBy: QuerySortOptions
+
+    """A keyword to do a simple keyword based search."""
+    query: String
+    toDate: DateTime
+    fromDate: DateTime
+    workspaceId: ID!
+  ): AuditLogConnection!
+
+  """Get the default user price for team billing packages."""
+  billingPackageDefaultPerUserPrice: BillingPackagePrice!
+
+  """Look up a billing package price by its id."""
+  billingPackagePrice(id: ID!): BillingPackagePrice!
+
+  """Look up a billing package by its id."""
+  billingPackage(id: ID!): BillingPackage!
+
+  """Billing package connection."""
+  billingPackages(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first <n> elements from the list."""
+    first: Float
+
+    """Returns the last <n> elements from the list."""
+    last: Float
+
+    """Set sorting options"""
+    orderBy: QuerySortOptions
+
+    """A keyword to do a simple keyword based search."""
+    query: String
+  ): BillingPackageConnection!
+
+  """fetch cancel reasons"""
+  cancelReasons: [CancelReason!]!
+
+  """Get users with view access to an Animation"""
+  commentMentionableUsers(id: ID!): [CommentUser!]!
+
+  """Get the replies for a comment"""
+  commentReplies(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first <n> elements from the list."""
+    first: Float
+
+    """Returns the last <n> elements from the list."""
+    last: Float
+
+    """Set sorting options"""
+    orderBy: QuerySortOptions
+    id: ID!
+  ): CommentConnection!
+
+  """Get the comments for an entity"""
+  comments(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first <n> elements from the list."""
+    first: Float
+
+    """Returns the last <n> elements from the list."""
+    last: Float
+
+    """Set sorting options"""
+    orderBy: QuerySortOptions
+    type: CommentableEntityType!
+    id: ID!
+  ): CommentConnection!
+
+  """Get the comments for an entity by frame number"""
+  timelineCommentsByFrame(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first <n> elements from the list."""
+    first: Float
+
+    """Returns the last <n> elements from the list."""
+    last: Float
+
+    """Set sorting options"""
+    orderBy: QuerySortOptions
+
+    """The frame number"""
+    frame: Int!
+
+    """The entity type"""
+    type: CommentableEntityType!
+
+    """The entity ID"""
+    id: ID!
+  ): CommentConnection!
+
+  """Get the count of comments for an entity grouped by frame number"""
+  timelineCommentsCount(
+    """The entity type"""
+    type: CommentableEntityType!
+
+    """The entity ID"""
+    id: ID!
+  ): [KeyCount!]!
+
+  """
+  Get the number of community animations imported by the current user in the current month
+  """
+  communityAnimationImportCountForCalendarMonth: CommunityAnimationImportCounter!
+
+  """Get the enterprise organization for the workspace"""
+  enterpriseOrganization(workspaceId: ID!): EnterpriseOrganization
+
+  """Get redirect url to setup SSO or DSYNC for workspace"""
+  enterpriseOrganizationConfigurationLink(type: String!, workspaceId: ID!): String
+
+  """
+  Get directory groups claimed by other workspaces of the same organization.
+  """
+  enterpriseOrganizationDirectoryClaims(workspaceId: ID!): [OrganizationDirectoryClaim!]
+
+  """Get the list of organization directory groups for the workspace"""
+  enterpriseOrganizationDirectoryGroups(workspaceId: ID!): [OrganizationDirectoryGroup!]
+
+  """Fetch file handback by id"""
+  fileHandback(id: ID!): FileHandback!
+
+  """Look up a deleted animation by its id."""
+  deletedFile(id: ID!): File!
+
+  """Look up an animation by its id."""
+  file(id: ID!): File!
+
+  """Look up an animation by its id."""
+  fileAboveAndBelowId(folderId: ID, sort: String, id: ID!): NextPrevAnimation!
+
+  """
+  The total count of file uploads to a workspace, including deleted files
+  """
+  fileCountByWorkspaceId(workspaceId: ID!): Int!
+
+  """
+  Get the last modified animation file id for the workspace. This is an optimized query made specifically for onboarding checklist and some checks is skipped, use with cautioun.
+  """
+  fileIdRecentlyModified(workspaceId: ID): String!
+
+  """
+  Eligible file ids for a given workspace. If a file upload limit is set, only those within the limits will be listed.
+  """
+  fileIdsWithinLimit(workspaceId: ID!): [String!]!
+
+  """Get the last modified files for the user."""
+  filesRecentlyModified(filterDraftsByCurrentUser: Boolean, filterByCurrentUserModifications: Boolean, count: Float, workspaceId: ID, fileType: FileType): [File!]!
+  fileVariants(fileVersionId: ID, fileId: ID!): [FileVariant!]!
+
+  """Fetch file version by id"""
+  fileVersion(id: ID!): FileVersion!
+  fileVersionOptimizeJob(id: ID!): FileVersionOptimizeJob!
+
+  """Generate tags for file version"""
+  fileVersionTagsGenerate(thumbnailUrl: String!): [String!]!
+
+  """Get all file versions of a file using file ID"""
+  fileVersions(
+    includeSubVersions: Boolean
+
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first <n> elements from the list."""
+    first: Float
+
+    """Returns the last <n> elements from the list."""
+    last: Float
+
+    """Set sorting options"""
+    orderBy: QuerySortOptions
+
+    """A keyword to do a simple keyword based search."""
+    query: String
+    fileId: ID!
+  ): FileVersionConnection!
+
+  """Look up a folder by its id."""
+  folder(id: ID!): Folder!
+
+  """Look up folder subfolders and animations by folder-id."""
+  folderFiles(
+    type: String
+    status: String
+
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first <n> elements from the list."""
+    first: Float
+
+    """Returns the last <n> elements from the list."""
+    last: Float
+
+    """Set sorting options"""
+    orderBy: QuerySortOptions
+    id: ID!
+  ): FileConnection!
+
+  """Fetch folders under a specific project."""
+  foldersByProjectId(projectId: String!): [Folder!]!
+
+  """Search folders inside a specific workspace by it's title."""
+  searchFoldersInWorkspace(query: String!, workspaceIds: [ID!]!): [Folder!]! @deprecated(reason: "Use `searchFolders` instead.")
+
+  """Retrieve an invoice by id."""
+  invoice(id: ID!): Invoice!
+
+  """Get the list of invoices for the workspace."""
+  invoices(workspaceId: ID!): [Invoice!]!
+
+  """Get lottie mockups using animation id"""
+  getLottieMockups(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first <n> elements from the list."""
+    first: Float
+
+    """Returns the last <n> elements from the list."""
+    last: Float
+
+    """Set sorting options"""
+    orderBy: QuerySortOptions
+    animationId: ID!
+  ): LottieMockupConnection!
+
+  """Check if the user is subscribed to the Animation's feed"""
+  fileNotificationsIsSubscribed(fileId: ID!): Boolean!
+
+  """Get subscriber hash for Novu API"""
+  novuSubscriberHash: String!
+
+  """
+  Get cached official workspace based on the domain derived from current user email
+  """
+  officialWorkspace: OfficialWorkspace
+
+  """
+  Get the current onboarding checklist of the logged in user, create and return if onboarding checklist does not exist yet.
+  """
+  getUserOnboardingChecklist(userId: ID!): OnboardingChecklistObject!
+
+  """
+  Get the current onboarding of the logged in user, create and return if onboarding does not exist.
+  """
+  getUserOnboarding(userId: ID!): OnboardingV2Object!
+  editorFileEditCount: Float!
+
+  """
+  Determine if it's the user's first attempt at login, and if so, set-up the workspace.
+  """
+  hasAccessToAWorkspace: Boolean!
+  hasAccessToPaidWorkspace: Boolean!
+  isPaidUser: Boolean!
+
+  """Get the country of the user"""
+  userCountry: String!
+  userHasCreatorAccess: Boolean!
+
+  """Get a payment intent by id"""
+  paymentIntent(id: String!): PaymentIntent!
+
+  """Fetch payment collections methods for the user country"""
+  paymentIntentCollectionMethod: PaymentIntentCollectionMethod
+
+  """Get a payment intent thats processing for workspace id"""
+  paymentIntentProcessingCheck(workspaceId: String!): PaymentIntent
+  portfolioPost(id: ID!): PortfolioPost!
+  portfolioPostIsSlugAvailable(input: PortfolioSlugAvailableInput!): Boolean!
+  portfolioPosts(
+    status: PortfolioPostStatus
+    portfolioId: ID!
+
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first <n> elements from the list."""
+    first: Float
+
+    """Returns the last <n> elements from the list."""
+    last: Float
+
+    """Set sorting options"""
+    orderBy: QuerySortOptions
+  ): PortfolioPostConnection!
+
+  """Get workspace portfolio"""
+  workspacePortfolio(workspaceId: ID!): WorkspacePortfolio
+  workspacePortfolioHasEditAccess(workspaceId: ID!): Boolean!
+  workspacePortfolioIsUrlAvailable(input: PortfolioUrlAvailableInput!): Boolean!
+  featuredCuratedPremiumAssets(
+    canvaCompatible: Boolean
+
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first <n> elements from the list."""
+    first: Float
+
+    """Returns the last <n> elements from the list."""
+    last: Float
+
+    """Set sorting options"""
+    orderBy: QuerySortOptions
+  ): PremiumAssetConnection!
+  featuredPremiumAssetPacks(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first <n> elements from the list."""
+    first: Float
+
+    """Returns the last <n> elements from the list."""
+    last: Float
+
+    """Set sorting options"""
+    orderBy: QuerySortOptions
+  ): PremiumAssetPackConnection!
+  featuredPremiumAssets(
+    canvaCompatible: Boolean
+
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first <n> elements from the list."""
+    first: Float
+
+    """Returns the last <n> elements from the list."""
+    last: Float
+
+    """Set sorting options"""
+    orderBy: QuerySortOptions
+  ): PremiumAssetConnection!
+  popularCuratedPremiumAssets(
+    canvaCompatible: Boolean
+
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first <n> elements from the list."""
+    first: Float
+
+    """Returns the last <n> elements from the list."""
+    last: Float
+
+    """Set sorting options"""
+    orderBy: QuerySortOptions
+  ): PremiumAssetConnection!
+  popularPremiumAssetPacks(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first <n> elements from the list."""
+    first: Float
+
+    """Returns the last <n> elements from the list."""
+    last: Float
+
+    """Set sorting options"""
+    orderBy: QuerySortOptions
+  ): PremiumAssetPackConnection!
+  popularPremiumAssets(
+    canvaCompatible: Boolean
+
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first <n> elements from the list."""
+    first: Float
+
+    """Returns the last <n> elements from the list."""
+    last: Float
+
+    """Set sorting options"""
+    orderBy: QuerySortOptions
+  ): PremiumAssetConnection!
+  premiumAsset(slug: String!): PremiumAsset!
+  premiumAssetPack(
+    slug: String!
+
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first <n> elements from the list."""
+    first: Float
+
+    """Returns the last <n> elements from the list."""
+    last: Float
+
+    """Set sorting options"""
+    orderBy: QuerySortOptions
+  ): PremiumAssetPackDetailConnection!
+  recentCuratedPremiumAssets(
+    canvaCompatible: Boolean
+
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first <n> elements from the list."""
+    first: Float
+
+    """Returns the last <n> elements from the list."""
+    last: Float
+
+    """Set sorting options"""
+    orderBy: QuerySortOptions
+  ): PremiumAssetConnection!
+  recentPremiumAssetPacks(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first <n> elements from the list."""
+    first: Float
+
+    """Returns the last <n> elements from the list."""
+    last: Float
+
+    """Set sorting options"""
+    orderBy: QuerySortOptions
+  ): PremiumAssetPackConnection!
+  recentPremiumAssets(
+    canvaCompatible: Boolean
+
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first <n> elements from the list."""
+    first: Float
+
+    """Returns the last <n> elements from the list."""
+    last: Float
+
+    """Set sorting options"""
+    orderBy: QuerySortOptions
+  ): PremiumAssetConnection!
+  searchPremiumAssetPacks(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first <n> elements from the list."""
+    first: Float
+
+    """Returns the last <n> elements from the list."""
+    last: Float
+
+    """Set sorting options"""
+    orderBy: QuerySortOptions
+
+    """A keyword to do a simple keyword based search."""
+    query: String
+  ): PremiumAssetPackConnection!
+  searchPremiumAssets(
+    canvaCompatible: Boolean
+
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first <n> elements from the list."""
+    first: Float
+
+    """Returns the last <n> elements from the list."""
+    last: Float
+
+    """Set sorting options"""
+    orderBy: QuerySortOptions
+
+    """A keyword to do a simple keyword based search."""
+    query: String
+  ): PremiumAssetConnection!
+  privateShareMembers(resourceType: PrivateShareType!, resourceId: ID!): [PrivateShare!]!
+  privateShareSuggestedMembers(resourceType: PrivateShareType!, resourceId: ID!): [SuggestedMember!]!
+
+  """Get all shared resources for the logged in user"""
+  privateShares(
+    filterByType: String
+
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first <n> elements from the list."""
+    first: Float
+
+    """Returns the last <n> elements from the list."""
+    last: Float
+
+    """Set sorting options"""
+    orderBy: QuerySortOptions
+  ): PrivateShareConnection
+
+  """Look up a project by its id."""
+  project(id: ID!): Project!
+
+  """Look up project folders and animations by project-id."""
+  projectFiles(
+    createdByUserId: String
+    type: String
+    status: String
+
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first <n> elements from the list."""
+    first: Float
+
+    """Returns the last <n> elements from the list."""
+    last: Float
+
+    """Set sorting options"""
+    orderBy: QuerySortOptions
+
+    """Identifier of the project to fetch files for."""
+    id: ID!
+  ): ProjectFileConnection!
+
+  """Search projects inside a specific workspace by it's title."""
+  searchProjectsInWorkspace(query: String!, workspaceIds: [ID!]!): [Project!]! @deprecated(reason: "Use `searchProjects` instead")
+
+  """Fetch draft project for the given workspace."""
+  workspaceDraftProject(workspaceId: ID!): Project!
+
+  """Fetch projects under a specific workspace."""
+  workspaceProjects(
+    includeSystemProjects: Boolean
+
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first <n> elements from the list."""
+    first: Float
+
+    """Returns the last <n> elements from the list."""
+    last: Float
+
+    """Set sorting options"""
+    orderBy: QuerySortOptions
+    workspaceId: ID!
+  ): ProjectConnection!
+
+  """Get all public assets for a given workflow file version"""
+  publicAssets(fileId: ID!): [PublicAsset!]!
+
+  """Get a public shared resource"""
+  publicShare(resourceType: PublicShareType!, resourceId: ID!): PublicShare
+  publicShareByCode(shareCode: String!): PublicShare!
+
+  """Fetch recently deleted files for the workspace."""
+  recentlyDeleted(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first <n> elements from the list."""
+    first: Float
+
+    """Returns the last <n> elements from the list."""
+    last: Float
+
+    """Set sorting options"""
+    orderBy: QuerySortOptions
+    workspaceId: String!
+  ): RecentlyDeletedConnection!
+
+  """Fetch recently deleted files for the workspace."""
+  recentlyDeletedChildren(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first <n> elements from the list."""
+    first: Float
+
+    """Returns the last <n> elements from the list."""
+    last: Float
+
+    """Set sorting options"""
+    orderBy: QuerySortOptions
+    resourceId: String!
+  ): ProjectFileConnection!
+
+  """Fetch recently deleted resource with the parent."""
+  recentlyDeletedResource(input: RecentlyDeletedResourceInput!): RecentlyDeleted!
+  searchMultipleWorkspaces(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+    fileStatus: String
+
+    """Returns the first <n> elements from the list."""
+    first: Float
+
+    """A keyword to do a simple keyword based search."""
+    query: String
+
+    """Sort by the specified field."""
+    sort: String
+    workspaceIds: [String!]!
+  ): SearchWorkspaceResponse!
+  searchWorkspace(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+    fileStatus: String
+
+    """Returns the first <n> elements from the list."""
+    first: Float
+
+    """A keyword to do a simple keyword based search."""
+    query: String
+
+    """Sort by the specified field."""
+    sort: String
+  ): SearchWorkspaceResponse!
+
+  """Find source files by file version id"""
+  sourceFile(fileVersionId: ID!): SourceFile
+
+  """Find source files by file version id"""
+  sourceFiles(fileVersionId: ID!): [SourceFile!]
+
+  """Fetch suggested invitees for the authenticated user."""
+  suggestedInvitees(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first <n> elements from the list."""
+    first: Float
+
+    """Returns the last <n> elements from the list."""
+    last: Float
+
+    """Set sorting options"""
+    orderBy: QuerySortOptions
+    workspaceId: String!
+  ): SuggestedInviteeConnection!
+
+  """
+  Suggest official workspace based on domain name of the user's email address
+  """
+  suggestedOfficialWorkspace: SuggestedWorkspace!
+
+  """Suggest workspaces based on domain name of the user's email address"""
+  suggestedWorkspaces(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first <n> elements from the list."""
+    first: Float
+
+    """Returns the last <n> elements from the list."""
+    last: Float
+
+    """Set sorting options"""
+    orderBy: QuerySortOptions
+  ): SuggestedWorkspaceConnection!
+
+  """Get all the users who are subscribed to this animation."""
+  fileNotificationSubscribers(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first <n> elements from the list."""
+    first: Float
+
+    """Returns the last <n> elements from the list."""
+    last: Float
+
+    """Set sorting options"""
+    orderBy: QuerySortOptions
+    id: ID!
+  ): UserNotificationSubscriptionConnection!
+  workflowVersion: String!
+
+  """Get the current onboarding of the logged in user"""
+  getUserOnboardingStatus: OnboardingObject! @deprecated(reason: "This query is deprecated and will be removed in near future, use `getUserOnboarding` instead")
+
+  """Look up a workflow collection by its id."""
+  workspaceCollection(id: ID!): WorkspaceCollection!
+
+  """Fetch files for a workspace collection."""
+  workspaceCollectionFiles(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first <n> elements from the list."""
+    first: Float
+
+    """Returns the last <n> elements from the list."""
+    last: Float
+
+    """Set sorting options"""
+    orderBy: QuerySortOptions
+    id: ID!
+  ): FileConnection!
+
+  """Fetch workspace collections connection."""
+  workspaceCollections(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first <n> elements from the list."""
+    first: Float
+
+    """Returns the last <n> elements from the list."""
+    last: Float
+
+    """Set sorting options"""
+    orderBy: QuerySortOptions
+
+    """A keyword to do a simple keyword based search."""
+    query: String
+    workspaceId: ID!
+  ): WorkspaceCollectionConnection!
+  workspaceColorPalette(id: ID!): WorkspaceColorPalette!
+  workspaceColorPalettes(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first <n> elements from the list."""
+    first: Float
+
+    """Returns the last <n> elements from the list."""
+    last: Float
+
+    """Set sorting options"""
+    orderBy: QuerySortOptions
+    workspaceId: ID!
+  ): WorkspaceColorPaletteConnection!
+
+  """Get workspace invitation link"""
+  workspaceInvitationLink(invitationCode: String, workspaceId: ID): WorkspaceInvitationLink
+  workspaceOwnershipTransferRequest(workspaceId: ID!): WorkspaceOwnershipTransfer
+
+  """Get brand information using the domain"""
+  brandInformation(domain: String!): BrandObject!
+
+  """Check if there is a current workspace and return it"""
+  currentWorkspace: Workspace
+
+  """Look up a workspace by its id."""
+  workspace(id: ID!): Workspace
+
+  """Check if the workspace can add members"""
+  workspaceCanAddMoreSeats(id: ID!): Boolean!
+
+  """Check if the workspace can add members"""
+  workspaceCanManageMembers(id: ID!): Boolean!
+
+  """get workspace dependencies count, files, projects and members"""
+  workspaceCounts(id: String!): WorkspaceCountsObject
+  workspaceSeatUtilization(workspaceId: ID!): WorkspaceSeatUtilization!
+
+  """Get the price of per user for the workspace"""
+  workspaceUserPrice(workspaceId: String!): WorkspaceMemberPrice!
+
+  """Fetch all the workspaces that has access to the logged in user"""
+  workspaces: [Workspace!]
+
+  """Fetch all workspaces owned by user"""
+  workspacesOwnedByUser(includeDraft: Boolean): [Workspace!]
+
+  """Get the settings of a Workspace"""
+  workspaceSettings(id: ID!): WorkspaceSettings!
+
+  """Get available discount details for a workspace subscription"""
+  workspaceSubscriptionAvailableDiscount(workspaceId: ID!): WorkspaceSubscriptionAvailableDiscount!
+
+  """Get the plan the workspace subscription can be upgraded to"""
+  workspaceSubscriptionAvailablePlanUpgrade(subscriptionId: ID!): AvailablePlanUpgrade
+
+  """Checks if the given checkout session was completed"""
+  workspaceSubscriptionCheckoutCompleted(id: ID!): WorkspaceSubscriptionCheckoutSessionMetadata!
+  zipFile(key: String!): ZipFile!
+}
+
+type Mutation {
+  """
+  Completes a reset password process. Will also logout the user from all existing sessions.
+  """
+  confirmResetPassword(newPassword: String!, resetPasswordToken: String!): Boolean!
+
+  """Initiates the long poll token login process."""
+  createLoginToken(appKey: String): LoginToken!
+
+  """
+  Links the account for enterprise login (workos provider) and logs user in.
+  """
+  enterpriseLinkWithLogin(web: Boolean!, code: String!): Authentication!
+
+  """Completes the Enterprise login process."""
+  enterpriseLogin(
+    """The OAuth2 login challenge."""
+    loginChallenge: String
+    web: Boolean
+    code: String!
+  ): Authentication!
+
+  """
+  Logouts the current user, "true" if the session is successfully destroyed.
+  """
+  logout(web: Boolean): Boolean!
+
+  """Disables lookup secrets for a user"""
+  lookupSecretsDisable: Boolean!
+
+  """Login using generated lookup secrets (recovery codes)"""
+  lookupSecretsLogin(
+    """The OAuth2 login challenge."""
+    loginChallenge: String
+    web: Boolean
+    code: String!
+  ): Authentication!
+
+  """Generates new lookup secrets for a user"""
+  lookupSecretsRegenerate: LookupSecret!
+
+  """
+  To be called by an authenticated user. It marks the token for the login token process as valid, and enables the `tokenLogin` mutation to receive a new session based on the token.
+  """
+  markLoginTokenValid(token: String!): Boolean!
+
+  """Email/Password user login."""
+  passwordLogin(
+    """The OAuth2 login challenge."""
+    loginChallenge: String
+    web: Boolean
+    password: String!
+    email: String!
+  ): Authentication!
+
+  """Email/Password user registration."""
+  register(
+    """The token generated by Turnstile captcha on client end."""
+    verificationToken: String
+
+    """The OAuth2 login challenge."""
+    loginChallenge: String
+    web: Boolean
+    lastName: String
+
+    """Same as `firstName`."""
+    name: String
+    firstName: String
+    password: String!
+    email: String!
+  ): Authentication!
+
+  """
+  Will send a reset password email, if the email belongs to a registered user.
+  """
+  resetPassword(email: String!): Boolean!
+
+  """Initiate a request to clear the sessions for the current user."""
+  sessionsClear(email: String!): Boolean!
+
+  """Completes a clear sessions process."""
+  sessionsConfirmClear(sessionsClearToken: String!): Boolean!
+
+  """
+  Login with a social provider. Accepted providers: "dribbble", "google", "facebook", "twitter", "apple", "github".
+  """
+  socialLogin(
+    """The OAuth2 login challenge."""
+    loginChallenge: String
+    clientSecret: String
+    clientId: String
+    web: Boolean
+    accessToken: String
+    accessSecret: String
+    idToken: String
+    provider: String!
+  ): Authentication!
+
+  """
+  Checks if the user completed the token login authentication. Will return the accessToken if completed, otherwise it will return an error.
+  """
+  tokenLogin(
+    """The token obtained with the createLoginToken mutation."""
+    token: String!
+  ): Authentication!
+
+  """Completes the TOTP link to a user account"""
+  totpLinkConfirm(flowId: String!, code: String!): LookupSecret!
+
+  """TOTP MFA login."""
+  totpLogin(
+    """The OAuth2 login challenge."""
+    loginChallenge: String
+    web: Boolean
+    code: String!
+  ): Authentication!
+
+  """Unlinks TOTP from the current user."""
+  totpUnlink: Boolean!
+
+  """Cancels the ongoing email change process for the user."""
+  cancelEmailChange: User!
+
+  """Completes an email change process."""
+  confirmEmailChange(emailChangeToken: String!): Boolean!
+
+  """Completes the email verification process."""
+  emailVerificationConfirm(emailVerificationToken: String!): Boolean!
+
+  """
+  Initiates the email change process, will fire an email for the user to conclude the email change process.
+  """
+  requestEmailChange(email: String!): User!
+
+  """Resends the change email confirmation email message."""
+  resendEmailChangeEmail: Boolean!
+
+  """Resends the verification email for the current logged in user."""
+  resendVerificationEmail: Boolean!
+
+  """Confirms and unsubscribes the user with the code."""
+  unsubscribeEmailConfirm(code: String!): Boolean!
+
+  """Sends the unsubscribe confirm email message."""
+  unsubscribeEmailRequest(email: String!): Boolean!
+
+  """Verify the user email address with a code"""
+  userEmailVerify(code: String!): User!
+
+  """Updates user's notification preference"""
+  viewerNotificationPreferenceUpdate(input: NotificationPreferenceUpdateInput!): ViewerNotificationPreference!
+
+  """Deletes user's Slack notification webhook integration"""
+  viewerSlackNotificationWebhookDelete: Boolean!
+
+  """Sets user's Slack notification webhook integration"""
+  viewerSlackNotificationWebhookSet(
+    """The code from Slack OAuth redirection"""
+    code: String!
+  ): Boolean!
+
+  """
+  Accepts an OAuth consent request for the given consent challenge and selected scopes, and returns the redirect URL.
+  """
+  oAuthConsentRequestAccept(scopes: [String!]!, consentChallenge: String!): String!
+
+  """
+  Rejects an OAuth consent request for the given consent challenge and selected scopes, and returns the redirect URL.
+  """
+  oAuthConsentRequestReject(consentChallenge: String!): String!
+
+  """Accepts organization invitation. Links directory user to Kratos user."""
+  organizationInviteAccept(invitationCode: String!): DirectoryUser!
+
+  """
+  Key/value of data associated with the session. Sets a value for a key to the current logged in session. If value is not sent, unsets the given key.
+  """
+  sessionSetValue(value: String, key: String!): Boolean!
+  isUsernameAvailable(username: String!): Boolean! @deprecated(reason: "Use the query `isUsernameAvailable` instead of this mutation.")
+
+  """Updates a user's password."""
+  passwordChange(newPassword: String!): Boolean!
+
+  """
+  Finishes the process of uploading a new profile image. Must be called right after finishing PUTing the file to the signed URL provided by the `uploadProfilePhoto` mutation. Will process the uploaded image into different sizes and store them.
+  """
+  processUserProfilePhotoUpload(signedUrl: String!, filename: String!): Boolean!
+
+  """Sets the segments to apply to the current logged in user."""
+  setUserSegments(
+    """Required if one of the segments selected is "Other"."""
+    segmentOtherDescription: String
+
+    """
+    The IDs of the segments to set to the user, separated by commas. E.g. "1,2,3".
+    """
+    segmentIds: String!
+  ): Boolean!
+
+  """
+  Links the account with a social provider. Accepted providers: "dribbble", "google", "facebook", "twitter", "apple", "github", "workos".
+  """
+  socialLoginLink(code: String, accessToken: String, accessSecret: String, idToken: String, provider: String!): Boolean!
+
+  """
+  Unlinks the account and a social provider. Accepted providers: "dribbble", "google", "facebook", "twitter", "apple", "github", "workos".
+  """
+  socialLoginUnlink(provider: String!): Boolean!
+
+  """Updates the current user's profile data."""
+  updateUser(
+    """The user's Behance username."""
+    behanceUsername: String
+
+    """The user's short Bio."""
+    bio: String
+
+    """The user's City of residence."""
+    city: String
+
+    """The user's Country of residence."""
+    country: String
+
+    """The user's Dribbble username."""
+    dribbbleUsername: String
+
+    """Send "true" if the user has agreed to receive marketing emails."""
+    enableMarketingEmails: String
+
+    """The user's first name."""
+    firstName: String
+
+    """The user's Github username."""
+    githubUsername: String
+
+    """The user's Instagram username."""
+    instagramUsername: String
+
+    """Send "true" if the user is available for work."""
+    isHireable: String
+
+    """The user's last name."""
+    lastName: String
+
+    """The user's Linkedin username."""
+    linkedinUsername: String
+
+    """Same as `city`."""
+    location: String
+
+    """Same as `firstName`."""
+    name: String
+
+    """The user's Twitter username."""
+    twitterUsername: String
+
+    """The user's preferred username."""
+    username: String
+
+    """The user's personal website."""
+    website: String
+  ): User!
+
+  """
+  Starts the upload profile picture process. Returns a signed URL that should be used in a PUT request with the file content. The `processUserProfilePhotoUpload` mutation must be called right after the file upload has finished.
+  """
+  uploadProfilePhoto(extension: String!): UserProfilePhotoUpload!
+
+  """Update the user preferred locale"""
+  userLocaleUpdate(locale: String!): Boolean!
+
+  """Request the start of self-service account deletion."""
+  userSelfDeleteRequest(offboardingQuestions: [OffboardingQuestionInput!]!, reason: String!): Boolean!
+  accountDeleteRequestCreate(requestType: AccountDeleteRequestType!): Boolean!
+  hireRequestCreate(input: HireRequestInput!): Boolean!
+  hitCountEventCreate(input: HitCountEventInput!, resourceId: ID!): HitCountEvent!
+  publicAnimationCollectionAddAnimation(animationId: Int!, collectionId: Int!): PublicCollection!
+  publicAnimationCollectionCreate(input: CollectionInput!): PublicCollection!
+  publicAnimationCollectionDelete(collectionId: Int!): Boolean!
+  publicAnimationCollectionDeleteAnimations(animationIds: [Int!]!, collectionId: Int!): Boolean!
+  publicAnimationCollectionUpdate(collectionId: Int!, input: CollectionInput!): PublicCollection!
+  publicAnimationCreate(input: PublicAnimationCreateInput!): PublicAnimation!
+  publicAnimationCreateComment(animationId: Int!, input: CommentInput!): PublicComment!
+  publicAnimationCreateCommentReply(commentId: Int!, content: String!): PublicComment!
+  publicAnimationDelete(id: Int!): PublicAnimationDeleteResponse!
+  publicAnimationLike(id: Int!): PublicAnimation!
+  publicAnimationReport(input: AnimationReportInput!): Boolean!
+  publicAnimationResolveComment(id: Int!): PublicComment!
+  publicAnimationUnlike(id: Int!): PublicAnimation!
+  publicAnimationUploadRequestCreate(input: PublicAnimationUploadRequestCreateInput!): PublicAnimationUploadRequest!
+
+  """
+  WARNING: this query/mutation is experimental. Names, fields or types can possibly have breaking changes. ---
+  Converts a previously uploaded raster image to a Lottie animation.
+  """
+  rasterToLottieConvert(fileName: String!, imageId: ID!, params: RasterToLottieJobParams): RasterToLottieJob!
+
+  """
+  WARNING: this query/mutation is experimental. Names, fields or types can possibly have breaking changes. ---
+  Generates a pre-signed URL for uploading a raster image.
+  """
+  rasterToLottieUpload(fileName: String!): RasterToLottieUploadUrl!
+
+  """Approve a membership request"""
+  workspaceJoinRequestApprove(id: ID!): WorkspaceMember!
+
+  """Accept invitation to a workspace using the invitation code."""
+  workspaceMemberCompleteOnboarding(workspaceId: ID!): WorkspaceMember!
+
+  """Remove workspace member"""
+  workspaceMemberDelete(id: ID!): Boolean!
+
+  """Accept invitation to a workspace using the invitation code."""
+  workspaceMemberInvitationAccept(invitationCode: String!): WorkspaceMember!
+
+  """Reinvite user to a workspace."""
+  workspaceMemberResendInvite(id: String!): WorkspaceMember!
+
+  """Change access of the user to a workspace."""
+  workspaceMemberSetPermission(access: String!, id: ID!): WorkspaceMember!
+
+  """Invite a multiple users to a workspace."""
+  workspaceMembersSendInvites(input: WorkspaceMemberSendInviteInput!, workspaceId: ID!): [WorkspaceMember!]!
+
+  """Create a stripe session and get the ID of the session"""
+  accountPaymentProviderCustomerPortalSessionCreate(workspaceId: ID): String!
+
+  """Update an account by its id."""
+  accountUpdate(workspaceId: ID, updateLastInvoice: Boolean, input: AccountInput!, id: ID!): Account!
+
+  """Update tax id of account"""
+  accountUpdateTaxId(input: AccountTaxInput!): Account!
+
+  """Add a comment to an animation"""
+  commentCreate(input: CommentCreateInput!): Comment!
+
+  """Delete a comment"""
+  commentDelete(id: ID!): Boolean!
+
+  """Edit a comment"""
+  commentEdit(body: String!, id: ID!): Comment!
+
+  """Publish an unpublished comment"""
+  commentPublish(id: ID!): Comment!
+
+  """React to a comment"""
+  commentReact(type: String!, id: ID!): Comment!
+
+  """Reply to a comment"""
+  commentReplyCreate(name: String = "Anonymous", body: String!, id: ID!): Comment!
+
+  """Mark a comment as resolved"""
+  commentResolve(id: ID!): Comment!
+
+  """Unpublish a comment"""
+  commentUnpublish(id: ID!): Comment!
+
+  """Unreact to a comment"""
+  commentUnreact(type: String!, id: ID!): Comment!
+
+  """Mark a resolved comment as unresolved"""
+  commentUnresolve(id: ID!): Comment!
+
+  """Begins importing a community animation."""
+  communityAnimationImport(input: CommunityAnimationImportInput!): Boolean!
+
+  """Creates a community animation import request."""
+  communityAnimationImportRequestCreate(input: CommunityAnimationImportRequestCreateInput!): CommunityAnimationImportRequest!
+  educationPlanActivate(inviteCode: String!): Boolean!
+
+  """Create organization for the workspace"""
+  enterpriseOrganizationCreate(input: CreateEnterpriseOrganizationInput!): EnterpriseOrganization!
+
+  """Delete the enterprise organization for the workspace"""
+  enterpriseOrganizationDelete(workspaceId: ID!): Boolean!
+
+  """Disable DSYNC for the enterprise organization for the workspace"""
+  enterpriseOrganizationDisableDsync(workspaceId: ID!): EnterpriseOrganization!
+
+  """Disable SSO for the enterprise organization for the workspace"""
+  enterpriseOrganizationDisableSso(workspaceId: ID!): EnterpriseOrganization!
+
+  """
+  Updated SSO enforcement for the enterprise organization for the workspace
+  """
+  enterpriseOrganizationSetSsoEnforcement(input: EnterpriseSetSsoEnforcementInput!, workspaceId: ID!): Boolean!
+
+  """
+  Update directory groups for the enterprise organization for the workspace
+  """
+  enterpriseOrganizationUpdateDirectoryGroups(input: EnterpriseOrganizationDirectoryGroupInput!): [OrganizationDirectoryGroup!]!
+
+  """Add domains for the enterprise organization for the workspace"""
+  enterpriseOrganizationUpdateDomains(input: EnterpriseOrganizationDomainsInput!): EnterpriseOrganization!
+
+  """Create a new file."""
+  fileCreate(input: FileCreateInput!): File!
+
+  """Fallback mutation to create a new file"""
+  fileCreateFallback(input: FileCreateFallbackInput!): File!
+
+  """Delete an existing file by its id."""
+  fileDelete(id: ID!): Boolean!
+  fileDescriptionUpdate(input: FileDescriptionUpdateInput!, id: ID!): File!
+
+  """Duplicate a file."""
+  fileDuplicate(input: FileDuplicateInput!): File!
+
+  """Update the name of the animation"""
+  fileRename(input: FileRenameInput!, id: ID!): File!
+
+  """Modify an existing file by its id."""
+  fileUpdate(input: UpdateFileInput!, id: String!): File!
+
+  """Update background color of the file"""
+  fileUpdateBackgroundColor(backgroundColor: String, id: ID!): File!
+  fileUpdateStatus(status: FileStatus, id: ID!): File!
+  fileUploadRequestCreate(input: CreateUploadRequestInput): FileUploadRequest!
+
+  """
+  Delete existing files by their ids, project id or folder id. IDs can optionally be scoped to a project or folder by passing in a projectId or folderId.
+  """
+  filesDelete(folderId: ID, projectId: ID, ids: [ID!]!): Boolean!
+
+  """Move file or folder to a new folder."""
+  filesMoveToFolder(folderId: ID!, fileIds: [ID!]!): [File!]!
+
+  """Move file or folder to a new folder."""
+  filesMoveToProject(projectId: ID!, fileIds: [ID!]!): [File!]!
+  filesUpdateStatus(status: FileStatus, folderId: ID, projectId: ID, ids: [ID!]): [File!]!
+  exportJsonFile(fileVersionId: ID!): FileVariant!
+  filePreviewCreate(input: FileVariantInput!, fileVersionId: ID!): FileVariant!
+  fileVariantDelete(fileVersionId: ID!, fileVariantId: ID!): FileVariant!
+  fileVariantFallback(fileVariationId: ID!): FileVariant!
+  fileVariantUpdate(input: FileVariantUpdateInput!): FileVariant!
+  fileVariantsSync(fileVersionId: ID!): [FileVariant!]!
+  optimizeWorkflowFile(fileVersionId: ID!): FileVariant @deprecated(reason: "Use `mutation fileVersionOptimize` instead")
+  uploadDotLottieWorkflowFile(fileVersionId: ID!): FileVariant! @deprecated(reason: "Use `mutation fileVersionOptimize` instead")
+
+  """Create a new version of the file"""
+  fileVersionCreate(input: FileVersionCreateInput!): FileVersion!
+
+  """Fallback to create a new file version"""
+  fileVersionCreateFallback(input: FileVersionCreateFallbackInput!): FileVersion!
+
+  """Delete a version from the file"""
+  fileVersionDelete(id: ID!): Boolean!
+
+  """
+  Create optimized variants for a FileVersion. Returns a FileVersionOptimizeJob if the job is queued.
+  """
+  fileVersionOptimize(id: ID!): FileVersionOptimizeJob
+  fileVersionOptimizedVariantsSync(id: ID!): [FileVariant!]! @deprecated(reason: "use fileVariantsSync")
+
+  """
+  Restore the current file to the specific version ( also increment the version )
+  """
+  fileVersionRestore(fileVersionId: ID!, fileId: ID!): File!
+
+  """Update tags for file version"""
+  fileVersionTagsUpdate(tags: [String!]!, id: ID!): [String!]!
+
+  """Create a new folder."""
+  folderCreate(input: CreateFolderInput!): Folder!
+
+  """Delete an existing folder by its id."""
+  folderDelete(id: ID!): Boolean!
+
+  """Rename folder"""
+  folderRename(input: FolderRenameInput!, id: ID!): Folder!
+
+  """Create a Braintree subscription for the next plan (pricingId)"""
+  inlineCheckoutBraintreeSubscriptionCreate(input: InlineCheckoutBraintreeSubscriptionCreateInput!): Boolean!
+  inlineCheckoutSetupIntentCreate(input: InlineCheckoutSetupIntentCreateInput!): InlineCheckoutSetupIntentCreatePayload!
+  inlineCheckoutStripeSubscriptionCreate(input: InlineCheckoutStripeSubscriptionCreateInput!): Boolean!
+
+  """Retrieve the download link for an invoice."""
+  invoiceDownloadLinkCreate(id: ID!): String
+
+  """
+  Optimize a a given lottie json payload, returns a temporary url for the optimized file
+  """
+  lottieJsonOptimize(input: LottieJsonOptimizeInput!): String!
+
+  """Create a new lottie mockup"""
+  createLottieMockup(input: LottieMockupCreateInput!): LottieMockup!
+
+  """Delete a lottie mockup using lottie mockup id"""
+  deleteLottieMockup(id: ID!): Boolean!
+
+  """Get S3 presigned background upload URL"""
+  getBackgroundUploadPresignedData(filename: String!, animationId: ID!): BackgroundImageObject!
+  fileNotificationsSubscribe(fileId: ID!): Boolean!
+  fileNotificationsUnsubscribe(fileId: ID!): Boolean!
+
+  """Update the current onboarding checlist of the logged in user"""
+  updateUserOnboardingChecklist(input: UpdateOnboardingChecklistInput!): OnboardingChecklistObject!
+
+  """Update the current onboarding of the logged in user"""
+  updateUserOnboarding(input: UpdateOnboardingV2Input!): OnboardingV2Object!
+  editorFileEditCountIncrement(input: CreateEditorFileEditCounterInput!): Float!
+
+  """
+  Create a payment intent for new/renew subscription to get the checkout session token
+  """
+  paymentIntentCreate(input: PaymentIntentInput!): PaymentIntentToken!
+
+  """
+  Create payment intent for accepting workspace member requests and return the checkout session token
+  """
+  paymentIntentCreateForAcceptingMemberRequest(workspaceInvitationId: String!): PaymentIntentToken!
+
+  """
+  Create payment intent for renewing workspace subscription and return the checkout session token
+  """
+  paymentIntentCreateForRenewSubscription(workspaceId: String!): PaymentIntentToken!
+
+  """Create a payment intent for adding seats for resources like animations"""
+  paymentIntentCreateForResourceSeats(input: PaymentIntentAddSeatsForResourceInput!): PaymentIntentToken!
+
+  """
+  Create a payment intent for adding seats to the workspace to get the checkout session token
+  """
+  paymentIntentCreateForSeats(input: PaymentIntentAddSeatsInput!): PaymentIntentToken!
+  paymentMethodInvoicePaymentAttempt(paymentMethodId: String, workspaceId: String!): InvoicePaymentAttemptPayload!
+  paymentMethodSetDefault(paymentMethodId: String!, workspaceId: String!): PaymentMethod!
+  paymentMethodSetup(workspaceId: String!): PaymentMethodSetupPayload!
+
+  """remove play segment from file version"""
+  playSegmentRemove(playSegmentId: ID!, fileVersionId: ID!): FileVersion! @deprecated(reason: "This mutation is a noop. Upload a new version or a new file instead.")
+
+  """add or update play segment to a file version"""
+  playSegmentUpsert(input: PlaySegmentInput!, fileVersionId: ID!): FileVersion! @deprecated(reason: "This mutation is a noop. Upload a new version or a new file instead.")
+
+  """clear all play segments from version"""
+  playSegmentsClear(fileVersionId: ID!): FileVersion! @deprecated(reason: "This mutation is a noop. Upload a new version or a new file instead.")
+
+  """copy play segment from one file version to another"""
+  playSegmentsCopy(playSegmentId: ID, toFileVersionId: ID!, fromFileVersionId: ID!): FileVersion! @deprecated(reason: "This mutation is a noop. Upload a new version or a new file instead.")
+
+  """Get S3 presigned image upload URL"""
+  portfolioImageUploadPresignedData(filename: String!, workspaceId: String!): PortfolioImageUploadObject!
+  portfolioPostCreate(input: PortfolioPostInput!): PortfolioPost!
+  portfolioPostDelete(id: ID!): Boolean!
+  portfolioPostPublish(isPublished: Boolean!, id: ID!): PortfolioPost!
+  portfolioPostUpdate(id: ID!, input: PortfolioPostUpdateInput!): PortfolioPost!
+
+  """Get S3 presigned icon upload URL"""
+  portfolioIconUploadPresignedData(filename: String!, workspaceId: String!): PortfolioIconUploadObject!
+  workspacePortfolioUpdate(input: WorkspacePortfolioInput!): WorkspacePortfolio!
+  premiumAssetGenerateDownloadLink(uuid: ID!): PremiumAssetDownloadLink!
+  privateShareAccept(invitationCode: String!): PrivateShare!
+
+  """Add user to resource"""
+  privateShareInviteUser(input: SharedResourceInput!): [PrivateShare!]!
+
+  """Re-invite user to private share"""
+  privateShareReInviteUser(id: ID!): PrivateShare!
+
+  """Update user access to the shared resource"""
+  privateShareSetPermission(access: String!, id: ID!): PrivateShare
+
+  """Create a draft project if draft workspace does not already exist"""
+  draftProjectCreate(workspaceId: ID!): Project!
+
+  """Create a new project."""
+  projectCreate(input: ProjectCreateInput!): Project!
+
+  """Delete an existing project by its id."""
+  projectDelete(id: ID!): Boolean!
+
+  """Modify an existing project by its id."""
+  projectUpdate(input: ProjectUpdateInput!, id: ID!): Project!
+
+  """Update the project access to workspace."""
+  projectUpdatePermission(isPrivate: Boolean!, id: ID!): Project!
+
+  """Extend public asset link expiry"""
+  publicAssetExtendExpiry(publicAssetId: ID!): PublicAsset!
+
+  """Re-generate public asset link"""
+  publicAssetRegenerate(publicAssetId: ID!): PublicAsset!
+
+  """Restore public asset link to a different workflow file version"""
+  publicAssetRestore(input: PublicAssetRestoreInput!): [PublicAsset!]!
+
+  """Publish public asset link for a workflow file version"""
+  publicAssetUpdate(input: PublicAssetUpdateInput!): [PublicAsset!]!
+  publicShareCreate(input: PublicShareCreateInput, access: [String!]!, resourceType: PublicShareType!, resourceId: ID!): PublicShare!
+
+  """Generate public link for a given file key"""
+  publicShareCreateForFileKey(fileKey: String!): PublicShare
+
+  """Purges the recently deleted entry."""
+  recentlyDeletedPurge(input: RecentlyDeletedPurgeInput!): Boolean!
+
+  """Purges all the recently deleted entries for the given workspace."""
+  recentlyDeletedPurgeAll(workspaceId: ID!): Boolean!
+
+  """Deletes the recently deleted entry."""
+  recentlyDeletedPurgeMultiple(input: RecentlyDeletedPurgeMultipleInput!): Boolean!
+
+  """Restores the recently deleted entry."""
+  recentlyDeletedRestore(input: RecentlyDeletedRestoreInput!): Boolean!
+
+  """Create a source file"""
+  sourceFileCreate(input: SourceFileCreateInput!): SourceFile!
+
+  """Find source files by file version id"""
+  sourceFileDelete(id: ID!): Boolean!
+
+  """Update source file"""
+  sourceFileUpdate(input: SourceFileCreateInput!, id: ID!): SourceFile
+
+  """Join a suggested workspace"""
+  suggestedWorkspaceCancelJoinRequest(id: ID!): SuggestedWorkspace
+
+  """Join a suggested workspace"""
+  suggestedWorkspaceJoin(id: ID!): SuggestedWorkspace
+
+  """Remove a suggested workspace from the list show to the user"""
+  suggestedWorkspaceRemove(id: ID!): Boolean!
+
+  """Convert video to lottie, return task_id"""
+  videoToLottie(key: String!): String!
+
+  """Get converted lottie (from video) with taskId"""
+  videoToLottieConverted(taskId: String!, input: CreateUploadRequestInput): FileUploadRequestStatus!
+
+  """
+  Update the current workspace of the logged in user. If no workspace exists, a new workspace setting will be created.
+  """
+  updateCurrentWorkspace(workspaceId: ID!): Workspace!
+
+  """Update the current onboarding of the logged in user"""
+  updateUserOnboardingStatus(input: UpdateOnboardingInput!): OnboardingObject! @deprecated(reason: "This mutation is deprecated and will be removed in near future, use `updateUserOnboarding` instead")
+  workflowTempFileUploadRequestCreate(filename: String!): WorkflowTempFilePreSignedUploadRequest!
+
+  """Update the collection access to workspace."""
+  collectionUpdatePermission(isPrivate: Boolean!, id: ID!): WorkspaceCollection!
+
+  """Add animations to a workspace collection."""
+  workspaceCollectionAddFiles(fileIds: [ID!]!, id: ID!): WorkspaceCollection!
+
+  """Create a new workspace collection."""
+  workspaceCollectionCreate(input: WorkspaceCollectionCreateInput!): WorkspaceCollection!
+
+  """Delete an existing workspace collection by its id."""
+  workspaceCollectionDelete(id: ID!): Boolean!
+
+  """Add animations to a workspace collection."""
+  workspaceCollectionRemoveFiles(fileIds: [ID!]!, id: ID!): WorkspaceCollection!
+
+  """Modify an existing collection by its id."""
+  workspaceCollectionUpdate(input: WorkspaceCollectionUpdateInput!, id: ID!): WorkspaceCollection!
+  workspaceColorPaletteCreate(input: CreateWorkspaceColorPaletteInput!): WorkspaceColorPalette!
+  workspaceColorPaletteDelete(id: ID!): Boolean!
+  workspaceColorPaletteUpdate(input: UpdateWorkspaceColorPaletteInput!, id: ID!): WorkspaceColorPalette!
+
+  """Invite user to workspace if the invitation code is valid"""
+  workspaceInvitationLinkAccept(invitationCode: String!): WorkspaceMember!
+
+  """Regenerate workspace invitation link"""
+  workspaceInvitationLinkRegenerate(workspaceId: ID!): WorkspaceInvitationLink!
+
+  """
+  Update workspace invitation link. If not workspace invitation link exists, a new link will be created
+  """
+  workspaceInvitationLinkUpdate(isActive: Boolean!, canInviteMembers: Boolean!, workspaceId: ID!): WorkspaceInvitationLink!
+  workspaceOwnershipTransferRequestAccept(transferId: ID!): WorkspaceOwnershipTransfer!
+  workspaceOwnershipTransferRequestCancel(transferId: ID!): WorkspaceOwnershipTransfer!
+  workspaceOwnershipTransferRequestCreate(newOwnerId: ID!, workspaceId: ID!): WorkspaceOwnershipTransfer!
+  workspaceOwnershipTransferRequestDecline(transferId: ID!): WorkspaceOwnershipTransfer!
+  workspaceOwnershipTransferRequestResend(transferId: ID!): WorkspaceOwnershipTransfer!
+
+  """Get S3 presigned icon upload URL"""
+  getIconUploadPresignedData(filename: String!, workspaceId: String!): WorkspaceIconUploadObject!
+
+  """
+  Get user's draft workspace. Create a draft workspace if existing draft workspace doesn't exist.
+  """
+  getOrCreateDraftWorkspace: Workspace!
+
+  """Upload initial animation to the workspace."""
+  initialAnimationUpload(input: InitialAnimationUploadInput!): String
+
+  """
+  Determine if it's the user's first attempt at login, and if so, set-up the workspace.
+  """
+  setupInitialWorkspace: Workspace!
+
+  """Create a new workspace."""
+  workspaceCreate(icon: String, name: String!): Workspace!
+
+  """
+  Delete a workspace. This will delete all of the workspace's projects, invitations, and subscriptions.
+  """
+  workspaceDelete(id: ID!): Workspace!
+
+  """
+  Leave a workspace. This will remove all your permissions from the workspace and remove any associated settings.
+  """
+  workspaceLeave(id: ID!): Workspace!
+
+  """Request to join a workspace"""
+  workspaceRequestJoin(preferApproval: Boolean, workspaceId: ID!): WorkspaceMember
+
+  """Cancel request to join a workspace"""
+  workspaceRequestJoinCancel(workspaceId: ID!): Workspace!
+
+  """Transfer ownership to new user in the workspace"""
+  workspaceTransferOwnership(userId: String!, id: String!): Boolean!
+
+  """Update workspace settings by ID"""
+  workspaceUpdate(input: WorkspaceInput!, id: ID!): Workspace!
+
+  """Update settings of a workspace"""
+  workspaceSettingsUpdate(input: WorkspaceSettingsUpdateInput!, id: ID!): WorkspaceSettings!
+
+  """Applies a discount to a failed invoice for a subscription"""
+  workspaceSubscriptionApplyDiscount(input: ApplyDiscountInput!): Boolean!
+
+  """Cancels current active subscription of the given workspace."""
+  workspaceSubscriptionCancel(input: SubscriptionCancelInput!): Boolean!
+
+  """Cancel trial plan of the given workspace."""
+  workspaceSubscriptionCancelTrial(workspaceId: String!): Boolean!
+
+  """Marks the subscription active if it is marked for cancellation."""
+  workspaceSubscriptionContinue(id: String!): Boolean!
+
+  """
+  Create a stripe checkout session to a workspace and returns the session if the payment provider is stripe, for the case of paypal it returns success if the subscription is created.
+  """
+  workspaceSubscriptionCreateCheckoutSession(input: WorkspaceSubscriptionCheckoutSessionInput!): String!
+
+  """
+  Create a stripe checkout session to a workspace and returns the session.
+  """
+  workspaceSubscriptionCreateCheckoutSessionForEmbed(input: WorkspaceSubscriptionCheckoutForEmbedInput!): CheckoutObject!
+
+  """Get the client token for braintree"""
+  workspaceSubscriptionGetClientToken: String!
+
+  """
+  Upgrades current active subscription of the given workspace to the next one.
+  """
+  workspaceSubscriptionUpgrade(input: WorkspaceSubscriptionUpgradeInput!): Boolean!
+  zipFileCreate(input: ZipFileCreateInput!): ZipFile!
+}
+
+type OrganizationSsoLogin {
+  """The organization name"""
+  name: String!
+
+  """The sso login url"""
+  url: String!
+}
+
+type LookupSecret {
+  """The recovery code strings"""
+  codes: [String!]
+
+  """The result status of the requested action"""
+  status: String!
+}
+
+type TotpLink {
+  flowId: String!
+  totpCode: String
+  totpImage: String
+}
+
+type LocaleListing {
+  locales: [Locale!]
+}
+
+type Locale {
+  code: String!
+  fallbackCode: String!
+}
+
+type ViewerNotificationPreference {
+  """The notification preference configs"""
+  preference: NotificationPreference!
+
+  """The notification preference template info"""
+  template: NotificationTemplate!
+}
+
+type NotificationPreference {
+  """The specific channels that are enabled or not"""
+  channels: NotificationChannel!
+
+  """
+  All channels will be turned off if false, regardless of individual channels options
+  """
+  enabled: Boolean!
+}
+
+type NotificationChannel {
+  """Is chat channel enabled"""
+  chat: Boolean
+
+  """Is email channel enabled"""
+  email: Boolean
+
+  """Is inApp channel enabled"""
+  inApp: Boolean
+
+  """Is push channel enabled"""
+  push: Boolean
+
+  """Is sms channel enabled"""
+  sms: Boolean
+}
+
+type NotificationTemplate {
+  """User will not be able to disable notification if true"""
+  critical: Boolean!
+
+  """The description of the notification template"""
+  description: String
+
+  """The id of the notification template"""
+  id: String!
+
+  """The name of the notification template"""
+  name: String!
+
+  """The notification template group info"""
+  notificationGroup: NotificationGroup!
+}
+
+type NotificationGroup {
+  """The id of the notification group"""
+  id: String!
+
+  """The name of the notification group"""
+  name: String!
+}
+
+type OAuthConsentRequest {
+  """The name of the OAuth client that's requesting for consent."""
+  clientName: String!
+
+  """If skip is true, the client must redirect to this URL."""
+  redirectToURL: String
+
+  """
+  The scopes requested for user consent. Will not be returned if skip is `true`.
+  """
+  scopes: [OAuthConsentRequestScope!]
+
+  """If true, you must redirect to the URL in the `redirectToURL` field."""
+  skip: Boolean!
+}
+
+type OAuthConsentRequestScope {
+  """The description of the scope."""
+  description: String!
+
+  """The ID of the scope."""
+  id: ID!
+
+  """The OAuth scope."""
+  scope: String!
+}
+
+type OAuthLoginRequest {
+  """If skip is true, the client must redirect to this URL."""
+  redirectToURL: String
+
+  """If true, you must redirect to the URL in the `redirectToURL` field."""
+  skip: Boolean!
+}
+
+type UserSegmentListing {
+  segments: [UserSegment!]
+}
+
+type UserSegment {
+  description: String!
+  id: Int!
+  title: String!
+}
+
+type User {
+  """The date/time when the user authenticated the current session."""
+  authenticatedAt: DateTime!
+
+  """The user's profile picture."""
+  avatarUrl: String!
+
+  """The user's Behance username."""
+  behanceUsername: String
+
+  """The user's short Bio."""
+  bio: String
+
+  """The user's City of residence."""
+  city: String
+
+  """The user's Country of residence."""
+  country: String
+
+  """The date/time of account creation."""
+  createdAt: DateTime
+
+  """The user's Dribbble username."""
+  dribbbleUsername: String
+
+  """The user's email address."""
+  email: String
+
+  """True if the user's current email address has been verified."""
+  emailVerified: Boolean
+
+  """True if the user has agreed to receive marketing emails."""
+  enableMarketingEmails: Boolean
+
+  """
+  The internal id of the enterprise org if the user has an e-sso session.
+  """
+  enterpriseOrgId: String
+
+  """The user's first name."""
+  firstName: String!
+
+  """The user's Github username."""
+  githubUsername: String
+
+  """The user's LottieFiles account's unique ID."""
+  id: String!
+
+  """The user's Instagram username."""
+  instagramUsername: String
+
+  """True if the user is available for work."""
+  isHireable: Boolean!
+
+  """True if it's a service account."""
+  isServiceAccount: Boolean!
+
+  """The city where the user last logged in from."""
+  lastLoggedInFromCity: String
+
+  """The country where the user last logged in from."""
+  lastLoggedInFromCountry: String
+
+  """The timezone where the user last logged in from."""
+  lastLoggedInTimezone: String
+
+  """The user's last name."""
+  lastName: String
+
+  """The user's Linkedin username."""
+  linkedinUsername: String
+
+  """The user's locale code."""
+  locale: String
+
+  """The user's Twitter username."""
+  twitterUsername: String
+
+  """
+  If the user is ongoing an email change process, this is the new email that the user is changing to. Otherwise it will be `null`.
+  """
+  unconfirmedNewEmail: String
+
+  """The date/time of last account update."""
+  updatedAt: DateTime
+
+  """The segments this user belongs to."""
+  userSegments: [UserSegment!]
+
+  """The user's personal website."""
+  website: String
+  hasSlackNotificationEnabled: Boolean
+  isPro: Boolean! @deprecated(reason: "Legacy field, will always return false.")
+
+  """
+  For use in the internal migration process. It will contain the ID of the user in the legacy WEB DB if the user is migrated. Otherwise, it will return an INT hashed from the user's Kratos ID.
+  """
+  legacyWebUserId: Int!
+  location: String @deprecated(reason: "Use `city` instead.")
+  name: String! @deprecated(reason: "Use `firstName` instead.")
+  url: String! @deprecated(reason: "Use `username` instead.")
+
+  """The user's unique username."""
+  username: String!
+  publicAnimations(after: String, first: Int, before: String, last: Int, input: PublicAnimationStatusFilterTypeInput): PublicAnimationConnection
+  stats: UserStats
+  achievements(after: String, first: Int, before: String, last: Int): UserAchievementConnection
+}
+
+"""
+The javascript `Date` as string. Type represents date and time as the ISO Date string.
+"""
+scalar DateTime
+
+type ViewerCredential {
+  """
+  Additional information on the credential. If enterprise sso then it will be the name of the organization
+  """
+  description: String
+
+  """Internal ID of the organization for the credential, if available."""
+  orgInternalId: String
+
+  """The type of the credential."""
+  type: String!
+}
+
+type LoginToken {
+  """The URL to direct the user to in order to conclude the token login."""
+  loginUrl: String!
+
+  """The token to use with the tokenLogin mutation."""
+  token: String!
+}
+
+type Authentication {
+  """The token to include in future requests to this API."""
+  accessToken: String
+
+  """Indicates whether an additional MFA step is required"""
+  additionalAuthRequired: Boolean
+
+  """The ISO Date string in the format "2022-12-06T13:33:08.000Z"."""
+  expiresAt: DateTime!
+
+  """If this is not null, the client must redirect to this URL."""
+  redirectToURL: String
+
+  """
+  Returned only from the `socialLogin` mutation. Will be true if a LottieFiles account was created in the `socialLogin`.
+  """
+  socialLoginAccountCreated: Boolean
+
+  """The token type, e.g. "Bearer"."""
+  tokenType: String!
+}
+
+input NotificationPreferenceUpdateInput {
+  """The channel to be enabled"""
+  channel: NotificationChannelType!
+
+  """To enable notification preference"""
+  enabled: Boolean!
+
+  """The ID of the notification template"""
+  templateId: String!
+}
+
+enum NotificationChannelType {
+  Chat
+  Email
+  InApp
+  Push
+  Sms
+}
+
+type DirectoryUser {
+  """The id of the directory user"""
+  directoryUserId: String!
+
+  """The email of the directory user"""
+  email: String!
+
+  """The Kratos user id of the directory user"""
+  kratosUserId: String!
+
+  """The organization id that the directory user belongs to"""
+  organizationId: String!
+}
+
+type UserProfilePhotoUpload {
+  filename: String!
+  signedUrl: String!
+  status: String!
+}
+
+input OffboardingQuestionInput {
+  answer: String!
+  question: String!
+}
+
+"""Account delete request types for account deletion requests"""
+enum AccountDeleteRequestType {
+  CANCEL_REQUEST
+  REQUEST_DELETE
+}
+
+input AnimationReportInput {
+  animationId: Int!
+  body: String
+  complaintType: ComplaintType!
+  url: String
+}
+
+type Animator {
+  avatarUrl: String
+  id: ID!
+  name: String!
+  url: String!
+}
+
+input AnimationFilter {
+  canvaCompatible: Boolean
+  creatorCompatible: Boolean
+  hash: String
+}
+
+input PublicAnimationCreateInput {
+  bgColor: String
+  credits: [String!]
+  description: String
+  name: String!
+  requestId: String!
+  scale: Float = 1
+  tags: [String!]!
+  tools: [String!]
+  workflowFileId: String
+}
+
+enum PublicAnimationUploadRequestFileType {
+  LOTTIE
+  DOT_LOTTIE
+}
+
+input PublicAnimationUploadRequestCreateInput {
+  type: PublicAnimationUploadRequestFileType!
+  filename: String!
+}
+
+type AnimatorConnection {
+  """A list edges."""
+  edges: [AnimatorEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """Identifies the total count of items in the connection."""
+  totalCount: Int!
+}
+
+type AnimatorEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of the edge."""
+  node: Animator!
+}
+
+type Blog {
+  category: BlogCategory
+  createdAt: DateTime!
+  id: ID!
+  imageUrl: String!
+  link: String!
+  postedAt: DateTime!
+  slug: String!
+  title: String!
+}
+
+type BlogCategory {
+  id: ID!
+  name: String!
+  slug: String!
+}
+
+type BlogConnection {
+  """A list edges."""
+  edges: [BlogEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """Identifies the total count of items in the connection."""
+  totalCount: Int!
+}
+
+type BlogEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of the edge."""
+  node: Blog!
+}
+
+type CollectionAnimationPreview {
+  image: String!
+}
+
+"""Collection animation types"""
+enum CollectionAnimationType {
+  ALL
+  ANIMATION
+  STICKER
+}
+
+input CollectionAnimationTypeInput {
+  animationType: CollectionAnimationType
+}
+
+input CollectionInput {
+  title: String!
+  type: CollectionType
+}
+
+"""Collection types"""
+enum CollectionType {
+  PRIVATE
+  PUBLIC
+}
+
+type Color {
+  hex: String!
+}
+
+type ColorPalette {
+  id: Int!
+  name: String
+  palette: [Color!]!
+}
+
+type ColorPaletteConnection {
+  """A list edges."""
+  edges: [ColorPaletteEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """Identifies the total count of items in the connection."""
+  totalCount: Int!
+}
+
+type ColorPaletteEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of the edge."""
+  node: ColorPalette!
+}
+
+input CommentInput {
+  content: String!
+  frame: Int!
+  marker: String
+}
+
+"""Complaint types for report animation"""
+enum ComplaintType {
+  GUIDELINES_VIOLATION
+  OTHER
+  PLAGIARISM
+}
+
+"""Contract types for hire requests"""
+enum ContractType {
+  FREELANCE
+  FULLTIME
+}
+
+"""Duration filter types for popular animations"""
+enum DurationFilterType {
+  ALL_TIME
+  MONTHLY
+  WEEKLY
+}
+
+input HireRequestInput {
+  brief: String!
+  contractType: ContractType!
+  deadlineAt: DateTime!
+  shouldCopyEmail: Boolean!
+  subject: String!
+  userId: ID!
+}
+
+type HitCountEvent {
+  errors: String!
+  message: String!
+  status: String!
+}
+
+input HitCountEventInput {
+  ip: String
+  method: Int!
+  source: Int
+  userId: ID
+  visitorId: ID
+}
+
+"""
+The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSONObject
+
+type Notification {
+  link: String
+  message: String!
+  theme: Theme
+}
+
+type PageInfo {
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
+
+  """When paginating forwards, are there more items?."""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?."""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+}
+
+"""Point scalar type"""
+scalar Point
+
+type PublicAnimation {
+  bgColor: String
+  comments: [PublicComment!]
+  commentsCount: Int!
+  createdAt: DateTime!
+  createdByUserId: ID!
+  description: String
+  downloads: Float
+  dotlottieFormatVersion: String!
+  gifFileSize: String
+  gifUrl: String
+  id: Int!
+  imageFileSize: Int
+  imageFrame: String
+  imageUrl: String
+  isLiked: Boolean!
+  likesCount: Int!
+  lottieFileSize: Int
+  lottieFileType: String
+  lottieUrl: String
+  jsonUrl: String
+  lottieVersion: String
+  name: String!
+  publishedAt: DateTime
+  slug: String!
+  sourceFileName: String
+  sourceFileSize: Int
+  sourceFileType: String
+  sourceFileUrl: String
+  sourceName: String
+  sourceVersion: String
+  speed: Float
+  status: Int
+  updatedAt: DateTime
+  url: String
+  uuid: String!
+  videoFileSize: Int
+  videoUrl: String
+  isCanvaCompatible: Boolean
+  frameRate: Float
+  createdBy: User
+}
+
+type PublicAnimationConnection {
+  """A list edges."""
+  edges: [PublicAnimationEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """Identifies the total count of items in the connection."""
+  totalCount: Int!
+}
+
+type PublicAnimationDeleteResponse {
+  message: String!
+  success: Boolean!
+}
+
+type PublicAnimationEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of the edge."""
+  node: PublicAnimation!
+}
+
+type PublicAnimationUploadRequest {
+  contentType: String!
+  fields: JSONObject!
+  id: ID!
+  url: String!
+}
+
+"""Public animation status filter types"""
+enum PublicAnimationStatusFilterType {
+  ALL
+  PENDING
+  PUBLISHED
+  REJECTED
+}
+
+input PublicAnimationStatusFilterTypeInput {
+  statusFilterType: PublicAnimationStatusFilterType
+}
+
+type PublicAnimationTag {
+  id: ID!
+  name: String!
+  slug: String!
+}
+
+type PublicAnimationTagConnection {
+  """A list of edges."""
+  edges: [PublicAnimationTagEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """Identifies the total count of items in the connection."""
+  totalCount: Int!
+}
+
+type PublicAnimationTagEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of the edge."""
+  node: PublicAnimationTag!
+}
+
+type PublicCollection {
+  animationType: CollectionAnimationType
+  animationsCount: Int
+  collectionAnimationPreviews: [CollectionAnimationPreview!]
+  createdByUserId: ID!
+  description: String
+  id: Int!
+  imageUrl: String
+  slug: String!
+  title: String!
+  type: CollectionType!
+  url: String!
+  createdBy: User
+}
+
+type PublicCollectionConnection {
+  """A list edges."""
+  edges: [PublicCollectionEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """Identifies the total count of items in the connection."""
+  totalCount: Int!
+}
+
+type PublicCollectionEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of the edge."""
+  node: PublicCollection!
+}
+
+type PublicComment {
+  content: String!
+  createdAt: DateTime!
+  frame: Float
+  id: Int!
+  isResolved: Boolean!
+  marker: Point
+  parentId: Int
+  replies: [PublicComment!]
+  updatedAt: DateTime
+  userId: ID!
+  user: User
+}
+
+"""Query data sort options scalar type"""
+scalar QuerySortOptions
+
+type SoftwareUpdate {
+  autoUpdate: Boolean!
+  changelog: String
+  downloadUrl: String
+  forceUpdate: Boolean!
+  infoUrl: String
+  version: String!
+}
+
+type Theme {
+  dark: ThemeColor
+  light: ThemeColor
+}
+
+type ThemeColor {
+  bgColor: String
+  icon: String
+  textColor: String
+}
+
+type TrendingItem {
+  link: String!
+  rank: Float!
+  title: String!
+}
+
+type UserAchievement {
+  completed: Boolean!
+  count: Int!
+  goal: Int
+  progressMessage: String!
+  title: String!
+  type: String!
+}
+
+type UserAchievementConnection {
+  """A list edges."""
+  edges: [UserAchievementEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """Identifies the total count of items in the connection."""
+  totalCount: Int!
+}
+
+type UserAchievementEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of the edge."""
+  node: UserAchievement!
+}
+
+type UserStatGraphData {
+  value: Int!
+}
+
+type UserStats {
+  downloadGraph: [UserStatGraphData!]!
+  downloads: Int!
+  downloadsLastMonth: Int!
+  likeGraph: [UserStatGraphData!]!
+  likes: Int!
+  likesLastMonth: Int!
+  profileGraph: [UserStatGraphData!]!
+  profileViews: Int!
+  profileViewsLastMonth: Int!
+}
+
+type Subscription {
+  """Subscribe to FileAssetEvents"""
+  fileAssetEvents(key: String!): FileAssetEvent!
+
+  """Subscribe to File Update events"""
+  fileUpdate(key: String!): FileObject!
+
+  """Subscribe to File Variation Update events"""
+  fileVariationUpdate(key: String!): FileVariation!
+  zipFileUpdate(key: String!): ZipFileObject!
+}
+
+type Attributes {
+  """Size of the uploaded file"""
+  contentLength: String
+
+  """Type of uploaded file"""
+  contentType: String
+
+  """S3 Version Id"""
+  s3VersionId: String
+
+  """Format version"""
+  formatVersion: String
+}
+
+type VariationMetadata {
+  """Previvew Height"""
+  height: Float
+
+  """Preview Width"""
+  width: Float
+
+  """Preview Background Color"""
+  bgColor: String
+}
+
+type FileVariation {
+  """Unique ID of file variation"""
+  id: String
+
+  """File Key for the source file """
+  fileKey: String
+
+  """File Version Id of the source file"""
+  fileVersionId: String
+
+  """Unique filename of the variantion"""
+  filename: String
+
+  """Url of the file variation"""
+  url: String
+
+  """Attributes generated"""
+  attributes: Attributes
+
+  """Metadata for file variation"""
+  metadata: VariationMetadata
+
+  """Type of variation."""
+  type: String
+
+  """Created defaultValue"""
+  createdAt: DateTime
+
+  """Status of file variation"""
+  status: String
+}
+
+type Metadata {
+  """Colors"""
+  colors: JSON
+
+  """Lottie Colors"""
+  lottieColors: JSON
+
+  """No. of frames"""
+  frames: String
+
+  """Frame Rate"""
+  frameRate: String
+
+  """Lottie Height"""
+  height: String
+
+  """Lottie Width"""
+  width: String
+
+  """Lottie Start Frame"""
+  inPoint: String
+
+  """Lottie Outpoint"""
+  outPoint: String
+
+  """Lottie Version"""
+  version: String
+
+  """Lottie Generator"""
+  generator: String
+
+  """No of Layers"""
+  layers: String
+}
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+
+"""File"""
+type FileObjectRegenerate {
+  """Unique file key for a file"""
+  key: String!
+
+  """Version ID for a file"""
+  versionId: String!
+
+  """
+  Subversion ID for a file. If it is a main version (i.e. not a subversion), it will be "0".
+  """
+  subVersionId: String!
+
+  """Uniquely generated filename"""
+  filename: String!
+
+  """The url to uploaded  file"""
+  url: String!
+
+  """Attributes generated"""
+  attributes: Attributes
+  metadata: Metadata
+
+  """The job id of thumbnails"""
+  thumbnailJobId: String
+
+  """Thumbanils generated"""
+  contents: JSON!
+
+  """File variations"""
+  fileVariations: [FileVariation!]
+
+  """Created Date"""
+  createdAt: DateTime!
+
+  """Updated Date"""
+  updatedAt: DateTime!
+
+  """Updated Date"""
+  deletedAt: DateTime!
+
+  """Updated Date"""
+  cleanedAt: DateTime!
+
+  """Status of uploaded file"""
+  status: String!
+}
+
+type PreviewContent {
+  """Url of thumbnail"""
+  url: String
+
+  """Version Id"""
+  versionId: String
+
+  """Content Type"""
+  contentType: String
+}
+
+type PreviewSize {
+  """Size small"""
+  small: PreviewContent
+
+  """Size medium """
+  medium: PreviewContent
+
+  """Size large"""
+  large: PreviewContent
+}
+
+type Preview {
+  """Png"""
+  webp: PreviewSize
+
+  """Webp"""
+  gif: PreviewSize
+
+  """Mp4"""
+  mp4: PreviewSize
+}
+
+type ThumbnailContent {
+  """Url of thumbnail"""
+  url: String
+
+  """Version Id"""
+  s3VersionId: String
+
+  """Content Type"""
+  contentType: String
+}
+
+type ThumbnailSize {
+  """Size small"""
+  small: ThumbnailContent
+
+  """Size medium """
+  medium: ThumbnailContent
+
+  """Size large"""
+  large: ThumbnailContent
+}
+
+type Thumbnail {
+  """Png"""
+  png: ThumbnailSize
+
+  """Webp"""
+  webp: ThumbnailSize
+}
+
+"""File"""
+type FileObject {
+  """Unique file key for a file"""
+  key: String!
+
+  """Version ID for a file"""
+  versionId: String!
+
+  """
+  Subversion ID for a file. If it is a main version (i.e. not a subversion), it will be "0".
+  """
+  subVersionId: String!
+
+  """Uniquely generated filename"""
+  filename: String!
+
+  """The url to uploaded  file"""
+  url: String!
+
+  """Attributes generated"""
+  attributes: Attributes
+  metadata: Metadata
+  thumbnails: Thumbnail
+
+  """Previews  generated"""
+  previews: Preview
+
+  """Thumbanils generated"""
+  contents: JSON!
+
+  """File variations"""
+  fileVariations: [FileVariation!]
+
+  """Created Date"""
+  createdAt: DateTime!
+
+  """Updated Date"""
+  updatedAt: DateTime!
+
+  """Updated Date"""
+  deletedAt: DateTime!
+
+  """Updated Date"""
+  cleanedAt: DateTime!
+
+  """Status of uploaded file"""
+  status: String!
+  markers: [LottieJsonMarker!]!
+
+  """The audio that are available on this file."""
+  audio: [AudioAssetObjectReference!]!
+
+  """The themes that are available on this file."""
+  themes: [ThemeAssetObjectReference!]!
+
+  """The images that are available on this file."""
+  images: [ImageAssetObjectReference!]!
+
+  """The state machines that are available on this file."""
+  stateMachines: [StateMachineAssetObjectReference!]!
+}
+
+type PresignedPost {
+  """Form fields used for a presigned s3 post"""
+  fields: JSON!
+
+  """Unique key of the file"""
+  key: String!
+
+  """Url used for a presigned s3 post"""
+  url: String!
+}
+
+type SignedUrl {
+  """Signed url expiry time"""
+  expires: Float!
+
+  """Cloudfront signed url"""
+  signedUrl: String!
+}
+
+type FilePreviewGenerate {
+  """Unique ID of file variation"""
+  id: String
+
+  """Job Id for file preview generation process."""
+  jobId: String
+}
+
+type FilePreviewGenerateStatus {
+  """File preview generation status"""
+  status: PreviewGenerationStatus
+}
+
+enum PreviewGenerationStatus {
+  FAILED
+  PENDING
+  PROCESSED
+}
+
+type FileAssetObjectReference {
+  """
+  Unique identifier for referencing the FileAssetObject, compatible with @dotlottie/dotlottie-js library.
+  """
+  id: ID!
+
+  """The Id of the FileAssetObject."""
+  assetId: String!
+
+  """The display name of the file asset."""
+  displayName: String
+}
+
+type AudioAssetObjectReference {
+  """
+  Unique identifier for referencing the FileAssetObject, compatible with @dotlottie/dotlottie-js library.
+  """
+  id: ID!
+
+  """The Id of the FileAssetObject."""
+  assetId: String!
+
+  """The display name of the file asset."""
+  displayName: String
+
+  """The animations this audio can be applied to."""
+  animations: [FileAssetObjectReference!]!
+}
+
+type _FileOptimizationJob {
+  """Job ID for optimization process"""
+  id: String!
+
+  """Status of the optimization process"""
+  status: FileOptimizationStatus!
+}
+
+enum FileOptimizationStatus {
+  FAILED
+  PENDING
+  PROCESSED
+}
+
+type ImageAssetObjectReference {
+  """
+  Unique identifier for referencing the FileAssetObject, compatible with @dotlottie/dotlottie-js library.
+  """
+  id: ID!
+
+  """The Id of the FileAssetObject."""
+  assetId: String!
+
+  """The display name of the file asset."""
+  displayName: String
+
+  """The animations this image can be applied to."""
+  animations: [FileAssetObjectReference!]!
+}
+
+type LottieJsonMarker {
+  id: ID!
+  name: String
+  comment: JSON!
+  time: Float!
+  duration: Float
+}
+
+type StateMachineAssetObjectReference {
+  """
+  Unique identifier for referencing the FileAssetObject, compatible with @dotlottie/dotlottie-js library.
+  """
+  id: ID!
+
+  """The Id of the FileAssetObject."""
+  assetId: String!
+
+  """The display name of the file asset."""
+  displayName: String
+
+  """The animations this state machine can be applied to."""
+  animations: [FileAssetObjectReference!]!
+
+  """The name of the state machine."""
+  name: String!
+
+  """The initial or default state of the state machine"""
+  initial: String!
+
+  """The available states of the state machine"""
+  states: [JSON!]!
+
+  """The available triggers of the state machine"""
+  triggers: [JSON!]!
+
+  """The available listeners of the state machine"""
+  listeners: [JSON!]!
+}
+
+type ThemeAssetObjectReference {
+  """
+  Unique identifier for referencing the FileAssetObject, compatible with @dotlottie/dotlottie-js library.
+  """
+  id: ID!
+
+  """The Id of the FileAssetObject."""
+  assetId: String!
+
+  """The display name of the file asset."""
+  displayName: String
+
+  """The animations this theme can be applied to."""
+  animations: [FileAssetObjectReference!]!
+}
+
+"""Zip Entry"""
+type ZipEntryObject {
+  """The file this zip entry is for"""
+  fileKey: String!
+
+  """The file version this zip entry is for"""
+  fileVersionId: String!
+
+  """The file variation this zip entry is for"""
+  fileVariationId: String
+
+  """The filename of the zip entry within the zip file."""
+  filename: String
+
+  """The current status of the zip entry."""
+  status: String!
+}
+
+"""Zip File"""
+type ZipFileObject {
+  """Unique file key for a file"""
+  key: String!
+
+  """The zip file entry type"""
+  type: String!
+
+  """Uniquely generated filename"""
+  filename: String!
+
+  """The url to uploaded  file"""
+  url: String!
+
+  """Attributes generated"""
+  attributes: Attributes
+
+  """Status of uploaded file"""
+  status: String!
+
+  """The zip entries for the zip file"""
+  entries: [ZipEntryObject!]!
+}
+
+type FileAssetObject {
+  """The ID of the FileAssetObject."""
+  id: ID!
+
+  """The ID of the Blob this FileAssetObject points to."""
+  blobId: String!
+
+  """The content type of the FileAssetObject."""
+  contentType: String!
+
+  """The content length of the FileAssetObject."""
+  contentLength: String!
+
+  """The ID of the owning FileSpace."""
+  fileSpaceId: String!
+
+  """The pathname of the FileAssetObject within the FileSpace."""
+  pathname: String!
+
+  """The signed url of the FileAssetObject."""
+  url: String!
+}
+
+type AnimationAssetObject {
+  """The ID of the FileAssetObject."""
+  id: ID!
+
+  """The ID of the Blob this FileAssetObject points to."""
+  blobId: String!
+
+  """The content type of the FileAssetObject."""
+  contentType: String!
+
+  """The content length of the FileAssetObject."""
+  contentLength: String!
+
+  """The ID of the owning FileSpace."""
+  fileSpaceId: String!
+
+  """The pathname of the FileAssetObject within the FileSpace."""
+  pathname: String!
+
+  """The signed url of the FileAssetObject."""
+  url: String!
+
+  """The metadata of the animation."""
+  metadata: Metadata!
+
+  """The name of the animation."""
+  name: String!
+
+  """The display name of the animation."""
+  displayName: String
+}
+
+type AudioAssetObject {
+  """The ID of the FileAssetObject."""
+  id: ID!
+
+  """The ID of the Blob this FileAssetObject points to."""
+  blobId: String!
+
+  """The content type of the FileAssetObject."""
+  contentType: String!
+
+  """The content length of the FileAssetObject."""
+  contentLength: String!
+
+  """The ID of the owning FileSpace."""
+  fileSpaceId: String!
+
+  """The pathname of the FileAssetObject within the FileSpace."""
+  pathname: String!
+
+  """The signed url of the FileAssetObject."""
+  url: String!
+
+  """The name of the FileAssetObject."""
+  name: String!
+
+  """The animations that the audio can be applied to."""
+  animations: [FileAssetObjectReference!]!
+}
+
+type FileAssetEvent {
+  """The subscription key."""
+  key: String!
+
+  """The type of the event."""
+  type: String!
+
+  """The ID of the Blob if one was saved."""
+  blobId: String
+
+  """The ID of the FileSpace."""
+  fileSpaceId: String!
+
+  """The pathname of the asset within the FileSpace."""
+  pathname: String!
+
+  """The signed url of the FileAssetObject."""
+  url: String
+
+  """The message of the event."""
+  message: String!
+}
+
+type _FileAssetUploadRequest {
+  """Form fields used for a presigned s3 post"""
+  fields: JSON!
+
+  """The key that should be used to subscribe to updates."""
+  key: String!
+
+  """Url used for a presigned s3 post"""
+  url: String!
+
+  """The ID of the FileSpace the asset will be uploaded to."""
+  fileSpaceId: String!
+}
+
+type ImageAssetObject {
+  """The ID of the FileAssetObject."""
+  id: ID!
+
+  """The ID of the Blob this FileAssetObject points to."""
+  blobId: String!
+
+  """The content type of the FileAssetObject."""
+  contentType: String!
+
+  """The content length of the FileAssetObject."""
+  contentLength: String!
+
+  """The ID of the owning FileSpace."""
+  fileSpaceId: String!
+
+  """The pathname of the FileAssetObject within the FileSpace."""
+  pathname: String!
+
+  """The signed url of the FileAssetObject."""
+  url: String!
+
+  """The name of the FileAssetObject."""
+  name: String!
+
+  """The animations that the image can be applied to."""
+  animations: [FileAssetObjectReference!]!
+}
+
+type StateMachineAssetObject {
+  """The ID of the FileAssetObject."""
+  id: ID!
+
+  """The ID of the Blob this FileAssetObject points to."""
+  blobId: String!
+
+  """The content type of the FileAssetObject."""
+  contentType: String!
+
+  """The content length of the FileAssetObject."""
+  contentLength: String!
+
+  """The ID of the owning FileSpace."""
+  fileSpaceId: String!
+
+  """The pathname of the FileAssetObject within the FileSpace."""
+  pathname: String!
+
+  """The signed url of the FileAssetObject."""
+  url: String!
+
+  """The name of the FileAssetObject."""
+  name: String!
+
+  """The animations that the state machine can be applied to."""
+  animations: [FileAssetObjectReference!]!
+
+  """The display name of the state machine."""
+  displayName: String
+}
+
+type ThemeAssetObject {
+  """The ID of the FileAssetObject."""
+  id: ID!
+
+  """The ID of the Blob this FileAssetObject points to."""
+  blobId: String!
+
+  """The content type of the FileAssetObject."""
+  contentType: String!
+
+  """The content length of the FileAssetObject."""
+  contentLength: String!
+
+  """The ID of the owning FileSpace."""
+  fileSpaceId: String!
+
+  """The pathname of the FileAssetObject within the FileSpace."""
+  pathname: String!
+
+  """The signed url of the FileAssetObject."""
+  url: String!
+
+  """The name of the FileAssetObject."""
+  name: String!
+
+  """The display name of the theme."""
+  displayName: String
+
+  """The animations that the theme can be applied to."""
+  animations: [FileAssetObjectReference!]!
+}
+
+type _PublicAnimationImportRequest {
+  key: String!
+}
+
+input _FileAssetUploadRequestCreateInput {
+  """The path of the asset within the FileSpace."""
+  pathname: String!
+
+  """
+  The ID of the FileSpace this asset belongs to. Required when type is `"update"`.
+  """
+  fileSpaceId: String
+
+  """The type of the request: Either `"new"` or `"update"`."""
+  type: String!
+}
+
+input _PublicAnimationImportRequestCreateInput {
+  backgroundColor: String
+  shouldGenerateThumbnails: Boolean = true
+  shouldExtractMetadata: Boolean = true
+  shouldOptimize: Boolean = true
+  variations: [_PublicAnimationVariationInput!]!
+  colorPalette: [String!]
+}
+
+input _PublicAnimationVariationInput {
+  """The variation path"""
+  path: String!
+
+  """The variation type"""
+  type: String!
+}
+
+input _PublicAnimationImportInput {
+  key: String!
+}
+
+input _ZipFileCreateInput {
+  entries: [_ZipEntryInput!]!
+
+  """Type of variation to download"""
+  entryType: String = "LOTTIE"
+}
+
+input _ZipEntryInput {
+  fileKey: String!
+  fileVersionId: String!
+  filename: String
+}
+
+type Service {
+  name: String!
+  version: String!
+  versionInGateway: String @deprecated(reason: "No schema version from schema registry")
+}
+
+"""A raster to lottie conversion job."""
+type RasterToLottieJob {
+  """Debug information for the job."""
+  debug: String
+
+  """If the job failed, this will contain an error message."""
+  failedReason: String
+
+  """The ID of the job."""
+  id: ID!
+
+  """The size of the input file in bytes."""
+  inputFileSize: Int
+
+  """The size of the Lottie file in bytes."""
+  lottieFileSize: Int
+
+  """The last progress notification of the job."""
+  progress: String
+
+  """The start time of the job."""
+  startTime: Float
+
+  """The status of the job."""
+  status: RasterToLottieJobStatus!
+
+  """The time taken to complete the job."""
+  timeTaken: Float
+
+  """The URL of the Lottie file."""
+  url: String
+}
+
+input RasterToLottieJobParams {
+  """Default value: 16."""
+  antiAliasKernel: Int
+
+  """Default value: 150."""
+  cannyHighThreshold: Int
+
+  """Default value: 50."""
+  cannyLowThreshold: Int
+
+  """Default value: false."""
+  convertToShape: Boolean
+
+  """Default value: false."""
+  debug: Boolean
+
+  """Default value: 60."""
+  edgePercentage: Int
+
+  """Default value: 15."""
+  mergingDistanceThreshold: Int
+
+  """Default value: 1.2."""
+  potraceAlphamax: Float
+
+  """Default value: true."""
+  potraceOpticurve: Boolean
+
+  """Default value: 0.2."""
+  potraceOpttolerance: Float
+
+  """Default value: 5."""
+  potraceTurdsize: Int
+
+  """Default value: 4."""
+  potraceTurnPolicy: Int
+
+  """Default value: false."""
+  removeBackground: Boolean
+
+  """Default value: false."""
+  removeHoles: Boolean
+
+  """Default value: false."""
+  simplify: Boolean
+
+  """Default value: 20."""
+  threshold: Int
+
+  """Default value: 100."""
+  thresholdLarge: Int
+
+  """Default value: false."""
+  upscale: Boolean
+
+  """Default value: 1."""
+  upscaleFactor: Int
+}
+
+enum RasterToLottieJobStatus {
+  active
+  completed
+  delayed
+  failed
+  prioritized
+  unknown
+  waiting
+}
+
+type RasterToLottieUploadUrl {
+  """Additional fields for the raster upload POST request."""
+  fields: JSON!
+
+  """The ID of the image."""
+  imageId: ID!
+
+  """The upload URL to make a POST request with the raster file."""
+  url: String!
+}
+
+type WorkspaceMemberConnection {
+  """A list edges."""
+  edges: [WorkspaceMemberEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """Identifies the total count of items in the connection."""
+  totalCount: Float!
+}
+
+type WorkspaceMemberEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of the edge."""
+  node: WorkspaceMember!
+}
+
+type WorkspaceMember {
+  createdAt: DateTime!
+  deletedAt: DateTime
+  updatedAt: DateTime!
+  acceptedAt: DateTime
+  access: String!
+  id: ID!
+  invitedBy: ID!
+  lastSentAt: DateTime
+  method: String!
+  onboardedAt: DateTime
+  recipientEmail: String!
+  status: String!
+  userId: String
+  workspaceId: ID!
+
+  """Recipient user of the invitation"""
+  user: UserObject
+
+  """The workspace this invitation belongs to."""
+  workspace: Workspace!
+}
+
+type UserObject {
+  avatarUrl: String
+  email: String
+  id: ID!
+  name: String!
+}
+
+type Workspace {
+  createdAt: DateTime!
+  deletedAt: DateTime
+  updatedAt: DateTime!
+  billingAddressLineOne: String
+  billingAddressLineTwo: String
+  billingEmail: String
+  icon: String
+  id: ID!
+  name: String!
+  status: String!
+  url: String
+  account: Account!
+
+  """
+  Indicates if the user can join the workspace instantly without approval
+  """
+  canJoinInstantly: Boolean!
+  contactSalesNotice: ContactSalesNotice!
+  domains: [String!]!
+  features: [FeatureObject!]!
+
+  """The owner this workspace belongs to."""
+  hasOwnership: Boolean
+
+  """Indicates if the user has requested to join the suggested workspace"""
+  hasRequestedToJoin: Boolean!
+  indexed: Boolean!
+  invitationLink: WorkspaceInvitationLink
+
+  """Check if user is member of the workspace"""
+  isMember: Boolean
+
+  """
+  Indicates if the workspace is organization workspace (workspace with owner of organization email domain)
+  """
+  isOrganizationWorkspace: Boolean!
+  memberIds: [String!]
+
+  """The owner this workspace belongs to."""
+  owner: UserObject
+
+  """Permission scopes the current user has on this workspace"""
+  permissionScopes: [String!]!
+
+  """
+  Check if the current user is already on boarded or not. If the user is on boarded return null, otherwise return user access level
+  """
+  requiresOnboardingAs: String
+
+  """Fetch the active subscription for this workspace"""
+  subscription: WorkspaceSubscription
+  members: [User]
+}
+
+type Account {
+  createdAt: DateTime!
+  deletedAt: DateTime
+  updatedAt: DateTime!
+  paymentMethod: PaymentMethod
+  addressLineOne: String
+  addressLineTwo: String
+  city: String
+  contactEmail: String
+  contactName: String
+  country: String
+  email: String!
+  id: ID!
+  name: String!
+  paymentMethodId: String!
+  paymentProvider: PaymentProvider!
+  paymentProviderCustomerId: String
+  postcode: String
+  state: String
+  taxCountry: String
+  taxId: String
+  website: String
+
+  """Whether the account pays for a subscription to any workspace"""
+  isPaid: Boolean!
+}
+
+type PaymentMethod {
+  customerId: String!
+  expiresAt: DateTime
+  id: ID!
+  metadata: PaymentMethodMetadata
+  provider: PaymentProvider!
+  providerPaymentMethodId: String!
+  sourceType: String!
+}
+
+union PaymentMethodMetadata = CardMetadata | PayPalMetadata
+
+type CardMetadata {
+  brand: String!
+  expMonth: Float!
+  expYear: Float!
+  last4: String!
+}
+
+type PayPalMetadata {
+  email: String!
+  payerId: String!
+}
+
+"""Payment service provider"""
+enum PaymentProvider {
+  Braintree
+  Stripe
+}
+
+type ContactSalesNotice {
+  calendarLink: String
+  enabled: Boolean!
+}
+
+type FeatureObject {
+  currentCount: Int
+  isEnabled: Boolean
+  max: Int
+  name: String!
+  slug: String!
+}
+
+type WorkspaceInvitationLink {
+  createdAt: DateTime!
+  deletedAt: DateTime
+  updatedAt: DateTime!
+  canMembersInvite: Boolean!
+  id: ID!
+  invitationCode: String!
+  isActive: Boolean!
+  lastUpdatedById: String!
+  workspaceId: String!
+
+  """Workspace associated with the invitation link"""
+  workspace: Workspace!
+}
+
+type WorkspaceSubscription {
+  id: ID!
+  parentId: String
+  providerCustomerId: String!
+  providerPriceId: String!
+  providerId: String!
+  providerType: String!
+  workspaceId: ID!
+  workspace: WorkspaceObject!
+  organizationId: ID!
+  organization: OrganizationObject!
+  ratePlanId: ID!
+  ratePlan: RatePlanObject!
+  planId: String!
+  plan: PlanObject!
+  markedForCancellation: Boolean!
+  startsAt: DateTime!
+  endsAt: DateTime!
+  gracePeriod: DateTime
+  status: String!
+  revisionNumber: Float!
+  numberOfSeats: Float!
+  lastRevisedAt: DateTime
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  deletedAt: DateTime
+  viewerProviderPriceId: String
+  viewerDownloaderProviderPriceId: String
+  viewerNumberOfSeats: Float
+  viewerDownloaderNumberOfSeats: Float
+
+  """Shows the amount of seats already used by the workspace."""
+  nextBilling: NextBillingObject
+
+  """Shows the amount of seats already used by the workspace."""
+  numberOfSeatsUsed: Float
+}
+
+type WorkspaceObject {
+  icon: String
+  id: ID!
+  name: String!
+  url: String
+}
+
+type OrganizationObject {
+  email: String!
+  id: ID!
+  name: String!
+}
+
+type RatePlanObject {
+  billingCycle: String!
+  currency: String!
+  endsAt: DateTime!
+  id: ID!
+  name: String!
+  price: Float!
+  startsAt: DateTime!
+  type: String!
+}
+
+type PlanObject {
+  defaultEntitlements: [PlanEntitlement!]
+  id: ID!
+  isBillable: Boolean!
+  name: String!
+  planPosition: Float!
+  status: String!
+  stripeProductId: String!
+}
+
+type PlanEntitlement {
+  id: ID!
+  max: Float
+  name: String!
+  slug: String!
+}
+
+type NextBillingObject {
+  amount: Float!
+  currency: String!
+  date: String!
+}
+
+type WorkspaceMemberSearchConnection {
+  """A list edges."""
+  edges: [WorkspaceMemberSearchEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """Identifies the total count of items in the connection."""
+  totalCount: Float!
+}
+
+type WorkspaceMemberSearchEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of the edge."""
+  node: WorkspaceMember!
+}
+
+type AuditLogConnection {
+  """A list edges."""
+  edges: [AuditLogItemEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """Identifies the total count of items in the connection."""
+  totalCount: Float!
+}
+
+type AuditLogItemEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of the edge."""
+  node: AuditLogItem!
+}
+
+type AuditLogItem {
+  action: String!
+  changes: JSON!
+  eventTime: DateTime!
+  id: ID!
+  ipAddress: String!
+  target: AuditLogTarget!
+  userEmail: String!
+  userId: ID!
+  userName: String!
+}
+
+type AuditLogTarget {
+  id: ID!
+  name: String!
+  type: String!
+}
+
+type BillingPackagePrice {
+  createdAt: DateTime!
+  deletedAt: DateTime
+  updatedAt: DateTime!
+  baseSeats: Float!
+  billingCycle: String!
+  currency: String!
+  endsAt: DateTime!
+  id: ID!
+  isActive: Boolean!
+  isDefault: Boolean!
+  isLocalOnly: Boolean!
+  minSeatCount: Float!
+  name: String!
+  planId: String!
+  price: Float!
+  startsAt: DateTime!
+  stripePriceId: String!
+  type: String!
+  viewerBaseSeats: Float!
+  viewerDownloaderBaseSeats: Float!
+  billingPackage: BillingPackage!
+  contributorPrice: AddonPrice
+  viewerDownloaderPrice: AddonPrice
+  viewerPrice: AddonPrice
+}
+
+type BillingPackage {
+  createdAt: DateTime!
+  deletedAt: DateTime
+  updatedAt: DateTime!
+  defaultEntitlements: [PlanEntitlement!]
+  id: ID!
+  isBillable: Boolean!
+  name: String!
+  planPosition: Float!
+  status: String!
+  stripeProductId: String!
+
+  """Get the default active pricing for a billing package."""
+  billingPackagePrice: BillingPackagePrice
+}
+
+type AddonPrice {
+  billingCycle: String!
+  currency: String!
+  id: String!
+  price: Float!
+}
+
+type BillingPackageConnection {
+  """A list edges."""
+  edges: [BillingPackageEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """Identifies the total count of items in the connection."""
+  totalCount: Float!
+}
+
+type BillingPackageEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of the edge."""
+  node: BillingPackage!
+}
+
+type CancelReason {
+  createdAt: DateTime!
+  disabled: Boolean!
+  id: ID!
+  order: Float!
+  requireReasonText: Boolean!
+  slug: String!
+  updatedAt: DateTime!
+  value: String!
+}
+
+type CommentUser {
+  avatarUrl: String
+  email: String!
+  id: ID!
+  name: String!
+}
+
+type CommentConnection {
+  """A list edges."""
+  edges: [CommentEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """Identifies the total count of items in the connection."""
+  totalCount: Float!
+}
+
+type CommentEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of the edge."""
+  node: Comment!
+}
+
+"""A comment on an entity"""
+type Comment {
+  attachments: [CommentAttachment!]
+  body: String!
+  createdAt: DateTime!
+  deletedAt: DateTime
+  extra: CommentExtra
+  guestName: String
+  id: ID!
+  mentions: [CommentUserMention!]
+  nodeId: Int!
+  parentId: String
+  path: String!
+  reactions: [CommentReaction!]
+  readReceipts: [CommentReadReceipt!]
+  replyCount: Float!
+  resolvedAt: DateTime
+  resolvedById: String
+  status: String!
+  updatedAt: DateTime!
+  userId: String
+
+  """The parent comment"""
+  parent: Comment
+
+  """The user who resolved the comment"""
+  resolvedBy: CommentUser
+
+  """The user who authored the comment"""
+  user: CommentUser
+}
+
+type CommentAttachment {
+  filename: String!
+  key: String!
+  mimeType: String!
+}
+
+"""Extra properties in a comment"""
+type CommentExtra {
+  annotation: CommentAnnotation
+  frame: Int!
+  type: CommentExtraType!
+}
+
+"""The annotation for a comment"""
+type CommentAnnotation {
+  ratio: [Float!]
+  type: CommentAnnotationType!
+  x: Float!
+  y: Float!
+}
+
+"""The annotation type"""
+enum CommentAnnotationType {
+  Point
+}
+
+"""Comment extra type"""
+enum CommentExtraType {
+  Annotation
+  Keyframe
+}
+
+"""A mentioned user"""
+type CommentUserMention {
+  """The mention type: Always UserMention"""
+  type: CommentMentionType!
+
+  """The user id"""
+  userId: String!
+
+  """The user that was mentioned"""
+  user: CommentUser
+}
+
+"""The type of mention"""
+enum CommentMentionType {
+  UserMention
+}
+
+type CommentReaction {
+  createdAt: DateTime!
+  type: String!
+  userId: String!
+
+  """User who made the reaction"""
+  user: CommentUser
+}
+
+type CommentReadReceipt {
+  createdAt: DateTime!
+  userId: String!
+}
+
+enum CommentableEntityType {
+  FileVersion
+}
+
+type KeyCount {
+  count: Int!
+  key: String!
+}
+
+type CommunityAnimationImportCounter {
+  count: Int!
+}
+
+type EnterpriseOrganization {
+  directoryGroupMappings: [EnterpriseOrganizationDirectoryMappings!]
+  directorySyncStatus: String!
+  domains: [EnterpriseOrganizationDomain!]!
+  id: String!
+  internalId: String!
+  isSsoEnforced: Boolean!
+  name: String!
+  ssoStatus: String!
+}
+
+type EnterpriseOrganizationDirectoryMappings {
+  id: String!
+  internalName: String!
+  name: String!
+}
+
+type EnterpriseOrganizationDomain {
+  domain: String!
+  id: String!
+}
+
+"""Directory groups claimed by other workspaces of the same organization."""
+type OrganizationDirectoryClaim {
+  name: String!
+  userCount: Float!
+  workspaceName: String!
+}
+
+type OrganizationDirectoryGroup {
+  id: String!
+  internalName: String
+  name: String!
+  users: [EnterpriseOrganizationGroupUser!]!
+}
+
+type EnterpriseOrganizationGroupUser {
+  email: String!
+  name: String!
+}
+
+type FileHandback {
+  createdAt: DateTime!
+  deletedAt: DateTime
+  updatedAt: DateTime!
+  assetUrl: String!
+  backgroundColor: String
+  completedAt: DateTime
+  fileId: String!
+  fileVersionId: String!
+  id: ID!
+  metadata: JSON!
+  newFileId: String
+  userId: String!
+}
+
+type File {
+  createdAt: DateTime!
+  deletedAt: DateTime
+  updatedAt: DateTime!
+  createdByUserId: String!
+  id: ID!
+  isHidden: Boolean!
+  modifiedByUserId: String
+  name: String!
+  projectId: ID!
+  backgroundColor: String
+  currentVersionId: ID
+  description: String
+  descriptionModifiedByUserId: String
+  descriptionUpdatedAt: DateTime
+  folderId: String
+  showDescOnCollection: Boolean
+  sourceFileKey: String
+  sourceFileType: String
+  status: String
+  type: FileType
+
+  """Get the permission scopes for animation for the current user"""
+  animationPermissionScopes: [String!]!
+
+  """Get the access of the current logged in user"""
+  currentUserAccess: String
+  currentVersion: FileVersion!
+  editHash: String
+
+  """Key of featured file"""
+  featuredFileKey: String
+  features: [FeatureObject!]!
+  folder: Folder
+  project: Project!
+
+  """Get the public asset of the file."""
+  publicAsset: PublicAsset
+  upgradeRequired: Boolean
+
+  """Users with permissions the file has access"""
+  userResourcePermissions: UserResourcePermission
+  createdBy: User
+  modifiedBy: User
+  descriptionModifiedBy: User
+  fileObject: FileObject
+}
+
+"""System classified file types"""
+enum FileType {
+  Animation
+  CreatorFile
+  Folder
+}
+
+type FileVersion {
+  createdAt: DateTime!
+  deletedAt: DateTime
+  updatedAt: DateTime!
+  backgroundColor: String
+  communityAnimationId: String
+  createdByUserId: String!
+  fileId: ID!
+  fileKey: String!
+  fileSystemSubVersionId: String
+  fileVersionId: String
+  id: ID!
+  name: String!
+  playSegment: [PlaySegment!]!
+  sourceFileId: ID
+  subVersionNumber: Float
+  subVersions: [FileVersion!]!
+  tags: [String!]
+  uploadOrigin: String
+  uploadOriginVersion: String
+  versionLabel: Float!
+  versionNumber: Float!
+  createdBy: User
+  modifiedBy: User
+  fileObject: FileObject
+}
+
+type PlaySegment {
+  endFrame: Float
+  id: String!
+  name: String
+  startFrame: Float!
+}
+
+type Folder {
+  createdAt: DateTime!
+  deletedAt: DateTime
+  updatedAt: DateTime!
+  createdByUserId: String!
+  id: ID!
+  isHidden: Boolean!
+  modifiedByUserId: String
+  name: String!
+  projectId: ID!
+
+  """Get the permission scopes for animation for the current user"""
+  animationPermissionScopes: [String!]!
+
+  """Get the access of the current logged in user"""
+  currentUserAccess: String
+  deletedFilesCount: Float
+
+  """Keys of featured files list"""
+  featuredFileKeys: [String!]
+  features: [FeatureObject!]!
+  filesCount: Float
+  project: Project!
+  stats: FolderStats!
+  createdBy: User
+  modifiedBy: User
+  thumbnails: [FileObject]
+}
+
+type Project {
+  createdAt: DateTime!
+  deletedAt: DateTime
+  updatedAt: DateTime!
+  id: ID!
+  isPrivate: Boolean!
+  isSystem: Boolean!
+  slug: String!
+  title: String!
+  workspaceId: String!
+
+  """The animation thumbnail Urls of the last 3 files in the project"""
+  animationThumbnailUrls: [String!] @deprecated(reason: "Use `featuredFileKeys` instead")
+
+  """The file keys for last 3 files in the project"""
+  featuredFileKeys: [String!]!
+  features: [FeatureObject!]!
+  filesCount: Float!
+  isCreatorDraft: Boolean!
+
+  """Get the permission scopes for project for the current user"""
+  projectPermissionScopes: [String!]!
+
+  """Stats for the project content"""
+  stats: ProjectStats!
+
+  """Workspace the project belongs to"""
+  workspace: Workspace!
+
+  """Total number of workspace members"""
+  workspaceTeamMembersCount: Float!
+}
+
+type ProjectStats {
+  animations: Float!
+  creatorFiles: Float!
+  folders: Float!
+}
+
+type FolderStats {
+  animations: Float!
+  creatorFiles: Float!
+}
+
+type PublicAsset {
+  createdAt: DateTime!
+  deletedAt: DateTime
+  updatedAt: DateTime!
+  backgroundColor: String
+  expireAt: DateTime
+  fileKey: String!
+  fileName: String!
+  fileSize: Float!
+  fileVersionId: String!
+  id: ID!
+  isActive: Boolean!
+  isOptimized: Boolean!
+  metadataVersionId: String
+  type: String!
+  workflowFileId: String!
+  workflowFileVersionId: String!
+
+  """Get the embed url for the public asset"""
+  embedUrl: String!
+
+  """Get the public asset url"""
+  url: String!
+}
+
+type UserResourcePermission {
+  id: ID!
+  userId: String!
+  resourceType: String!
+  resourceId: ID!
+  access: String!
+}
+
+type NextPrevAnimation {
+  nextAnimation: String
+  prevAnimation: String
+}
+
+type FileVariant {
+  createdAt: DateTime!
+  deletedAt: DateTime
+  updatedAt: DateTime!
+  contentType: String!
+  fileKey: String!
+  fileSize: Float!
+  fileVariationId: String
+  id: ID!
+  isOptimized: Boolean!
+  jobId: String
+  metadata: FileVariantMetadata
+  status: String
+  workflowFileId: String!
+  workflowFileVersionId: String!
+  url: String
+  fileObject: FileObject
+  fileVariation: FileVariation
+}
+
+type FileVariantMetadata {
+  backgroundColor: String
+  fps: Int
+  height: Int!
+  transparency: Boolean @deprecated(reason: "`backgroundColor` is set to 'transparent' if this variation has transparency")
+  width: Int!
+}
+
+type FileVersionOptimizeJob {
+  id: ID!
+  status: String!
+}
+
+type FileVersionConnection {
+  """A list edges."""
+  edges: [FileVersionEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """Identifies the total count of items in the connection."""
+  totalCount: Float!
+}
+
+type FileVersionEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of the edge."""
+  node: FileVersion!
+}
+
+type FileConnection {
+  """A list edges."""
+  edges: [FileEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """Identifies the total count of items in the connection."""
+  totalCount: Float!
+}
+
+type FileEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of the edge."""
+  node: File!
+}
+
+type Invoice {
+  id: ID!
+  providerId: String
+  providerType: String!
+  providerCustomerId: String!
+  providerSubscriptionId: String!
+  items: [InvoiceItem!]!
+  number: String
+  status: String!
+  companyName: String
+  taxId: String
+  taxCountry: String
+  addressLineOne: String
+  addressLineTwo: String
+  country: String
+  state: String
+  city: String
+  additionalFields: [InvoiceFieldObject!]!
+  postcode: String
+  billingEmail: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  deletedAt: DateTime
+  workspaceId: String
+
+  """Retrieves the account for the invoice."""
+  account: Account!
+
+  """Retrieves the total amount for the invoice."""
+  amount: Float!
+
+  """Retrieves the currency for the invoice."""
+  currency: String!
+
+  """Retrieves the subscription for the invoice."""
+  subscription: WorkspaceSubscription!
+}
+
+type InvoiceItem {
+  amount: String!
+  currency: String!
+  date: DateTime!
+  description: String!
+  id: String!
+  periodEnd: DateTime!
+  periodStart: DateTime!
+  proration: Boolean!
+  quantity: Float!
+  subscription: String!
+}
+
+type InvoiceFieldObject {
+  id: String!
+  name: String!
+  value: String!
+}
+
+type LottieMockupConnection {
+  """A list edges."""
+  edges: [LottieMockupEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """Identifies the total count of items in the connection."""
+  totalCount: Float!
+}
+
+type LottieMockupEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of the edge."""
+  node: LottieMockup!
+}
+
+type LottieMockup {
+  animation: LottieMockupAnimation!
+  animationId: ID!
+  assets: [LottieMockupAsset!]!
+  canvas: LottieMockupCanvas!
+  description: String!
+  id: String!
+  name: String!
+  playSegmentId: String!
+  version: String!
+}
+
+type LottieMockupAnimation {
+  config: LottieMockupAnimationConfig!
+  frame: Frame!
+  rotation: Float!
+}
+
+type LottieMockupAnimationConfig {
+  file: String!
+  fileId: String
+  fileKey: String
+  loop: Boolean!
+  speed: Float!
+}
+
+type Frame {
+  height: Float!
+  width: Float!
+  x: Float!
+  y: Float!
+}
+
+union LottieMockupAsset = LottieMockupAssetImage | LottieMockupAssetText
+
+type LottieMockupAssetImage {
+  frame: Frame!
+  identifier: String!
+  rotation: Float!
+  type: LottieMockupAssetType!
+  config: LottieMockupAssetFile!
+}
+
+enum LottieMockupAssetType {
+  animation
+  image
+  text
+}
+
+type LottieMockupAssetFile {
+  file: String!
+  fileId: String
+  fileKey: String
+}
+
+type LottieMockupAssetText {
+  frame: Frame!
+  identifier: String!
+  rotation: Float!
+  type: LottieMockupAssetType!
+  config: LottieMockupAssetTextConfig!
+}
+
+type LottieMockupAssetTextConfig {
+  alignment: String!
+  color: String!
+  font: String!
+  size: String!
+  text: String!
+}
+
+type LottieMockupCanvas {
+  background: String!
+  height: Float!
+  templateSize: TemplateSize!
+  width: Float!
+}
+
+enum TemplateSize {
+  desktop
+  mobile
+  tablet
+}
+
+type OfficialWorkspace {
+  icon: String
+  id: ID!
+  memberCount: Float!
+  members: [OfficialWorkspaceMember!]!
+  name: String!
+  planName: String!
+  planPosition: Float!
+
+  """
+  Indicates if the user can join the workspace instantly without approval
+  """
+  canJoinInstantly: Boolean!
+
+  """Indicates if the user has requested to join the suggested workspace"""
+  hasRequestedToJoin: Boolean!
+
+  """Check if user is member of the workspace"""
+  isMember: Boolean
+}
+
+type OfficialWorkspaceMember {
+  avatarUrl: String
+  email: String
+  firstName: String!
+  id: ID!
+  isAdmin: Boolean
+  isOwner: Boolean
+  lastName: String!
+  name: String!
+}
+
+type OnboardingChecklistObject {
+  activeOnboardings: [String!]
+  completeSeen: Boolean
+  dismissSeen: Boolean
+  doneOnboardings: [String!]
+  id: ID!
+  newToOnboarding: Boolean
+  seen: Boolean
+  userId: ID!
+}
+
+type OnboardingV2Object {
+  activeOnboardings: [String!]
+  completeSeen: Boolean
+  dismissSeen: Boolean
+  doneOnboardings: [String!]
+  id: ID!
+  newToOnboarding: Boolean
+  seen: Boolean
+  userId: ID!
+}
+
+type PaymentIntent {
+  id: ID!
+  providerId: String!
+  status: String!
+  type: String!
+  providerType: String!
+  createdAt: String!
+  expiresAt: String!
+  successUrl: String!
+  workspaceId: ID!
+  addedSeats: [WorkspaceMember!]!
+  workspace: WorkspaceObject!
+}
+
+type PaymentIntentCollectionMethod {
+  country: String!
+  paymentMethods: [PaymentIntentCollectionPaymentMethod!]!
+}
+
+type PaymentIntentCollectionPaymentMethod {
+  displayName: String!
+  logoUrl: String
+  type: String!
+}
+
+type PortfolioPost {
+  createdAt: DateTime!
+  deletedAt: DateTime
+  updatedAt: DateTime!
+  content: JSON
+  coverImage: String
+  excerpt: String
+  id: ID!
+  portfolioId: String!
+  publishedAt: DateTime
+  slug: String!
+  tags: [PortfolioTag!]!
+  title: String!
+  workspaceId: String!
+  contributors: [UserObject!]!
+  creator: UserObject!
+}
+
+type PortfolioTag {
+  id: ID!
+  name: String!
+  slug: String!
+}
+
+input PortfolioSlugAvailableInput {
+  portfolioId: ID!
+  portfolioPostId: ID
+  slug: String!
+}
+
+type PortfolioPostConnection {
+  """A list edges."""
+  edges: [PortfolioPostEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """Identifies the total count of items in the connection."""
+  totalCount: Float!
+}
+
+type PortfolioPostEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of the edge."""
+  node: PortfolioPost!
+}
+
+"""Portfolio post status"""
+enum PortfolioPostStatus {
+  Draft
+  Published
+}
+
+type WorkspacePortfolio {
+  createdAt: DateTime!
+  deletedAt: DateTime
+  updatedAt: DateTime!
+  description: String
+  id: ID!
+  image: String
+  isPrivate: Boolean!
+  name: String!
+  url: String!
+  workspace: Workspace!
+}
+
+input PortfolioUrlAvailableInput {
+  url: String!
+  workspaceId: ID
+}
+
+type PremiumAssetConnection {
+  """A list edges."""
+  edges: [PremiumAssetEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """Identifies the total count of items in the connection."""
+  totalCount: Float!
+}
+
+type PremiumAssetEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of the edge."""
+  node: PremiumAsset!
+}
+
+type PremiumAsset {
+  contributor: PremiumAssetContributor
+  formats: PremiumAssetFormats!
+  id: Float!
+  metadata: PremiumAssetMetadata!
+  name: String!
+  pack: PremiumAssetPack
+  previewImageUrl: String
+  previewVideoUrl: String!
+  relatedAnimations: [PremiumAssetRelatedAnimation!]
+  slug: String!
+  tags: [PremiumAssetTag!]
+  thumbnailVideoUrl: String!
+  type: String!
+  uuid: ID!
+}
+
+type PremiumAssetContributor {
+  avatarUrl: String
+  company: String
+  id: Float!
+  name: String!
+}
+
+type PremiumAssetFormats {
+  aep: Boolean
+}
+
+type PremiumAssetMetadata {
+  duration: Float
+  fileSize: Float!
+  frameRate: Float
+  frames: Float
+  height: Float!
+  uuid: ID!
+  width: Float!
+}
+
+type PremiumAssetPack {
+  id: Float!
+  itemCount: Float!
+  name: String!
+  slug: String!
+  thumbnailVideoUrl: String!
+}
+
+type PremiumAssetRelatedAnimation {
+  id: Float!
+  name: String!
+  previewImageUrl: String!
+  slug: String!
+  thumbnailVideoUrl: String!
+}
+
+type PremiumAssetTag {
+  id: Float!
+  lang: String!
+  name: String!
+  orderId: Float!
+  slug: String!
+}
+
+type PremiumAssetPackConnection {
+  """A list edges."""
+  edges: [PremiumAssetPackEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """Identifies the total count of items in the connection."""
+  totalCount: Float!
+}
+
+type PremiumAssetPackEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of the edge."""
+  node: PremiumAssetPack!
+}
+
+type PremiumAssetPackDetailConnection {
+  """A list edges."""
+  edges: [PremiumAssetEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """Identifies the total count of items in the connection."""
+  totalCount: Float!
+  description: String
+  id: Float!
+  itemCount: Float!
+  name: String!
+  slug: String!
+  thumbnailVideoUrl: String!
+}
+
+type PrivateShare {
+  createdAt: DateTime!
+  deletedAt: DateTime
+  updatedAt: DateTime!
+  acceptedAt: DateTime
+  access: String!
+  id: ID!
+  invitationCode: String!
+  invitedBy: ID!
+  isCreator: Boolean!
+  lastSentAt: DateTime
+  recipientEmail: String
+  resourceId: ID!
+  resourceType: PrivateShareType!
+  userId: String
+
+  """Checks if the user is not a workspace member"""
+  hasUnacceptedWorkspaceInvitation: Boolean
+
+  """Checks if the user is not a workspace member"""
+  isGuest: Boolean
+  resource: PrivateShareResource
+
+  """Recipient user of the invitation"""
+  user: UserObject
+}
+
+enum PrivateShareType {
+  COLLECTION
+  FILE
+  PROJECT
+}
+
+union PrivateShareResource = File | WorkspaceCollection | Project
+
+type WorkspaceCollection {
+  createdAt: DateTime!
+  deletedAt: DateTime
+  updatedAt: DateTime!
+  createdByUserId: String!
+  id: ID!
+  isPrivate: Boolean!
+  name: String!
+  slug: String!
+  workspaceId: String!
+
+  """
+  Get the permission scopes for collection for the current user / workspace
+  """
+  collectionPermissionScopes: [String!]!
+
+  """The thumbnail Urls of the last 3 animation inside a collection"""
+  collectionThumbnailUrls: [String!]
+
+  """Featured file key for the workspace collection"""
+  featuredFileKey: String
+  files: [String!]!
+  featuredFileObject: FileObject
+  createdBy: User
+}
+
+type SuggestedMember {
+  email: String!
+  id: ID!
+  name: String!
+}
+
+type PrivateShareConnection {
+  """A list edges."""
+  edges: [PrivateShareEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """Identifies the total count of items in the connection."""
+  totalCount: Float!
+}
+
+type PrivateShareEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of the edge."""
+  node: PrivateShare!
+}
+
+type ProjectFileConnection {
+  """A list edges."""
+  edges: [ProjectFileEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """Identifies the total count of items in the connection."""
+  totalCount: Float!
+}
+
+type ProjectFileEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of the edge."""
+  node: ProjectFile!
+}
+
+union ProjectFile = File | Folder
+
+type ProjectConnection {
+  """A list edges."""
+  edges: [ProjectEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """Identifies the total count of items in the connection."""
+  totalCount: Float!
+}
+
+type ProjectEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of the edge."""
+  node: Project!
+}
+
+type PublicShare {
+  createdAt: DateTime!
+  deletedAt: DateTime
+  updatedAt: DateTime!
+  allowGuestView: Boolean!
+  expireAt: DateTime
+  id: ID!
+  resourceId: ID!
+  resourceType: PublicShareType!
+  shareCode: String!
+
+  """Get the access type of the resource"""
+  accessLevels: [String!]
+  resource: PublicShareResource!
+  workspace: WorkspacePublicInfo
+}
+
+enum PublicShareType {
+  COLLECTION
+  FILE
+}
+
+union PublicShareResource = File | WorkspaceCollection
+
+type WorkspacePublicInfo {
+  allowJoinRequest: Boolean!
+  icon: String
+  id: ID!
+  name: String!
+}
+
+type RecentlyDeletedConnection {
+  """A list edges."""
+  edges: [RecentlyDeletedEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """Identifies the total count of items in the connection."""
+  totalCount: Float!
+}
+
+type RecentlyDeletedEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of the edge."""
+  node: RecentlyDeleted!
+}
+
+type RecentlyDeleted {
+  children: [RecentlyDeleted!]!
+  createdAt: DateTime!
+  expireAt: DateTime
+  id: ID!
+  parent: RecentlyDeleted
+  path: String!
+  resourceId: ID!
+  resourceType: RecentlyDeletedResourceType!
+  snapshot: JSON!
+  status: RecentlyDeletedStatus!
+  updatedAt: DateTime!
+  userId: String!
+  workspaceId: String!
+
+  """Recently deleted resource"""
+  resource: RecentlyDeletedResource
+}
+
+enum RecentlyDeletedResourceType {
+  Collection
+  File
+  Folder
+  Project
+}
+
+enum RecentlyDeletedStatus {
+  Idle
+  Purging
+  Restoring
+}
+
+union RecentlyDeletedResource = File | Folder | Project
+
+input RecentlyDeletedResourceInput {
+  resourceId: ID!
+  resourceType: RecentlyDeletedResourceType!
+}
+
+type SearchWorkspaceResponse {
+  collections: WorkspaceCollectionConnection
+  files: FileConnection
+  folders: FolderConnection
+  projects: ProjectConnection
+}
+
+type WorkspaceCollectionConnection {
+  """A list edges."""
+  edges: [WorkspaceCollectionEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """Identifies the total count of items in the connection."""
+  totalCount: Float!
+}
+
+type WorkspaceCollectionEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of the edge."""
+  node: WorkspaceCollection!
+}
+
+type FolderConnection {
+  """A list edges."""
+  edges: [FolderEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """Identifies the total count of items in the connection."""
+  totalCount: Float!
+}
+
+type FolderEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of the edge."""
+  node: Folder!
+}
+
+type SourceFile {
+  createdAt: DateTime!
+  deletedAt: DateTime
+  updatedAt: DateTime!
+  fileId: String!
+  fileVersionId: String!
+  id: ID!
+  sourceFileKey: String
+  sourceFileName: String!
+  sourceFileSize: Float
+  sourceFileVersionId: String
+  sourceType: String!
+  sourceUrl: String
+}
+
+type SuggestedInviteeConnection {
+  """A list edges."""
+  edges: [SuggestedInviteeEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """Identifies the total count of items in the connection."""
+  totalCount: Float!
+}
+
+type SuggestedInviteeEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of the edge."""
+  node: SuggestedInvitee!
+}
+
+type SuggestedInvitee {
+  """Avatar url fetched from auth service."""
+  avatarUrl: String!
+  id: ID!
+  userEmail: String!
+  userName: String!
+  viewCount: Float!
+  viewerEmail: String!
+  viewerName: String!
+}
+
+type SuggestedWorkspace {
+  icon: String
+  id: ID!
+  memberIds: [ID!]
+  name: String!
+  organization: Organization
+
+  """Indicates if the user has requested to join the suggested workspace"""
+  hasRequestedToJoin: Boolean!
+
+  """Check if user is member of the workspace"""
+  isMember: Boolean!
+  members: [User]
+}
+
+type Organization {
+  email: String!
+  id: ID!
+  name: String!
+}
+
+type SuggestedWorkspaceConnection {
+  """A list edges."""
+  edges: [SuggestedWorkspaceEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """Identifies the total count of items in the connection."""
+  totalCount: Float!
+}
+
+type SuggestedWorkspaceEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of the edge."""
+  node: SuggestedWorkspace!
+}
+
+type UserNotificationSubscriptionConnection {
+  """A list edges."""
+  edges: [UserNotificationSubscriptionEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """Identifies the total count of items in the connection."""
+  totalCount: Float!
+}
+
+type UserNotificationSubscriptionEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of the edge."""
+  node: UserNotificationSubscription!
+}
+
+type UserNotificationSubscription {
+  createdAt: DateTime!
+  entityId: String!
+  entityType: String!
+  id: ID!
+  isSubscribed: Boolean!
+  updatedAt: DateTime!
+  userId: String!
+  user: UserObject!
+}
+
+type OnboardingObject {
+  animColorPaletteBtnHotspot: Boolean
+  animCommentBtnHotspot: Boolean
+  animDescriptionSequence: Boolean
+  animPanelBtnHotspot: Boolean
+  animSegmentBtnHotspot: Boolean
+  animTitleHotspot: Boolean
+  animTopbarHotspot: Boolean
+  animVersionBtnHotspot: Boolean
+  dashboardAnimUploadHotspot: Boolean
+  dashboardCollectionHotspot: Boolean
+  dashboardCollectionViewSequence: Boolean
+  dashboardCreateAnimationHotspot: Boolean
+  dashboardOptimizedDotlottieBanner: Boolean
+  dashboardPageHotspot: Boolean
+  dashboardPremiumAssetHotspot: Boolean
+  dashboardPublicProfileHotspot: Boolean
+  dashboardSlackIntegrationBellIndicator: Boolean
+  dashboardSlackIntegrationPopup: Boolean
+  dashboardWelcomeLfModal: Boolean
+  dashboardWelcomeTeamModal: Boolean
+  dashboardWelcomeUpgradedModal: Boolean
+  dashboardWorkspaceCollectionHotspot: Boolean
+  dashboardWorkspaceHotspot: Boolean
+  folderCreateAnimationHotspot: Boolean
+  introAnimSequence: Boolean
+  introDashboardSequence: Boolean
+  multiPlayerOnboarding: Boolean
+  projectCreateAnimationHotspot: Boolean
+  slackOnboardingForComment: Boolean
+}
+
+type WorkspaceColorPalette {
+  createdAt: DateTime!
+  deletedAt: DateTime
+  updatedAt: DateTime!
+  colors: [String!]!
+  createdByUserId: String!
+  id: ID!
+  workspaceId: ID!
+}
+
+type WorkspaceColorPaletteConnection {
+  """A list edges."""
+  edges: [WorkspaceColorPaletteEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """Identifies the total count of items in the connection."""
+  totalCount: Float!
+}
+
+type WorkspaceColorPaletteEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of the edge."""
+  node: WorkspaceColorPalette!
+}
+
+type WorkspaceOwnershipTransfer {
+  createdAt: DateTime!
+  deletedAt: DateTime
+  updatedAt: DateTime!
+  completedAt: DateTime
+  currentOwnerId: String!
+  expiresAt: DateTime!
+  failureDetails: String
+  failureReason: String
+  id: ID!
+  metadata: JSONObject
+  newAccount: Account!
+  newAccountId: ID!
+  newOwnerId: String!
+  newSubscription: WorkspaceSubscription
+  newSubscriptionId: ID
+  oldAccount: Account!
+  oldAccountId: ID!
+  oldSubscription: WorkspaceSubscription
+  oldSubscriptionId: ID
+  respondedAt: DateTime
+  status: String!
+  workspace: Workspace!
+  workspaceId: ID!
+  currentOwner: WorkspaceMember
+  newOwner: WorkspaceMember
+}
+
+type BrandObject {
+  iconFileKey: String!
+  iconPublicReadURL: String!
+  name: String!
+}
+
+type WorkspaceCountsObject {
+  filesCount: Float!
+  membersCount: Float!
+  projectsCount: Float!
+}
+
+type WorkspaceSeatUtilization {
+  id: ID!
+  numberOfContributorSeats: Float!
+  numberOfContributorSeatsBalance: Float!
+  numberOfContributorSeatsUsed: Float!
+  numberOfViewerDownloaderSeats: Float!
+  numberOfViewerDownloaderSeatsBalance: Float!
+  numberOfViewerDownloaderSeatsUsed: Float!
+  numberOfViewerSeats: Float!
+  numberOfViewerSeatsBalance: Float!
+  numberOfViewerSeatsUsed: Float!
+}
+
+type WorkspaceMemberPrice {
+  billingCycle: String!
+  contributorPrice: AddonPrice
+  currency: String!
+  id: ID!
+  price: Float!
+  viewerDownloaderPrice: AddonPrice
+}
+
+type WorkspaceSettings {
+  allowAiFeatures: Boolean
+  allowExternalInvites: Boolean
+  allowExternalShares: Boolean!
+  allowJoinRequest: Boolean!
+  allowMemberInvites: Boolean!
+  allowPremiumAnimations: Boolean
+  allowPublishToCommunity: Boolean!
+  defaultRole: String
+  discoveryJoinType: WorkspaceDiscoveryJoinType!
+  isDiscoverable: Boolean!
+  isSsoEnforced: Boolean!
+  maxSessionDurationDays: Float!
+  workspaceId: ID!
+}
+
+"""
+The type of access granted to users who wish to join the workspace via discovery
+"""
+enum WorkspaceDiscoveryJoinType {
+  INSTANT
+  UPON_APPROVAL
+}
+
+type WorkspaceSubscriptionAvailableDiscount {
+  billingCycle: String!
+  currency: String!
+  currentPrice: Float!
+  discountPercentage: Float!
+  discountedPrice: Float!
+  isEligibleForDiscount: Boolean!
+}
+
+type AvailablePlanUpgrade {
+  plan: PlanObject!
+  price: WorkspaceMemberPrice!
+}
+
+type WorkspaceSubscriptionCheckoutSessionMetadata {
+  amountTotal: Float
+  currency: String
+  id: ID!
+  paymentIntent: String
+  source: String!
+  status: String!
+  workspaceId: String!
+}
+
+type ZipFile {
+  filename: String!
+  filesize: Int
+  key: String!
+  status: String!
+  type: ZipFileType
+  url: String!
+}
+
+enum ZipFileType {
+  LOTTIE
+  DOTLOTTIE
+  OPTIMIZED_DOTLOTTIE
+  OPTIMIZED_LOTTIE
+}
+
+input WorkspaceMemberSendInviteInput {
+  recipients: [InvitationRecipient!]!
+  resourceId: String
+  resourceType: String
+}
+
+input InvitationRecipient {
+  access: String = "editor"
+  recipientEmail: String!
+}
+
+input AccountInput {
+  taxCountry: String
+  taxId: String
+  addressLineOne: String
+  addressLineTwo: String
+  city: String
+  country: String
+  email: String
+  name: String
+  postcode: String
+  state: String
+}
+
+input AccountTaxInput {
+  taxCountry: String!
+  taxId: String!
+}
+
+input CommentCreateInput {
+  body: String!
+  entityId: ID!
+  extra: CommentExtraInput
+
+  """
+  The name to use if the user is not authenticated. Ignored if user is authenticated.
+  """
+  name: String = "Anonymous"
+
+  """The entity type"""
+  type: CommentableEntityType!
+}
+
+input CommentExtraInput {
+  annotation: CommentAnnotationInput
+  frame: Int!
+  type: CommentExtraType!
+}
+
+input CommentAnnotationInput {
+  ratio: [Float!]
+  type: CommentAnnotationType!
+  x: Float!
+  y: Float!
+}
+
+input CommunityAnimationImportInput {
+  """
+  The code for importing the PublicAnimation and creating the WorkflowFile.
+  """
+  code: String!
+
+  """The ID of the public animation to import."""
+  id: String!
+
+  """
+  The key for importing the PublicAnimation and creating the WorkflowFile.
+  """
+  key: String!
+
+  """The ID of the project to import the public animation into."""
+  projectId: String!
+}
+
+type CommunityAnimationImportRequest {
+  """
+  The code to use to create the WorkflowFile. This is used to indicate that the WorkflowFile is an import.
+  """
+  code: String!
+
+  """
+  The key to use to import the PublicAnimation and  create the WorkflowFile
+  """
+  key: String!
+}
+
+input CommunityAnimationImportRequestCreateInput {
+  """The background color to use for thumbnails"""
+  backgroundColor: String
+
+  """The color palette to apply"""
+  colorPalette: [String!]
+
+  """The id of the PublicAnimation to import."""
+  id: String!
+
+  """The project id to save the animation to."""
+  projectId: String!
+}
+
+input CreateEnterpriseOrganizationInput {
+  domains: [String!]!
+  organizationName: String!
+  workspaceId: String!
+}
+
+input EnterpriseSetSsoEnforcementInput {
+  isSsoEnforced: Boolean!
+}
+
+input EnterpriseOrganizationDirectoryGroupInput {
+  groupMappings: [EnterpriseOrganizationGroupMapInput!]
+  workspaceId: String!
+}
+
+input EnterpriseOrganizationGroupMapInput {
+  id: String!
+  internalName: String!
+  name: String!
+}
+
+input EnterpriseOrganizationDomainsInput {
+  domains: [String!]!
+  workspaceId: String!
+}
+
+input FileCreateInput {
+  backgroundColor: String
+  editorKey: String
+  fileKey: String!
+  fileVersionId: String!
+  folderId: String
+  handbackId: String
+  isFolder: Boolean = false
+  isHidden: Boolean = false
+  isMyPrivateAnimation: Boolean
+  name: String!
+  projectId: ID!
+  token: FileCreateTokenInput
+}
+
+input FileCreateTokenInput {
+  """The code for the token."""
+  code: String!
+
+  """The id of the reference."""
+  referenceId: String!
+
+  """The type of the reference."""
+  referenceType: FileCreateTokenReferenceType!
+}
+
+enum FileCreateTokenReferenceType {
+  COMMUNITY_ANIMATION
+}
+
+input FileCreateFallbackInput {
+  backgroundColor: String
+  fileKey: String!
+  folderId: String
+  handbackId: String
+  isFolder: Boolean = false
+  isHidden: Boolean = false
+  isMyPrivateAnimation: Boolean
+  name: String!
+  projectId: String!
+  token: FileCreateTokenInput
+}
+
+input FileDescriptionUpdateInput {
+  description: String
+  showDescOnCollection: Boolean!
+}
+
+input FileDuplicateInput {
+  folderId: String
+  id: ID!
+  projectId: String
+}
+
+input FileRenameInput {
+  name: String!
+}
+
+input UpdateFileInput {
+  description: String
+  folderId: String
+  name: String
+  projectId: String
+  slug: String
+  sourceFileKey: String
+  sourceFileType: String
+  sourceFilename: String
+}
+
+"""Allowed status for files"""
+enum FileStatus {
+  Approved
+  InProgress
+  NeedsReview
+  NoStatus
+  Shipped
+}
+
+type FileUploadRequest {
+  fields: JSON!
+  key: String!
+  url: String!
+}
+
+input CreateUploadRequestInput {
+  bgColor: String
+  key: String
+  metadata: Boolean
+  previews: Boolean
+  thumbnails: Boolean
+  type: String
+  variationType: String
+  versionId: String
+}
+
+input FileVariantInput {
+  backgroundColor: String = ""
+  format: String!
+  height: Int!
+  transparency: Boolean
+  width: Int!
+}
+
+input FileVariantUpdateInput {
+  fileSize: Float!
+  fileVariationId: String!
+}
+
+input FileVersionCreateInput {
+  backgroundColor: String
+  fileId: ID!
+  fileKey: String!
+  fileSubVersionId: String
+  fileVersionId: String!
+  handbackId: ID
+  name: String!
+  type: String = "version"
+}
+
+input FileVersionCreateFallbackInput {
+  backgroundColor: String
+  fileId: ID!
+  fileKey: String!
+  handbackId: ID
+  name: String!
+}
+
+input CreateFolderInput {
+  folderId: String
+  isFolder: Boolean = true
+  name: String!
+  projectId: String!
+  slug: String!
+}
+
+input FolderRenameInput {
+  name: String!
+}
+
+input InlineCheckoutBraintreeSubscriptionCreateInput {
+  brainTreeClientToken: String!
+  pricingId: String!
+  quantity: Float
+  workspaceId: String!
+}
+
+type InlineCheckoutSetupIntentCreatePayload {
+  clientSecret: String!
+  customerId: String!
+  setupIntentId: String!
+}
+
+input InlineCheckoutSetupIntentCreateInput {
+  onBoardAllMembers: Boolean
+  pricingId: String!
+  quantity: Float
+  source: String
+  workspaceId: String!
+}
+
+input InlineCheckoutStripeSubscriptionCreateInput {
+  setupIntentId: String!
+  workspaceId: String!
+}
+
+input LottieJsonOptimizeInput {
+  """The lottie json payload to optimize"""
+  fileUrl: String!
+
+  """If true, will return a dotlottie file instead of a json file"""
+  returnDotLottie: Boolean = false
+}
+
+input LottieMockupCreateInput {
+  animation: LottieMockupAnimationInput!
+  animationId: String!
+  assets: [JSON!]!
+  canvas: LottieMockupCanvasInput!
+  description: String!
+  id: String!
+  name: String!
+  playSegmentId: String!
+  version: String!
+}
+
+input LottieMockupAnimationInput {
+  config: LottieMockupAnimationConfigInput!
+  frame: FrameInput!
+  rotation: Float!
+}
+
+input LottieMockupAnimationConfigInput {
+  file: String
+  fileId: String
+  fileKey: String
+  loop: Boolean!
+  speed: Float!
+}
+
+input FrameInput {
+  height: Float!
+  width: Float!
+  x: Float!
+  y: Float!
+}
+
+input LottieMockupCanvasInput {
+  background: String!
+  height: Float!
+  templateSize: TemplateSize!
+  width: Float!
+}
+
+type BackgroundImageObject {
+  fileKey: String!
+  preSignedUploadURL: String!
+  publicReadURL: String!
+}
+
+input UpdateOnboardingChecklistInput {
+  completeSeen: Boolean = false
+  dismissSeen: Boolean = false
+  doneOnboardings: [String!] = []
+  seen: Boolean = false
+}
+
+input UpdateOnboardingV2Input {
+  completeSeen: Boolean = false
+  dismissSeen: Boolean = false
+  doneOnboardings: [String!] = []
+  seen: Boolean = false
+}
+
+input CreateEditorFileEditCounterInput {
+  fileId: String
+  key: String!
+}
+
+type PaymentIntentToken {
+  id: ID!
+  token: String!
+}
+
+input PaymentIntentInput {
+  onBoardAllMembers: Boolean
+  paymentMethod: String!
+  quantity: Float = 1
+  ratePlanId: ID!
+  type: String!
+  workspaceId: ID!
+  workspaceMemberIds: [String!]
+}
+
+input PaymentIntentAddSeatsForResourceInput {
+  resourceId: ID!
+  resourceType: PrivateShareType!
+  recipients: [SharedResourceInvitationRecipient!]!
+  workspaceId: ID!
+  workspaceAccess: String!
+}
+
+input SharedResourceInvitationRecipient {
+  access: String!
+  existingMember: Boolean = false
+  recipientEmail: String
+  userId: String
+}
+
+input PaymentIntentAddSeatsInput {
+  recipients: [InvitationRecipient!]!
+  workspaceId: ID!
+}
+
+type InvoicePaymentAttemptPayload {
+  amountPaid: Float
+  currency: String
+  invoiceId: String
+  paymentProviderError: PaymentProviderError
+  status: String
+}
+
+type PaymentProviderError {
+  code: String!
+  message: String!
+  provider: PaymentProvider
+}
+
+type PaymentMethodSetupPayload {
+  paymentProviderError: PaymentProviderError
+  setupIntent: SetupIntent
+}
+
+type SetupIntent {
+  clientSecret: String!
+  id: String!
+  provider: PaymentProvider!
+}
+
+input PlaySegmentInput {
+  action: PlaySegmentAction!
+  endFrame: Float!
+  id: String
+  name: String!
+  startFrame: Float!
+}
+
+enum PlaySegmentAction {
+  Loop
+  PlayOnce
+}
+
+type PortfolioImageUploadObject {
+  fileKey: String!
+  preSignedUploadURL: String!
+  publicReadURL: String!
+}
+
+input PortfolioPostInput {
+  content: JSON
+  contributors: [String!]
+  coverImage: String
+  excerpt: String
+  isPublished: Boolean
+  slug: String
+  tags: [String!]
+  title: String!
+  workspaceId: ID!
+}
+
+input PortfolioPostUpdateInput {
+  content: JSON
+  contributors: [String!]
+  coverImage: String
+  excerpt: String
+  isPublished: Boolean
+  slug: String
+  tags: [String!]
+  title: String!
+}
+
+type PortfolioIconUploadObject {
+  fileKey: String!
+  preSignedUploadURL: String!
+  publicReadURL: String!
+}
+
+input WorkspacePortfolioInput {
+  description: String
+  image: String
+  isPrivate: Boolean
+  name: String!
+  url: String
+  workspaceId: String!
+}
+
+type PremiumAssetDownloadLink {
+  aep: PremiumAssetDownloadLinkData!
+  json: PremiumAssetDownloadLinkData!
+  lottie: PremiumAssetDownloadLinkData!
+}
+
+type PremiumAssetDownloadLinkData {
+  name: String!
+  url: String!
+}
+
+input SharedResourceInput {
+  inviteToWorkspace: Boolean = false
+  recipients: [SharedResourceInvitationRecipient!]!
+  resourceId: ID!
+  resourceType: PrivateShareType!
+  workspaceAccess: String
+  workspaceId: ID
+}
+
+input ProjectCreateInput {
+  isOpen: Boolean = false
+  isPrivate: Boolean = false
+  shareToken: String
+  slug: String!
+  title: String!
+  workspaceId: String!
+}
+
+input ProjectUpdateInput {
+  slug: String!
+  title: String!
+}
+
+input PublicAssetRestoreInput {
+  fileVersionId: ID!
+}
+
+input PublicAssetUpdateInput {
+  fileId: ID!
+  isActive: Boolean!
+}
+
+input PublicShareCreateInput {
+  allowGuestView: Boolean = false
+}
+
+input RecentlyDeletedPurgeInput {
+  resourceId: ID!
+  resourceType: RecentlyDeletedResourceType!
+}
+
+input RecentlyDeletedPurgeMultipleInput {
+  resourceIds: ID!
+  resourceType: RecentlyDeletedResourceType!
+}
+
+input RecentlyDeletedRestoreInput {
+  location: ID
+  resourceId: ID!
+  resourceType: RecentlyDeletedResourceType!
+}
+
+input SourceFileCreateInput {
+  fileId: String!
+  fileVersionId: String!
+  sourceFileKey: String
+  sourceFileName: String!
+  sourceFileSize: Float
+  sourceFileVersionId: String
+  sourceType: String!
+  sourceUrl: String
+}
+
+type FileUploadRequestStatus {
+  estimatedTimeRemaining: String
+  fields: JSON!
+  key: String!
+  message: String
+  progressPercentage: String
+  status: String!
+  url: String!
+}
+
+input UpdateOnboardingInput {
+  animColorPaletteBtnHotspot: Boolean
+  animCommentBtnHotspot: Boolean
+  animDescriptionSequence: Boolean
+  animPanelBtnHotspot: Boolean
+  animSegmentBtnHotspot: Boolean
+  animTitleHotspot: Boolean
+  animTopbarHotspot: Boolean
+  animVersionBtnHotspot: Boolean
+  dashboardAnimUploadHotspot: Boolean
+  dashboardCollectionHotspot: Boolean
+  dashboardCollectionViewSequence: Boolean
+  dashboardCreateAnimationHotspot: Boolean
+  dashboardOptimizedDotlottieBanner: Boolean
+  dashboardPageHotspot: Boolean
+  dashboardPremiumAssetHotspot: Boolean
+  dashboardPublicProfileHotspot: Boolean
+  dashboardSlackIntegrationBellIndicator: Boolean
+  dashboardSlackIntegrationPopup: Boolean
+  dashboardWelcomeLfModal: Boolean
+  dashboardWelcomeTeamModal: Boolean
+  dashboardWelcomeUpgradedModal: Boolean
+  dashboardWorkspaceCollectionHotspot: Boolean
+  dashboardWorkspaceHotspot: Boolean
+  folderCreateAnimationHotspot: Boolean
+  introAnimSequence: Boolean
+  introDashboardSequence: Boolean
+  multiPlayerOnboarding: Boolean
+  projectCreateAnimationHotspot: Boolean
+  slackOnboardingForComment: Boolean
+}
+
+type WorkflowTempFilePreSignedUploadRequest {
+  fileKey: String!
+  preSignedUploadURL: String!
+  publicReadURL: String!
+}
+
+input WorkspaceCollectionCreateInput {
+  files: JSON!
+  isPrivate: Boolean = false
+  name: String!
+  slug: String!
+  workspaceId: String!
+}
+
+input WorkspaceCollectionUpdateInput {
+  files: JSON
+  name: String
+  slug: String
+  workspaceId: String
+}
+
+input CreateWorkspaceColorPaletteInput {
+  colors: [String!]!
+  workspaceId: ID!
+}
+
+input UpdateWorkspaceColorPaletteInput {
+  colors: [String!]!
+}
+
+type WorkspaceIconUploadObject {
+  fileKey: String!
+  preSignedUploadURL: String!
+  publicReadURL: String!
+}
+
+input InitialAnimationUploadInput {
+  file: String!
+  folderId: String
+  projectId: String
+  workspaceId: String!
+}
+
+input WorkspaceInput {
+  billingAddressLineOne: String
+  billingAddressLineTwo: String
+  billingEmail: String
+  icon: String
+  name: String
+  url: String
+}
+
+input WorkspaceSettingsUpdateInput {
+  allowAiFeatures: Boolean
+  allowExternalInvites: Boolean
+  allowExternalShares: Boolean
+  allowJoinRequest: Boolean
+  allowMemberInvites: Boolean
+  allowPremiumAnimations: Boolean
+  allowPublishToCommunity: Boolean
+  defaultRole: String
+  discoveryJoinType: WorkspaceDiscoveryJoinType
+  isDiscoverable: Boolean
+  maxSessionDurationDays: Float
+}
+
+input ApplyDiscountInput {
+  workspaceId: ID!
+}
+
+input SubscriptionCancelInput {
+  reasonId: String!
+  reasonText: String
+  subscriptionId: String!
+  workspaceId: String!
+}
+
+input WorkspaceSubscriptionCheckoutSessionInput {
+  account: AccountInput
+  brainTreeClientToken: String
+  ctaButtonText: String
+  isExtendedTrial: Boolean
+  isPrepayOptional: Boolean
+  isTrial: Boolean
+  onBoardAllMembers: Boolean
+  paymentProvider: String
+  pricingId: String!
+  quantity: Float
+  referralCode: String
+  returnTo: String
+  source: String
+  viewerQuantity: Float
+  workspaceId: String!
+  workspaceMemberIds: [String!]
+  workspaceMembers: [WorkspaceMemberInput!]
+}
+
+input WorkspaceMemberInput {
+  email: String!
+  role: String!
+}
+
+type CheckoutObject {
+  clientSecret: String!
+  sessionId: String!
+}
+
+input WorkspaceSubscriptionCheckoutForEmbedInput {
+  onBoardAllMembers: Boolean
+  paymentProvider: String
+  pricingId: String!
+  quantity: Float
+  referralCode: String
+  returnTo: String
+  source: String
+  viewerQuantity: Float
+  workspaceId: String!
+  workspaceMemberIds: [String!]
+}
+
+input WorkspaceSubscriptionUpgradeInput {
+  pricingId: String
+  quantity: Float
+  workspaceId: String!
+}
+
+input ZipFileCreateInput {
+  entries: [ZipEntryInput!]!
+  type: ZipFileType = LOTTIE
+}
+
+input ZipEntryInput {
+  id: String!
+  type: ZipEntryType = FILE
+}
+
+enum ZipEntryType {
+  FILE
+  FOLDER
+  PROJECT
+}
+
+"""A field containing either a integer or a string value"""
+scalar IntOrString
