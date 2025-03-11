@@ -1,6 +1,6 @@
 import { test, describe, expect } from 'vitest'
 import fs from 'fs'
-import { getLUFSVolume } from './rms-volume'
+import { getLUFSVolume } from './lufs-volume'
 
 describe('getLUFSVolume', () => {
   test('should calculate LUFS volume for an audio file', async () => {
