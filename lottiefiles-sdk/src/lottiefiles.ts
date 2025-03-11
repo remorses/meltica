@@ -14,10 +14,33 @@ export async function fetchAllLottieFilesAnimations(
 ): Promise<void> {
     const client = createClient({})
     let hasNextPage = true
-    let endCursor: string | null = null
-    const allAnimations: any[] = []
+    let endCursor: string | null | undefined = undefined
+    let allAnimations: any[] = []
 
     console.log('Starting to fetch LottieFiles animations...')
+
+    if (fs.existsSync(outputPath)) {
+        console.log(
+            `Found existing file at ${outputPath}, loading previous data...`,
+        )
+        const fileContent = await fs.promises.readFile(outputPath, 'utf8')
+        const parsedData = JSON.parse(fileContent)
+
+        // Extract last cursor and animations if they exist
+        if (parsedData.metadata && parsedData.metadata.lastCursor) {
+            endCursor = parsedData.metadata.lastCursor
+            console.log(`Resuming from cursor: ${endCursor}`)
+        }
+
+        if (parsedData.animations && Array.isArray(parsedData.animations)) {
+            allAnimations = parsedData.animations
+            console.log(
+                `Loaded ${allAnimations.length} animations from previous file`,
+            )
+        }
+    } else {
+        console.log(`No existing file found at ${outputPath}, starting fresh`)
+    }
 
     while (hasNextPage) {
         try {
@@ -52,7 +75,15 @@ export async function fetchAllLottieFilesAnimations(
             allAnimations.push(...nodes)
 
             // Write to file after each batch
-            await writeAnimationsToFile(allAnimations, outputPath)
+            // Sort animations by download count in descending order to ensure most downloaded files appear first
+            allAnimations.sort(
+                (a, b) => (b.downloads || 0) - (a.downloads || 0),
+            )
+            await writeAnimationsToFile(
+                allAnimations,
+                outputPath,
+                pageInfo.endCursor,
+            )
 
             console.log(`Fetched ${allAnimations.length} animations so far...`)
 
@@ -66,6 +97,7 @@ export async function fetchAllLottieFilesAnimations(
             }
         } catch (error) {
             console.error('Error fetching animations:', error)
+            throw error
             break
         }
     }
@@ -79,10 +111,12 @@ export async function fetchAllLottieFilesAnimations(
  * Writes the animations array to a JSON file.
  * @param animations - Array of animation objects to write
  * @param filePath - Path where the JSON file will be saved
+ * @param lastCursor - The last cursor used for pagination
  */
 async function writeAnimationsToFile(
     animations: any[],
     filePath: string,
+    lastCursor: string | null | undefined = undefined,
 ): Promise<void> {
     try {
         const dirPath = path.dirname(filePath)
@@ -92,10 +126,20 @@ async function writeAnimationsToFile(
             fs.mkdirSync(dirPath, { recursive: true })
         }
 
-        // Write the file
+        // Create a structured object with animations and metadata
+        const dataToWrite = {
+            metadata: {
+                lastCursor: lastCursor,
+                totalCount: animations.length,
+                lastUpdated: new Date().toISOString(),
+            },
+            animations: animations,
+        }
+
+        // Write the file with proper indentation
         await fs.promises.writeFile(
             filePath,
-            JSON.stringify(animations, null, 2),
+            JSON.stringify(dataToWrite, null, 2),
             'utf8',
         )
     } catch (error) {

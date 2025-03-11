@@ -2,14 +2,14 @@ import { test, expect } from 'vitest'
 import { createClient } from './generated'
 
 test(
-    'genql works',
+    'recentPublicAnimations',
     async () => {
         const client = createClient({})
 
         const res = await client.query({
             recentPublicAnimations: {
                 __args: {
-                    first: 3,
+                    first: 1,
 
                     // orderBy: 'likesCount',
 
@@ -34,150 +34,143 @@ test(
             },
         })
         expect(res).toMatchInlineSnapshot(`
-      {
-        "recentPublicAnimations": {
-          "edges": [
-            {
-              "cursor": "YXJyYXljb25uZWN0aW9uOjEwODgwNw==",
-              "node": {
-                "__typename": "PublicAnimation",
-                "bgColor": "#251605",
-                "commentsCount": 0,
-                "createdAt": "2017-02-06T06:02:30.000Z",
-                "createdByUserId": "834b7aaa-bc60-44cb-b12e-37f80cfb49b7",
-                "description": null,
-                "dotlottieFormatVersion": "1.0",
-                "downloads": 3032,
-                "frameRate": 29.9700012207031,
-                "gifFileSize": "202255",
-                "gifUrl": "https://assets-v2.lottiefiles.com/a/8fab7382-1150-11ee-b75d-cbb618e77999/GzGer0jzRu.gif",
-                "id": 24,
-                "imageFileSize": null,
-                "imageFrame": null,
-                "imageUrl": "https://assets-v2.lottiefiles.com/a/8fab7382-1150-11ee-b75d-cbb618e77999/ZeXd8rtRcU.png",
-                "isCanvaCompatible": true,
-                "isLiked": false,
-                "jsonUrl": "https://assets-v2.lottiefiles.com/a/8fab7382-1150-11ee-b75d-cbb618e77999/svITcrddOp.json",
-                "likesCount": 93,
-                "lottieFileSize": 1586,
-                "lottieFileType": "LOTTIE",
-                "lottieUrl": "https://assets-v2.lottiefiles.com/a/8fab7382-1150-11ee-b75d-cbb618e77999/QrJ6KArI2k.lottie",
-                "lottieVersion": null,
-                "name": "Toggle switch",
-                "publishedAt": "2019-04-21T04:38:32.000Z",
-                "slug": "toggle-switch",
-                "sourceFileName": null,
-                "sourceFileSize": null,
-                "sourceFileType": null,
-                "sourceFileUrl": null,
-                "sourceName": null,
-                "sourceVersion": null,
-                "speed": 1,
-                "status": 1,
-                "updatedAt": "2023-07-08T10:19:40.000Z",
-                "url": "https://lottiefiles.com/animations/toggle-switch-i63PFz5C1B",
-                "uuid": "8fab7382-1150-11ee-b75d-cbb618e77999",
-                "videoFileSize": null,
-                "videoUrl": null,
+          {
+            "recentPublicAnimations": {
+              "edges": [
+                {
+                  "cursor": "YXJyYXljb25uZWN0aW9uOjA=",
+                  "node": {
+                    "__typename": "PublicAnimation",
+                    "bgColor": "#FFFFFF",
+                    "commentsCount": 0,
+                    "createdAt": "2025-03-11T07:47:11.588Z",
+                    "createdBy": {
+                      "id": "c6e60d3e-f389-4668-b2b8-132a8d9e7028",
+                      "name": "derya.keles",
+                      "username": "/y1pvsgrh55czmymx",
+                    },
+                    "createdByUserId": "c6e60d3e-f389-4668-b2b8-132a8d9e7028",
+                    "description": null,
+                    "dotlottieFormatVersion": "1",
+                    "downloads": 0,
+                    "frameRate": 29.9700012207031,
+                    "gifFileSize": "1087868",
+                    "gifUrl": "https://assets-v2.lottiefiles.com/a/0a9e97dc-fe4d-11ef-98ac-6ff600f73bf0/ccOP6Kdh06.gif",
+                    "id": 1045762,
+                    "imageFileSize": 19705,
+                    "imageFrame": null,
+                    "imageUrl": "https://assets-v2.lottiefiles.com/a/0a9e97dc-fe4d-11ef-98ac-6ff600f73bf0/mgPcidYsuB.png",
+                    "isCanvaCompatible": true,
+                    "isLiked": false,
+                    "jsonUrl": "https://assets-v2.lottiefiles.com/a/0a9e97dc-fe4d-11ef-98ac-6ff600f73bf0/Hb6A5wftia.json",
+                    "likesCount": 0,
+                    "lottieFileSize": 2527,
+                    "lottieFileType": "LOTTIE",
+                    "lottieUrl": "https://assets-v2.lottiefiles.com/a/0a9e97dc-fe4d-11ef-98ac-6ff600f73bf0/xDZlRlV2Lg.lottie",
+                    "lottieVersion": null,
+                    "name": "Progress_01",
+                    "publishedAt": "2025-03-11T09:19:34.617Z",
+                    "slug": "progress-01",
+                    "sourceFileName": null,
+                    "sourceFileSize": null,
+                    "sourceFileType": null,
+                    "sourceFileUrl": null,
+                    "sourceName": null,
+                    "sourceVersion": null,
+                    "speed": 0,
+                    "status": 1,
+                    "updatedAt": null,
+                    "url": "https://lottiefiles.com/animations/progress-01-aLkz17ayyc",
+                    "uuid": "0a9e97dc-fe4d-11ef-98ac-6ff600f73bf0",
+                    "videoFileSize": 61167,
+                    "videoUrl": "https://assets-v2.lottiefiles.com/a/0a9e97dc-fe4d-11ef-98ac-6ff600f73bf0/MNnuvcd3LQ.mp4",
+                  },
+                },
+              ],
+              "pageInfo": {
+                "endCursor": "YXJyYXljb25uZWN0aW9uOjA=",
+                "hasNextPage": true,
               },
+              "totalCount": 108810,
             },
-            {
-              "cursor": "YXJyYXljb25uZWN0aW9uOjEwODgwOA==",
-              "node": {
-                "__typename": "PublicAnimation",
-                "bgColor": null,
-                "commentsCount": 1,
-                "createdAt": "2017-02-06T01:06:57.000Z",
-                "createdByUserId": "834b7aaa-bc60-44cb-b12e-37f80cfb49b7",
-                "description": null,
-                "dotlottieFormatVersion": "1.0",
-                "downloads": 981,
-                "frameRate": 29.9700012207031,
-                "gifFileSize": "225325",
-                "gifUrl": "https://assets-v2.lottiefiles.com/a/8fc82068-1150-11ee-b760-4b3947bee0e4/EY1gRTyO0N.gif",
-                "id": 26,
-                "imageFileSize": null,
-                "imageFrame": null,
-                "imageUrl": "https://assets-v2.lottiefiles.com/a/8fc82068-1150-11ee-b760-4b3947bee0e4/bYqal4SAJP.png",
-                "isCanvaCompatible": false,
-                "isLiked": false,
-                "jsonUrl": "https://assets-v2.lottiefiles.com/a/8fc82068-1150-11ee-b760-4b3947bee0e4/QJvXEe11Af.json",
-                "likesCount": 26,
-                "lottieFileSize": 1388,
-                "lottieFileType": "LOTTIE",
-                "lottieUrl": "https://assets-v2.lottiefiles.com/a/8fc82068-1150-11ee-b760-4b3947bee0e4/qWavxE9FR0.lottie",
-                "lottieVersion": null,
-                "name": "Lets have some hamburger",
-                "publishedAt": "2019-04-21T04:37:48.000Z",
-                "slug": "lets-have-some-hamburger",
-                "sourceFileName": null,
-                "sourceFileSize": null,
-                "sourceFileType": null,
-                "sourceFileUrl": null,
-                "sourceName": null,
-                "sourceVersion": null,
-                "speed": 1,
-                "status": 1,
-                "updatedAt": "2023-07-08T09:11:58.000Z",
-                "url": "https://lottiefiles.com/animations/lets-have-some-hamburger-0Gb33f8Py2",
-                "uuid": "8fc82068-1150-11ee-b760-4b3947bee0e4",
-                "videoFileSize": null,
-                "videoUrl": null,
+          }
+        `)
+    },
+    1000 * 100,
+)
+
+test(
+    'recentPremiumAssets',
+    async () => {
+        const client = createClient({})
+
+        const res = await client.query({
+            recentPremiumAssets: {
+                __args: {
+                    first: 1,
+
+                    // orderBy: 'likesCount',
+
+                    // after: 'PREVIOUS_END_CURSOR',
+                },
+                edges: {
+                    cursor: true,
+                    node: {
+                        __scalar: true,
+                        pack: {
+                            __scalar: true,
+                        },
+                        formats: {
+                            __scalar: true,
+                        },
+                    },
+                },
+                totalCount: true,
+                pageInfo: {
+                    hasNextPage: true,
+                    endCursor: true,
+                },
+            },
+        })
+        expect(res).toMatchInlineSnapshot(`
+          {
+            "recentPremiumAssets": {
+              "edges": [
+                {
+                  "cursor": "YXJyYXljb25uZWN0aW9uOjE=",
+                  "node": {
+                    "__typename": "PremiumAsset",
+                    "formats": {
+                      "__typename": "PremiumAssetFormats",
+                      "aep": false,
+                    },
+                    "id": 11441061,
+                    "name": "Super Sale",
+                    "pack": {
+                      "__typename": "PremiumAssetPack",
+                      "id": 325294,
+                      "itemCount": 48,
+                      "name": "E-commerce Label Tag",
+                      "slug": "e-commerce-label-tag",
+                      "thumbnailVideoUrl": "https://cdnl.iconscout.com/lottie-pack/preview-file/free-e-commerce-label-tag-325294@0.mp4?h=240",
+                    },
+                    "previewImageUrl": "https://cdnl.iconscout.com/lottie/premium/preview/super-sale-14220777-11441061.png",
+                    "previewVideoUrl": "https://cdnl.iconscout.com/lottie/premium/preview-watermark/super-sale-14220777-11441061.mp4",
+                    "slug": "super-sale-14220777",
+                    "thumbnailVideoUrl": "https://cdnl.iconscout.com/lottie/premium/thumb/super-sale-14220777-11441061.mp4",
+                    "type": "lottie",
+                    "uuid": "a7d20a70-fe83-11ef-b736-0242ac140003",
+                  },
+                },
+              ],
+              "pageInfo": {
+                "endCursor": "YXJyYXljb25uZWN0aW9uOjE=",
+                "hasNextPage": true,
               },
+              "totalCount": 563063,
             },
-            {
-              "cursor": "YXJyYXljb25uZWN0aW9uOjEwODgwOQ==",
-              "node": {
-                "__typename": "PublicAnimation",
-                "bgColor": "#00DA62",
-                "commentsCount": 7,
-                "createdAt": "2017-02-04T04:39:23.000Z",
-                "createdByUserId": "253dcf8e-9e9c-449c-82dc-1c5cec13ea8c",
-                "description": null,
-                "dotlottieFormatVersion": "1.0",
-                "downloads": 4323,
-                "frameRate": 30,
-                "gifFileSize": "1",
-                "gifUrl": "https://assets-v2.lottiefiles.com/a/8f98671a-1150-11ee-b758-072e668aab76/toERskXhFt.gif",
-                "id": 16,
-                "imageFileSize": null,
-                "imageFrame": null,
-                "imageUrl": "https://assets-v2.lottiefiles.com/a/8f98671a-1150-11ee-b758-072e668aab76/wEV3JSSKvr.png",
-                "isCanvaCompatible": false,
-                "isLiked": false,
-                "jsonUrl": "https://assets-v2.lottiefiles.com/a/8f98671a-1150-11ee-b758-072e668aab76/2bgsBIsrDR.json",
-                "likesCount": 37,
-                "lottieFileSize": 143849,
-                "lottieFileType": "LOTTIE",
-                "lottieUrl": "https://assets-v2.lottiefiles.com/a/8f98671a-1150-11ee-b758-072e668aab76/LunUHGXZVf.lottie",
-                "lottieVersion": null,
-                "name": "Body Movin",
-                "publishedAt": "2019-04-21T04:45:30.000Z",
-                "slug": "body-movin",
-                "sourceFileName": null,
-                "sourceFileSize": null,
-                "sourceFileType": null,
-                "sourceFileUrl": null,
-                "sourceName": null,
-                "sourceVersion": null,
-                "speed": 1,
-                "status": 1,
-                "updatedAt": "2023-07-08T01:02:31.000Z",
-                "url": "https://lottiefiles.com/animations/body-movin-Pecl3zGzJL",
-                "uuid": "8f98671a-1150-11ee-b758-072e668aab76",
-                "videoFileSize": 4454,
-                "videoUrl": "https://assets-v2.lottiefiles.com/a/8f98671a-1150-11ee-b758-072e668aab76/ZL13E0kri9.mp4",
-              },
-            },
-          ],
-          "pageInfo": {
-            "endCursor": "YXJyYXljb25uZWN0aW9uOjEwODgwOQ==",
-            "hasNextPage": false,
-          },
-          "totalCount": 108810,
-        },
-      }
-    `)
+          }
+        `)
     },
     1000 * 100,
 )
