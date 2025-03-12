@@ -1,11 +1,28 @@
 import { test, expect } from 'vitest'
 import { createClient } from './generated'
 
+const client = createClient({})
+
+test('max count', async () => {
+    const max = 2000
+    const res = await client.query({
+        recentPublicAnimations: {
+            __args: {
+                first: max,
+            },
+            edges: {
+                node: {
+                    id: true,
+                },
+            },
+        },
+    })
+    expect(res.recentPublicAnimations.edges.length).toBe(max)
+})
+
 test(
     'recentPublicAnimations',
     async () => {
-        const client = createClient({})
-
         const res = await client.query({
             recentPublicAnimations: {
                 __args: {
@@ -43,34 +60,34 @@ test(
                     "__typename": "PublicAnimation",
                     "bgColor": "#FFFFFF",
                     "commentsCount": 0,
-                    "createdAt": "2025-03-11T07:47:11.588Z",
+                    "createdAt": "2025-03-12T02:53:44.036Z",
                     "createdBy": {
-                      "id": "c6e60d3e-f389-4668-b2b8-132a8d9e7028",
-                      "name": "derya.keles",
-                      "username": "/y1pvsgrh55czmymx",
+                      "id": "25321284-791f-4503-b1fb-b6fea8456926",
+                      "name": "SM",
+                      "username": "/smringku",
                     },
-                    "createdByUserId": "c6e60d3e-f389-4668-b2b8-132a8d9e7028",
+                    "createdByUserId": "25321284-791f-4503-b1fb-b6fea8456926",
                     "description": null,
                     "dotlottieFormatVersion": "1",
                     "downloads": 0,
                     "frameRate": 29.9700012207031,
-                    "gifFileSize": "1087868",
-                    "gifUrl": "https://assets-v2.lottiefiles.com/a/0a9e97dc-fe4d-11ef-98ac-6ff600f73bf0/ccOP6Kdh06.gif",
-                    "id": 1045762,
-                    "imageFileSize": 19705,
+                    "gifFileSize": "135187",
+                    "gifUrl": "https://assets-v2.lottiefiles.com/a/361d1f1e-feed-11ef-ad3f-734fdbd0c3bd/2xM9TkGj8a.gif",
+                    "id": 1045784,
+                    "imageFileSize": 3001,
                     "imageFrame": null,
-                    "imageUrl": "https://assets-v2.lottiefiles.com/a/0a9e97dc-fe4d-11ef-98ac-6ff600f73bf0/mgPcidYsuB.png",
+                    "imageUrl": "https://assets-v2.lottiefiles.com/a/361d1f1e-feed-11ef-ad3f-734fdbd0c3bd/7fbA4biwX5.png",
                     "isCanvaCompatible": true,
                     "isLiked": false,
-                    "jsonUrl": "https://assets-v2.lottiefiles.com/a/0a9e97dc-fe4d-11ef-98ac-6ff600f73bf0/Hb6A5wftia.json",
+                    "jsonUrl": "https://assets-v2.lottiefiles.com/a/361d1f1e-feed-11ef-ad3f-734fdbd0c3bd/51aSB95A3M.json",
                     "likesCount": 0,
-                    "lottieFileSize": 2527,
+                    "lottieFileSize": 1201,
                     "lottieFileType": "LOTTIE",
-                    "lottieUrl": "https://assets-v2.lottiefiles.com/a/0a9e97dc-fe4d-11ef-98ac-6ff600f73bf0/xDZlRlV2Lg.lottie",
+                    "lottieUrl": "https://assets-v2.lottiefiles.com/a/361d1f1e-feed-11ef-ad3f-734fdbd0c3bd/CMRr2iP5BM.lottie",
                     "lottieVersion": null,
-                    "name": "Progress_01",
-                    "publishedAt": "2025-03-11T09:19:34.617Z",
-                    "slug": "progress-01",
+                    "name": "Menu",
+                    "publishedAt": "2025-03-12T03:02:19.607Z",
+                    "slug": "menu",
                     "sourceFileName": null,
                     "sourceFileSize": null,
                     "sourceFileType": null,
@@ -80,10 +97,10 @@ test(
                     "speed": 0,
                     "status": 1,
                     "updatedAt": null,
-                    "url": "https://lottiefiles.com/animations/progress-01-aLkz17ayyc",
-                    "uuid": "0a9e97dc-fe4d-11ef-98ac-6ff600f73bf0",
-                    "videoFileSize": 61167,
-                    "videoUrl": "https://assets-v2.lottiefiles.com/a/0a9e97dc-fe4d-11ef-98ac-6ff600f73bf0/MNnuvcd3LQ.mp4",
+                    "url": "https://lottiefiles.com/animations/menu-G1XbFVCy2D",
+                    "uuid": "361d1f1e-feed-11ef-ad3f-734fdbd0c3bd",
+                    "videoFileSize": 9851,
+                    "videoUrl": "https://assets-v2.lottiefiles.com/a/361d1f1e-feed-11ef-ad3f-734fdbd0c3bd/wyaeYx24he.mp4",
                   },
                 },
               ],
@@ -91,7 +108,7 @@ test(
                 "endCursor": "YXJyYXljb25uZWN0aW9uOjA=",
                 "hasNextPage": true,
               },
-              "totalCount": 108810,
+              "totalCount": 108823,
             },
           }
         `)

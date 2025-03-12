@@ -10,50 +10,32 @@ import { createClient } from './generated'
  */
 export async function fetchAllLottieFilesAnimations(
     outputPath: string = 'lottiefiles-animations.json',
-    batchSize: number = 100,
+    batchSize: number = 1000,
 ): Promise<void> {
     const client = createClient({})
     let hasNextPage = true
-    let endCursor: string | null | undefined = undefined
+
     let allAnimations: any[] = []
-
+    let { lastCursor } = await writeAnimationsToFile([], outputPath)
     console.log('Starting to fetch LottieFiles animations...')
-
-    if (fs.existsSync(outputPath)) {
-        console.log(
-            `Found existing file at ${outputPath}, loading previous data...`,
-        )
-        const fileContent = await fs.promises.readFile(outputPath, 'utf8')
-        const parsedData = JSON.parse(fileContent)
-
-        // Extract last cursor and animations if they exist
-        if (parsedData.metadata && parsedData.metadata.lastCursor) {
-            endCursor = parsedData.metadata.lastCursor
-            console.log(`Resuming from cursor: ${endCursor}`)
-        }
-
-        if (parsedData.animations && Array.isArray(parsedData.animations)) {
-            allAnimations = parsedData.animations
-            console.log(
-                `Loaded ${allAnimations.length} animations from previous file`,
-            )
-        }
-    } else {
-        console.log(`No existing file found at ${outputPath}, starting fresh`)
-    }
 
     while (hasNextPage) {
         try {
+            console.time('graphql fetch')
             const response = await client.query({
                 recentPublicAnimations: {
                     __args: {
                         first: batchSize,
-                        after: endCursor,
+                        after: lastCursor,
                     },
                     edges: {
                         cursor: true,
                         node: {
                             __scalar: true,
+                            createdBy: {
+                                id: true,
+                                username: true,
+                            },
                         },
                     },
                     totalCount: true,
@@ -63,6 +45,7 @@ export async function fetchAllLottieFilesAnimations(
                     },
                 },
             })
+            console.timeEnd('graphql fetch')
 
             const { edges, pageInfo } = response.recentPublicAnimations
 
@@ -75,10 +58,6 @@ export async function fetchAllLottieFilesAnimations(
             allAnimations.push(...nodes)
 
             // Write to file after each batch
-            // Sort animations by download count in descending order to ensure most downloaded files appear first
-            allAnimations.sort(
-                (a, b) => (b.downloads || 0) - (a.downloads || 0),
-            )
             await writeAnimationsToFile(
                 allAnimations,
                 outputPath,
@@ -89,7 +68,7 @@ export async function fetchAllLottieFilesAnimations(
 
             // Update pagination variables
             hasNextPage = pageInfo.hasNextPage
-            endCursor = pageInfo.endCursor
+            lastCursor = pageInfo.endCursor
 
             if (!hasNextPage) {
                 console.log('No more pages to fetch.')
@@ -113,11 +92,11 @@ export async function fetchAllLottieFilesAnimations(
  * @param filePath - Path where the JSON file will be saved
  * @param lastCursor - The last cursor used for pagination
  */
-async function writeAnimationsToFile(
+export async function writeAnimationsToFile(
     animations: any[],
     filePath: string,
     lastCursor: string | null | undefined = undefined,
-): Promise<void> {
+) {
     try {
         const dirPath = path.dirname(filePath)
 
@@ -125,6 +104,37 @@ async function writeAnimationsToFile(
         if (!fs.existsSync(dirPath)) {
             fs.mkdirSync(dirPath, { recursive: true })
         }
+
+        // Check if file exists and load existing data
+        if (fs.existsSync(filePath)) {
+            console.log(
+                `Found existing file at ${filePath}, loading previous data...`,
+            )
+            const fileContent = await fs.promises.readFile(filePath, 'utf8')
+            const parsedData = JSON.parse(fileContent)
+
+            // Extract last cursor and animations if they exist
+            if (
+                !lastCursor &&
+                parsedData.metadata &&
+                parsedData.metadata.lastCursor
+            ) {
+                lastCursor = parsedData.metadata.lastCursor
+                console.log(`Resuming from cursor: ${lastCursor}`)
+            }
+
+            if (parsedData.animations && Array.isArray(parsedData.animations)) {
+                animations = [...parsedData.animations, ...animations]
+                console.log(
+                    `Loaded ${parsedData.animations.length} animations from previous file`,
+                )
+            }
+        } else {
+            console.log(`No existing file found at ${filePath}, starting fresh`)
+        }
+
+        // Sort animations by download count in descending order to ensure most downloaded files appear first
+        animations.sort((a, b) => (b.downloads || 0) - (a.downloads || 0))
 
         // Create a structured object with animations and metadata
         const dataToWrite = {
@@ -142,6 +152,9 @@ async function writeAnimationsToFile(
             JSON.stringify(dataToWrite, null, 2),
             'utf8',
         )
+        return {
+            lastCursor,
+        }
     } catch (error) {
         console.error('Error writing animations to file:', error)
         throw error
@@ -158,62 +171,60 @@ export async function deduplicateAnimations(
 ): Promise<number> {
     try {
         console.log(`Deduplicating animations in ${filePath}...`)
-        
+
         // Check if file exists
         if (!fs.existsSync(filePath)) {
             console.error(`File not found: ${filePath}`)
             return 0
         }
-        
+
         // Read and parse the file
         const fileContent = await fs.promises.readFile(filePath, 'utf8')
         const data = JSON.parse(fileContent)
-        
+
         if (!data.animations || !Array.isArray(data.animations)) {
             console.error('Invalid file format: animations array not found')
             return 0
         }
-        
+
         const originalCount = data.animations.length
         console.log(`Original animation count: ${originalCount}`)
-        
+
         // Create a Map to track unique animations by ID
         const uniqueAnimations = new Map()
-        
+
         // Keep only the first occurrence of each animation ID
         data.animations.forEach((animation: any) => {
             if (animation.id && !uniqueAnimations.has(animation.id)) {
                 uniqueAnimations.set(animation.id, animation)
             }
         })
-        
+
         // Convert back to array
         const dedupedAnimations = Array.from(uniqueAnimations.values())
         const newCount = dedupedAnimations.length
         const duplicatesRemoved = originalCount - newCount
-        
+
         // Update the data object
         data.animations = dedupedAnimations
         data.metadata.totalCount = newCount
         data.metadata.lastUpdated = new Date().toISOString()
         data.metadata.deduplicationPerformed = true
-        
+
         // Write the deduplicated data back to the file
         await fs.promises.writeFile(
             filePath,
             JSON.stringify(data, null, 2),
-            'utf8'
+            'utf8',
         )
-        
+
         console.log(`Deduplication complete!`)
         console.log(`Removed ${duplicatesRemoved} duplicates`)
         console.log(`New animation count: ${newCount}`)
-        
+
         return duplicatesRemoved
     } catch (error) {
         console.error('Error deduplicating animations:', error)
         throw error
     }
 }
-
-

@@ -37,6 +37,9 @@ importers:
       '@genql/cli':
         specifier: ^6.3.3
         version: 6.3.3(enquirer@2.4.1)
+      trieve-ts-sdk:
+        specifier: ^0.0.62
+        version: 0.0.62
 
   meltica:
     dependencies:
@@ -2876,6 +2879,9 @@ packages:
 
   tr46@0.0.3:
     resolution: {integrity: sha512-N3WMsuqV66lT30CrXNbEjx4GEwlow3v6rr4mCcv6prnfwhS01rkgyFdjPNBYd9br7LpXV1+Emh01fHnq2Gdgrw==}
+
+  trieve-ts-sdk@0.0.62:
+    resolution: {integrity: sha512-N0397vNUr6PC6P3jfCisqqWjypVR7qGxldfWGX6hmYSFrfUwOc4QH13hS5HfntfgH18neH/PmlPZL49CGAnwFQ==}
 
   trim-lines@3.0.1:
     resolution: {integrity: sha512-kRj8B+YHZCc9kQYdWfJB2/oUl9rA99qbowYYBtr4ui4mZyAQ2JpvVBd/6U2YloATfqBhBTSMhTpgBHtU0Mf3Rg==}
@@ -5973,6 +5979,8 @@ snapshots:
       ieee754: 1.2.1
 
   tr46@0.0.3: {}
+
+  trieve-ts-sdk@0.0.62: {}
 
   trim-lines@3.0.1: {}
 
