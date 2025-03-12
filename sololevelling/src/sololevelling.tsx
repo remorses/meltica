@@ -13,7 +13,7 @@ import fs from 'fs'
 import path from 'path'
 import { text } from './text'
 import { Sema } from 'async-sema'
-import { generateSpeechToFile } from 'meltica/src/tts'
+import { generateSpeechToFileCached } from 'meltica/src/tts'
 import { isTruthy } from 'meltica/src/utils'
 
 async function createChunks() {
@@ -31,7 +31,7 @@ async function createChunks() {
                     return
                 }
                 const { durationInSeconds, filePath: audioFilePath } =
-                    await generateSpeechToFile({
+                    await generateSpeechToFileCached({
                         text: x.phrase,
                         speed: -0.5,
                         id: String(x.panel),

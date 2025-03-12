@@ -12,6 +12,10 @@ export function createCache({
     ttl = 1000 * 60 * 60 * 24 * 7,
     lruSize = 1000,
 }) {
+    // Ensure cacheId ends with .json
+    if (!cacheId.endsWith('.json')) {
+        cacheId = cacheId + '.json';
+    }
     const cache = new FlatCache({
         cacheDir: '.meltica',
         lruSize,

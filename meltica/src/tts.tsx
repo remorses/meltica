@@ -27,6 +27,7 @@ type Props = {
     in?: number
     out?: number
     children?: any
+    filepath?: string
 
     /**
      *  0.0 is the default speed, -1.0 is the slowest speed, and 1.0 is the fastest speed.
@@ -34,13 +35,15 @@ type Props = {
     speed?: number
 }
 
-export const generateSpeechToFile = ttsCache.wrap(
+const audioContext = new AudioContext()
+export const generateSpeechToFileCached = ttsCache.wrap(
     { key: 'generateSpeechToFile' },
     async function generateSpeechToFile({
         text,
         speed = 0,
         language = 'en',
         id,
+        filepath,
     }: Props) {
         const container = 'wav' as const
         console.time(`Generate speech for ${id}`)
@@ -56,7 +59,7 @@ export const generateSpeechToFile = ttsCache.wrap(
 
                 id: 'bbf93c49-e188-4eb9-b731-c31ebb049399',
             },
-            
+
             language: language,
             outputFormat: {
                 container: container,
@@ -73,16 +76,17 @@ export const generateSpeechToFile = ttsCache.wrap(
         // Create a hash of the text for caching purposes
         const textHash = crypto.createHash('md5').update(text).digest('hex')
         // Create an AudioContext and decode the audio data to get duration
-        const audioContext = new AudioContext()
+
         const buffer = Buffer.from(response)
-        const audioBuffer = await audioContext.decodeAudioData(buffer.buffer as any)
-        const durationInSeconds = audioBuffer.duration
-        audioContext.close()
-        // Save the file
-        const filePath = path.join(
-            melticaFolder,
-            `speech-${id}-${textHash}.${container}`,
+        const audioBuffer = await audioContext.decodeAudioData(
+            buffer.buffer as any,
         )
+        const durationInSeconds = Math.round(audioBuffer.duration * 1000) / 1000
+
+        // Save the file
+        const filePath =
+            filepath ||
+            path.join(melticaFolder, `speech-${id}-${textHash}.${container}`)
         await fs.promises.writeFile(filePath, buffer)
         console.timeEnd(`Generate speech for ${id}`)
         return { filePath, durationInSeconds }
@@ -90,7 +94,7 @@ export const generateSpeechToFile = ttsCache.wrap(
 )
 
 export async function TextToSpeech(props: Props) {
-    const { filePath } = await generateSpeechToFile(props)
+    const { filePath } = await generateSpeechToFileCached(props)
     return (
         <Asset
             id={props.id}

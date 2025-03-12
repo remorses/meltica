@@ -123,30 +123,33 @@ export async function transcribeAudioBuffer({
         model_id: 'scribe_v1',
         timestamps_granularity: 'word',
     })
-    let prevWords = res.words.slice()
+    let prevWords = res.words
     // Process words to combine spacing with previous word using reduce
-    res.words = prevWords.reduce<ElevenLabs.SpeechToTextWordResponseModel[]>(
-        (acc, currentWord, index) => {
-            if (currentWord.type === 'spacing') {
-                // If there's a next word, add the space to it instead
-                if (index < prevWords.length - 1 && acc.length > 0) {
-                    // Get the next word (which will be added in the next iteration)
-                    const nextWord = prevWords[index + 1]
-                    // Prepend the spacing text to the next word
-                    nextWord.text = currentWord.text + nextWord.text
-                    // Update the start time of the next word to include the spacing
-                    nextWord.start = currentWord.start
-                    return acc
-                }
+    let wordsWithPause = prevWords.reduce<
+        Array<ElevenLabs.SpeechToTextWordResponseModel & { pause?: number }>
+    >((acc, currentWord, index) => {
+        if (currentWord.type === 'spacing') {
+            // If there's a previous word, add the space to it instead
+            if (index > 0 && acc.length > 0) {
+                // Get the previous word that was already added
+                const prevWord = acc[acc.length - 1]
+                // Append the spacing text to the previous word
+                prevWord.text = prevWord.text + currentWord.text
+                // Update the end time of the previous word to include the spacing
+                prevWord.end = currentWord.end
+                prevWord.pause = currentWord.end! - currentWord.start!
                 return acc
-            } else {
-                // Add non-spacing words to the processed array
-                return [...acc, currentWord]
             }
-        },
-        [],
-    )
-    return res
+            return acc
+        } else {
+            // Add non-spacing words to the processed array
+            return [...acc, currentWord]
+        }
+    }, [])
+    return {
+        ...res,
+        words: wordsWithPause,
+    }
 
     // const audioUrl = await uploadBufferToFal(audioBuffer)
     // // Use fal.ai to transcribe audio with Whisper

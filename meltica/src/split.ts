@@ -1,29 +1,30 @@
-export function splitTextInParts<T>(options: {
+export interface SplitTextOptions<T> {
     items: T[]
     getText: (item: T) => string
     maxLen?: number
     separators?: string[]
-}): T[][] {
+    isSeparatorItem?: (currentItem: T, nextItem?: T) => boolean
+}
+
+export function splitTextInParts<T>(options: SplitTextOptions<T>): T[][] {
     const {
         items,
         getText,
         maxLen = 300,
         separators = ['!', '?', '.', ';', ',', ' '],
+        isSeparatorItem = () => false,
     } = options
 
-    let parts = _splitItemsInParts({ items, getText, maxLen, separators })
+    let parts = _splitItemsInParts({ items, getText, maxLen, separators, isSeparatorItem })
     return parts
 }
 
 // splits the array of items into parts where the combined text length is at most maxLen
 // it prefers to split using the first separator, then the second, etc
-export function _splitItemsInParts<T>(options: {
-    items: T[]
-    getText: (item: T) => string
-    maxLen: number
-    separators: string[]
-}): T[][] {
-    const { items, getText, maxLen, separators } = options
+export function _splitItemsInParts<T>(
+    options: Required<SplitTextOptions<T>>,
+): T[][] {
+    const { items, getText, maxLen, separators, isSeparatorItem } = options
 
     if (!items || items.length === 0) {
         return []
@@ -35,6 +36,36 @@ export function _splitItemsInParts<T>(options: {
         return [items]
     }
 
+    // First check for separator items
+    for (let i = 0; i < items.length - 1; i++) {
+        const currentItem = items[i];
+        const nextItem = items[i + 1];
+        
+        // Check if this is a separator item
+        if (isSeparatorItem(currentItem, nextItem)) {
+            const firstPart = items.slice(0, i + 1);
+            const remainingPart = items.slice(i + 1);
+            
+            // Calculate if the first part is within maxLen
+            const firstPartLength = firstPart.reduce((sum, item) => sum + getText(item).length, 0);
+            
+            if (firstPartLength <= maxLen) {
+                return [
+                    firstPart,
+                    ..._splitItemsInParts({
+                        items: remainingPart,
+                        getText,
+                        maxLen,
+                        separators,
+                        isSeparatorItem,
+                    }),
+                ];
+            }
+        }
+    }
+
+    // If no separator items found or they don't provide a good split point,
+    // continue with the original separator-based logic
     for (let sep of separators) {
         let currentItems = [...items]
         let currentLength = combinedText.length
@@ -46,22 +77,25 @@ export function _splitItemsInParts<T>(options: {
 
             for (let i = 0; i < currentItems.length; i++) {
                 const itemText = getText(currentItems[i])
-                
+
                 // If adding this item would exceed maxLen, stop looking
                 if (lengthSum + itemText.length > maxLen) {
                     // But check if this item contains the separator within the maxLen boundary
                     const remainingSpace = maxLen - lengthSum
                     if (remainingSpace > 0) {
-                        const sepIndex = itemText.lastIndexOf(sep, remainingSpace - 1)
+                        const sepIndex = itemText.lastIndexOf(
+                            sep,
+                            remainingSpace - 1,
+                        )
                         if (sepIndex >= 0) {
                             lastSepIndex = i
                         }
                     }
                     break
                 }
-                
+
                 lengthSum += itemText.length
-                
+
                 // Check if this item contains the separator
                 const sepIndex = itemText.lastIndexOf(sep)
                 if (sepIndex >= 0) {
@@ -73,7 +107,7 @@ export function _splitItemsInParts<T>(options: {
             if (lastSepIndex >= 0) {
                 const firstPart = currentItems.slice(0, lastSepIndex + 1)
                 const remainingPart = currentItems.slice(lastSepIndex + 1)
-                
+
                 return [
                     firstPart,
                     ..._splitItemsInParts({
@@ -81,6 +115,7 @@ export function _splitItemsInParts<T>(options: {
                         getText,
                         maxLen,
                         separators,
+                        isSeparatorItem,
                     }),
                 ]
             } else {
@@ -104,6 +139,7 @@ export function _splitItemsInParts<T>(options: {
                         getText,
                         maxLen,
                         separators,
+                        isSeparatorItem,
                     }),
                 ]
             }
@@ -114,6 +150,7 @@ export function _splitItemsInParts<T>(options: {
                     getText,
                     maxLen,
                     separators,
+                    isSeparatorItem,
                 }),
             ]
         }
