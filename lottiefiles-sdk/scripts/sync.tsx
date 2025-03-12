@@ -1,4 +1,11 @@
 import { ChunkReqPayload, TrieveSDK } from 'trieve-ts-sdk'
+import fs from 'fs'
+import path from 'path'
+import { LottieFilesAnimation } from '../src/lottiefiles'
+import { RateLimit } from 'async-sema'
+import { google } from '@ai-sdk/google'
+import { generateText, streamText } from 'ai'
+import { FlatCache } from 'flat-cache'
 
 const trieve = new TrieveSDK({
     apiKey: 'tr-IgV6yDXLzL59pEwpIvamwITUhWhbYV2J',
@@ -6,63 +13,62 @@ const trieve = new TrieveSDK({
 })
 
 export async function sync() {
+    console.log('Starting sync function...')
+    // https://ai.google.dev/gemini-api/docs/rate-limits
+    const sema = RateLimit(100, { timeUnit: 1000 * 50 }) // Limit concurrency to 5
+
     // Clear Dataset Chunks
     await trieve.trieve.fetch(`/api/dataset/clear/{dataset_id}`, 'put', {
         datasetId: trieve.datasetId!,
     })
 
-    let documents = pages.flatMap(function toTrievePayload(page) {
-        let id = 0
-        const chunks: ChunkReqPayload[] = []
-        const scannedHeadings = new Set()
+    // Read LottieFilesAnimation data from JSON file
+    const filePath = path.resolve(__dirname, './lottiefiles-animations.json')
+    const fileContent = await fs.promises.readFile(filePath, 'utf8')
+    const data = JSON.parse(fileContent)
+    const animations: LottieFilesAnimation[] = data.animations
 
-        function createPayload(
-            section: string | undefined,
-            sectionId: string | undefined,
-            content: string,
-        ): ChunkReqPayload {
-            return {
-                tracking_id: `${page._id}-${(id++).toString()}`,
-                chunk_html: content,
-                link: page.url,
-                tag_set: page.tag ? [page.tag] : [],
-                metadata: {
-                    title: page.title,
-                    section: section || '',
-                    section_id: sectionId || '',
-                    page_id: page._id,
-                },
-                group_tracking_ids: [page.title],
-            }
-        }
+    let documents = (
+        await Promise.all(
+            animations.map(async function toTrievePayload(animation) {
+                await sema()
 
-        if (page.description)
-            chunks.push(createPayload(undefined, undefined, page.description))
+                const chunks: ChunkReqPayload[] = []
 
-        page.structured.contents.forEach((p) => {
-            const heading = p.heading
-                ? page.structured.headings.find((h) => p.heading === h.id)
-                : null
+                try {
+                    const description = await getAnimationDescription(animation)
 
-            const index = createPayload(
-                heading?.content,
-                heading?.id,
-                p.content,
-            )
+                    const html = `${animation.name}\n${description}`
+                    chunks.push({
+                        tracking_id: `animation-${animation.id}`,
+                        chunk_html: html,
+                        link: animation.url,
+                        tag_set: [],
+                        time_stamp: animation.createdAt,
 
-            if (heading && !scannedHeadings.has(heading.id)) {
-                scannedHeadings.add(heading.id)
+                        metadata: {
+                            title: animation.name,
+                            section: '',
+                            section_id: '',
+                            id: animation.id.toString(),
+                        },
+                        weight: animation.downloads,
+                        upsert_by_tracking_id: true,
+                        // group_tracking_ids: [animation.name],
+                    })
+                } catch (error) {
+                    console.error(
+                        `Error processing animation ${animation.id}:`,
+                        error,
+                    )
+                } finally {
+                }
 
-                chunks.push(
-                    createPayload(heading.content, heading.id, heading.content),
-                )
-            }
+                return chunks
+            }),
+        )
+    ).flat()
 
-            chunks.push(index)
-        })
-
-        return chunks
-    })
     const chunkSize = 120
     const chunks: ChunkReqPayload[][] = []
     for (let i = 0; i < documents.length; i += chunkSize) {
@@ -72,45 +78,7 @@ export async function sync() {
     for (const chunk of chunks) {
         await trieve.createChunk(chunk)
     }
+    console.log('Finished creating chunks.')
 }
 
-async function main() {
-    const pages = await prisma.page.findMany({
-        where: {
-            site: {
-                domains: {
-                    some: {
-                        host: 'localhost',
-                    },
-                },
-            },
-        },
-    })
-    if (!pages.length) {
-        console.log('No pages found')
-        return
-    }
-    const withStructure = await Promise.all(
-        pages.map(async (page) => {
-            const result = await remark()
-                .use(remarkGfm)
-                .use(remarkStructure)
-                .process(page.markdown)
-            const structuredData: StructuredData = result.data
-                .structuredData as any
-            // console.log('structuredData', structuredData)
-            const record: DocumentRecord = {
-                _id: page.pageId,
-                // TODO add title to page model
-                title: page.slug,
-                url: page.slug,
-                structured: structuredData,
-                // markdown: page.markdown || '',
-            }
-            return record
-        }),
-    )
-    await sync(withStructure)
-}
-
-main()
+sync()

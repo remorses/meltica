@@ -7,7 +7,7 @@
     "types": "dist/index.d.ts",
     "repository": "https://github.com/remorses/",
     "scripts": {
-        "build": "tsc && tsc -m es6 --outDir esm",
+        "test": "doppler run -- pnpm vitest ",
         "gen": "genql --endpoint https://graphql.lottiefiles.com --output ./src/generated",
         "watch": "tsc -w"
     },
@@ -20,7 +20,12 @@
     "author": "Tommaso De Rossi, morse <beats.by.morse@gmail.com>",
     "license": "",
     "dependencies": {
+        "@ai-sdk/google": "^1.1.21",
+        "@ai-sdk/openai": "^1.2.3",
         "@genql/cli": "^6.3.3",
+        "ai": "^4.1.56",
+        "async-sema": "^3.1.1",
+        "flat-cache": "^6.1.6",
         "trieve-ts-sdk": "^0.0.62"
     }
 }

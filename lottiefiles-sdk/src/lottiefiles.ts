@@ -3,6 +3,55 @@ import path from 'path'
 import { createClient } from './generated'
 
 /**
+ * Represents a LottieFiles animation with all its properties.
+ */
+export interface LottieFilesAnimation {
+    bgColor: string
+    commentsCount: number
+    createdAt: string
+    createdByUserId: string
+    description: string | null
+    downloads: number
+    dotlottieFormatVersion: string
+    gifFileSize: string
+    gifUrl: string
+    id: number
+    imageFileSize: number | null
+    imageFrame: number | null
+    imageUrl: string
+    isLiked: boolean
+    likesCount: number
+    lottieFileSize: number
+    lottieFileType: string
+    lottieUrl: string
+    jsonUrl: string
+    lottieVersion: string | null
+    name: string
+    publishedAt: string
+    slug: string
+    sourceFileName: string
+    sourceFileSize: number | null
+    sourceFileType: string | null
+    sourceFileUrl: string
+    sourceName: string | null
+    sourceVersion: string | null
+    speed: number
+    status: number
+    updatedAt: string
+    url: string
+    uuid: string
+    videoFileSize: number
+    videoUrl: string
+    isCanvaCompatible: boolean
+    frameRate: number
+    __typename: string
+    createdBy?: {
+        id: string
+        username: string
+    }
+}
+
+/**
  * Fetches all LottieFiles animations using pagination and saves them to a JSON file.
  * @param outputPath - Path where the JSON file will be saved. Defaults to 'lottiefiles-animations.json'.
  * @param batchSize - Number of animations to fetch per request. Defaults to 100.
@@ -64,7 +113,7 @@ export async function fetchAllLottieFilesAnimations(
                 pageInfo.endCursor,
             )
 
-            console.log(`Fetched ${allAnimations.length} animations so far...`)
+            console.log(`Fetched batch with ${nodes.length} animations.`)
 
             // Update pagination variables
             hasNextPage = pageInfo.hasNextPage
@@ -80,6 +129,10 @@ export async function fetchAllLottieFilesAnimations(
             break
         }
     }
+
+    console.log('Writing animations to file...')
+    await writeAnimationsToFile(allAnimations, outputPath, null)
+    console.log('Finished writing animations to file.')
 
     console.log(
         `Completed! Total of ${allAnimations.length} animations saved to ${outputPath}`,

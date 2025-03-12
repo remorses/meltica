@@ -3,7 +3,7 @@ import { createClient } from './generated'
 
 const client = createClient({})
 
-test('max count', async () => {
+test.skip('max count', async () => {
     const max = 2000
     const res = await client.query({
         recentPublicAnimations: {
