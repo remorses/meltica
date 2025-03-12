@@ -34,21 +34,6 @@ type TranscriptionOptions = {
     prompt?: string
 }
 
-type TranscriptionResult = {
-    text: string
-    words: {
-        timestamp: [number, number]
-        /**
-         * Transcription of the chunk
-         */
-        text: string
-    }[]
-    diarizationSegments?: {
-        timestamp: [number, number]
-        speaker: string
-    }
-}
-
 // Create a cache for transcription results
 const transcriptionCache = createCache({
     cacheId: 'transcription',
@@ -124,6 +109,9 @@ export async function transcribeAudioBuffer({
         timestamps_granularity: 'word',
     })
     let prevWords = res.words
+    if (!prevWords?.length) {
+        console.log('no words transcripted', res)
+    }
     // Process words to combine spacing with previous word using reduce
     let wordsWithPause = prevWords.reduce<
         Array<ElevenLabs.SpeechToTextWordResponseModel & { pause?: number }>

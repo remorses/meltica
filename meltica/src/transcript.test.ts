@@ -9,7 +9,7 @@ describe(
     () => {
         const audioFilePath = path.resolve(
             process.cwd(),
-            'src/fixtures/speech/speech-tts2.wav',
+            'src/fixtures/speech/examplewithpause.wav',
         )
 
         // Check if the file exists (this is just a safety check)
@@ -34,10 +34,8 @@ describe(
             ).toMatchInlineSnapshot(
                 `
               [
-                "Today is a new day and today ",
-                "we will talk about Dune. ",
-                "And now what should we do? ",
-                "Longer text, that is.",
+                "Hello, my name is Sonic. ",
+                "Nice to meet you.",
               ]
             `,
             )
@@ -52,16 +50,16 @@ describe(
                     return item.text
                 },
                 isSeparatorItem(currentItem, nextItem) {
-                    if (!nextItem || !currentItem.end || !nextItem.start) {
+                    if (!nextItem || !currentItem.start || !nextItem.start) {
                         return false
                     }
-                    const isPause = nextItem?.start - currentItem.end > 0.4
+                    const isPause = nextItem?.start - currentItem.start > 1
                     if (isPause) {
                         console.log('is pause', currentItem, nextItem)
                     }
                     return isPause
                 },
-                maxLen: 30,
+                maxLen: 50,
             })
 
             expect(
@@ -69,10 +67,7 @@ describe(
             ).toMatchInlineSnapshot(
                 `
               [
-                "Today is a new day and today ",
-                "we will talk about Dune. ",
-                "And now what should we do? ",
-                "Longer text, that is.",
+                "Hello, my name is Sonic. Nice to meet you.",
               ]
             `,
             )
@@ -89,160 +84,69 @@ describe(
             expect(result).toMatchInlineSnapshot(`
               {
                 "language_code": "eng",
-                "language_probability": 0.9767968058586121,
-                "text": "Today is a new day and today we will talk about Dune. And now what should we do? Longer text, that is.",
+                "language_probability": 0.9889909029006958,
+                "text": "Hello, my name is Sonic. Nice to meet you.",
                 "words": [
                   {
-                    "end": 0.539,
-                    "pause": 0.14,
+                    "end": 0.579,
+                    "pause": 0.05999999999999994,
                     "start": 0.059,
-                    "text": "Today ",
+                    "text": "Hello, ",
                     "type": "word",
                   },
                   {
-                    "end": 0.74,
-                    "pause": 0.08099999999999996,
-                    "start": 0.539,
+                    "end": 0.699,
+                    "pause": 0.018999999999999906,
+                    "start": 0.579,
+                    "text": "my ",
+                    "type": "word",
+                  },
+                  {
+                    "end": 0.939,
+                    "pause": 0.039999999999999925,
+                    "start": 0.699,
+                    "text": "name ",
+                    "type": "word",
+                  },
+                  {
+                    "end": 1.079,
+                    "pause": 0.020000000000000018,
+                    "start": 0.939,
                     "text": "is ",
                     "type": "word",
                   },
                   {
-                    "end": 0.919,
-                    "pause": 0.16000000000000003,
-                    "start": 0.74,
-                    "text": "a ",
-                    "type": "word",
-                  },
-                  {
-                    "end": 1.139,
-                    "pause": 0.1200000000000001,
-                    "start": 0.919,
-                    "text": "new ",
-                    "type": "word",
-                  },
-                  {
-                    "end": 1.819,
-                    "pause": 0.24,
-                    "start": 1.139,
-                    "text": "day ",
-                    "type": "word",
-                  },
-                  {
-                    "end": 2.099,
-                    "pause": 0.020000000000000018,
-                    "start": 1.819,
-                    "text": "and ",
-                    "type": "word",
-                  },
-                  {
                     "end": 2.72,
-                    "pause": 0.121,
-                    "start": 2.099,
-                    "text": "today ",
+                    "pause": 0.06100000000000039,
+                    "start": 1.079,
+                    "text": "Sonic. ",
                     "type": "word",
                   },
                   {
                     "end": 2.96,
                     "pause": 0.040999999999999925,
                     "start": 2.72,
-                    "text": "we ",
+                    "text": "Nice ",
                     "type": "word",
                   },
                   {
-                    "end": 3.199,
-                    "pause": 0.040000000000000036,
+                    "end": 3.079,
+                    "pause": 0.07900000000000018,
                     "start": 2.96,
-                    "text": "will ",
+                    "text": "to ",
                     "type": "word",
                   },
                   {
-                    "end": 3.479,
-                    "pause": 0.040000000000000036,
-                    "start": 3.199,
-                    "text": "talk ",
+                    "end": 3.279,
+                    "pause": 0,
+                    "start": 3.079,
+                    "text": "meet ",
                     "type": "word",
                   },
                   {
-                    "end": 3.879,
-                    "pause": 0.1389999999999998,
-                    "start": 3.48,
-                    "text": "about ",
-                    "type": "word",
-                  },
-                  {
-                    "end": 5.079,
-                    "pause": 0.6989999999999998,
-                    "start": 3.879,
-                    "text": "Dune. ",
-                    "type": "word",
-                  },
-                  {
-                    "end": 5.359,
-                    "pause": 0.019999999999999574,
-                    "start": 5.079,
-                    "text": "And ",
-                    "type": "word",
-                  },
-                  {
-                    "end": 5.859,
-                    "pause": 0.1200000000000001,
-                    "start": 5.359,
-                    "text": "now ",
-                    "type": "word",
-                  },
-                  {
-                    "end": 6.179,
-                    "pause": 0.14000000000000057,
-                    "start": 5.859,
-                    "text": "what ",
-                    "type": "word",
-                  },
-                  {
-                    "end": 6.44,
-                    "pause": 0.020000000000000462,
-                    "start": 6.179,
-                    "text": "should ",
-                    "type": "word",
-                  },
-                  {
-                    "end": 6.719,
-                    "pause": 0.020000000000000462,
-                    "start": 6.44,
-                    "text": "we ",
-                    "type": "word",
-                  },
-                  {
-                    "end": 7.679,
-                    "pause": 0.4800000000000004,
-                    "start": 6.719,
-                    "text": "do? ",
-                    "type": "word",
-                  },
-                  {
-                    "end": 8.199,
-                    "pause": 0.11999999999999922,
-                    "start": 7.679,
-                    "text": "Longer ",
-                    "type": "word",
-                  },
-                  {
-                    "end": 8.659,
-                    "pause": 0.040000000000000924,
-                    "start": 8.199,
-                    "text": "text, ",
-                    "type": "word",
-                  },
-                  {
-                    "end": 8.84,
-                    "pause": 0.03999999999999915,
-                    "start": 8.659,
-                    "text": "that ",
-                    "type": "word",
-                  },
-                  {
-                    "end": 8.96,
-                    "start": 8.84,
-                    "text": "is.",
+                    "end": 3.459,
+                    "start": 3.279,
+                    "text": "you.",
                     "type": "word",
                   },
                 ],
