@@ -44,6 +44,7 @@ describe(
             const result = await transcribeAudioFileCached({
                 filePath: audioFilePath,
             })
+            let foundPause = false
             const split = splitTextInParts({
                 items: result.words,
                 getText(item) {
@@ -55,19 +56,21 @@ describe(
                     }
                     const isPause = nextItem?.start - currentItem.start > 1
                     if (isPause) {
-                        console.log('is pause', currentItem, nextItem)
+                        foundPause = true
                     }
                     return isPause
                 },
-                maxLen: 50,
+                maxLen: 30,
             })
+            expect(foundPause).toBe(true)
 
             expect(
                 split.map((x) => x.map((y) => y.text).join('')),
             ).toMatchInlineSnapshot(
                 `
               [
-                "Hello, my name is Sonic. Nice to meet you.",
+                "Hello, my name is Sonic. ",
+                "Nice to meet you.",
               ]
             `,
             )
