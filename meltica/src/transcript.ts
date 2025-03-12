@@ -148,32 +148,32 @@ export async function transcribeAudioBuffer({
     )
     return res
 
-    const audioUrl = await uploadBufferToFal(audioBuffer)
-    // Use fal.ai to transcribe audio with Whisper
-    const transcription = await fal.subscribe('fal-ai/whisper', {
-        input: {
-            audio_url: audioUrl,
-            language,
-            prompt,
-            chunk_level: 'word',
-        },
-        logs: true,
-        onQueueUpdate: (update) => {
-            if (update.status === 'IN_PROGRESS') {
-                // update.logs.map((log) => log.message).forEach(console.log)
-            }
-        },
-    })
+    // const audioUrl = await uploadBufferToFal(audioBuffer)
+    // // Use fal.ai to transcribe audio with Whisper
+    // const transcription = await fal.subscribe('fal-ai/whisper', {
+    //     input: {
+    //         audio_url: audioUrl,
+    //         language,
+    //         prompt,
+    //         chunk_level: 'word',
+    //     },
+    //     logs: true,
+    //     onQueueUpdate: (update) => {
+    //         if (update.status === 'IN_PROGRESS') {
+    //             // update.logs.map((log) => log.message).forEach(console.log)
+    //         }
+    //     },
+    // })
 
-    console.timeEnd(timerId)
-    const chunks = transcription.data.chunks || []
-    return {
-        text: transcription.data.text,
-        // TODO fal.ai has bugs in timestamp type, void[]
-        words: chunks as any,
-        diarizationSegments:
-            (transcription.data.diarization_segments as any) || [],
-    }
+    // console.timeEnd(timerId)
+    // const chunks = transcription.data.chunks || []
+    // return {
+    //     text: transcription.data.text,
+    //     // TODO fal.ai has bugs in timestamp type, void[]
+    //     words: chunks as any,
+    //     diarizationSegments:
+    //         (transcription.data.diarization_segments as any) || [],
+    // }
 }
 
 /**

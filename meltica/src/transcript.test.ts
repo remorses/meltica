@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest'
 import path from 'path'
 import fs from 'fs'
 import { transcribeAudioFileCached } from './transcript'
+import { splitTextInParts } from 'meltica/src/split'
 
 describe(
     'Transcription',
@@ -23,6 +24,27 @@ describe(
                 // language: 'en',
                 // prompt: 'Transcribe the following audio',
             })
+
+            const split = splitTextInParts({
+                items: result.words,
+                getText(item) {
+                    return item.text
+                },
+                maxLen: 30,
+            })
+
+            expect(
+                split.map((x) => x.map((y) => y.text).join('')),
+            ).toMatchInlineSnapshot(
+                `
+              [
+                "Today is a new day and today we",
+                " will talk about Dune.",
+                " And now what should we do?",
+                " Longer text, that is.",
+              ]
+            `,
+            )
 
             // The cached result should match the original result
             expect(result).toMatchInlineSnapshot(`
