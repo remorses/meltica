@@ -49,6 +49,9 @@ importers:
       async-sema:
         specifier: ^3.1.1
         version: 3.1.1
+      dedent:
+        specifier: ^1.5.3
+        version: 1.5.3
       flat-cache:
         specifier: ^6.1.6
         version: 6.1.6

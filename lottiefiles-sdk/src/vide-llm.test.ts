@@ -18,35 +18,15 @@ test('getAnimationDescription generates a description for an animation', async (
     expect(description).toMatchInlineSnapshot(`
       "Here's a detailed description of the animation:
 
-      **Style:**
+      Subject: The animation features a cartoon pencil character.
 
-      *   **Flat Design:** The animation uses a flat design aesthetic, characterized by simple shapes, solid colors, and a lack of gradients or textures. This gives it a clean, modern, and approachable look.
-      *   **Geometric Shapes:** The character is constructed from basic geometric shapes like rectangles, triangles, and circles, making it visually straightforward and easy to understand.
-      *   **Minimalist:** The animation is minimalist in its approach, focusing on essential elements and avoiding unnecessary details.
-      *   **Cartoonish:** The character has a cartoonish style, with exaggerated features and a friendly expression.
+      Style: The animation has a flat, minimalist design. The pencil is composed of simple geometric shapes with no outlines. The style is clean and modern.
 
-      **Character:**
+      Movements: The pencil is walking. It has a simple, looping walk cycle with its legs moving in a forward motion. The pencil's body bobs slightly as it walks.
 
-      *   **Pencil Personification:** The main character is a personified pencil. It has a pencil-shaped body with a pointed top, a pink eraser, and a yellow body with a white and purple band.
-      *   **Facial Features:** The pencil has a simple face with a smiling expression, round green glasses, and a small, curved mouth.
-      *   **Limbs:** The pencil has two pink legs with black feet and a single orange arm.
+      Colors: The pencil uses a bright and cheerful color palette. The main body is yellow-orange, the eraser is pink, the tip is gray, and the cap is dark purple. The pencil has a white band with a purple stripe. The legs are pink, and the shoes are black. The glasses are green.
 
-      **Movements:**
-
-      *   **Walking:** The pencil is walking, with a simple, looping animation of its legs moving in a forward motion.
-      *   **Arm Movement:** The pencil's arm is bent and moves in a swinging motion as it walks.
-      *   **Smooth Animation:** The animation appears to be smooth and fluid, with no jerky movements.
-
-      **Potential Use Cases:**
-
-      *   **Educational Content:** The animation could be used in educational videos or presentations to introduce concepts related to writing, drawing, or creativity.
-      *   **Explainer Videos:** It could be part of an explainer video for a writing app, a stationery store, or a creative service.
-      *   **Website or App Animation:** The animation could be used as a loading animation, a welcome screen, or an interactive element on a website or in an app related to writing, art, or education.
-      *   **Social Media Content:** It could be used in social media posts to promote writing tips, creative challenges, or educational content.
-      *   **Marketing Materials:** The animation could be used in marketing materials for stationery products, art supplies, or educational programs.
-      *   **Character Animation:** The animation could be used as a character in a larger animation project, such as a short film or a commercial.
-
-      In summary, this animation is a charming and versatile piece that can be used in a variety of contexts to convey a friendly, approachable, and educational message.
+      Illustration Abstract Meaning: The animation likely represents creativity, learning, or the act of writing and drawing. The cheerful expression and walking motion suggest a positive and active approach to these activities. The glasses could imply intelligence or a focus on detail. The overall impression is friendly and approachable.
       "
     `)
 }, 30000) // Increased timeout for API call

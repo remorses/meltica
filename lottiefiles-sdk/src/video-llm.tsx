@@ -2,6 +2,7 @@ import { google } from '@ai-sdk/google'
 import { generateText } from 'ai'
 import { FlatCache } from 'flat-cache'
 import { LottieFilesAnimation } from './lottiefiles'
+import dedent from 'dedent'
 
 const model = google('gemini-2.0-flash-lite')
 const cache = new FlatCache({
@@ -48,8 +49,17 @@ export async function getAnimationDescription(animation: {
                 },
                 {
                     role: 'user',
-                    content:
-                        'Describe this animation in detail. Include information about its style, movements, and potential use cases. Do not use markdown but just simple text.',
+                    content: dedent`
+                        Describe this animation in detail. 
+                        Include information about its 
+                        - subject
+                        - style (borders, design, etc)
+                        - movements
+                        - colors
+                        - illustration abstract meaning
+                        
+                        Do not use markdown but just simple text instead.
+                        `,
                 },
             ],
         })
