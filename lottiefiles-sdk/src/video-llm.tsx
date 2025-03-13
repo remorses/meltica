@@ -1,8 +1,10 @@
 import { google } from '@ai-sdk/google'
-import { generateText } from 'ai'
+import z from 'zod'
+import { generateObject, generateText } from 'ai'
 import { FlatCache } from 'flat-cache'
 import { LottieFilesAnimation } from './lottiefiles'
 import dedent from 'dedent'
+import { RateLimit } from 'async-sema'
 
 const model = google('gemini-2.0-flash-lite')
 const cache = new FlatCache({
@@ -12,6 +14,8 @@ const cache = new FlatCache({
 })
 cache.load()
 
+const limit = RateLimit(3800, { timeUnit: 1000 * 60 })
+
 /**
  * Gets a description for an animation using Gemini AI model with caching
  * @param animation The animation to get a description for
@@ -20,22 +24,39 @@ cache.load()
 export async function getAnimationDescription(animation: {
     videoUrl: string
     id: number
-}): Promise<string> {
+    url?: string
+}) {
     const cacheKey = `animation-${animation.id}`
     const cachedDescription = cache.getKey(cacheKey) as any
 
     if (cachedDescription) {
         console.log(`Using cached description for animation ${animation.id}`)
-        return cachedDescription
+        return cachedDescription as never
     }
     if (!animation.videoUrl) {
-        throw new Error('No videoUrl found for animation')
+        throw new Error(`No videoUrl found for animation ${animation.url}`)
     }
 
+    await limit()
     console.log(`Generating description for animation ${animation.videoUrl}`)
     try {
-        const res = await generateText({
+        const res = await generateObject({
             model,
+            schema: z.object({
+                description: z
+                    .string()
+                    .describe('description of the animation, should be first'),
+                quality: z
+                    .number()
+                    .describe(
+                        'animation quality from 0 to 10 based on how it looks, is it something that could be used in a professional animated video? or some random animation uploaded by a random user?',
+                    ),
+                styleTags: z
+                    .array(z.string())
+                    .describe(
+                        'animation style tags like "flat", "3D", "cartoon", "minimalist", "isometric", "realistic", "hand-drawn"',
+                    ),
+            }),
             messages: [
                 {
                     role: 'user',
@@ -50,7 +71,7 @@ export async function getAnimationDescription(animation: {
                 {
                     role: 'user',
                     content: dedent`
-                        Describe this animation in detail. 
+                        Describe this Lottie animation in detail. 
                         Include information about its 
                         - subject
                         - style (borders, design, etc)
@@ -64,14 +85,12 @@ export async function getAnimationDescription(animation: {
             ],
         })
 
-        let description = res.text
-
-        console.log(description)
+        console.log(res.object)
         // Save to cache
-        cache.setKey(cacheKey, description)
+        cache.setKey(cacheKey, res.object)
         cache.save()
 
-        return description
+        return res.object
     } catch (error) {
         console.error(
             `Error generating description for animation ${animation.id}:`,

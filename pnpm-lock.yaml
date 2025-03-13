@@ -58,6 +58,9 @@ importers:
       trieve-ts-sdk:
         specifier: ^0.0.62
         version: 0.0.62
+      zod:
+        specifier: ^3.24.2
+        version: 3.24.2
 
   meltica:
     dependencies:

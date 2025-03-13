@@ -27,6 +27,7 @@
         "async-sema": "^3.1.1",
         "dedent": "^1.5.3",
         "flat-cache": "^6.1.6",
-        "trieve-ts-sdk": "^0.0.62"
+        "trieve-ts-sdk": "^0.0.62",
+        "zod": "^3.24.2"
     }
 }

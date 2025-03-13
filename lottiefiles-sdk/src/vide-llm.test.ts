@@ -16,17 +16,41 @@ test('getAnimationDescription generates a description for an animation', async (
 
     // Verify the description is a non-empty string
     expect(description).toMatchInlineSnapshot(`
-      "Here's a detailed description of the animation:
+      {
+        "description": "The Lottie animation features a cartoon pencil character with glasses and a smiling face. The pencil has a yellow body, a pink eraser, and a purple and white striped band. It is walking on a gray line, with its legs and arms animated to create a walking motion. The style is flat and cartoonish, with simple shapes and bold colors. The movements are smooth and looping, giving the impression of a continuous walk. The colors are bright and cheerful, with a limited palette. The illustration's abstract meaning could represent creativity, education, or the act of writing.",
+        "quality": 7.5,
+        "styleTags": [
+          "flat",
+          "cartoon",
+          "minimalist",
+        ],
+      }
+    `)
+}, 30000) // Increased timeout for API call
 
-      Subject: The animation features a cartoon pencil character.
+test('getAnimationDescription on a low quality video', async () => {
+    // Create a simplified test animation with only required properties
+    const testAnimation = {
+        id: 91119,
+        name: 'Test Animation',
+        videoUrl:
+            'https://assets-v2.lottiefiles.com/a/e02977aa-1164-11ee-82ab-67ffa4e99ec4/cIKtzFaYVo.mp4',
+    }
 
-      Style: The animation has a flat, minimalist design. The pencil is composed of simple geometric shapes with no outlines. The style is clean and modern.
+    // Get the description
+    const description = await getAnimationDescription(testAnimation)
 
-      Movements: The pencil is walking. It has a simple, looping walk cycle with its legs moving in a forward motion. The pencil's body bobs slightly as it walks.
-
-      Colors: The pencil uses a bright and cheerful color palette. The main body is yellow-orange, the eraser is pink, the tip is gray, and the cap is dark purple. The pencil has a white band with a purple stripe. The legs are pink, and the shoes are black. The glasses are green.
-
-      Illustration Abstract Meaning: The animation likely represents creativity, learning, or the act of writing and drawing. The cheerful expression and walking motion suggest a positive and active approach to these activities. The glasses could imply intelligence or a focus on detail. The overall impression is friendly and approachable.
-      "
+    // Verify the description is a non-empty string
+    expect(description).toMatchInlineSnapshot(`
+      {
+        "description": "This Lottie animation presents a sequence of black squares appearing and disappearing. The subject is abstract, focusing on geometric shapes and their transitions. The style is minimalist, with a clean design featuring solid black squares against a white background. The movements involve the squares appearing, remaining static for a moment, and then disappearing, creating a simple on-off effect. The color palette is limited to black and white. The illustration's abstract meaning could represent the passage of time, the concept of presence and absence, or a visual representation of binary states.",
+        "quality": 6.5,
+        "styleTags": [
+          "minimalist",
+          "abstract",
+          "geometric",
+          "flat",
+        ],
+      }
     `)
 }, 30000) // Increased timeout for API call

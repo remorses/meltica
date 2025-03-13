@@ -25,3 +25,4 @@ node_modules
 *.exe
 zig-out
 .zig-cache
+.cache
