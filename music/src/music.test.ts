@@ -18,7 +18,7 @@ describe(
         test('should upload audio file to MiniMax API', async () => {
             // Replace these with actual values when running the test
 
-            let  filePath = 'minecraft.mp3'
+            let filePath = 'minecraft.mp3'
             // filePath = '/Volumes/1tb sabrent/downloaded youtube videos/Blod Besvimelse - Misanthrop (Remastered) [0iAL29pwpcY].mp3'
 
             const result = await uploadAudioToMiniMax({
@@ -28,6 +28,49 @@ describe(
             })
 
             console.log(result)
+        })
+    },
+    1000 * 100,
+)
+
+describe(
+    'upload and generate, play',
+    () => {
+        // Import the function to test
+
+        // This test is marked as skipped since it would make a real API call
+        // To run this test, you would need a valid API key and file path
+        test('should upload audio file to MiniMax API', async () => {
+            // Replace these with actual values when running the test
+
+            let filePath =
+                '/Volumes/1tb sabrent/downloaded youtube videos/Dune - The Planet Arrakis - (HDR - 4K - 5.1) [ng_DIUTuBZE]_no_vocals.mp3'
+            // filePath = '/Volumes/1tb sabrent/downloaded youtube videos/Blod Besvimelse - Misanthrop (Remastered) [0iAL29pwpcY].mp3'
+
+            console.log(`uploading file ${filePath}`)
+            const result = await uploadAudioToMiniMax({
+                apiKey,
+                filePath,
+                purpose: 'instrumental',
+            })
+
+            console.log(result)
+            // Generate music using the uploaded instrumental
+            console.log(
+                `Generating music with instrumental ID: ${result.instrumental_id}`,
+            )
+            const { audioBuffer } = await generateMusic({
+                apiKey,
+                referInstrumental: result.instrumental_id,
+                lyrics: '', // Empty lyrics for instrumental-only generation
+                model: 'music-01',
+            })
+
+            // Save the generated music to a file
+            const outputPath = `generated-music-${Date.now()}.mp3`
+            fs.writeFileSync(outputPath, audioBuffer)
+
+            console.log(`Generated music saved to: ${outputPath}`)
         })
     },
     1000 * 100,
