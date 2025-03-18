@@ -184,7 +184,7 @@ After exploring various preview options, I've settled on using the CBRTS demuxer
 This approach solves the workflow problem of constantly switching between editing and previewing, making the development process much more efficient.
 
 ```bash
-/Applications/Shotcut.app/Contents/MacOS/melt video.mlt -consumer cbrts muxrate=10000000 | ffplay -i -
+/Applications/Shotcut.app/Contents/MacOS/melt out.mp4 -consumer cbrts muxrate=10000000 | mpv -
 ```
 
 to start from a random point in the video:

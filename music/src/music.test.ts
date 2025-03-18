@@ -2,6 +2,7 @@ import { test, describe, expect } from 'vitest'
 import fs from 'fs'
 import { generateMusic } from './music'
 import { uploadAudioToMiniMax } from './music'
+import path from 'path'
 
 const apiKey = process.env.MINIMAX_API_KEY || ''
 if (!apiKey) {
@@ -70,7 +71,7 @@ describe(
             const outputPath = `generated-music-${Date.now()}.mp3`
             fs.writeFileSync(outputPath, audioBuffer)
 
-            console.log(`Generated music saved to: ${outputPath}`)
+            console.log(`Generated music saved to: ${path.resolve(outputPath)}`)
         })
     },
     1000 * 100,
