@@ -1,6 +1,6 @@
 #!/usr/bin/env tsx
 
-import { spawn } from 'child_process'
+import { ChildProcessWithoutNullStreams, spawn } from 'child_process'
 import fs from 'fs'
 import http from 'http'
 import express from 'express'
@@ -25,15 +25,40 @@ const vite = await createServer({
 })
 app.use(vite.middlewares)
 
+let meltProcess: ChildProcessWithoutNullStreams
+
+app.all('/pause', (req, res) => {
+    if (!meltProcess) {
+        console.log('No melt process found')
+        res.sendStatus(404)
+        return
+    }
+    if (meltProcess.stdin) {
+        meltProcess.stdin.write('H', 'ascii')
+        meltProcess.stdin.uncork()
+        meltProcess.stdin.write(' ', 'ascii')
+        meltProcess.stdin.uncork()
+        res.sendStatus(200)
+    } else {
+        console.log('No melt process found')
+        res.sendStatus(500)
+    }
+})
+
 app.get('/stream', (req, res) => {
     // Set appropriate headers for MPEG-TS stream
-    const command = `melt ${VIDEO_MLT_PATH} -consumer cbrts muxrate=10000000 vcodec=libx264 preset=veryfast vb=1984k maxrate=1984k bufsize=3968k real_time=1 g=60 acodec=aac  ab=128k f=flv`
+    const command = `bash -t -c 'melt ${VIDEO_MLT_PATH} -consumer avformat  muxpreload=0.001 buffer=1 vcodec=libx264 preset=veryfast muxdelay=0.001 vb=1984k maxrate=1984k bufsize=1 threads=1 g=3 keyint_min=1 prefill=0 acodec=aac ab=128k f=flv'`
     console.log(command)
     // Spawn melt process with the MLT file
-    const meltProcess = spawn(command, {
+    meltProcess = spawn(command, {
         shell: true,
-        stdio: ['inherit', 'pipe', 'pipe'],
+        stdio: ['pipe', 'pipe', 'pipe'],
+        env: {
+            ...process.env,
+            FORCE_TTY: '1', // Forces isatty() to return true
+        },
     })
+
     res.writeHead(200, {
         // 'Content-Type': 'video/mp2t',
         'Cache-Control': 'no-cache',

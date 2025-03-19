@@ -20,6 +20,7 @@
     "author": "Tommaso De Rossi, morse <beats.by.morse@gmail.com>",
     "license": "",
     "dependencies": {
+        "@types/express": "^5.0.0",
         "@types/node": "^22.13.5",
         "@types/ws": "^8.5.14",
         "express": "^4.21.2",
