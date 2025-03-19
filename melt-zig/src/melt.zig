@@ -1,4 +1,5 @@
 const std = @import("std");
+
 const c = @cImport({
     @cInclude("mlt-7/framework/mlt.h");
     @cInclude("SDL2/SDL.h");
@@ -11,6 +12,7 @@ var g_consumer: ?[*c]c.struct_mlt_consumer_s = null;
 var g_current_file: ?[:0]const u8 = null;
 var g_profile: ?[*c]c.struct_mlt_profile_s = null;
 var g_should_reload: bool = false;
+var g_last_modified_time: i128 = 0; // Track the last modified time
 
 // Signal handler for stopping playback
 fn stopHandler(_: c_int) callconv(.C) void {
@@ -284,6 +286,25 @@ pub fn main() !void {
         if (g_consumer != null and c.mlt_consumer_is_stopped(g_consumer.?) != 0) {
             std.debug.print("Consumer has stopped\n", .{});
             break;
+        }
+
+        // Check if the file was modified
+        if (g_current_file) |file_path| {
+            // Get the file's current modification time
+            if (std.fs.cwd().statFile(file_path)) |stat| {
+                const current_mtime = stat.mtime;
+
+                // If this is the first check or the file has been modified
+                if (current_mtime > g_last_modified_time) {
+                    if (g_last_modified_time > 0) { // Skip the first time (initialization)
+                        std.debug.print("File modification detected, triggering reload...\n", .{});
+                        g_should_reload = true;
+                    }
+                    g_last_modified_time = current_mtime;
+                }
+            } else |err| {
+                std.debug.print("Failed to check file modification time: {any}\n", .{err});
+            }
         }
 
         // Check if we need to reload
