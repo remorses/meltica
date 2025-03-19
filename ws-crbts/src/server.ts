@@ -77,6 +77,7 @@ app.get('/stream', (req, res) => {
 
     // Pipe the output directly to the response
     meltProcess.stdout.pipe(res)
+    
 
     // Handle errors
     meltProcess.stderr.on('data', (data) => {
