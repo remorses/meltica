@@ -1,0 +1,857 @@
+<?xml version="1.0" standalone="no"?>
+<mlt LC_NUMERIC="C" version="7.30.0" title="Shotcut version 25.01.25" producer="main_bin" root="/Users/morse/Documents/meltica/sololevelling">
+  <profile description="PAL 4:3 DV or DVD" width="1080" height="1920" progressive="1" sample_aspect_num="1" sample_aspect_den="1" display_aspect_num="9" display_aspect_den="16" frame_rate_num="30" frame_rate_den="1" colorspace="709"/>
+  <playlist id="main_bin">
+    <property name="xml_retain">1</property>
+  </playlist>
+  <producer id="black" in="00:00:00.000" out="00:02:14.967">
+    <property name="length">00:02:15.000</property>
+    <property name="eof">pause</property>
+    <property name="resource">0</property>
+    <property name="aspect_ratio">1</property>
+    <property name="mlt_service">color</property>
+    <property name="mlt_image_format">rgba</property>
+    <property name="set.test_audio">0</property>
+  </producer>
+  <playlist id="background">
+    <entry producer="black" in="00:00:00.000" out="00:02:14.967"/>
+  </playlist>
+  <producer id="assetimage-0" in="00:00:00.000" out="00:08:19.967">
+    <property name="length">15000</property>
+    <property name="eof">pause</property>
+    <property name="resource">94/page-000.jpg</property>
+    <property name="ttl">25</property>
+    <property name="aspect_ratio">1</property>
+    <property name="meta.media.progressive">1</property>
+    <property name="seekable">1</property>
+    <property name="format">1</property>
+    <property name="meta.media.width">720</property>
+    <property name="meta.media.height">4000</property>
+    <property name="mlt_service">qimage</property>
+    <property name="shotcut:skipConvert">1</property>
+    <property name="shotcut:caption">page-000.jpg</property>
+    <property name="shotcut:hash">bbd00a70e2ab10a64b28931d70275ab8</property>
+    <filter id="assetimage-0transformFilter">
+      <property name="rotate_center">0</property>
+      <property name="mlt_service">qtblend</property>
+      <property name="background">color:#00000000</property>
+      <property name="shotcut:filter">sizePosition</property>
+      <property name="compositing">0</property>
+      <property name="distort">0</property>
+      <property name="rect">00:00:00.000=-216 -600 1080 6000 1;00:00:05.533=-181.61788998265575 -1153.9339947238796 1080 6000 1</property>
+      <property name="rotation">00:00:00.000=0</property>
+      <property name="kdenlive:collapsed">0</property>
+    </filter>
+  </producer>
+  <producer id="assetimage-1" in="00:00:00.000" out="00:08:19.967">
+    <property name="length">15000</property>
+    <property name="eof">pause</property>
+    <property name="resource">94/page-001.jpg</property>
+    <property name="ttl">25</property>
+    <property name="aspect_ratio">1</property>
+    <property name="meta.media.progressive">1</property>
+    <property name="seekable">1</property>
+    <property name="format">1</property>
+    <property name="meta.media.width">720</property>
+    <property name="meta.media.height">3750</property>
+    <property name="mlt_service">qimage</property>
+    <property name="shotcut:skipConvert">1</property>
+    <property name="shotcut:caption">page-001.jpg</property>
+    <property name="shotcut:hash">8e76bd3e580bf5d0fa5acfc86903ea53</property>
+    <filter id="assetimage-1transformFilter">
+      <property name="rotate_center">0</property>
+      <property name="mlt_service">qtblend</property>
+      <property name="background">color:#00000000</property>
+      <property name="shotcut:filter">sizePosition</property>
+      <property name="compositing">0</property>
+      <property name="distort">0</property>
+      <property name="rect">00:00:00.000=-216 -562.5 1080 5625 1;00:00:04.923=-182.24137092724865 -1053.641166023709 1080 5625 1</property>
+      <property name="rotation">00:00:00.000=0</property>
+      <property name="kdenlive:collapsed">0</property>
+    </filter>
+  </producer>
+  <producer id="assetimage-2" in="00:00:00.000" out="00:08:19.967">
+    <property name="length">15000</property>
+    <property name="eof">pause</property>
+    <property name="resource">94/page-002.jpg</property>
+    <property name="ttl">1</property>
+    <property name="aspect_ratio">1</property>
+    <property name="meta.media.progressive">1</property>
+    <property name="seekable">1</property>
+    <property name="format">1</property>
+    <property name="meta.media.width">720</property>
+    <property name="meta.media.height">4000</property>
+    <property name="mlt_service">qimage</property>
+    <property name="shotcut:skipConvert">1</property>
+    <property name="shotcut:caption">page-002.jpg</property>
+    <property name="shotcut:hash">d4fbf559223fd15b2cce19ec74304e99</property>
+    <filter id="assetimage-2transformFilter">
+      <property name="rotate_center">0</property>
+      <property name="mlt_service">qtblend</property>
+      <property name="background">color:#00000000</property>
+      <property name="shotcut:filter">sizePosition</property>
+      <property name="compositing">0</property>
+      <property name="distort">0</property>
+      <property name="rect">00:00:00.000=-216 -600 1080 6000 1;00:00:04.967=-185.28531505117246 -1094.8477019533325 1080 6000 1</property>
+      <property name="rotation">00:00:00.000=0</property>
+      <property name="kdenlive:collapsed">0</property>
+    </filter>
+  </producer>
+  <producer id="assetimage-3" in="00:00:00.000" out="00:08:19.967">
+    <property name="length">15000</property>
+    <property name="eof">pause</property>
+    <property name="resource">94/page-003.jpg</property>
+    <property name="ttl">25</property>
+    <property name="aspect_ratio">1</property>
+    <property name="meta.media.progressive">1</property>
+    <property name="seekable">1</property>
+    <property name="format">1</property>
+    <property name="meta.media.width">720</property>
+    <property name="meta.media.height">4000</property>
+    <property name="mlt_service">qimage</property>
+    <property name="shotcut:skipConvert">1</property>
+    <property name="shotcut:caption">page-003.jpg</property>
+    <property name="shotcut:hash">068a2487b9b62f6f935662484aeb93d4</property>
+    <filter id="assetimage-3transformFilter">
+      <property name="rotate_center">0</property>
+      <property name="mlt_service">qtblend</property>
+      <property name="background">color:#00000000</property>
+      <property name="shotcut:filter">sizePosition</property>
+      <property name="compositing">0</property>
+      <property name="distort">0</property>
+      <property name="rect">00:00:00.000=-216 -600 1080 6000 1;00:00:05.833=-179.8213472970648 -1182.8782935472896 1080 6000 1</property>
+      <property name="rotation">00:00:00.000=0</property>
+      <property name="kdenlive:collapsed">0</property>
+    </filter>
+  </producer>
+  <producer id="assetimage-4" in="00:00:00.000" out="00:08:19.967">
+    <property name="length">15000</property>
+    <property name="eof">pause</property>
+    <property name="resource">94/page-004.jpg</property>
+    <property name="ttl">25</property>
+    <property name="aspect_ratio">1</property>
+    <property name="meta.media.progressive">1</property>
+    <property name="seekable">1</property>
+    <property name="format">1</property>
+    <property name="meta.media.width">720</property>
+    <property name="meta.media.height">4000</property>
+    <property name="mlt_service">qimage</property>
+    <property name="shotcut:skipConvert">1</property>
+    <property name="shotcut:caption">page-004.jpg</property>
+    <property name="shotcut:hash">dada85ece21d6c157cc4e3396de6a4df</property>
+    <filter id="assetimage-4transformFilter">
+      <property name="rotate_center">0</property>
+      <property name="mlt_service">qtblend</property>
+      <property name="background">color:#00000000</property>
+      <property name="shotcut:filter">sizePosition</property>
+      <property name="compositing">0</property>
+      <property name="distort">0</property>
+      <property name="rect">00:00:00.000=-216 -600 1080 6000 1;00:00:05.867=-179.60452317983828 -1186.3715709914945 1080 6000 1</property>
+      <property name="rotation">00:00:00.000=0</property>
+      <property name="kdenlive:collapsed">0</property>
+    </filter>
+  </producer>
+  <producer id="assetimage-5" in="00:00:00.000" out="00:08:19.967">
+    <property name="length">15000</property>
+    <property name="eof">pause</property>
+    <property name="resource">94/page-005.jpg</property>
+    <property name="ttl">25</property>
+    <property name="aspect_ratio">1</property>
+    <property name="meta.media.progressive">1</property>
+    <property name="seekable">1</property>
+    <property name="format">1</property>
+    <property name="meta.media.width">720</property>
+    <property name="meta.media.height">3559</property>
+    <property name="mlt_service">qimage</property>
+    <property name="shotcut:skipConvert">1</property>
+    <property name="shotcut:caption">page-005.jpg</property>
+    <property name="shotcut:hash">8e0c30ccd78eebccc3d2401a6702768b</property>
+    <filter id="assetimage-5transformFilter">
+      <property name="rotate_center">0</property>
+      <property name="mlt_service">qtblend</property>
+      <property name="background">color:#00000000</property>
+      <property name="shotcut:filter">sizePosition</property>
+      <property name="compositing">0</property>
+      <property name="distort">0</property>
+      <property name="rect">00:00:00.000=-216 -533.85 1080 5338.5 1;00:00:06.595=-166.7550947522687 -1191.5088700132783 1080 5338.5 1</property>
+      <property name="rotation">00:00:00.000=0</property>
+      <property name="kdenlive:collapsed">0</property>
+    </filter>
+  </producer>
+  <producer id="assetimage-6" in="00:00:00.000" out="00:08:19.967">
+    <property name="length">15000</property>
+    <property name="eof">pause</property>
+    <property name="resource">94/page-006.jpg</property>
+    <property name="ttl">25</property>
+    <property name="aspect_ratio">1</property>
+    <property name="meta.media.progressive">1</property>
+    <property name="seekable">1</property>
+    <property name="format">1</property>
+    <property name="meta.media.width">720</property>
+    <property name="meta.media.height">4000</property>
+    <property name="mlt_service">qimage</property>
+    <property name="shotcut:skipConvert">1</property>
+    <property name="shotcut:caption">page-006.jpg</property>
+    <property name="shotcut:hash">17d42fe99d74865d14be47ad36974f78</property>
+    <filter id="assetimage-6transformFilter">
+      <property name="rotate_center">0</property>
+      <property name="mlt_service">qtblend</property>
+      <property name="background">color:#00000000</property>
+      <property name="shotcut:filter">sizePosition</property>
+      <property name="compositing">0</property>
+      <property name="distort">0</property>
+      <property name="rect">00:00:00.000=-216 -600 1080 6000 1;00:00:04.807=-186.22075624263533 -1079.776704979764 1080 6000 1</property>
+      <property name="rotation">00:00:00.000=0</property>
+      <property name="kdenlive:collapsed">0</property>
+    </filter>
+  </producer>
+  <producer id="assetimage-7" in="00:00:00.000" out="00:08:19.967">
+    <property name="length">15000</property>
+    <property name="eof">pause</property>
+    <property name="resource">94/page-007.jpg</property>
+    <property name="ttl">25</property>
+    <property name="aspect_ratio">1</property>
+    <property name="meta.media.progressive">1</property>
+    <property name="seekable">1</property>
+    <property name="format">1</property>
+    <property name="meta.media.width">720</property>
+    <property name="meta.media.height">4000</property>
+    <property name="mlt_service">qimage</property>
+    <property name="shotcut:skipConvert">1</property>
+    <property name="shotcut:caption">page-007.jpg</property>
+    <property name="shotcut:hash">1ca410de02148f48234a4f365f9705bd</property>
+    <filter id="assetimage-7transformFilter">
+      <property name="rotate_center">0</property>
+      <property name="mlt_service">qtblend</property>
+      <property name="background">color:#00000000</property>
+      <property name="shotcut:filter">sizePosition</property>
+      <property name="compositing">0</property>
+      <property name="distort">0</property>
+      <property name="rect">00:00:00.000=-216 -600 1080 6000 1;00:00:06.270=-177.15750814256785 -1225.795702147518 1080 6000 1</property>
+      <property name="rotation">00:00:00.000=0</property>
+      <property name="kdenlive:collapsed">0</property>
+    </filter>
+  </producer>
+  <producer id="assetimage-8" in="00:00:00.000" out="00:08:19.967">
+    <property name="length">15000</property>
+    <property name="eof">pause</property>
+    <property name="resource">94/page-008.jpg</property>
+    <property name="ttl">25</property>
+    <property name="aspect_ratio">1</property>
+    <property name="meta.media.progressive">1</property>
+    <property name="seekable">1</property>
+    <property name="format">1</property>
+    <property name="meta.media.width">720</property>
+    <property name="meta.media.height">687</property>
+    <property name="mlt_service">qimage</property>
+    <property name="shotcut:skipConvert">1</property>
+    <property name="shotcut:caption">page-008.jpg</property>
+    <property name="shotcut:hash">c5753aa096566c8927da0bcd9c67b068</property>
+    <filter id="assetimage-8transformFilter">
+      <property name="rotate_center">0</property>
+      <property name="mlt_service">qtblend</property>
+      <property name="background">color:#00000000</property>
+      <property name="shotcut:filter">sizePosition</property>
+      <property name="compositing">0</property>
+      <property name="distort">0</property>
+      <property name="rect">00:00:00.000=-216 -103.05000000000001 1080 1030.5 1;00:00:07.489=-56.75074869220228 628.722427710901 1080 1030.5 1</property>
+      <property name="rotation">00:00:00.000=0</property>
+      <property name="kdenlive:collapsed">0</property>
+    </filter>
+  </producer>
+  <producer id="assetimage-9" in="00:00:00.000" out="00:08:19.967">
+    <property name="length">15000</property>
+    <property name="eof">pause</property>
+    <property name="resource">94/page-009.jpg</property>
+    <property name="ttl">25</property>
+    <property name="aspect_ratio">1</property>
+    <property name="meta.media.progressive">1</property>
+    <property name="seekable">1</property>
+    <property name="format">1</property>
+    <property name="meta.media.width">720</property>
+    <property name="meta.media.height">4000</property>
+    <property name="mlt_service">qimage</property>
+    <property name="shotcut:skipConvert">1</property>
+    <property name="shotcut:caption">page-009.jpg</property>
+    <property name="shotcut:hash">0e1204523381be0c5ce5f6bb137034fc</property>
+    <filter id="assetimage-9transformFilter">
+      <property name="rotate_center">0</property>
+      <property name="mlt_service">qtblend</property>
+      <property name="background">color:#00000000</property>
+      <property name="shotcut:filter">sizePosition</property>
+      <property name="compositing">0</property>
+      <property name="distort">0</property>
+      <property name="rect">00:00:00.000=-216 -600 1080 6000 1;00:00:06.850=-173.56442277138592 -1283.6842997943381 1080 6000 1</property>
+      <property name="rotation">00:00:00.000=0</property>
+      <property name="kdenlive:collapsed">0</property>
+    </filter>
+  </producer>
+  <playlist id="trackvideo">
+    <property name="shotcut:name">track</property>
+    <entry producer="assetimage-0" in="00:00:00.000" out="00:00:05.533"/>
+    <entry producer="assetimage-1" in="00:00:00.000" out="00:00:04.933"/>
+    <entry producer="assetimage-2" in="00:00:00.000" out="00:00:04.967"/>
+    <entry producer="assetimage-3" in="00:00:00.000" out="00:00:05.833"/>
+    <entry producer="assetimage-4" in="00:00:00.000" out="00:00:05.867"/>
+    <entry producer="assetimage-5" in="00:00:00.000" out="00:00:06.600"/>
+    <entry producer="assetimage-6" in="00:00:00.000" out="00:00:04.800"/>
+    <entry producer="assetimage-7" in="00:00:00.000" out="00:00:06.267"/>
+    <entry producer="assetimage-8" in="00:00:00.000" out="00:00:07.500"/>
+    <entry producer="assetimage-9" in="00:00:00.000" out="00:00:06.867"/>
+  </playlist>
+  <chain id="assetaudio-0" out="00:00:05.000">
+    <property name="length">151</property>
+    <property name="eof">pause</property>
+    <property name="resource">.meltica/speech-1-917ca8b132d552a800c4e0f9a3945ca1.wav</property>
+    <property name="mlt_service">avformat</property>
+    <property name="meta.media.nb_streams">1</property>
+    <property name="meta.media.0.stream.type">audio</property>
+    <property name="meta.media.0.codec.sample_fmt">s16</property>
+    <property name="meta.media.0.codec.sample_rate">44100</property>
+    <property name="meta.media.0.codec.channels">1</property>
+    <property name="meta.media.0.codec.layout">mono</property>
+    <property name="meta.media.0.codec.name">pcm_s16le</property>
+    <property name="meta.media.0.codec.long_name">PCM signed 16-bit little-endian</property>
+    <property name="meta.media.0.codec.bit_rate">705600</property>
+    <property name="meta.attr.encoder.markup">Lavf60.16.100</property>
+    <property name="seekable">1</property>
+    <property name="audio_index">0</property>
+    <property name="video_index">-1</property>
+    <property name="mute_on_pause">0</property>
+    <property name="shotcut:skipConvert">1</property>
+    <property name="shotcut:caption">speech-1-917ca8b132d552a800c4e0f9a3945ca1.wav</property>
+    <property name="astream">0</property>
+    <property name="shotcut:hash">f23139fd1c43259a0138d53251adb132</property>
+    <filter id="assetaudio-0limiter">
+      <property name="mlt_service">ladspa.1913</property>
+      <property name="0">6</property>
+      <property name="1">-10</property>
+      <property name="2">0.51</property>
+      <property name="instances">1</property>
+      <property name="3[0]">6.37375</property>
+      <property name="8[0]">240</property>
+    </filter>
+  </chain>
+  <chain id="assetaudio-1" out="00:00:04.400">
+    <property name="length">133</property>
+    <property name="eof">pause</property>
+    <property name="resource">.meltica/speech-2-c9fdfffcefc24d86adf8c176c07f2840.wav</property>
+    <property name="mlt_service">avformat</property>
+    <property name="meta.media.nb_streams">1</property>
+    <property name="meta.media.0.stream.type">audio</property>
+    <property name="meta.media.0.codec.sample_fmt">s16</property>
+    <property name="meta.media.0.codec.sample_rate">44100</property>
+    <property name="meta.media.0.codec.channels">1</property>
+    <property name="meta.media.0.codec.layout">mono</property>
+    <property name="meta.media.0.codec.name">pcm_s16le</property>
+    <property name="meta.media.0.codec.long_name">PCM signed 16-bit little-endian</property>
+    <property name="meta.media.0.codec.bit_rate">705600</property>
+    <property name="meta.attr.encoder.markup">Lavf60.16.100</property>
+    <property name="seekable">1</property>
+    <property name="audio_index">0</property>
+    <property name="video_index">-1</property>
+    <property name="mute_on_pause">0</property>
+    <property name="shotcut:skipConvert">1</property>
+    <property name="shotcut:caption">speech-2-c9fdfffcefc24d86adf8c176c07f2840.wav</property>
+    <property name="astream">0</property>
+    <property name="shotcut:hash">9a96f075475388bcd383c8d009f930d6</property>
+    <filter id="assetaudio-1limiter">
+      <property name="mlt_service">ladspa.1913</property>
+      <property name="0">6</property>
+      <property name="1">-10</property>
+      <property name="2">0.51</property>
+      <property name="instances">1</property>
+      <property name="3[0]">1.08705</property>
+      <property name="8[0]">240</property>
+    </filter>
+  </chain>
+  <chain id="assetaudio-2" out="00:00:04.433">
+    <property name="length">134</property>
+    <property name="eof">pause</property>
+    <property name="resource">.meltica/speech-3-d82a3958f0e9fecf5e2a6eab9eec756b.wav</property>
+    <property name="mlt_service">avformat</property>
+    <property name="meta.media.nb_streams">1</property>
+    <property name="meta.media.0.stream.type">audio</property>
+    <property name="meta.media.0.codec.sample_fmt">s16</property>
+    <property name="meta.media.0.codec.sample_rate">44100</property>
+    <property name="meta.media.0.codec.channels">1</property>
+    <property name="meta.media.0.codec.layout">mono</property>
+    <property name="meta.media.0.codec.name">pcm_s16le</property>
+    <property name="meta.media.0.codec.long_name">PCM signed 16-bit little-endian</property>
+    <property name="meta.media.0.codec.bit_rate">705600</property>
+    <property name="meta.attr.encoder.markup">Lavf60.16.100</property>
+    <property name="seekable">1</property>
+    <property name="audio_index">0</property>
+    <property name="video_index">-1</property>
+    <property name="mute_on_pause">0</property>
+    <property name="shotcut:skipConvert">1</property>
+    <property name="shotcut:caption">speech-3-d82a3958f0e9fecf5e2a6eab9eec756b.wav</property>
+    <property name="astream">0</property>
+    <property name="shotcut:hash">3acee386ff454ab5a255de9ad31f2a89</property>
+    <filter id="assetaudio-2limiter">
+      <property name="mlt_service">ladspa.1913</property>
+      <property name="0">6</property>
+      <property name="1">-10</property>
+      <property name="2">0.51</property>
+      <property name="instances">1</property>
+      <property name="3[0]">0.991626</property>
+      <property name="8[0]">240</property>
+    </filter>
+  </chain>
+  <chain id="assetaudio-3" out="00:00:05.300">
+    <property name="length">160</property>
+    <property name="eof">pause</property>
+    <property name="resource">.meltica/speech-4-92f5c31cf82bf4231247caff6f7e00c2.wav</property>
+    <property name="mlt_service">avformat</property>
+    <property name="meta.media.nb_streams">1</property>
+    <property name="meta.media.0.stream.type">audio</property>
+    <property name="meta.media.0.codec.sample_fmt">s16</property>
+    <property name="meta.media.0.codec.sample_rate">44100</property>
+    <property name="meta.media.0.codec.channels">1</property>
+    <property name="meta.media.0.codec.layout">mono</property>
+    <property name="meta.media.0.codec.name">pcm_s16le</property>
+    <property name="meta.media.0.codec.long_name">PCM signed 16-bit little-endian</property>
+    <property name="meta.media.0.codec.bit_rate">705600</property>
+    <property name="meta.attr.encoder.markup">Lavf60.16.100</property>
+    <property name="seekable">1</property>
+    <property name="audio_index">0</property>
+    <property name="video_index">-1</property>
+    <property name="mute_on_pause">0</property>
+    <property name="shotcut:skipConvert">1</property>
+    <property name="shotcut:caption">speech-4-92f5c31cf82bf4231247caff6f7e00c2.wav</property>
+    <property name="astream">0</property>
+    <property name="shotcut:hash">271ecc07aa2509bf536730c4c77e3407</property>
+    <filter id="assetaudio-3limiter">
+      <property name="mlt_service">ladspa.1913</property>
+      <property name="0">6</property>
+      <property name="1">-10</property>
+      <property name="2">0.51</property>
+      <property name="instances">1</property>
+      <property name="3[0]">1.17893</property>
+      <property name="8[0]">240</property>
+    </filter>
+  </chain>
+  <chain id="assetaudio-4" out="00:00:05.333">
+    <property name="length">161</property>
+    <property name="eof">pause</property>
+    <property name="resource">.meltica/speech-5-6a983f67f42a9196ccd9765a44d13838.wav</property>
+    <property name="mlt_service">avformat</property>
+    <property name="meta.media.nb_streams">1</property>
+    <property name="meta.media.0.stream.type">audio</property>
+    <property name="meta.media.0.codec.sample_fmt">s16</property>
+    <property name="meta.media.0.codec.sample_rate">44100</property>
+    <property name="meta.media.0.codec.channels">1</property>
+    <property name="meta.media.0.codec.layout">mono</property>
+    <property name="meta.media.0.codec.name">pcm_s16le</property>
+    <property name="meta.media.0.codec.long_name">PCM signed 16-bit little-endian</property>
+    <property name="meta.media.0.codec.bit_rate">705600</property>
+    <property name="meta.attr.encoder.markup">Lavf60.16.100</property>
+    <property name="seekable">1</property>
+    <property name="audio_index">0</property>
+    <property name="video_index">-1</property>
+    <property name="mute_on_pause">0</property>
+    <property name="shotcut:skipConvert">1</property>
+    <property name="shotcut:caption">speech-5-6a983f67f42a9196ccd9765a44d13838.wav</property>
+    <property name="astream">0</property>
+    <property name="shotcut:hash">83a0e7e6a4a696153989089075a1267a</property>
+    <filter id="assetaudio-4limiter">
+      <property name="mlt_service">ladspa.1913</property>
+      <property name="0">6</property>
+      <property name="1">-10</property>
+      <property name="2">0.51</property>
+      <property name="instances">1</property>
+      <property name="3[0]">0.0742556</property>
+      <property name="8[0]">240</property>
+    </filter>
+  </chain>
+  <chain id="assetaudio-5" out="00:00:06.067">
+    <property name="length">183</property>
+    <property name="eof">pause</property>
+    <property name="resource">.meltica/speech-6-869c7723850ae4408ce9d47255227963.wav</property>
+    <property name="mlt_service">avformat</property>
+    <property name="meta.media.nb_streams">1</property>
+    <property name="meta.media.0.stream.type">audio</property>
+    <property name="meta.media.0.codec.sample_fmt">s16</property>
+    <property name="meta.media.0.codec.sample_rate">44100</property>
+    <property name="meta.media.0.codec.channels">1</property>
+    <property name="meta.media.0.codec.layout">mono</property>
+    <property name="meta.media.0.codec.name">pcm_s16le</property>
+    <property name="meta.media.0.codec.long_name">PCM signed 16-bit little-endian</property>
+    <property name="meta.media.0.codec.bit_rate">705600</property>
+    <property name="meta.attr.encoder.markup">Lavf60.16.100</property>
+    <property name="seekable">1</property>
+    <property name="audio_index">0</property>
+    <property name="video_index">-1</property>
+    <property name="mute_on_pause">0</property>
+    <property name="shotcut:skipConvert">1</property>
+    <property name="shotcut:caption">speech-6-869c7723850ae4408ce9d47255227963.wav</property>
+    <property name="astream">0</property>
+    <property name="shotcut:hash">e17050bc2a83bde2e4c07bd739f90143</property>
+    <filter id="assetaudio-5limiter">
+      <property name="mlt_service">ladspa.1913</property>
+      <property name="0">6</property>
+      <property name="1">-10</property>
+      <property name="2">0.51</property>
+      <property name="instances">1</property>
+      <property name="3[0]">1.08705</property>
+      <property name="8[0]">240</property>
+    </filter>
+  </chain>
+  <chain id="assetaudio-6" out="00:00:04.267">
+    <property name="length">129</property>
+    <property name="eof">pause</property>
+    <property name="resource">.meltica/speech-7-9ac4991ed94364522c780dcbb1811fbf.wav</property>
+    <property name="mlt_service">avformat</property>
+    <property name="meta.media.nb_streams">1</property>
+    <property name="meta.media.0.stream.type">audio</property>
+    <property name="meta.media.0.codec.sample_fmt">s16</property>
+    <property name="meta.media.0.codec.sample_rate">44100</property>
+    <property name="meta.media.0.codec.channels">1</property>
+    <property name="meta.media.0.codec.layout">mono</property>
+    <property name="meta.media.0.codec.name">pcm_s16le</property>
+    <property name="meta.media.0.codec.long_name">PCM signed 16-bit little-endian</property>
+    <property name="meta.media.0.codec.bit_rate">705600</property>
+    <property name="meta.attr.encoder.markup">Lavf60.16.100</property>
+    <property name="seekable">1</property>
+    <property name="audio_index">0</property>
+    <property name="video_index">-1</property>
+    <property name="mute_on_pause">0</property>
+    <property name="shotcut:skipConvert">1</property>
+    <property name="shotcut:caption">speech-7-9ac4991ed94364522c780dcbb1811fbf.wav</property>
+    <property name="astream">0</property>
+    <property name="shotcut:hash">a955d00e72585e629f268b946b10b894</property>
+    <filter id="assetaudio-6limiter">
+      <property name="mlt_service">ladspa.1913</property>
+      <property name="0">6</property>
+      <property name="1">-10</property>
+      <property name="2">0.51</property>
+      <property name="instances">1</property>
+      <property name="3[0]">1.08705</property>
+      <property name="8[0]">240</property>
+    </filter>
+  </chain>
+  <chain id="assetaudio-7" out="00:00:05.733">
+    <property name="length">173</property>
+    <property name="eof">pause</property>
+    <property name="resource">.meltica/speech-8-02cac6d21c7f50e5d44878df19f4d7cc.wav</property>
+    <property name="mlt_service">avformat</property>
+    <property name="meta.media.nb_streams">1</property>
+    <property name="meta.media.0.stream.type">audio</property>
+    <property name="meta.media.0.codec.sample_fmt">s16</property>
+    <property name="meta.media.0.codec.sample_rate">44100</property>
+    <property name="meta.media.0.codec.channels">1</property>
+    <property name="meta.media.0.codec.layout">mono</property>
+    <property name="meta.media.0.codec.name">pcm_s16le</property>
+    <property name="meta.media.0.codec.long_name">PCM signed 16-bit little-endian</property>
+    <property name="meta.media.0.codec.bit_rate">705600</property>
+    <property name="meta.attr.encoder.markup">Lavf60.16.100</property>
+    <property name="seekable">1</property>
+    <property name="audio_index">0</property>
+    <property name="video_index">-1</property>
+    <property name="mute_on_pause">0</property>
+    <property name="shotcut:skipConvert">1</property>
+    <property name="shotcut:caption">speech-8-02cac6d21c7f50e5d44878df19f4d7cc.wav</property>
+    <property name="astream">0</property>
+    <property name="shotcut:hash">07a8aca2e71e828638444dc34b648c17</property>
+    <filter id="assetaudio-7limiter">
+      <property name="mlt_service">ladspa.1913</property>
+      <property name="0">6</property>
+      <property name="1">-10</property>
+      <property name="2">0.51</property>
+      <property name="instances">1</property>
+      <property name="3[0]">1.08705</property>
+      <property name="8[0]">240</property>
+    </filter>
+  </chain>
+  <chain id="assetaudio-8" out="00:00:06.933">
+    <property name="length">209</property>
+    <property name="eof">pause</property>
+    <property name="resource">.meltica/speech-9-61636664d15dcc04b55c9a5b36e045f1.wav</property>
+    <property name="mlt_service">avformat</property>
+    <property name="meta.media.nb_streams">1</property>
+    <property name="meta.media.0.stream.type">audio</property>
+    <property name="meta.media.0.codec.sample_fmt">s16</property>
+    <property name="meta.media.0.codec.sample_rate">44100</property>
+    <property name="meta.media.0.codec.channels">1</property>
+    <property name="meta.media.0.codec.layout">mono</property>
+    <property name="meta.media.0.codec.name">pcm_s16le</property>
+    <property name="meta.media.0.codec.long_name">PCM signed 16-bit little-endian</property>
+    <property name="meta.media.0.codec.bit_rate">705600</property>
+    <property name="meta.attr.encoder.markup">Lavf60.16.100</property>
+    <property name="seekable">1</property>
+    <property name="audio_index">0</property>
+    <property name="video_index">-1</property>
+    <property name="mute_on_pause">0</property>
+    <property name="shotcut:skipConvert">1</property>
+    <property name="shotcut:caption">speech-9-61636664d15dcc04b55c9a5b36e045f1.wav</property>
+    <property name="astream">0</property>
+    <property name="shotcut:hash">a1aa8b8d9e9477d71dc57f09ed2e952c</property>
+    <filter id="assetaudio-8limiter">
+      <property name="mlt_service">ladspa.1913</property>
+      <property name="0">6</property>
+      <property name="1">-10</property>
+      <property name="2">0.51</property>
+      <property name="instances">1</property>
+      <property name="3[0]">1.08705</property>
+      <property name="8[0]">240</property>
+    </filter>
+  </chain>
+  <chain id="assetaudio-9" out="00:00:06.300">
+    <property name="length">190</property>
+    <property name="eof">pause</property>
+    <property name="resource">.meltica/speech-10-15e28cd89f0a0de4feeebb30451876a6.wav</property>
+    <property name="mlt_service">avformat</property>
+    <property name="meta.media.nb_streams">1</property>
+    <property name="meta.media.0.stream.type">audio</property>
+    <property name="meta.media.0.codec.sample_fmt">s16</property>
+    <property name="meta.media.0.codec.sample_rate">44100</property>
+    <property name="meta.media.0.codec.channels">1</property>
+    <property name="meta.media.0.codec.layout">mono</property>
+    <property name="meta.media.0.codec.name">pcm_s16le</property>
+    <property name="meta.media.0.codec.long_name">PCM signed 16-bit little-endian</property>
+    <property name="meta.media.0.codec.bit_rate">705600</property>
+    <property name="meta.attr.encoder.markup">Lavf60.16.100</property>
+    <property name="seekable">1</property>
+    <property name="audio_index">0</property>
+    <property name="video_index">-1</property>
+    <property name="mute_on_pause">0</property>
+    <property name="shotcut:skipConvert">1</property>
+    <property name="shotcut:caption">speech-10-15e28cd89f0a0de4feeebb30451876a6.wav</property>
+    <property name="astream">0</property>
+    <property name="shotcut:hash">2daaa451def75eaf059625b14d9a549a</property>
+    <filter id="assetaudio-9limiter">
+      <property name="mlt_service">ladspa.1913</property>
+      <property name="0">6</property>
+      <property name="1">-10</property>
+      <property name="2">0.51</property>
+      <property name="instances">1</property>
+      <property name="3[0]">1.08705</property>
+      <property name="8[0]">240</property>
+    </filter>
+  </chain>
+  <playlist id="trackaudio">
+    <property name="shotcut:audio">1</property>
+    <property name="shotcut:name">track</property>
+    <entry producer="assetaudio-0" in="00:00:00.000" out="00:00:05.000"/>
+    <blank length="00:00:00.500"/>
+    <entry producer="assetaudio-1" in="00:00:00.000" out="00:00:04.400"/>
+    <blank length="00:00:00.500"/>
+    <entry producer="assetaudio-2" in="00:00:00.000" out="00:00:04.433"/>
+    <blank length="00:00:00.500"/>
+    <entry producer="assetaudio-3" in="00:00:00.000" out="00:00:05.300"/>
+    <blank length="00:00:00.500"/>
+    <entry producer="assetaudio-4" in="00:00:00.000" out="00:00:05.333"/>
+    <blank length="00:00:00.500"/>
+    <entry producer="assetaudio-5" in="00:00:00.000" out="00:00:06.067"/>
+    <blank length="00:00:00.500"/>
+    <entry producer="assetaudio-6" in="00:00:00.000" out="00:00:04.267"/>
+    <blank length="00:00:00.500"/>
+    <entry producer="assetaudio-7" in="00:00:00.000" out="00:00:05.733"/>
+    <blank length="00:00:00.500"/>
+    <entry producer="assetaudio-8" in="00:00:00.000" out="00:00:06.933"/>
+    <blank length="00:00:00.500"/>
+    <entry producer="assetaudio-9" in="00:00:00.000" out="00:00:06.300"/>
+  </playlist>
+  <chain id="assetchain1" out="00:02:15.100">
+    <property name="length">4050</property>
+    <property name="eof">pause</property>
+    <property name="resource">music.mp3</property>
+    <property name="mlt_service">avformat</property>
+    <property name="meta.media.nb_streams">1</property>
+    <property name="meta.media.0.stream.type">audio</property>
+    <property name="meta.media.0.codec.sample_fmt">fltp</property>
+    <property name="meta.media.0.codec.sample_rate">44100</property>
+    <property name="meta.media.0.codec.channels">2</property>
+    <property name="meta.media.0.codec.layout">stereo</property>
+    <property name="meta.media.0.codec.name">mp3float</property>
+    <property name="meta.media.0.codec.long_name">MP3 (MPEG audio layer 3)</property>
+    <property name="meta.media.0.codec.bit_rate">192000</property>
+    <property name="meta.attr.0.stream.encoder.markup">Lavc61.19</property>
+    <property name="meta.attr.major_brand.markup">isom</property>
+    <property name="meta.attr.minor_version.markup">512</property>
+    <property name="meta.attr.compatible_brands.markup">isomiso2avc1mp41</property>
+    <property name="meta.attr.encoder.markup">Lavf61.7.100</property>
+    <property name="seekable">1</property>
+    <property name="audio_index">0</property>
+    <property name="video_index">-1</property>
+    <property name="mute_on_pause">0</property>
+    <property name="shotcut:skipConvert">1</property>
+    <property name="shotcut:caption">music.mp3</property>
+    <property name="astream">0</property>
+    <property name="shotcut:hash">f7ad7c6a1d2cc517ae39ebe6b5f4502a</property>
+    <filter id="assetchain1gain">
+      <property name="window">75</property>
+      <property name="max_gain">20dB</property>
+      <property name="level">-16</property>
+      <property name="mlt_service">volume</property>
+    </filter>
+  </chain>
+  <playlist id="trackaudio2">
+    <property name="shotcut:audio">1</property>
+    <property name="shotcut:name">track</property>
+    <entry producer="assetchain1" in="00:00:00.000" out="00:02:14.967"/>
+  </playlist>
+  <playlist id="playlist0">
+    <property name="shotcut:video">1</property>
+    <property name="shotcut:name">V2</property>
+    <blank length="00:00:00.033"/>
+  </playlist>
+  <playlist id="playlist1">
+    <property name="shotcut:video">1</property>
+    <property name="shotcut:name">V3</property>
+    <blank length="00:00:00.033"/>
+  </playlist>
+  <playlist id="playlist2">
+    <property name="shotcut:audio">1</property>
+    <property name="shotcut:name">A3</property>
+    <blank length="00:00:00.033"/>
+  </playlist>
+  <playlist id="playlist3">
+    <property name="shotcut:audio">1</property>
+    <property name="shotcut:name">A4</property>
+    <blank length="00:00:00.033"/>
+  </playlist>
+  <playlist id="playlist4">
+    <property name="shotcut:audio">1</property>
+    <property name="shotcut:name">A5</property>
+    <blank length="00:00:00.033"/>
+  </playlist>
+  <playlist id="playlist5">
+    <property name="shotcut:video">1</property>
+    <property name="shotcut:name">V4</property>
+    <blank length="00:00:00.033"/>
+  </playlist>
+  <playlist id="playlist6">
+    <property name="shotcut:video">1</property>
+    <property name="shotcut:name">V5</property>
+    <blank length="00:00:00.033"/>
+  </playlist>
+  <tractor id="mainTractor" title="Shotcut version 25.01.25" in="00:00:00.000" out="00:02:14.967">
+    <property name="shotcut">1</property>
+    <property name="shotcut:projectAudioChannels">2</property>
+    <property name="shotcut:projectFolder">0</property>
+    <property name="shotcut:trackHeight">22</property>
+    <property name="shotcut:skipConvert">1</property>
+    <track producer="background"/>
+    <track producer="trackvideo"/>
+    <track producer="trackaudio" hide="video"/>
+    <track producer="trackaudio2" hide="video"/>
+    <track producer="playlist0"/>
+    <track producer="playlist1"/>
+    <track producer="playlist2" hide="video"/>
+    <track producer="playlist3" hide="video"/>
+    <track producer="playlist4" hide="video"/>
+    <track producer="playlist5"/>
+    <track producer="playlist6"/>
+    <transition id="transition0">
+      <property name="a_track">0</property>
+      <property name="b_track">1</property>
+      <property name="mlt_service">mix</property>
+      <property name="always_active">1</property>
+      <property name="sum">1</property>
+    </transition>
+    <transition id="transition1">
+      <property name="a_track">0</property>
+      <property name="b_track">2</property>
+      <property name="mlt_service">mix</property>
+      <property name="always_active">1</property>
+      <property name="sum">1</property>
+    </transition>
+    <transition id="transition2">
+      <property name="a_track">0</property>
+      <property name="b_track">3</property>
+      <property name="mlt_service">mix</property>
+      <property name="always_active">1</property>
+      <property name="sum">1</property>
+    </transition>
+    <transition id="transitionCairo0">
+      <property name="a_track">1</property>
+      <property name="b_track">1</property>
+      <property name="version">0.1</property>
+      <property name="mlt_service">frei0r.cairoblend</property>
+      <property name="threads">0</property>
+      <property name="disable">1</property>
+    </transition>
+    <transition id="transition3">
+      <property name="a_track">0</property>
+      <property name="b_track">4</property>
+      <property name="mlt_service">mix</property>
+      <property name="always_active">1</property>
+      <property name="sum">1</property>
+    </transition>
+    <transition id="transition4">
+      <property name="a_track">1</property>
+      <property name="b_track">4</property>
+      <property name="version">0.1</property>
+      <property name="mlt_service">frei0r.cairoblend</property>
+      <property name="threads">0</property>
+      <property name="disable">0</property>
+    </transition>
+    <transition id="transition5">
+      <property name="a_track">0</property>
+      <property name="b_track">5</property>
+      <property name="mlt_service">mix</property>
+      <property name="always_active">1</property>
+      <property name="sum">1</property>
+    </transition>
+    <transition id="transition6">
+      <property name="a_track">1</property>
+      <property name="b_track">5</property>
+      <property name="version">0.1</property>
+      <property name="mlt_service">frei0r.cairoblend</property>
+      <property name="threads">0</property>
+      <property name="disable">0</property>
+    </transition>
+    <transition id="transition7">
+      <property name="a_track">0</property>
+      <property name="b_track">6</property>
+      <property name="mlt_service">mix</property>
+      <property name="always_active">1</property>
+      <property name="sum">1</property>
+    </transition>
+    <transition id="transition8">
+      <property name="a_track">0</property>
+      <property name="b_track">7</property>
+      <property name="mlt_service">mix</property>
+      <property name="always_active">1</property>
+      <property name="sum">1</property>
+    </transition>
+    <transition id="transition9">
+      <property name="a_track">0</property>
+      <property name="b_track">8</property>
+      <property name="mlt_service">mix</property>
+      <property name="always_active">1</property>
+      <property name="sum">1</property>
+    </transition>
+    <transition id="transition10">
+      <property name="a_track">0</property>
+      <property name="b_track">9</property>
+      <property name="mlt_service">mix</property>
+      <property name="always_active">1</property>
+      <property name="sum">1</property>
+    </transition>
+    <transition id="transition11">
+      <property name="a_track">1</property>
+      <property name="b_track">9</property>
+      <property name="version">0.1</property>
+      <property name="mlt_service">frei0r.cairoblend</property>
+      <property name="threads">0</property>
+      <property name="disable">0</property>
+    </transition>
+    <transition id="transition12">
+      <property name="a_track">0</property>
+      <property name="b_track">10</property>
+      <property name="mlt_service">mix</property>
+      <property name="always_active">1</property>
+      <property name="sum">1</property>
+    </transition>
+    <transition id="transition13">
+      <property name="a_track">1</property>
+      <property name="b_track">10</property>
+      <property name="version">0.1</property>
+      <property name="mlt_service">frei0r.cairoblend</property>
+      <property name="threads">0</property>
+      <property name="disable">0</property>
+    </transition>
+  </tractor>
+</mlt>

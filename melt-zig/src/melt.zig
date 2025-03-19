@@ -1,7 +1,73 @@
 const std = @import("std");
 const c = @cImport({
     @cInclude("mlt-7/framework/mlt.h");
+    @cInclude("SDL2/SDL.h");
+    @cInclude("signal.h");
 });
+
+// Global producer for signal handlers
+var g_melt: ?[*c]c.struct_mlt_producer_s = null;
+
+// Signal handler for stopping playback
+fn stopHandler(_: c_int) callconv(.C) void {
+    if (g_melt) |melt| {
+        const properties = c.MLT_PRODUCER_PROPERTIES(melt);
+        _ = c.mlt_properties_set_int(properties, "done", 1);
+    }
+}
+
+// Handler for fatal errors
+fn onFatalError(owner: [*c]c.struct_mlt_properties_s, consumer: [*c]c.struct_mlt_consumer_s, data: c.mlt_event_data) callconv(.C) void {
+    _ = owner;
+    _ = data;
+    const properties = c.MLT_CONSUMER_PROPERTIES(consumer);
+    _ = c.mlt_properties_set_int(properties, "done", 1);
+    _ = c.mlt_properties_set_int(properties, "melt_error", 1);
+}
+
+// Process SDL events
+fn processSDLEvents(producer: [*c]c.struct_mlt_producer_s, consumer: [*c]c.struct_mlt_consumer_s) void {
+    var event: c.SDL_Event = undefined;
+
+    while (c.SDL_PollEvent(&event) != 0) {
+        switch (event.type) {
+            c.SDL_QUIT => {
+                const properties = c.MLT_PRODUCER_PROPERTIES(producer);
+                _ = c.mlt_properties_set_int(properties, "done", 1);
+            },
+            c.SDL_KEYDOWN => {
+                if (event.key.keysym.sym < 0x80 and event.key.keysym.sym > 0) {
+                    var keyboard = [_:0]u8{@intCast(event.key.keysym.sym)};
+                    if ((event.key.keysym.mod & c.KMOD_SHIFT) != 0) {
+                        // Convert lowercase to uppercase if it's a letter
+                        if (keyboard[0] >= 'a' and keyboard[0] <= 'z') {
+                            keyboard[0] = keyboard[0] - 32; // 'a' to 'A' difference is 32
+                        }
+                    }
+                    // Transport action would be called here - for now we handle basic quit key
+                    if (keyboard[0] == 'q' or keyboard[0] == 'Q') {
+                        const properties = c.MLT_PRODUCER_PROPERTIES(producer);
+                        _ = c.mlt_properties_set_int(properties, "done", 1);
+                    }
+                }
+            },
+            c.SDL_WINDOWEVENT => {
+                const props = c.MLT_CONSUMER_PROPERTIES(consumer);
+                const service = c.mlt_properties_get(props, "mlt_service");
+
+                if (service != null and std.mem.eql(u8, std.mem.span(service), "sdl2")) {
+                    if (event.window.event == c.SDL_WINDOWEVENT_RESIZED or
+                        event.window.event == c.SDL_WINDOWEVENT_SIZE_CHANGED)
+                    {
+                        _ = c.mlt_properties_set_int(props, "window_width", event.window.data1);
+                        _ = c.mlt_properties_set_int(props, "window_height", event.window.data2);
+                    }
+                }
+            },
+            else => {},
+        }
+    }
+}
 
 pub fn main() !void {
     var arena = std.heap.ArenaAllocator.init(std.heap.page_allocator);
@@ -56,30 +122,13 @@ pub fn main() !void {
     defer c.mlt_profile_close(profile);
 
     // Create the default consumer
-    const consumer = c.mlt_factory_consumer(profile, "avformat", "file.mp4");
+    const consumer = c.mlt_factory_consumer(profile, "sdl2", null);
 
     if (consumer == null) {
         std.debug.print("Failed to create SDL2 consumer\n", .{});
         return;
     }
-    // Set consumer properties for video encoding
-    _ = c.mlt_properties_set(c.MLT_CONSUMER_PROPERTIES(consumer), "ab", "160k");
-    _ = c.mlt_properties_set(c.MLT_CONSUMER_PROPERTIES(consumer), "acodec", "aac");
-    _ = c.mlt_properties_set_int(c.MLT_CONSUMER_PROPERTIES(consumer), "channels", 2);
-    _ = c.mlt_properties_set_int(c.MLT_CONSUMER_PROPERTIES(consumer), "crf", 23);
-    _ = c.mlt_properties_set(c.MLT_CONSUMER_PROPERTIES(consumer), "deinterlacer", "onefield");
-    _ = c.mlt_properties_set(c.MLT_CONSUMER_PROPERTIES(consumer), "f", "mp4");
-    _ = c.mlt_properties_set_int(c.MLT_CONSUMER_PROPERTIES(consumer), "g", 15);
-    _ = c.mlt_properties_set_int(c.MLT_CONSUMER_PROPERTIES(consumer), "in", 0);
-    _ = c.mlt_properties_set(c.MLT_CONSUMER_PROPERTIES(consumer), "out", "00:00:10.000");
-    _ = c.mlt_properties_set(c.MLT_CONSUMER_PROPERTIES(consumer), "mlt_service", "avformat");
-    _ = c.mlt_properties_set(c.MLT_CONSUMER_PROPERTIES(consumer), "movflags", "+faststart");
-    _ = c.mlt_properties_set(c.MLT_CONSUMER_PROPERTIES(consumer), "preset", "veryfast");
-    _ = c.mlt_properties_set_int(c.MLT_CONSUMER_PROPERTIES(consumer), "real_time", -1);
-    _ = c.mlt_properties_set(c.MLT_CONSUMER_PROPERTIES(consumer), "rescale", "bilinear");
-    _ = c.mlt_properties_set(c.MLT_CONSUMER_PROPERTIES(consumer), "target", "examples/tts.mp4");
-    _ = c.mlt_properties_set_int(c.MLT_CONSUMER_PROPERTIES(consumer), "threads", 0);
-    _ = c.mlt_properties_set(c.MLT_CONSUMER_PROPERTIES(consumer), "vcodec", "libx264");
+    defer c.mlt_consumer_close(consumer);
 
     // Check if a file was provided
     if (args.len < 2) {
@@ -96,13 +145,26 @@ pub fn main() !void {
     }
     defer c.mlt_producer_close(producer);
 
-    // Set transport properties
-    // const is_progress = 1; // Enable progress reporting
-    // _ = c.mlt_properties_set_data(c.MLT_CONSUMER_PROPERTIES(consumer), "transport_producer", producer, 0, null, null);
-    // _ = c.mlt_properties_set_data(c.MLT_PRODUCER_PROPERTIES(producer), "transport_consumer", consumer, 0, null, null);
-    // _ = c.mlt_properties_set_int(c.MLT_CONSUMER_PROPERTIES(consumer), "progress", is_progress);
+    // Set global melt for signal handlers
+    g_melt = producer;
 
-    defer c.mlt_consumer_close(consumer);
+    // Set transport properties
+    const properties = c.MLT_CONSUMER_PROPERTIES(consumer);
+    _ = c.mlt_properties_set_data(properties, "transport_producer", producer, 0, null, null);
+    _ = c.mlt_properties_set_data(c.MLT_PRODUCER_PROPERTIES(producer), "transport_consumer", consumer, 0, null, null);
+
+    // Set up error handling
+    _ = c.mlt_events_listen(properties, consumer, "consumer-fatal-error", @ptrCast(&onFatalError));
+
+    // Set up signal handlers
+    _ = c.signal(c.SIGINT, stopHandler);
+    _ = c.signal(c.SIGTERM, stopHandler);
+
+    // Also handle SIGHUP and SIGPIPE on non-Windows platforms
+    if (@import("builtin").os.tag != .windows) {
+        _ = c.signal(c.SIGHUP, stopHandler);
+        _ = c.signal(c.SIGPIPE, stopHandler);
+    }
 
     // Connect the producer to the consumer
     if (c.mlt_consumer_connect(consumer, c.mlt_producer_service(producer)) != 0) {
@@ -115,21 +177,23 @@ pub fn main() !void {
         std.debug.print("Failed to start consumer\n", .{});
         return;
     }
-    // Set up signal handlers for graceful termination
 
-    std.debug.print("Press Ctrl+C to exit...\n", .{});
+    std.debug.print("Press Ctrl+C to exit or 'q' key to quit\n", .{});
 
-    // Wait for the consumer to terminate
-    var count: usize = 0;
-    while (c.mlt_consumer_is_stopped(consumer) == 0) {
-        if (count % 10 == 0) {
-            std.debug.print("Waiting for consumer to terminate... (Press Ctrl+C to exit)\n", .{});
-        }
-        count += 1;
-        std.time.sleep(std.time.ns_per_s);
+    // Main loop
+    while (c.mlt_properties_get_int(c.MLT_PRODUCER_PROPERTIES(producer), "done") == 0 and
+        c.mlt_consumer_is_stopped(consumer) == 0)
+    {
+
+        // Process SDL events
+        processSDLEvents(producer, consumer);
+
+        // Sleep to avoid hogging CPU
+        std.time.sleep(40 * std.time.ns_per_ms);
     }
 
     // End of program - cleanup is handled by defer statements
+    std.debug.print("Playback finished\n", .{});
 }
 
 fn displayHelp() !void {
