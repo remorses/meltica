@@ -48,6 +48,41 @@ fn processSDLEvents(producer: [*c]c.struct_mlt_producer_s, consumer: [*c]c.struc
                     if (keyboard[0] == 'q' or keyboard[0] == 'Q') {
                         const properties = c.MLT_PRODUCER_PROPERTIES(producer);
                         _ = c.mlt_properties_set_int(properties, "done", 1);
+                    } else if (keyboard[0] == 'H') {
+                        // Go back 1 minute (similar to melt.c functionality)
+                        const fps = c.mlt_producer_get_fps(producer);
+                        var position = c.mlt_producer_position(producer);
+                        position -= @intFromFloat(fps * 60); // 60 seconds = 1 minute
+                        if (position < 0) position = 0;
+
+                        // Get the consumer for purging
+                        const props = c.MLT_PRODUCER_PROPERTIES(producer);
+                        const cons = c.mlt_properties_get_data(props, "transport_consumer", null);
+                        if (cons != null) {
+                            _ = c.mlt_consumer_purge(@ptrCast(@alignCast(cons)));
+                        }
+
+                        // Seek to the new position
+                        _ = c.mlt_producer_seek(producer, position);
+
+                        // Optionally fire jack seek event if implemented
+                    } else if (keyboard[0] == 'L') {
+                        // Go forward 1 minute (similar to melt.c functionality)
+                        const fps = c.mlt_producer_get_fps(producer);
+                        var position = c.mlt_producer_position(producer);
+                        position += @intFromFloat(fps * 60); // 60 seconds = 1 minute
+
+                        // Get the consumer for purging
+                        const props = c.MLT_PRODUCER_PROPERTIES(producer);
+                        const cons = c.mlt_properties_get_data(props, "transport_consumer", null);
+                        if (cons != null) {
+                            _ = c.mlt_consumer_purge(@ptrCast(@alignCast(cons)));
+                        }
+
+                        // Seek to the new position
+                        _ = c.mlt_producer_seek(producer, position);
+
+                        // Optionally fire jack seek event if implemented
                     }
                 }
             },
@@ -179,6 +214,7 @@ pub fn main() !void {
     }
 
     std.debug.print("Press Ctrl+C to exit or 'q' key to quit\n", .{});
+    std.debug.print("Press H to go back 1 minute, L to go forward 1 minute\n", .{});
 
     // Main loop
     while (c.mlt_properties_get_int(c.MLT_PRODUCER_PROPERTIES(producer), "done") == 0 and

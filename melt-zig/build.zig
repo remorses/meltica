@@ -34,6 +34,8 @@ pub fn build(b: *std.Build) void {
     const run_step = b.step("run", "Run the application");
     run_step.dependOn(&run_cmd.step);
 
+    b.installArtifact(exe);
+
     // Create a simple test step that does nothing
     _ = b.step("test", "Tests are not applicable for C code");
 }
