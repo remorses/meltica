@@ -437,3 +437,166 @@ fn displayHelp() !void {
         c.mlt_factory_close();
     }
 }
+
+/// Write or stream audio and/or video using FFmpeg.
+/// The avformat consumer uses the FFmpeg libraries to encode to a file or
+/// network stream. You can get a lot of information about how to encode with
+/// FFmpeg all over the web including FFmpeg's web site.
+const AvformatConsumerProps = struct {
+    /// File/URL target. If not supplied then it will output to stdout.
+    target: ?[]const u8 = null,
+
+    /// MLT Profile - Choose a MLT basic video settings preset.
+    /// This overrides a profile that may have been set elsewhere.
+    mlt_profile: ?[]const u8 = null,
+
+    /// Width in pixels
+    width: ?i32 = null,
+
+    /// Height in pixels
+    height: ?i32 = null,
+
+    /// Display aspect ratio numerator
+    display_aspect_num: ?i32 = null,
+
+    /// Display aspect ratio denominator
+    display_aspect_den: ?i32 = null,
+
+    /// Sample aspect ratio numerator
+    sample_aspect_num: ?i32 = null,
+
+    /// Sample aspect ratio denominator
+    sample_aspect_den: ?i32 = null,
+
+    /// Progressive (0 or 1)
+    progressive: ?i32 = null,
+
+    /// Colorspace - Set the video colorspace (Y'CbCr only).
+    /// Values: 240 (SMPTE 240M), 601 (ITU-R BT.601), 709 (ITU-R BT.709)
+    colorspace: ?i32 = null,
+
+    /// Frame rate numerator (frames/second)
+    frame_rate_num: ?i32 = null,
+
+    /// Frame rate denominator (frames/second)
+    frame_rate_den: ?i32 = null,
+
+    /// Audio sample rate (Hz, 0-256000, default 48000)
+    frequency: ?i32 = null,
+
+    /// Audio channels (1-16, default 2)
+    channels: ?i32 = null,
+
+    /// Audio codec (e.g. 'aac', 'mp2', 'mp3', etc.)
+    acodec: ?[]const u8 = null,
+
+    /// Video codec (e.g. 'libx264', 'libx265', 'mpeg2video', etc.)
+    vcodec: ?[]const u8 = null,
+
+    /// Output format (e.g. 'flv', 'mp4', 'mpeg', etc.)
+    f: ?[]const u8 = null,
+
+    /// Video bitrate (e.g. '1984k' for 1984 kbps)
+    vb: ?[]const u8 = null,
+
+    /// Audio bitrate (e.g. '128k' for 128 kbps)
+    ab: ?[]const u8 = null,
+
+    /// Deinterlace (0 or 1)
+    deinterlace: ?i32 = null,
+
+    /// Encoding threads (0-16, default 1). More threads can speed up encoding but use more CPU.
+    threads: ?i32 = null,
+
+    /// Drop frames - Set processing threads and enable frame-dropping (positive)
+    /// or disable frame-dropping (negative). Default -1
+    real_time: ?i32 = null,
+
+    /// Pre-roll - Number of frames to buffer before starting output (min 1, default 1)
+    /// Set to 0 for live streaming to reduce latency
+    prefill: ?i32 = null,
+
+    /// Buffer - Maximum number of frames to buffer ahead of output position
+    /// (min 1, default 25). Set to 0 for live streaming to reduce latency
+    buffer: ?i32 = null,
+
+    // Additional FFmpeg options that can be passed through:
+
+    /// Constant Rate Factor for x264/x265 (0-51, lower is better quality)
+    /// For streaming, typically 18-28 provides good quality/size balance
+    crf: ?[]const u8 = null,
+
+    /// Video codec preset (ultrafast,superfast,veryfast,faster,fast,medium,slow,slower,veryslow)
+    /// Faster presets use less CPU but produce larger files for same quality
+    preset: ?[]const u8 = null,
+
+    /// Video codec tune (film,animation,grain,stillimage,fastdecode,zerolatency)
+    /// Optimize encoding for specific types of content
+    tune: ?[]const u8 = null,
+
+    /// Video codec profile (baseline,main,high,high10,high422,high444)
+    /// Higher profiles enable more features but may reduce compatibility
+    profile: ?[]const u8 = null,
+
+    /// GOP size (distance between keyframes)
+    /// Lower values (e.g. 60) provide better seeking and live streaming
+    g: ?[]const u8 = null,
+
+    /// Minimum keyframe interval
+    /// For streaming, often set equal to 1 to ensure frequent keyframes
+    keyint_min: ?[]const u8 = null,
+
+    /// Maximum B frames between reference frames
+    /// More B frames = better compression but more latency
+    bf: ?[]const u8 = null,
+
+    /// Maximum bitrate allowed
+    /// Important for streaming to ensure bandwidth limits
+    maxrate: ?[]const u8 = null,
+
+    /// Minimum bitrate to maintain
+    /// Useful for ensuring consistent quality
+    minrate: ?[]const u8 = null,
+
+    /// Buffer size for rate control
+    /// Set to 0 for live streaming to reduce latency
+    bufsize: ?[]const u8 = null,
+
+    /// Initial demuxer-decoder delay in seconds
+    /// Set to 0 for live streaming to reduce latency
+    muxdelay: ?[]const u8 = null,
+
+    /// Initial demuxer-decoder preload in seconds
+    /// Set to 0 for live streaming to reduce latency
+    muxpreload: ?[]const u8 = null,
+};
+
+fn createAvformatConsumer(profile: *c.mlt_profile, props: AvformatConsumerProps) !*c.mlt_consumer {
+    // Create the consumer
+    const consumer = c.mlt_factory_consumer(profile, "avformat", if (props.target) |t| t.ptr else null);
+    if (consumer == null) {
+        return error.ConsumerCreationFailed;
+    }
+
+    // Get the properties
+    const properties = c.MLT_CONSUMER_PROPERTIES(consumer);
+
+    // Use comptime to handle different property types
+    inline for (std.meta.fields(AvformatConsumerProps)) |field| {
+        if (@field(props, field.name)) |value| {
+            switch (field.type) {
+                ?i32 => {
+                    _ = c.mlt_properties_set_int(properties, field.name, value);
+                },
+                ?[]const u8 => {
+                    _ = c.mlt_properties_set(properties, field.name, value.ptr);
+                },
+                else => {
+                    @compileError("Unsupported property type: " ++ @typeName(field.type));
+                },
+            }
+        }
+    }
+
+    return consumer;
+}
