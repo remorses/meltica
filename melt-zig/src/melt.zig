@@ -5,8 +5,12 @@ const c = @cImport({
     @cInclude("signal.h");
 });
 
-// Global producer for signal handlers
+// Global variables for reloading
 var g_melt: ?[*c]c.struct_mlt_producer_s = null;
+var g_consumer: ?[*c]c.struct_mlt_consumer_s = null;
+var g_current_file: ?[:0]const u8 = null;
+var g_profile: ?[*c]c.struct_mlt_profile_s = null;
+var g_should_reload: bool = false;
 
 // Signal handler for stopping playback
 fn stopHandler(_: c_int) callconv(.C) void {
@@ -83,6 +87,10 @@ fn processSDLEvents(producer: [*c]c.struct_mlt_producer_s, consumer: [*c]c.struc
                         _ = c.mlt_producer_seek(producer, position);
 
                         // Optionally fire jack seek event if implemented
+                    } else if (keyboard[0] == 'r' or keyboard[0] == 'R') {
+                        // Mark for reload on next loop iteration
+                        g_should_reload = true;
+                        std.debug.print("Reloading MLT file...\n", .{});
                     }
                 }
             },
@@ -102,6 +110,96 @@ fn processSDLEvents(producer: [*c]c.struct_mlt_producer_s, consumer: [*c]c.struc
             else => {},
         }
     }
+}
+
+// Function to start the producer with the given file
+fn start(file_path: [:0]const u8, profile: *c.struct_mlt_profile_s, consumer: [*c]c.struct_mlt_consumer_s) ![*c]c.struct_mlt_producer_s {
+    // Save the file path for reloading
+    g_current_file = file_path;
+
+    // Try creating a producer for the file
+    var producer = c.mlt_factory_producer(profile, "xml", file_path.ptr);
+    if (producer == null) {
+        std.debug.print("XML producer failed, trying color producer as fallback...\n", .{});
+
+        // Try with color producer as fallback
+        producer = c.mlt_factory_producer(profile, "color", null);
+        if (producer == null) {
+            std.debug.print("Failed to create color producer\n", .{});
+            return error.ProducerCreationFailed;
+        }
+
+        // Set color properties
+        const props = c.MLT_PRODUCER_PROPERTIES(producer);
+        _ = c.mlt_properties_set(props, "color", "blue");
+        _ = c.mlt_properties_set_int(props, "length", 1800); // 60 seconds * 30 fps
+        _ = c.mlt_properties_set_int(props, "out", 1799); // out = length - 1
+    }
+
+    // Set global melt for signal handlers
+    g_melt = producer;
+
+    // Set transport properties
+    const properties = c.MLT_CONSUMER_PROPERTIES(consumer);
+    _ = c.mlt_properties_set_data(properties, "transport_producer", producer, 0, null, null);
+    _ = c.mlt_properties_set_data(c.MLT_PRODUCER_PROPERTIES(producer), "transport_consumer", consumer, 0, null, null);
+
+    // Set up error handling (only needed the first time)
+    if (g_consumer == null) {
+        _ = c.mlt_events_listen(properties, consumer, "consumer-fatal-error", @ptrCast(&onFatalError));
+
+        // Set up signal handlers (only needed the first time)
+        _ = c.signal(c.SIGINT, stopHandler);
+        _ = c.signal(c.SIGTERM, stopHandler);
+
+        // Also handle SIGHUP and SIGPIPE on non-Windows platforms
+        if (@import("builtin").os.tag != .windows) {
+            _ = c.signal(c.SIGHUP, stopHandler);
+            _ = c.signal(c.SIGPIPE, stopHandler);
+        }
+
+        g_consumer = consumer;
+    }
+
+    // Connect the producer to the consumer
+    if (c.mlt_consumer_connect(consumer, c.mlt_producer_service(producer)) != 0) {
+        std.debug.print("Failed to connect consumer to producer\n", .{});
+        return error.ConsumerConnectionFailed;
+    }
+
+    // Start the consumer if it's not already running
+    if (c.mlt_consumer_is_stopped(consumer) != 0) {
+        std.debug.print("Starting consumer...\n", .{});
+        if (c.mlt_consumer_start(consumer) != 0) {
+            std.debug.print("Failed to start consumer\n", .{});
+            return error.ConsumerStartFailed;
+        }
+    } else {
+        std.debug.print("Consumer already running\n", .{});
+    }
+
+    std.debug.print("Press Ctrl+C to exit, 'q' to quit, 'r' to reload\n", .{});
+    std.debug.print("Press H to go back 1 minute, L to go forward 1 minute\n", .{});
+
+    return producer;
+}
+
+// Function to reload the current file
+fn reload() !void {
+    if (g_current_file == null or g_profile == null or g_consumer == null) {
+        return error.NoActiveSession;
+    }
+
+    // Close the old producer
+    if (g_melt) |old_producer| {
+        // Disconnect the consumer before closing the producer
+        _ = c.mlt_consumer_connect(g_consumer.?, null);
+        c.mlt_producer_close(old_producer);
+    }
+
+    // Start a new producer with the same file
+    const new_producer = try start(g_current_file.?, g_profile.?, g_consumer.?);
+    g_melt = new_producer;
 }
 
 pub fn main() !void {
@@ -155,15 +253,22 @@ pub fn main() !void {
         return;
     }
     defer c.mlt_profile_close(profile);
+    g_profile = profile;
 
     // Create the default consumer
     const consumer = c.mlt_factory_consumer(profile, "sdl2", null);
-
     if (consumer == null) {
         std.debug.print("Failed to create SDL2 consumer\n", .{});
         return;
     }
     defer c.mlt_consumer_close(consumer);
+
+    // Configure the consumer
+    const consumer_props = c.MLT_CONSUMER_PROPERTIES(consumer);
+    _ = c.mlt_properties_set(consumer_props, "rescale", "bilinear"); // Set rescaling method
+    _ = c.mlt_properties_set_int(consumer_props, "terminate_on_pause", 0); // Don't terminate when paused
+    _ = c.mlt_properties_set_int(consumer_props, "real_time", 1); // Use real-time processing
+    _ = c.mlt_properties_set_int(consumer_props, "buffer", 25); // Buffer frames
 
     // Check if a file was provided
     if (args.len < 2) {
@@ -172,57 +277,46 @@ pub fn main() !void {
         return;
     }
 
-    // Create via the default producer
-    const producer = c.mlt_factory_producer(profile, "xml", args[1].ptr);
-    if (producer == null) {
-        std.debug.print("Failed to create producer for file: {s}\n", .{args[1]});
-        return;
-    }
+    // Start the producer
+    const producer = try start(args[1], profile, consumer);
     defer c.mlt_producer_close(producer);
 
-    // Set global melt for signal handlers
-    g_melt = producer;
-
-    // Set transport properties
-    const properties = c.MLT_CONSUMER_PROPERTIES(consumer);
-    _ = c.mlt_properties_set_data(properties, "transport_producer", producer, 0, null, null);
-    _ = c.mlt_properties_set_data(c.MLT_PRODUCER_PROPERTIES(producer), "transport_consumer", consumer, 0, null, null);
-
-    // Set up error handling
-    _ = c.mlt_events_listen(properties, consumer, "consumer-fatal-error", @ptrCast(&onFatalError));
-
-    // Set up signal handlers
-    _ = c.signal(c.SIGINT, stopHandler);
-    _ = c.signal(c.SIGTERM, stopHandler);
-
-    // Also handle SIGHUP and SIGPIPE on non-Windows platforms
-    if (@import("builtin").os.tag != .windows) {
-        _ = c.signal(c.SIGHUP, stopHandler);
-        _ = c.signal(c.SIGPIPE, stopHandler);
-    }
-
-    // Connect the producer to the consumer
-    if (c.mlt_consumer_connect(consumer, c.mlt_producer_service(producer)) != 0) {
-        std.debug.print("Failed to connect consumer to producer\n", .{});
-        return;
-    }
-
-    // Start the consumer
-    if (c.mlt_consumer_start(consumer) != 0) {
-        std.debug.print("Failed to start consumer\n", .{});
-        return;
-    }
-
-    std.debug.print("Press Ctrl+C to exit or 'q' key to quit\n", .{});
-    std.debug.print("Press H to go back 1 minute, L to go forward 1 minute\n", .{});
-
     // Main loop
-    while (c.mlt_properties_get_int(c.MLT_PRODUCER_PROPERTIES(producer), "done") == 0 and
-        c.mlt_consumer_is_stopped(consumer) == 0)
-    {
+    while (true) {
+        // If we have a valid producer
+        if (g_melt == null) {
+            std.debug.print("No active producer, exiting main loop\n", .{});
+            break;
+        }
+
+        const current_producer = g_melt.?;
+        const producer_props = c.MLT_PRODUCER_PROPERTIES(current_producer);
+
+        // Check if done or consumer stopped
+        if (c.mlt_properties_get_int(producer_props, "done") != 0) {
+            std.debug.print("Producer marked as done\n", .{});
+            break;
+        }
+
+        if (g_consumer != null and c.mlt_consumer_is_stopped(g_consumer.?) != 0) {
+            std.debug.print("Consumer has stopped\n", .{});
+            break;
+        }
+
+        // Check if we need to reload
+        if (g_should_reload) {
+            g_should_reload = false;
+            std.debug.print("Attempting to reload...\n", .{});
+            reload() catch |err| {
+                std.debug.print("Failed to reload MLT file: {any}\n", .{err});
+            };
+            // Continue running with either the reloaded or existing producer
+        }
 
         // Process SDL events
-        processSDLEvents(producer, consumer);
+        if (g_melt != null and g_consumer != null) {
+            processSDLEvents(g_melt.?, g_consumer.?);
+        }
 
         // Sleep to avoid hogging CPU
         std.time.sleep(40 * std.time.ns_per_ms);
