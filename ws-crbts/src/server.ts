@@ -7,7 +7,7 @@ import express from 'express'
 
 // Configuration
 const HTTP_PORT = 8080
-const VIDEO_MLT_PATH = process.argv[2] || 'video.mp4'
+const VIDEO_MLT_PATH = process.argv[2] || 'video.mlt'
 
 // Check if the MLT file exists
 if (!fs.existsSync(VIDEO_MLT_PATH)) {
@@ -27,27 +27,38 @@ app.use(vite.middlewares)
 
 let meltProcess: ChildProcessWithoutNullStreams
 
-app.all('/pause', (req, res) => {
+app.all('/back-minute', (req, res) => {
     if (!meltProcess) {
         console.log('No melt process found')
         res.sendStatus(404)
         return
     }
-    if (meltProcess.stdin) {
-        meltProcess.stdin.write('H', 'ascii')
-        meltProcess.stdin.uncork()
-        meltProcess.stdin.write(' ', 'ascii')
-        meltProcess.stdin.uncork()
-        res.sendStatus(200)
-    } else {
+
+    meltProcess.stdin.write('H', 'ascii')
+    // meltProcess.stdin.uncork()
+    meltProcess.stdin.write(' ', 'ascii')
+    meltProcess.stdin.uncork()
+    res.sendStatus(200)
+})
+app.all('/next-minute', (req, res) => {
+    if (!meltProcess) {
         console.log('No melt process found')
-        res.sendStatus(500)
+        res.sendStatus(404)
+        return
     }
+
+    meltProcess.stdin.write('L', 'ascii')
+    // meltProcess.stdin.uncork()
+    meltProcess.stdin.write(' ', 'ascii')
+    meltProcess.stdin.uncork()
+    res.sendStatus(200)
 })
 
 app.get('/stream', (req, res) => {
     // Set appropriate headers for MPEG-TS stream
-    const command = `bash -t -c 'melt ${VIDEO_MLT_PATH} -consumer avformat  muxpreload=0.001 buffer=1 vcodec=libx264 preset=veryfast muxdelay=0.001 vb=1984k maxrate=1984k bufsize=1 threads=1 g=3 keyint_min=1 prefill=0 acodec=aac ab=128k f=flv'`
+    // stdbuf flags: -i0: disable stdin buffering, -o0: disable stdout buffering, -e0: disable stderr buffering
+    // TODO there is still some buffering somewhere, try stdbuf -i0 -o0 -e0, does not work still
+    const command = ` melt ${VIDEO_MLT_PATH} -consumer avformat  muxpreload=0 buffer=0 vcodec=libx264 preset=veryfast muxdelay=0 vb=1984k maxrate=1984k bufsize=0 threads=1 g=60 keyint_min=1 prefill=0 acodec=aac ab=128k f=flv`
     console.log(command)
     // Spawn melt process with the MLT file
     meltProcess = spawn(command, {
@@ -55,7 +66,6 @@ app.get('/stream', (req, res) => {
         stdio: ['pipe', 'pipe', 'pipe'],
         env: {
             ...process.env,
-            FORCE_TTY: '1', // Forces isatty() to return true
         },
     })
 
