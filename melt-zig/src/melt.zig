@@ -6,7 +6,7 @@ const c = @cImport({
 });
 
 // Global variables for reloading
-var g_melt: ?[*c]c.struct_mlt_producer_s = null;
+var g_producer: ?[*c]c.struct_mlt_producer_s = null;
 var g_consumer: ?[*c]c.struct_mlt_consumer_s = null;
 var g_current_file: ?[:0]const u8 = null;
 var g_profile: ?[*c]c.struct_mlt_profile_s = null;
@@ -14,7 +14,7 @@ var g_should_reload: bool = false;
 
 // Signal handler for stopping playback
 fn stopHandler(_: c_int) callconv(.C) void {
-    if (g_melt) |melt| {
+    if (g_producer) |melt| {
         const properties = c.MLT_PRODUCER_PROPERTIES(melt);
         _ = c.mlt_properties_set_int(properties, "done", 1);
     }
@@ -118,26 +118,10 @@ fn start(file_path: [:0]const u8, profile: *c.struct_mlt_profile_s, consumer: [*
     g_current_file = file_path;
 
     // Try creating a producer for the file
-    var producer = c.mlt_factory_producer(profile, "xml", file_path.ptr);
-    if (producer == null) {
-        std.debug.print("XML producer failed, trying color producer as fallback...\n", .{});
-
-        // Try with color producer as fallback
-        producer = c.mlt_factory_producer(profile, "color", null);
-        if (producer == null) {
-            std.debug.print("Failed to create color producer\n", .{});
-            return error.ProducerCreationFailed;
-        }
-
-        // Set color properties
-        const props = c.MLT_PRODUCER_PROPERTIES(producer);
-        _ = c.mlt_properties_set(props, "color", "blue");
-        _ = c.mlt_properties_set_int(props, "length", 1800); // 60 seconds * 30 fps
-        _ = c.mlt_properties_set_int(props, "out", 1799); // out = length - 1
-    }
+    const producer = c.mlt_factory_producer(profile, "xml", file_path.ptr);
 
     // Set global melt for signal handlers
-    g_melt = producer;
+    g_producer = producer;
 
     // Set transport properties
     const properties = c.MLT_CONSUMER_PROPERTIES(consumer);
@@ -189,7 +173,7 @@ fn reload() !void {
     }
 
     // Close the old producer
-    if (g_melt) |old_producer| {
+    if (g_producer) |old_producer| {
         // Disconnect the consumer before closing the producer
         _ = c.mlt_consumer_connect(g_consumer.?, null);
         c.mlt_producer_close(old_producer);
@@ -197,13 +181,14 @@ fn reload() !void {
 
     // Start a new producer with the same file
     const new_producer = try start(g_current_file.?, g_profile.?, g_consumer.?);
-    g_melt = new_producer;
+    g_producer = new_producer;
 }
 
 pub fn main() !void {
     var arena = std.heap.ArenaAllocator.init(std.heap.page_allocator);
     defer arena.deinit();
 
+    c.mlt_log_set_level(c.MLT_LOG_DEBUG);
     const allocator = arena.allocator();
     c.mlt_log_set_level(c.MLT_LOG_VERBOSE);
     // Get command line arguments
@@ -282,12 +267,12 @@ pub fn main() !void {
     // Main loop
     while (true) {
         // If we have a valid producer
-        if (g_melt == null) {
+        if (g_producer == null) {
             std.debug.print("No active producer, exiting main loop\n", .{});
             break;
         }
 
-        const current_producer = g_melt.?;
+        const current_producer = g_producer.?;
         const producer_props = c.MLT_PRODUCER_PROPERTIES(current_producer);
 
         // Check if done or consumer stopped
@@ -312,8 +297,8 @@ pub fn main() !void {
         }
 
         // Process SDL events
-        if (g_melt != null and g_consumer != null) {
-            processSDLEvents(g_melt.?, g_consumer.?);
+        if (g_producer != null and g_consumer != null) {
+            processSDLEvents(g_producer.?, g_consumer.?);
         }
 
         // Sleep to avoid hogging CPU
