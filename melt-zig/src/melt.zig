@@ -1,4 +1,5 @@
 const std = @import("std");
+const clap = @import("clap");
 
 const c = @cImport({
     @cInclude("mlt-7/framework/mlt.h");
@@ -13,6 +14,7 @@ var g_current_file: ?[:0]const u8 = null;
 var g_profile: ?[*c]c.struct_mlt_profile_s = null;
 var g_should_reload: bool = false;
 var g_last_modified_time: i128 = 0; // Track the last modified time
+var g_watch_enabled: bool = false; // Flag to control file watching
 
 // Signal handler for stopping playback
 fn stopHandler(_: c_int) callconv(.C) void {
@@ -190,12 +192,56 @@ pub fn main() !void {
     var arena = std.heap.ArenaAllocator.init(std.heap.page_allocator);
     defer arena.deinit();
 
+    // Initialize MLT logging
     c.mlt_log_set_level(c.MLT_LOG_DEBUG);
     const allocator = arena.allocator();
     c.mlt_log_set_level(c.MLT_LOG_VERBOSE);
-    // Get command line arguments
-    const args = try std.process.argsAlloc(allocator);
-    defer std.process.argsFree(allocator, args);
+
+    // Define command line parameters with clap
+    const params = comptime clap.parseParamsComptime(
+        \\-h, --help            Display help and exit.
+        \\-w, --watch           Watch the input file and reload on changes.
+        \\<str>                 Input file path.
+        \\
+    );
+
+    // Initialize diagnostics for error reporting
+    var diag = clap.Diagnostic{};
+    var parsed_args = clap.parse(clap.Help, &params, clap.parsers.default, .{
+        .diagnostic = &diag,
+        .allocator = allocator,
+    }) catch |err| {
+        // Report useful error and exit
+        diag.report(std.io.getStdErr().writer(), err) catch {};
+        return err;
+    };
+    defer parsed_args.deinit();
+
+    // Check if help was requested
+    if (parsed_args.args.help != 0) {
+        try displayHelp();
+        return;
+    }
+
+    // Set watch mode based on flag
+    g_watch_enabled = parsed_args.args.watch != 0;
+
+    // Check if a file was provided
+    if (parsed_args.positionals.len < 1) {
+        std.debug.print("Error: Input file is required\n", .{});
+        try displayHelp();
+        return;
+    }
+
+    // Get the file path and ensure it's null-terminated
+    const input_file = parsed_args.positionals[0] orelse {
+        std.debug.print("Error: Invalid file path\n", .{});
+        return;
+    };
+
+    // Duplicate the string with null termination
+    const input_file_path = try allocator.dupeZ(u8, input_file);
+    defer allocator.free(input_file_path);
 
     // Initialize the factory
     if (c.mlt_factory_init(null) == null) {
@@ -255,16 +301,13 @@ pub fn main() !void {
     _ = c.mlt_properties_set_int(consumer_props, "real_time", 1); // Use real-time processing
     _ = c.mlt_properties_set_int(consumer_props, "buffer", 25); // Buffer frames
 
-    // Check if a file was provided
-    if (args.len < 2) {
-        std.debug.print("Usage: {s} <video_file>\n", .{args[0]});
-        // try displayHelp();
-        return;
-    }
-
-    // Start the producer
-    const producer = try start(args[1], profile, consumer);
+    // Start the producer with the input file
+    const producer = try start(input_file_path, profile, consumer);
     defer c.mlt_producer_close(producer);
+
+    if (g_watch_enabled) {
+        std.debug.print("Watch mode enabled: File will automatically reload when modified\n", .{});
+    }
 
     // Main loop
     while (true) {
@@ -288,22 +331,24 @@ pub fn main() !void {
             break;
         }
 
-        // Check if the file was modified
-        if (g_current_file) |file_path| {
-            // Get the file's current modification time
-            if (std.fs.cwd().statFile(file_path)) |stat| {
-                const current_mtime = stat.mtime;
+        // Check if the file was modified (only if watch mode is enabled)
+        if (g_watch_enabled and g_current_file != null) {
+            if (g_current_file) |file_path| {
+                // Get the file's current modification time
+                if (std.fs.cwd().statFile(file_path)) |stat| {
+                    const current_mtime = stat.mtime;
 
-                // If this is the first check or the file has been modified
-                if (current_mtime > g_last_modified_time) {
-                    if (g_last_modified_time > 0) { // Skip the first time (initialization)
-                        std.debug.print("File modification detected, triggering reload...\n", .{});
-                        g_should_reload = true;
+                    // If this is the first check or the file has been modified
+                    if (current_mtime > g_last_modified_time) {
+                        if (g_last_modified_time > 0) { // Skip the first time (initialization)
+                            std.debug.print("File modification detected, triggering reload...\n", .{});
+                            g_should_reload = true;
+                        }
+                        g_last_modified_time = current_mtime;
                     }
-                    g_last_modified_time = current_mtime;
+                } else |err| {
+                    std.debug.print("Failed to check file modification time: {any}\n", .{err});
                 }
-            } else |err| {
-                std.debug.print("Failed to check file modification time: {any}\n", .{err});
             }
         }
 
@@ -333,25 +378,62 @@ pub fn main() !void {
 fn displayHelp() !void {
     const stdout = std.io.getStdOut().writer();
 
-    try stdout.print("\nAvailable consumers:\n", .{});
-    const consumers = c.mlt_repository_consumers(c.mlt_factory_repository());
-    var i: usize = 0;
-    while (consumers[i] != null) : (i += 1) {
-        const name = consumers[i];
-        if (name != null) {
-            try stdout.print("  - {s}\n", .{name});
+    try stdout.print("Usage: melt [OPTIONS] <file>\n\n", .{});
+    try stdout.print("Options:\n", .{});
+    try stdout.print("  -h, --help            Display this help and exit\n", .{});
+    try stdout.print("  -w, --watch           Watch input file and reload on changes\n\n", .{});
+
+    try stdout.print("Keyboard controls during playback:\n", .{});
+    try stdout.print("  q/Q                   Quit playback\n", .{});
+    try stdout.print("  r/R                   Manually reload the file\n", .{});
+    try stdout.print("  H                     Go back 1 minute\n", .{});
+    try stdout.print("  L                     Go forward 1 minute\n", .{});
+    try stdout.print("  Ctrl+C                Exit program\n\n", .{});
+
+    // Initialize the factory if needed to get version info
+    var need_to_close_factory = false;
+    if (c.mlt_factory_repository() == null) {
+        if (c.mlt_factory_init(null) == null) {
+            try stdout.print("\nUnable to initialize MLT factory.\n", .{});
+            return;
         }
+        need_to_close_factory = true;
     }
 
-    try stdout.print("\nAvailable producers:\n", .{});
-    const producers = c.mlt_repository_producers(c.mlt_factory_repository());
-    i = 0;
-    while (producers[i] != null) : (i += 1) {
-        const name = producers[i];
-        if (name != null) {
-            try stdout.print("  - {s}\n", .{name});
-        }
-    }
-
+    // Get MLT version
     try stdout.print("\nMLT Framework version: {s}\n", .{c.mlt_version_get_string()});
+
+    // Only try to display producers and consumers if the factory is initialized
+    const repository = c.mlt_factory_repository();
+    if (repository != null) {
+        // Display available consumers and producers
+        try stdout.print("\nAvailable consumers:\n", .{});
+        const consumers = c.mlt_repository_consumers(repository);
+        if (consumers != null) {
+            var i: i32 = 0;
+            while (i < c.mlt_properties_count(consumers)) : (i += 1) {
+                const name = c.mlt_properties_get_name(consumers, i);
+                if (name != null) {
+                    try stdout.print("  - {s}\n", .{name});
+                }
+            }
+        }
+
+        try stdout.print("\nAvailable producers:\n", .{});
+        const producers = c.mlt_repository_producers(repository);
+        if (producers != null) {
+            var i: i32 = 0;
+            while (i < c.mlt_properties_count(producers)) : (i += 1) {
+                const name = c.mlt_properties_get_name(producers, i);
+                if (name != null) {
+                    try stdout.print("  - {s}\n", .{name});
+                }
+            }
+        }
+    }
+
+    // Close the factory if we initialized it
+    if (need_to_close_factory) {
+        c.mlt_factory_close();
+    }
 }

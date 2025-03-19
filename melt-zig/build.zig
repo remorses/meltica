@@ -10,6 +10,8 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    const clap = b.dependency("clap", .{});
+    exe.root_module.addImport("clap", clap.module("clap"));
 
     exe.addLibraryPath(.{ .cwd_relative = "/usr/local/lib" });
     exe.addIncludePath(.{ .cwd_relative = "/usr/local/include" });
