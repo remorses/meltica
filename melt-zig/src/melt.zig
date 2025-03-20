@@ -129,6 +129,9 @@ fn start(file_path: [:0]const u8, profile: *c.struct_mlt_profile_s, consumer: [*
 
     // Set transport properties
     const properties = c.MLT_CONSUMER_PROPERTIES(consumer);
+    // used to basically access consumer globally
+    _ = c.mlt_properties_set_data(properties, "transport_producer", producer, 0, null, null);
+    _ = c.mlt_properties_set_data(c.MLT_PRODUCER_PROPERTIES(producer), "transport_consumer", consumer, 0, null, null);
 
     // Set up error handling (only needed the first time)
     if (g_consumer == null) {
