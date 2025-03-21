@@ -16,294 +16,16 @@
   <playlist id="background">
     <entry producer="black" in="00:00:00.000" out="00:02:14.967"/>
   </playlist>
-  <producer id="assetimage-0" in="00:00:00.000" out="00:08:19.967">
-    <property name="length">15000</property>
-    <property name="eof">pause</property>
-    <property name="resource">94/page-000.jpg</property>
-    <property name="ttl">25</property>
-    <property name="aspect_ratio">1</property>
-    <property name="meta.media.progressive">1</property>
-    <property name="seekable">1</property>
-    <property name="format">1</property>
-    <property name="meta.media.width">720</property>
-    <property name="meta.media.height">4000</property>
-    <property name="mlt_service">qimage</property>
-    <property name="shotcut:skipConvert">1</property>
-    <property name="shotcut:caption">page-000.jpg</property>
-    <property name="shotcut:hash">bbd00a70e2ab10a64b28931d70275ab8</property>
-    <filter id="assetimage-0transformFilter">
-      <property name="rotate_center">0</property>
-      <property name="mlt_service">qtblend</property>
-      <property name="background">color:#00000000</property>
-      <property name="shotcut:filter">sizePosition</property>
-      <property name="compositing">0</property>
-      <property name="distort">0</property>
-      <property name="rect">00:00:00.000=-216 -600 1080 6000 1;00:00:05.533=-181.61788998265575 -1153.9339947238796 1080 6000 1</property>
-      <property name="rotation">00:00:00.000=0</property>
-      <property name="kdenlive:collapsed">0</property>
-    </filter>
-  </producer>
-  <producer id="assetimage-1" in="00:00:00.000" out="00:08:19.967">
-    <property name="length">15000</property>
-    <property name="eof">pause</property>
-    <property name="resource">94/page-001.jpg</property>
-    <property name="ttl">25</property>
-    <property name="aspect_ratio">1</property>
-    <property name="meta.media.progressive">1</property>
-    <property name="seekable">1</property>
-    <property name="format">1</property>
-    <property name="meta.media.width">720</property>
-    <property name="meta.media.height">3750</property>
-    <property name="mlt_service">qimage</property>
-    <property name="shotcut:skipConvert">1</property>
-    <property name="shotcut:caption">page-001.jpg</property>
-    <property name="shotcut:hash">8e76bd3e580bf5d0fa5acfc86903ea53</property>
-    <filter id="assetimage-1transformFilter">
-      <property name="rotate_center">0</property>
-      <property name="mlt_service">qtblend</property>
-      <property name="background">color:#00000000</property>
-      <property name="shotcut:filter">sizePosition</property>
-      <property name="compositing">0</property>
-      <property name="distort">0</property>
-      <property name="rect">00:00:00.000=-216 -562.5 1080 5625 1;00:00:04.923=-182.24137092724865 -1053.641166023709 1080 5625 1</property>
-      <property name="rotation">00:00:00.000=0</property>
-      <property name="kdenlive:collapsed">0</property>
-    </filter>
-  </producer>
-  <producer id="assetimage-2" in="00:00:00.000" out="00:08:19.967">
-    <property name="length">15000</property>
-    <property name="eof">pause</property>
-    <property name="resource">94/page-002.jpg</property>
-    <property name="ttl">1</property>
-    <property name="aspect_ratio">1</property>
-    <property name="meta.media.progressive">1</property>
-    <property name="seekable">1</property>
-    <property name="format">1</property>
-    <property name="meta.media.width">720</property>
-    <property name="meta.media.height">4000</property>
-    <property name="mlt_service">qimage</property>
-    <property name="shotcut:skipConvert">1</property>
-    <property name="shotcut:caption">page-002.jpg</property>
-    <property name="shotcut:hash">d4fbf559223fd15b2cce19ec74304e99</property>
-    <filter id="assetimage-2transformFilter">
-      <property name="rotate_center">0</property>
-      <property name="mlt_service">qtblend</property>
-      <property name="background">color:#00000000</property>
-      <property name="shotcut:filter">sizePosition</property>
-      <property name="compositing">0</property>
-      <property name="distort">0</property>
-      <property name="rect">00:00:00.000=-216 -600 1080 6000 1;00:00:04.967=-185.28531505117246 -1094.8477019533325 1080 6000 1</property>
-      <property name="rotation">00:00:00.000=0</property>
-      <property name="kdenlive:collapsed">0</property>
-    </filter>
-  </producer>
-  <producer id="assetimage-3" in="00:00:00.000" out="00:08:19.967">
-    <property name="length">15000</property>
-    <property name="eof">pause</property>
-    <property name="resource">94/page-003.jpg</property>
-    <property name="ttl">25</property>
-    <property name="aspect_ratio">1</property>
-    <property name="meta.media.progressive">1</property>
-    <property name="seekable">1</property>
-    <property name="format">1</property>
-    <property name="meta.media.width">720</property>
-    <property name="meta.media.height">4000</property>
-    <property name="mlt_service">qimage</property>
-    <property name="shotcut:skipConvert">1</property>
-    <property name="shotcut:caption">page-003.jpg</property>
-    <property name="shotcut:hash">068a2487b9b62f6f935662484aeb93d4</property>
-    <filter id="assetimage-3transformFilter">
-      <property name="rotate_center">0</property>
-      <property name="mlt_service">qtblend</property>
-      <property name="background">color:#00000000</property>
-      <property name="shotcut:filter">sizePosition</property>
-      <property name="compositing">0</property>
-      <property name="distort">0</property>
-      <property name="rect">00:00:00.000=-216 -600 1080 6000 1;00:00:05.833=-179.8213472970648 -1182.8782935472896 1080 6000 1</property>
-      <property name="rotation">00:00:00.000=0</property>
-      <property name="kdenlive:collapsed">0</property>
-    </filter>
-  </producer>
-  <producer id="assetimage-4" in="00:00:00.000" out="00:08:19.967">
-    <property name="length">15000</property>
-    <property name="eof">pause</property>
-    <property name="resource">94/page-004.jpg</property>
-    <property name="ttl">25</property>
-    <property name="aspect_ratio">1</property>
-    <property name="meta.media.progressive">1</property>
-    <property name="seekable">1</property>
-    <property name="format">1</property>
-    <property name="meta.media.width">720</property>
-    <property name="meta.media.height">4000</property>
-    <property name="mlt_service">qimage</property>
-    <property name="shotcut:skipConvert">1</property>
-    <property name="shotcut:caption">page-004.jpg</property>
-    <property name="shotcut:hash">dada85ece21d6c157cc4e3396de6a4df</property>
-    <filter id="assetimage-4transformFilter">
-      <property name="rotate_center">0</property>
-      <property name="mlt_service">qtblend</property>
-      <property name="background">color:#00000000</property>
-      <property name="shotcut:filter">sizePosition</property>
-      <property name="compositing">0</property>
-      <property name="distort">0</property>
-      <property name="rect">00:00:00.000=-216 -600 1080 6000 1;00:00:05.867=-179.60452317983828 -1186.3715709914945 1080 6000 1</property>
-      <property name="rotation">00:00:00.000=0</property>
-      <property name="kdenlive:collapsed">0</property>
-    </filter>
-  </producer>
-  <producer id="assetimage-5" in="00:00:00.000" out="00:08:19.967">
-    <property name="length">15000</property>
-    <property name="eof">pause</property>
-    <property name="resource">94/page-005.jpg</property>
-    <property name="ttl">25</property>
-    <property name="aspect_ratio">1</property>
-    <property name="meta.media.progressive">1</property>
-    <property name="seekable">1</property>
-    <property name="format">1</property>
-    <property name="meta.media.width">720</property>
-    <property name="meta.media.height">3559</property>
-    <property name="mlt_service">qimage</property>
-    <property name="shotcut:skipConvert">1</property>
-    <property name="shotcut:caption">page-005.jpg</property>
-    <property name="shotcut:hash">8e0c30ccd78eebccc3d2401a6702768b</property>
-    <filter id="assetimage-5transformFilter">
-      <property name="rotate_center">0</property>
-      <property name="mlt_service">qtblend</property>
-      <property name="background">color:#00000000</property>
-      <property name="shotcut:filter">sizePosition</property>
-      <property name="compositing">0</property>
-      <property name="distort">0</property>
-      <property name="rect">00:00:00.000=-216 -533.85 1080 5338.5 1;00:00:06.595=-166.7550947522687 -1191.5088700132783 1080 5338.5 1</property>
-      <property name="rotation">00:00:00.000=0</property>
-      <property name="kdenlive:collapsed">0</property>
-    </filter>
-  </producer>
-  <producer id="assetimage-6" in="00:00:00.000" out="00:08:19.967">
-    <property name="length">15000</property>
-    <property name="eof">pause</property>
-    <property name="resource">94/page-006.jpg</property>
-    <property name="ttl">25</property>
-    <property name="aspect_ratio">1</property>
-    <property name="meta.media.progressive">1</property>
-    <property name="seekable">1</property>
-    <property name="format">1</property>
-    <property name="meta.media.width">720</property>
-    <property name="meta.media.height">4000</property>
-    <property name="mlt_service">qimage</property>
-    <property name="shotcut:skipConvert">1</property>
-    <property name="shotcut:caption">page-006.jpg</property>
-    <property name="shotcut:hash">17d42fe99d74865d14be47ad36974f78</property>
-    <filter id="assetimage-6transformFilter">
-      <property name="rotate_center">0</property>
-      <property name="mlt_service">qtblend</property>
-      <property name="background">color:#00000000</property>
-      <property name="shotcut:filter">sizePosition</property>
-      <property name="compositing">0</property>
-      <property name="distort">0</property>
-      <property name="rect">00:00:00.000=-216 -600 1080 6000 1;00:00:04.807=-186.22075624263533 -1079.776704979764 1080 6000 1</property>
-      <property name="rotation">00:00:00.000=0</property>
-      <property name="kdenlive:collapsed">0</property>
-    </filter>
-  </producer>
-  <producer id="assetimage-7" in="00:00:00.000" out="00:08:19.967">
-    <property name="length">15000</property>
-    <property name="eof">pause</property>
-    <property name="resource">94/page-007.jpg</property>
-    <property name="ttl">25</property>
-    <property name="aspect_ratio">1</property>
-    <property name="meta.media.progressive">1</property>
-    <property name="seekable">1</property>
-    <property name="format">1</property>
-    <property name="meta.media.width">720</property>
-    <property name="meta.media.height">4000</property>
-    <property name="mlt_service">qimage</property>
-    <property name="shotcut:skipConvert">1</property>
-    <property name="shotcut:caption">page-007.jpg</property>
-    <property name="shotcut:hash">1ca410de02148f48234a4f365f9705bd</property>
-    <filter id="assetimage-7transformFilter">
-      <property name="rotate_center">0</property>
-      <property name="mlt_service">qtblend</property>
-      <property name="background">color:#00000000</property>
-      <property name="shotcut:filter">sizePosition</property>
-      <property name="compositing">0</property>
-      <property name="distort">0</property>
-      <property name="rect">00:00:00.000=-216 -600 1080 6000 1;00:00:06.270=-177.15750814256785 -1225.795702147518 1080 6000 1</property>
-      <property name="rotation">00:00:00.000=0</property>
-      <property name="kdenlive:collapsed">0</property>
-    </filter>
-  </producer>
-  <producer id="assetimage-8" in="00:00:00.000" out="00:08:19.967">
-    <property name="length">15000</property>
-    <property name="eof">pause</property>
-    <property name="resource">94/page-008.jpg</property>
-    <property name="ttl">25</property>
-    <property name="aspect_ratio">1</property>
-    <property name="meta.media.progressive">1</property>
-    <property name="seekable">1</property>
-    <property name="format">1</property>
-    <property name="meta.media.width">720</property>
-    <property name="meta.media.height">687</property>
-    <property name="mlt_service">qimage</property>
-    <property name="shotcut:skipConvert">1</property>
-    <property name="shotcut:caption">page-008.jpg</property>
-    <property name="shotcut:hash">c5753aa096566c8927da0bcd9c67b068</property>
-    <filter id="assetimage-8transformFilter">
-      <property name="rotate_center">0</property>
-      <property name="mlt_service">qtblend</property>
-      <property name="background">color:#00000000</property>
-      <property name="shotcut:filter">sizePosition</property>
-      <property name="compositing">0</property>
-      <property name="distort">0</property>
-      <property name="rect">00:00:00.000=-216 -103.05000000000001 1080 1030.5 1;00:00:07.489=-56.75074869220228 628.722427710901 1080 1030.5 1</property>
-      <property name="rotation">00:00:00.000=0</property>
-      <property name="kdenlive:collapsed">0</property>
-    </filter>
-  </producer>
-  <producer id="assetimage-9" in="00:00:00.000" out="00:08:19.967">
-    <property name="length">15000</property>
-    <property name="eof">pause</property>
-    <property name="resource">94/page-009.jpg</property>
-    <property name="ttl">25</property>
-    <property name="aspect_ratio">1</property>
-    <property name="meta.media.progressive">1</property>
-    <property name="seekable">1</property>
-    <property name="format">1</property>
-    <property name="meta.media.width">720</property>
-    <property name="meta.media.height">4000</property>
-    <property name="mlt_service">qimage</property>
-    <property name="shotcut:skipConvert">1</property>
-    <property name="shotcut:caption">page-009.jpg</property>
-    <property name="shotcut:hash">0e1204523381be0c5ce5f6bb137034fc</property>
-    <filter id="assetimage-9transformFilter">
-      <property name="rotate_center">0</property>
-      <property name="mlt_service">qtblend</property>
-      <property name="background">color:#00000000</property>
-      <property name="shotcut:filter">sizePosition</property>
-      <property name="compositing">0</property>
-      <property name="distort">0</property>
-      <property name="rect">00:00:00.000=-216 -600 1080 6000 1;00:00:06.850=-173.56442277138592 -1283.6842997943381 1080 6000 1</property>
-      <property name="rotation">00:00:00.000=0</property>
-      <property name="kdenlive:collapsed">0</property>
-    </filter>
-  </producer>
+  
   <playlist id="trackvideo">
     <property name="shotcut:name">track</property>
-    <entry producer="assetimage-0" in="00:00:00.000" out="00:00:05.533"/>
-    <entry producer="assetimage-1" in="00:00:00.000" out="00:00:04.933"/>
-    <entry producer="assetimage-2" in="00:00:00.000" out="00:00:04.967"/>
-    <entry producer="assetimage-3" in="00:00:00.000" out="00:00:05.833"/>
-    <entry producer="assetimage-4" in="00:00:00.000" out="00:00:05.867"/>
-    <entry producer="assetimage-5" in="00:00:00.000" out="00:00:06.600"/>
-    <entry producer="assetimage-6" in="00:00:00.000" out="00:00:04.800"/>
-    <entry producer="assetimage-7" in="00:00:00.000" out="00:00:06.267"/>
-    <entry producer="assetimage-8" in="00:00:00.000" out="00:00:07.500"/>
-    <entry producer="assetimage-9" in="00:00:00.000" out="00:00:06.867"/>
+    
   </playlist>
   <chain id="assetaudio-0" out="00:00:05.000">
     <property name="length">151</property>
     <property name="eof">pause</property>
     <property name="resource">.meltica/speech-1-917ca8b132d552a800c4e0f9a3945ca1.wav</property>
-    <property name="mlt_service">avformat</property>
+    <property name="mlt_service">avformat-novalidate</property>
     <property name="meta.media.nb_streams">1</property>
     <property name="meta.media.0.stream.type">audio</property>
     <property name="meta.media.0.codec.sample_fmt">s16</property>
@@ -336,7 +58,7 @@
     <property name="length">133</property>
     <property name="eof">pause</property>
     <property name="resource">.meltica/speech-2-c9fdfffcefc24d86adf8c176c07f2840.wav</property>
-    <property name="mlt_service">avformat</property>
+    <property name="mlt_service">avformat-novalidate</property>
     <property name="meta.media.nb_streams">1</property>
     <property name="meta.media.0.stream.type">audio</property>
     <property name="meta.media.0.codec.sample_fmt">s16</property>
@@ -369,7 +91,7 @@
     <property name="length">134</property>
     <property name="eof">pause</property>
     <property name="resource">.meltica/speech-3-d82a3958f0e9fecf5e2a6eab9eec756b.wav</property>
-    <property name="mlt_service">avformat</property>
+    <property name="mlt_service">avformat-novalidate</property>
     <property name="meta.media.nb_streams">1</property>
     <property name="meta.media.0.stream.type">audio</property>
     <property name="meta.media.0.codec.sample_fmt">s16</property>
@@ -402,7 +124,7 @@
     <property name="length">160</property>
     <property name="eof">pause</property>
     <property name="resource">.meltica/speech-4-92f5c31cf82bf4231247caff6f7e00c2.wav</property>
-    <property name="mlt_service">avformat</property>
+    <property name="mlt_service">avformat-novalidate</property>
     <property name="meta.media.nb_streams">1</property>
     <property name="meta.media.0.stream.type">audio</property>
     <property name="meta.media.0.codec.sample_fmt">s16</property>
@@ -435,7 +157,7 @@
     <property name="length">161</property>
     <property name="eof">pause</property>
     <property name="resource">.meltica/speech-5-6a983f67f42a9196ccd9765a44d13838.wav</property>
-    <property name="mlt_service">avformat</property>
+    <property name="mlt_service">avformat-novalidate</property>
     <property name="meta.media.nb_streams">1</property>
     <property name="meta.media.0.stream.type">audio</property>
     <property name="meta.media.0.codec.sample_fmt">s16</property>
@@ -468,7 +190,7 @@
     <property name="length">183</property>
     <property name="eof">pause</property>
     <property name="resource">.meltica/speech-6-869c7723850ae4408ce9d47255227963.wav</property>
-    <property name="mlt_service">avformat</property>
+    <property name="mlt_service">avformat-novalidate</property>
     <property name="meta.media.nb_streams">1</property>
     <property name="meta.media.0.stream.type">audio</property>
     <property name="meta.media.0.codec.sample_fmt">s16</property>
@@ -501,7 +223,7 @@
     <property name="length">129</property>
     <property name="eof">pause</property>
     <property name="resource">.meltica/speech-7-9ac4991ed94364522c780dcbb1811fbf.wav</property>
-    <property name="mlt_service">avformat</property>
+    <property name="mlt_service">avformat-novalidate</property>
     <property name="meta.media.nb_streams">1</property>
     <property name="meta.media.0.stream.type">audio</property>
     <property name="meta.media.0.codec.sample_fmt">s16</property>
@@ -534,7 +256,7 @@
     <property name="length">173</property>
     <property name="eof">pause</property>
     <property name="resource">.meltica/speech-8-02cac6d21c7f50e5d44878df19f4d7cc.wav</property>
-    <property name="mlt_service">avformat</property>
+    <property name="mlt_service">avformat-novalidate</property>
     <property name="meta.media.nb_streams">1</property>
     <property name="meta.media.0.stream.type">audio</property>
     <property name="meta.media.0.codec.sample_fmt">s16</property>
@@ -567,7 +289,7 @@
     <property name="length">209</property>
     <property name="eof">pause</property>
     <property name="resource">.meltica/speech-9-61636664d15dcc04b55c9a5b36e045f1.wav</property>
-    <property name="mlt_service">avformat</property>
+    <property name="mlt_service">avformat-novalidate</property>
     <property name="meta.media.nb_streams">1</property>
     <property name="meta.media.0.stream.type">audio</property>
     <property name="meta.media.0.codec.sample_fmt">s16</property>
@@ -600,7 +322,7 @@
     <property name="length">190</property>
     <property name="eof">pause</property>
     <property name="resource">.meltica/speech-10-15e28cd89f0a0de4feeebb30451876a6.wav</property>
-    <property name="mlt_service">avformat</property>
+    <property name="mlt_service">avformat-novalidate</property>
     <property name="meta.media.nb_streams">1</property>
     <property name="meta.media.0.stream.type">audio</property>
     <property name="meta.media.0.codec.sample_fmt">s16</property>
@@ -656,7 +378,7 @@
     <property name="length">4050</property>
     <property name="eof">pause</property>
     <property name="resource">music.mp3</property>
-    <property name="mlt_service">avformat</property>
+    <property name="mlt_service">avformat-novalidate</property>
     <property name="meta.media.nb_streams">1</property>
     <property name="meta.media.0.stream.type">audio</property>
     <property name="meta.media.0.codec.sample_fmt">fltp</property>
@@ -855,6 +577,4 @@
     </transition>
   </tractor>
 </mlt>
-
-
 

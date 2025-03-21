@@ -183,6 +183,8 @@ fn reload() !void {
     if (g_producer) |old_producer| {
         // Disconnect the consumer before closing the producer
         _ = c.mlt_consumer_connect(g_consumer.?, null);
+        // Pause the consumer before disconnecting
+        _ = c.mlt_consumer_stop(g_consumer.?);
         c.mlt_producer_close(old_producer);
     }
 
