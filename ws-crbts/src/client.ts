@@ -14,7 +14,7 @@ var player = mpegts.createPlayer(
         url: `http://localhost:8080/stream`,
     },
     {
-        enableStashBuffer: false,
+        
         isLive: true,
         // accurateSeek: true,
         autoCleanupSourceBuffer: true,
@@ -30,6 +30,7 @@ var player = mpegts.createPlayer(
 console.log(player)
 player.attachMediaElement(videoElement as any)
 player.load()
+
 
 function discardBufferedData() {
     // https://github.com/xqq/mpegts.js/blob/c7645faf88e66163ae186a350a7d9dc1c889e79a/src/player/live-latency-chaser.ts#L42

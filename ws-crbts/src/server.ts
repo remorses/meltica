@@ -58,7 +58,9 @@ app.get('/stream', (req, res) => {
     // Set appropriate headers for MPEG-TS stream
     // stdbuf flags: -i0: disable stdin buffering, -o0: disable stdout buffering, -e0: disable stderr buffering
     // TODO there is still some buffering somewhere, try stdbuf -i0 -o0 -e0, does not work still
-    const command = ` melt ${VIDEO_MLT_PATH} -consumer avformat  muxpreload=0 buffer=0 vcodec=libx264 preset=veryfast muxdelay=0 vb=1984k maxrate=1984k bufsize=0 threads=1 g=60 keyint_min=1 prefill=0 acodec=aac ab=128k f=flv`
+    let melt = 'melt'
+    // melt = '/Users/morse/Documents/meltica/cpp/zig-out/bin/melt-zig'
+    const command = `${melt} "${VIDEO_MLT_PATH}" -consumer avformat rtbufsize=0  tune=zerolatency nobuffer=1 bf=0  flush_packets=1 thread_queue_size=0 muxpreload=0 buffer=0 vcodec=libx264 preset=veryfast muxdelay=0 vb=1984k maxrate=1984k bufsize=0 threads=1 g=60 keyint_min=1 prefill=0 acodec=aac ab=128k f=flv`
     console.log(command)
     // Spawn melt process with the MLT file
     meltProcess = spawn(command, {
@@ -67,6 +69,17 @@ app.get('/stream', (req, res) => {
         env: {
             ...process.env,
         },
+    })
+
+    // Handle segfault or other fatal errors
+    meltProcess.on('exit', (code, signal) => {
+        if (signal === 'SIGSEGV') {
+            console.error('Melt process crashed with segmentation fault')
+            res.end() // Close the response stream
+        } else if (code !== 0) {
+            console.error(`Melt process exited with code ${code} and signal ${signal}`)
+            res.end()
+        }
     })
 
     res.writeHead(200, {
