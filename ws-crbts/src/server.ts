@@ -60,7 +60,7 @@ app.get('/stream', (req, res) => {
     // TODO there is still some buffering somewhere, try stdbuf -i0 -o0 -e0, does not work still
     let melt = 'melt'
     // melt = '/Users/morse/Documents/meltica/cpp/zig-out/bin/melt-zig'
-    const command = `${melt} "${VIDEO_MLT_PATH}" -consumer avformat rtbufsize=0  tune=zerolatency nobuffer=1 bf=0  flush_packets=1 thread_queue_size=0 muxpreload=0 buffer=0 vcodec=libx264 preset=veryfast muxdelay=0 vb=1984k maxrate=1984k bufsize=0 threads=1 g=60 keyint_min=1 prefill=0 acodec=aac ab=128k f=flv`
+    const command = `${melt} "${VIDEO_MLT_PATH}" -consumer avformat rtbufsize=0 tune=zerolatency zerolatency=1 no-scenecut=1 refs=1 bf=0 nobuffer=1 bf=0  flush_packets=1 thread_queue_size=0 muxpreload=0 buffer=0 vcodec=libx264 preset=veryfast muxdelay=0 vb=1984k maxrate=1984k bufsize=0 threads=1 g=60 keyint_min=1 prefill=0 acodec=aac ab=128k f=flv`
     console.log(command)
     // Spawn melt process with the MLT file
     meltProcess = spawn(command, {
