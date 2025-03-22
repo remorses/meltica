@@ -313,9 +313,6 @@ fn start(file_path: [:0]const u8, profile: *c.struct_mlt_profile_s, consumer: [*
         std.debug.print("Consumer already running\n", .{});
     }
 
-    std.debug.print("Press Ctrl+C to exit, 'q' to quit, 'r' to reload\n", .{});
-    std.debug.print("Press H to go back 1 minute, L to go forward 1 minute\n", .{});
-
     return producer;
 }
 
@@ -350,9 +347,11 @@ pub fn main() !void {
 
     // Define command line parameters with clap
     const params = comptime clap.parseParamsComptime(
-        \\-h, --help            Display help and exit.
-        \\-w, --watch           Watch the input file and reload on changes.
-        \\<str>                 Input file path.
+        \\ -h, --help            Display help and exit.
+        \\ --watch           Watch the input file and reload on changes.
+        \\ --consumer <str>  Consumer to use (sdl2, avformat) [default: sdl2].
+        \\ --output <str>    Output file for avformat consumer.
+        \\ <str>                 Input file path.
         \\
     );
 
@@ -366,11 +365,14 @@ pub fn main() !void {
         diag.report(std.io.getStdErr().writer(), err) catch {};
         return err;
     };
+
     defer parsed_args.deinit();
 
     // Check if help was requested
     if (parsed_args.args.help != 0) {
+        try clap.help(std.io.getStdErr().writer(), clap.Help, &params, .{});
         try displayHelp();
+
         return;
     }
 
@@ -443,31 +445,62 @@ pub fn main() !void {
     defer c.mlt_profile_close(profile);
     g_profile = profile;
 
-    // Create the default consumer
-    const consumer = c.mlt_factory_consumer(profile, "sdl2", null);
+    // Check if a consumer type was specified
+    const consumer_type = parsed_args.args.consumer orelse "sdl2";
+    const output_file = parsed_args.args.output;
+
+    // Track if consumer has a display
+    var is_display_consumer = true;
+
+    // Create the specified consumer
+    var consumer: ?[*c]c.struct_mlt_consumer_s = null;
+    if (std.mem.eql(u8, consumer_type, "avformat")) {
+        // Create avformat consumer with basic settings
+        const avformat_props = AvformatConsumerProps{
+            .target = output_file,
+            .vcodec = "libx264",
+            .acodec = "aac",
+            .f = "mp4",
+        };
+
+        consumer = try createAvformatConsumer(profile, avformat_props);
+        is_display_consumer = false; // avformat doesn't have a display
+        std.debug.print("Using avformat consumer. Output will be written to: {s}\n", .{output_file orelse ""});
+    } else {
+        // Default to SDL2 consumer
+        consumer = c.mlt_factory_consumer(profile, consumer_type.ptr, null);
+        std.debug.print("Using {s} consumer for display\n", .{consumer_type});
+    }
+
     if (consumer == null) {
-        std.debug.print("Failed to create SDL2 consumer\n", .{});
+        std.debug.print("Failed to create {s} consumer\n", .{consumer_type});
         return;
     }
-    defer c.mlt_consumer_close(consumer);
+    defer c.mlt_consumer_close(consumer.?);
 
     // Configure the consumer
-    const consumer_props = c.MLT_CONSUMER_PROPERTIES(consumer);
+    const consumer_props = c.MLT_CONSUMER_PROPERTIES(consumer.?);
     _ = c.mlt_properties_set(consumer_props, "rescale", "bilinear"); // Set rescaling method
     _ = c.mlt_properties_set_int(consumer_props, "terminate_on_pause", 0); // Don't terminate when paused
     _ = c.mlt_properties_set_int(consumer_props, "real_time", 1); // Use real-time processing
     _ = c.mlt_properties_set_int(consumer_props, "buffer", 25); // Buffer frames
 
     // Start the producer with the input file
-    const producer = try start(input_file_path, profile, consumer);
+    const producer = try start(input_file_path, profile, consumer.?);
     defer c.mlt_producer_close(producer);
 
     if (g_watch_enabled) {
         std.debug.print("Watch mode enabled: File will automatically reload when modified\n", .{});
     }
 
+    // Display appropriate instructions based on consumer type
+    if (is_display_consumer) {
+        std.debug.print("Press Ctrl+C to exit, 'q' to quit, 'r' to reload\n", .{});
+        std.debug.print("Press H to go back 1 minute, L to go forward 1 minute\n", .{});
+    }
+
     // Spawn the command listener thread
-    _ = try spawnCommandListener(producer, consumer);
+    _ = try spawnCommandListener(producer, consumer.?);
     // defer command_thread.join();
 
     // Main loop
@@ -525,8 +558,8 @@ pub fn main() !void {
             // Continue running with either the reloaded or existing producer
         }
 
-        // Process SDL events
-        if (g_producer != null and g_consumer != null) {
+        // Process SDL events only for display consumers
+        if (is_display_consumer and g_producer != null and g_consumer != null) {
             processSDLEvents(g_producer.?, g_consumer.?);
         }
 
@@ -541,55 +574,44 @@ pub fn main() !void {
 fn displayHelp() !void {
     const stdout = std.io.getStdOut().writer();
 
-    try stdout.print("Usage: melt [OPTIONS] <file>\n\n", .{});
-    try stdout.print("Options:\n", .{});
-    try stdout.print("  -h, --help            Display this help and exit\n", .{});
-    try stdout.print("  -w, --watch           Watch input file and reload on changes\n\n", .{});
+    if (c.mlt_version_get_string() != null) {
+        try stdout.print("\nMLT Framework version: {s}\n", .{c.mlt_version_get_string()});
+    }
 
-    try stdout.print("Keyboard controls during playback:\n", .{});
-    try stdout.print("  q/Q                   Quit playback\n", .{});
-    try stdout.print("  r/R                   Manually reload the file\n", .{});
-    try stdout.print("  H                     Go back 1 minute\n", .{});
-    try stdout.print("  L                     Go forward 1 minute\n", .{});
-    try stdout.print("  Ctrl+C                Exit program\n\n", .{});
+    // Only try to initialize the factory if needed for additional info
+    if (c.mlt_factory_init(null) == null) {
+        return;
+    }
 
-    // Initialize the factory if needed to get version info
+    // Remember to close the factory when we're done
+    defer c.mlt_factory_close();
 
     const repository = c.mlt_factory_repository();
     if (repository == null) {
-        std.debug.print("Failed to get repository\n", .{});
         return;
     }
-    defer c.mlt_factory_close();
 
-    // Get MLT version
-    try stdout.print("\nMLT Framework version: {s}\n", .{c.mlt_version_get_string()});
-
-    // Only try to display producers and consumers if the factory is initialized
-
-    if (repository != null) {
-        // Display available consumers and producers
-        try stdout.print("\nAvailable consumers:\n", .{});
-        const consumers = c.mlt_repository_consumers(repository);
-        if (consumers != null) {
-            var i: i32 = 0;
-            while (i < c.mlt_properties_count(consumers)) : (i += 1) {
-                const name = c.mlt_properties_get_name(consumers, i);
-                if (name != null) {
-                    try stdout.print("  - {s}\n", .{name});
-                }
+    // Display available consumers and producers
+    try stdout.print("\nAvailable consumers:\n", .{});
+    const consumers = c.mlt_repository_consumers(repository);
+    if (consumers != null) {
+        var i: i32 = 0;
+        while (i < c.mlt_properties_count(consumers)) : (i += 1) {
+            const name = c.mlt_properties_get_name(consumers, i);
+            if (name != null) {
+                try stdout.print("  - {s}\n", .{name});
             }
         }
+    }
 
-        try stdout.print("\nAvailable producers:\n", .{});
-        const producers = c.mlt_repository_producers(repository);
-        if (producers != null) {
-            var i: i32 = 0;
-            while (i < c.mlt_properties_count(producers)) : (i += 1) {
-                const name = c.mlt_properties_get_name(producers, i);
-                if (name != null) {
-                    try stdout.print("  - {s}\n", .{name});
-                }
+    try stdout.print("\nAvailable producers:\n", .{});
+    const producers = c.mlt_repository_producers(repository);
+    if (producers != null) {
+        var i: i32 = 0;
+        while (i < c.mlt_properties_count(producers)) : (i += 1) {
+            const name = c.mlt_properties_get_name(producers, i);
+            if (name != null) {
+                try stdout.print("  - {s}\n", .{name});
             }
         }
     }
@@ -728,7 +750,7 @@ const AvformatConsumerProps = struct {
     muxpreload: ?[]const u8 = null,
 };
 
-fn createAvformatConsumer(profile: *c.mlt_profile, props: AvformatConsumerProps) !*c.mlt_consumer {
+fn createAvformatConsumer(profile: [*c]c.struct_mlt_profile_s, props: AvformatConsumerProps) ![*c]c.struct_mlt_consumer_s {
     // Create the consumer
     const consumer = c.mlt_factory_consumer(profile, "avformat", if (props.target) |t| t.ptr else null);
     if (consumer == null) {
