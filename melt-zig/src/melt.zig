@@ -347,11 +347,11 @@ pub fn main() !void {
 
     // Define command line parameters with clap
     const params = comptime clap.parseParamsComptime(
-        \\ -h, --help            Display help and exit.
+        \\ -h, --help        Display help and exit.
         \\ --watch           Watch the input file and reload on changes.
         \\ --consumer <str>  Consumer to use (sdl2, avformat, xml) [default: sdl2].
         \\ --output <str>    Output file for avformat or xml consumer.
-        \\ <str>                 Input file path.
+        \\ <str>             Input file path.
         \\
     );
 
@@ -528,23 +528,21 @@ pub fn main() !void {
         }
 
         // Check if the file was modified (only if watch mode is enabled)
-        if (g_watch_enabled and g_current_file != null) {
-            if (g_current_file) |file_path| {
-                // Get the file's current modification time
-                if (std.fs.cwd().statFile(file_path)) |stat| {
-                    const current_mtime = stat.mtime;
+        if (g_watch_enabled and g_current_file != null and g_current_file != null) {
+            // Get the file's current modification time
+            if (std.fs.cwd().statFile(g_current_file.?)) |stat| {
+                const current_mtime = stat.mtime;
 
-                    // If this is the first check or the file has been modified
-                    if (current_mtime > g_last_modified_time) {
-                        if (g_last_modified_time > 0) { // Skip the first time (initialization)
-                            std.debug.print("File modification detected, triggering reload...\n", .{});
-                            g_should_reload = true;
-                        }
-                        g_last_modified_time = current_mtime;
+                // If this is the first check or the file has been modified
+                if (current_mtime > g_last_modified_time) {
+                    if (g_last_modified_time > 0) { // Skip the first time (initialization)
+                        std.debug.print("File modification detected, triggering reload...\n", .{});
+                        g_should_reload = true;
                     }
-                } else |err| {
-                    std.debug.print("Failed to check file modification time: {any}\n", .{err});
+                    g_last_modified_time = current_mtime;
                 }
+            } else |err| {
+                std.debug.print("Failed to check file modification time: {any}\n", .{err});
             }
         }
 
