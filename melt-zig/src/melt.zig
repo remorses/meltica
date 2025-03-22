@@ -131,6 +131,7 @@ fn closePipe() void {
 
 // Function to start websocket server
 fn startWebsocketServer() !std.Thread {
+    std.debug.print("Websocket server started on ws://127.0.0.1:9224\n", .{});
     const thread = try std.Thread.spawn(
         .{},
         struct {
@@ -267,7 +268,7 @@ fn readStdinLine() ![]const u8 {
     };
 }
 
-fn parseJsonLine() !std.json.Parsed(std.json.Value) {
+fn parseJsonLineStdin() !std.json.Parsed(std.json.Value) {
     const line = try readStdinLine();
     defer allocator.free(line);
 
@@ -330,7 +331,9 @@ fn parseMessage(json_value: std.json.Value) !Message {
 }
 
 // Thread function to listen for commands
-fn commandListener(producer: [*c]c.struct_mlt_producer_s, consumer: [*c]c.struct_mlt_consumer_s) !void {
+fn commandListener(message: Message) !void {
+    const producer = state.producer.?;
+    const consumer = state.consumer.?;
     std.debug.print("Command listener thread started\n", .{});
 
     while (true) {
@@ -339,23 +342,6 @@ fn commandListener(producer: [*c]c.struct_mlt_producer_s, consumer: [*c]c.struct
         if (c.mlt_properties_get_int(producer_props, "done") != 0) {
             break;
         }
-
-        // Try to read a line - this will block until data is available
-        var parsed = parseJsonLine() catch |err| {
-            if (err == error.EndOfStream) {
-                std.debug.print("End of stream detected, exiting command listener\n", .{});
-                break;
-            }
-            std.debug.print("Error reading JSON: {any}\n", .{err});
-            continue;
-        };
-        defer parsed.deinit();
-
-        // Parse the JSON into our Message union
-        const message = parseMessage(parsed.value) catch |err| {
-            std.debug.print("Error parsing message: {any}\n", .{err});
-            continue;
-        };
 
         // Process the message
         switch (message) {
@@ -394,13 +380,32 @@ fn commandListener(producer: [*c]c.struct_mlt_producer_s, consumer: [*c]c.struct
 
     std.debug.print("Command listener thread exiting\n", .{});
 }
-
 // Function to spawn the command listener thread
-fn spawnCommandListener(producer: [*c]c.struct_mlt_producer_s, consumer: [*c]c.struct_mlt_consumer_s) !std.Thread {
-    return std.Thread.spawn(.{}, commandListener, .{ producer, consumer }) catch |err| {
-        std.debug.print("Failed to spawn command listener thread: {any}\n", .{err});
-        return err;
-    };
+fn spawnCommandListener() !std.Thread {
+    return std.Thread.spawn(.{}, struct {
+        fn run() !void {
+            while (true) {
+                // Try to read a line - this will block until data is available
+                var parsed = parseJsonLineStdin() catch |err| {
+                    if (err == error.EndOfStream) {
+                        std.debug.print("End of stream detected, exiting command listener\n", .{});
+                        break;
+                    }
+                    std.debug.print("Error reading JSON: {any}\n", .{err});
+                    continue;
+                };
+                defer parsed.deinit();
+
+                // Parse the JSON into our Message union
+                const message = parseMessage(parsed.value) catch |err| {
+                    std.debug.print("Error parsing message: {any}\n", .{err});
+                    continue;
+                };
+
+                try commandListener(message);
+            }
+        }
+    }.run, .{});
 }
 
 // Function to start the producer with the given file
@@ -638,19 +643,10 @@ pub fn main() !void {
     const producer = try start(input_file_path, profile, consumer.?);
     defer c.mlt_producer_close(producer);
 
-    // Start websocket server if enabled
-    const ws_thread: ?std.Thread = if (state.ws_enabled)
-        try startWebsocketServer()
-    else
-        null;
-
     if (state.ws_enabled) {
-        std.debug.print("Websocket server started on ws://127.0.0.1:9224\n", .{});
-    }
-    defer {
-        if (ws_thread) |thread| {
-            thread.join();
-        }
+        // Start websocket server if enabled
+        const ws_thread = try startWebsocketServer();
+        ws_thread.detach();
     }
 
     if (state.watch_enabled) {
@@ -664,7 +660,8 @@ pub fn main() !void {
     }
 
     // Spawn the command listener thread
-    _ = try spawnCommandListener(producer, consumer.?);
+    const stdin_listener = try spawnCommandListener();
+    stdin_listener.detach();
 
     // Main loop
     while (true) {
