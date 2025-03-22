@@ -1,4 +1,6 @@
 const std = @import("std");
+const pretty = @import("pretty");
+
 const clap = @import("clap");
 
 const c = @cImport({
@@ -114,6 +116,150 @@ fn processSDLEvents(producer: [*c]c.struct_mlt_producer_s, consumer: [*c]c.struc
             else => {},
         }
     }
+}
+
+fn readStdinLine() ![]const u8 {
+    const stdin = std.io.getStdIn().reader();
+    return stdin.readUntilDelimiterAlloc(std.heap.page_allocator, '\n', 1024) catch |err| switch (err) {
+        error.EndOfStream => return error.EndOfStream,
+        else => return err,
+    };
+}
+
+fn parseJsonLine() !std.json.Parsed(std.json.Value) {
+    const line = try readStdinLine();
+    defer std.heap.page_allocator.free(line);
+
+    return std.json.parseFromSlice(std.json.Value, std.heap.page_allocator, line, .{ .ignore_unknown_fields = true });
+}
+
+// Define message types for command handling
+const MessageType = enum {
+    pause,
+    seek,
+    play,
+    stop,
+};
+
+// JSON command structures for parsing
+const SeekCommand = struct {
+    position: f64,
+};
+
+const PauseCommand = struct {};
+const PlayCommand = struct {};
+const StopCommand = struct {};
+
+const JsonCommand = struct {
+    type: []const u8,
+    position: ?f64 = null,
+};
+
+const Message = union(MessageType) {
+    pause: void,
+    seek: struct { position: f64 },
+    play: void,
+    stop: void,
+};
+
+// Parse JSON into our Message union
+fn parseMessage(json_value: std.json.Value) !Message {
+    // First parse into our intermediate struct that maps the JSON structure
+    const parsed = try std.json.parseFromValue(JsonCommand, std.heap.page_allocator, json_value, .{ .ignore_unknown_fields = true });
+    defer parsed.deinit();
+
+    const command = parsed.value;
+
+    // Map the command type to our Message union
+    if (std.mem.eql(u8, command.type, "pause")) {
+        return Message{ .pause = {} };
+    } else if (std.mem.eql(u8, command.type, "seek")) {
+        if (command.position) |position| {
+            return Message{ .seek = .{ .position = position } };
+        } else {
+            return error.MissingPositionField;
+        }
+    } else if (std.mem.eql(u8, command.type, "play")) {
+        return Message{ .play = {} };
+    } else if (std.mem.eql(u8, command.type, "stop")) {
+        return Message{ .stop = {} };
+    } else {
+        return error.UnknownMessageType;
+    }
+}
+
+// Thread function to listen for commands
+fn commandListener(producer: [*c]c.struct_mlt_producer_s, consumer: [*c]c.struct_mlt_consumer_s) !void {
+    std.debug.print("Command listener thread started\n", .{});
+
+    while (true) {
+        // Check if we should exit
+        const producer_props = c.MLT_PRODUCER_PROPERTIES(producer);
+        if (c.mlt_properties_get_int(producer_props, "done") != 0) {
+            break;
+        }
+
+        // Try to read a line - this will block until data is available
+        var parsed = parseJsonLine() catch |err| {
+            if (err == error.EndOfStream) {
+                std.debug.print("End of stream detected, exiting command listener\n", .{});
+                break;
+            }
+            std.debug.print("Error reading JSON: {any}\n", .{err});
+            continue;
+        };
+        defer parsed.deinit();
+
+        // Parse the JSON into our Message union
+        const message = parseMessage(parsed.value) catch |err| {
+            std.debug.print("Error parsing message: {any}\n", .{err});
+            continue;
+        };
+
+        // Process the message
+        switch (message) {
+            .pause => {
+                std.debug.print("Command: Pause\n", .{});
+                _ = c.mlt_consumer_stop(consumer);
+            },
+            .play => {
+                std.debug.print("Command: Play\n", .{});
+                if (c.mlt_consumer_is_stopped(consumer) != 0) {
+                    _ = c.mlt_consumer_start(consumer);
+                }
+            },
+            .seek => |data| {
+                std.debug.print("Command: Seek to {d} seconds\n", .{data.position});
+                const fps = c.mlt_producer_get_fps(producer);
+                const position = @as(i32, @intFromFloat(data.position * fps));
+
+                // Get the consumer for purging
+                const props = c.MLT_PRODUCER_PROPERTIES(producer);
+                const cons = c.mlt_properties_get_data(props, "transport_consumer", null);
+                if (cons != null) {
+                    _ = c.mlt_consumer_purge(@ptrCast(@alignCast(cons)));
+                }
+
+                // Seek to the new position
+                _ = c.mlt_producer_seek(producer, position);
+            },
+            .stop => {
+                std.debug.print("Command: Stop\n", .{});
+                const properties = c.MLT_PRODUCER_PROPERTIES(producer);
+                _ = c.mlt_properties_set_int(properties, "done", 1);
+            },
+        }
+    }
+
+    std.debug.print("Command listener thread exiting\n", .{});
+}
+
+// Function to spawn the command listener thread
+fn spawnCommandListener(producer: [*c]c.struct_mlt_producer_s, consumer: [*c]c.struct_mlt_consumer_s) !std.Thread {
+    return std.Thread.spawn(.{}, commandListener, .{ producer, consumer }) catch |err| {
+        std.debug.print("Failed to spawn command listener thread: {any}\n", .{err});
+        return err;
+    };
 }
 
 // Function to start the producer with the given file
@@ -261,6 +407,12 @@ pub fn main() !void {
         std.debug.print("Failed to get repository\n", .{});
         return;
     }
+    @breakpoint();
+
+    // try pretty.print(std.heap.page_allocator, repository, .{
+    //     .array_show_item_idx = false,
+    //     .inline_mode = false,
+    // });
 
     // Get properties containing producer services
     const producers = c.mlt_repository_producers(repository);
@@ -314,6 +466,10 @@ pub fn main() !void {
         std.debug.print("Watch mode enabled: File will automatically reload when modified\n", .{});
     }
 
+    // Spawn the command listener thread
+    _ = try spawnCommandListener(producer, consumer);
+    // defer command_thread.join();
+
     // Main loop
     while (true) {
         // If we have a valid producer
@@ -328,11 +484,13 @@ pub fn main() !void {
         // Check if done or consumer stopped
         if (c.mlt_properties_get_int(producer_props, "done") != 0) {
             std.debug.print("Producer marked as done\n", .{});
+
             break;
         }
 
         if (g_consumer != null and c.mlt_consumer_is_stopped(g_consumer.?) != 0) {
             std.debug.print("Consumer has stopped\n", .{});
+
             break;
         }
 
@@ -396,20 +554,19 @@ fn displayHelp() !void {
     try stdout.print("  Ctrl+C                Exit program\n\n", .{});
 
     // Initialize the factory if needed to get version info
-    var need_to_close_factory = false;
-    if (c.mlt_factory_repository() == null) {
-        if (c.mlt_factory_init(null) == null) {
-            try stdout.print("\nUnable to initialize MLT factory.\n", .{});
-            return;
-        }
-        need_to_close_factory = true;
+
+    const repository = c.mlt_factory_repository();
+    if (repository == null) {
+        std.debug.print("Failed to get repository\n", .{});
+        return;
     }
+    defer c.mlt_factory_close();
 
     // Get MLT version
     try stdout.print("\nMLT Framework version: {s}\n", .{c.mlt_version_get_string()});
 
     // Only try to display producers and consumers if the factory is initialized
-    const repository = c.mlt_factory_repository();
+
     if (repository != null) {
         // Display available consumers and producers
         try stdout.print("\nAvailable consumers:\n", .{});
@@ -435,11 +592,6 @@ fn displayHelp() !void {
                 }
             }
         }
-    }
-
-    // Close the factory if we initialized it
-    if (need_to_close_factory) {
-        c.mlt_factory_close();
     }
 }
 
