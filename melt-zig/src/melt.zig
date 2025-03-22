@@ -75,13 +75,16 @@ const WsHandler = struct {
     }
 
     pub fn clientMessage(self: *WsHandler, data: []const u8) !void {
-        _ = data;
+        const message = try parseMessage(data);
+        if (message) |msg| {
+            try messageHandler(msg);
+        }
         _ = self;
-        // For now, we don't handle any incoming messages
     }
 
     pub fn close(self: *WsHandler) void {
         _ = self;
+        std.debug.print("Websocket connection closed\n", .{});
         // Cleanup will be handled by WsApp.deinit
     }
 };
@@ -296,57 +299,52 @@ fn parseMessage(line: []const u8) !?Message {
 }
 
 // Thread function to listen for commands
-fn commandListener(message: Message) !void {
+fn messageHandler(message: Message) !void {
     const producer = state.producer.?;
     const consumer = state.consumer.?;
     std.debug.print("Command listener thread started\n", .{});
 
-    while (true) {
-        // Check if we should exit
-        const producer_props = c.MLT_PRODUCER_PROPERTIES(producer);
-        if (c.mlt_properties_get_int(producer_props, "done") != 0) {
-            break;
-        }
-
-        // Process the message
-        switch (message.type) {
-            .pause => {
-                std.debug.print("Command: Pause\n", .{});
-                _ = c.mlt_consumer_stop(consumer);
-            },
-            .play => {
-                std.debug.print("Command: Play\n", .{});
-                if (c.mlt_consumer_is_stopped(consumer) != 0) {
-                    _ = c.mlt_consumer_start(consumer);
-                }
-            },
-            .seek => {
-                if (message.seek_position == null) {
-                    return error.SeekPositionRequired;
-                }
-                std.debug.print("Command: Seek to {d} seconds\n", .{message.seek_position.?});
-                const fps = c.mlt_producer_get_fps(producer);
-                const position = @as(i32, @intFromFloat(message.seek_position.? * fps));
-
-                // Get the consumer for purging
-                const props = c.MLT_PRODUCER_PROPERTIES(producer);
-                const cons = c.mlt_properties_get_data(props, "transport_consumer", null);
-                if (cons != null) {
-                    _ = c.mlt_consumer_purge(@ptrCast(@alignCast(cons)));
-                }
-
-                // Seek to the new position
-                _ = c.mlt_producer_seek(producer, position);
-            },
-            .stop => {
-                std.debug.print("Command: Stop\n", .{});
-                const properties = c.MLT_PRODUCER_PROPERTIES(producer);
-                _ = c.mlt_properties_set_int(properties, "done", 1);
-            },
-        }
+    const producer_props = c.MLT_PRODUCER_PROPERTIES(producer);
+    if (c.mlt_properties_get_int(producer_props, "done") != 0) {
+        return;
     }
 
-    std.debug.print("Command listener thread exiting\n", .{});
+    // Process the message
+    switch (message.type) {
+        .pause => {
+            std.debug.print("Command: Pause\n", .{});
+            _ = c.mlt_consumer_stop(consumer);
+        },
+        .play => {
+            std.debug.print("Command: Play\n", .{});
+            if (c.mlt_consumer_is_stopped(consumer) != 0) {
+                _ = c.mlt_consumer_start(consumer);
+            }
+        },
+        .seek => {
+            if (message.seek_position == null) {
+                return error.SeekPositionRequired;
+            }
+            std.debug.print("Command: Seek to {d} seconds\n", .{message.seek_position.?});
+            const fps = c.mlt_producer_get_fps(producer);
+            const position = @as(i32, @intFromFloat(message.seek_position.? * fps));
+
+            // Get the consumer for purging
+            const props = c.MLT_PRODUCER_PROPERTIES(producer);
+            const cons = c.mlt_properties_get_data(props, "transport_consumer", null);
+            if (cons != null) {
+                _ = c.mlt_consumer_purge(@ptrCast(@alignCast(cons)));
+            }
+
+            // Seek to the new position
+            _ = c.mlt_producer_seek(producer, position);
+        },
+        .stop => {
+            std.debug.print("Command: Stop\n", .{});
+            const properties = c.MLT_PRODUCER_PROPERTIES(producer);
+            _ = c.mlt_properties_set_int(properties, "done", 1);
+        },
+    }
 }
 // Function to spawn the command listener thread
 fn spawnCommandListener() !std.Thread {
@@ -361,7 +359,7 @@ fn spawnCommandListener() !std.Thread {
                 };
 
                 if (message) |msg| {
-                    try commandListener(msg);
+                    try messageHandler(msg);
                 }
             }
         }
