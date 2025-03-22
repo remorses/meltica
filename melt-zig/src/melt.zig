@@ -409,7 +409,6 @@ pub fn main() !void {
         std.debug.print("Failed to get repository\n", .{});
         return;
     }
-    @breakpoint();
 
     // try pretty.print(std.heap.page_allocator, repository, .{
     //     .array_show_item_idx = false,
@@ -460,7 +459,7 @@ pub fn main() !void {
             .target = output_file,
             .vcodec = "libx264",
             .acodec = "aac",
-            .f = "mp4",
+            .f = if (output_file != null) "mp4" else "flv",
         };
 
         consumer = try createAvformatConsumer(profile, avformat_props);
@@ -762,13 +761,14 @@ fn createAvformatConsumer(profile: [*c]c.struct_mlt_profile_s, props: AvformatCo
 
     // Use comptime to handle different property types
     inline for (std.meta.fields(AvformatConsumerProps)) |field| {
-        if (@field(props, field.name)) |value| {
+        const value = @field(props, field.name);
+        if (value != null) {
             switch (field.type) {
                 ?i32 => {
-                    _ = c.mlt_properties_set_int(properties, field.name, value);
+                    _ = c.mlt_properties_set_int(properties, field.name, value.?);
                 },
                 ?[]const u8 => {
-                    _ = c.mlt_properties_set(properties, field.name, value.ptr);
+                    _ = c.mlt_properties_set(properties, field.name, value.?.ptr);
                 },
                 else => {
                     @compileError("Unsupported property type: " ++ @typeName(field.type));
