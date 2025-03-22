@@ -14,6 +14,8 @@ pub fn build(b: *std.Build) void {
     exe.root_module.addImport("clap", clap.module("clap"));
     const pretty = b.dependency("pretty", .{ .target = target, .optimize = optimize });
     exe.root_module.addImport("pretty", pretty.module("pretty"));
+    const websocket = b.dependency("websocket", .{ .target = target, .optimize = optimize });
+    exe.root_module.addImport("websocket", websocket.module("websocket"));
 
     exe.addLibraryPath(.{ .cwd_relative = "/usr/local/lib" });
     exe.addIncludePath(.{ .cwd_relative = "/usr/local/include" });

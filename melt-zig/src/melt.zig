@@ -1,8 +1,7 @@
 const std = @import("std");
 const pretty = @import("pretty");
-
 const clap = @import("clap");
-
+const websocket = @import("websocket");
 const c = @cImport({
     @cInclude("mlt-7/framework/mlt.h");
     @cInclude("SDL2/SDL.h");
@@ -17,6 +16,8 @@ var g_profile: ?[*c]c.struct_mlt_profile_s = null;
 var g_should_reload: bool = false;
 var g_last_modified_time: i128 = 0; // Track the last modified time
 var g_watch_enabled: bool = false; // Flag to control file watching
+var gpa = std.heap.GeneralPurposeAllocator(.{}){};
+const allocator = gpa.allocator();
 
 // Signal handler for stopping playback
 fn stopHandler(_: c_int) callconv(.C) void {
@@ -120,7 +121,7 @@ fn processSDLEvents(producer: [*c]c.struct_mlt_producer_s, consumer: [*c]c.struc
 
 fn readStdinLine() ![]const u8 {
     const stdin = std.io.getStdIn().reader();
-    return stdin.readUntilDelimiterAlloc(std.heap.page_allocator, '\n', 1024) catch |err| switch (err) {
+    return stdin.readUntilDelimiterAlloc(allocator, '\n', 1024) catch |err| switch (err) {
         error.EndOfStream => return error.EndOfStream,
         else => return err,
     };
@@ -128,9 +129,9 @@ fn readStdinLine() ![]const u8 {
 
 fn parseJsonLine() !std.json.Parsed(std.json.Value) {
     const line = try readStdinLine();
-    defer std.heap.page_allocator.free(line);
+    defer allocator.free(line);
 
-    return std.json.parseFromSlice(std.json.Value, std.heap.page_allocator, line, .{ .ignore_unknown_fields = true });
+    return std.json.parseFromSlice(std.json.Value, allocator, line, .{ .ignore_unknown_fields = true });
 }
 
 // Define message types for command handling
@@ -165,7 +166,7 @@ const Message = union(MessageType) {
 // Parse JSON into our Message union
 fn parseMessage(json_value: std.json.Value) !Message {
     // First parse into our intermediate struct that maps the JSON structure
-    const parsed = try std.json.parseFromValue(JsonCommand, std.heap.page_allocator, json_value, .{ .ignore_unknown_fields = true });
+    const parsed = try std.json.parseFromValue(JsonCommand, allocator, json_value, .{ .ignore_unknown_fields = true });
     defer parsed.deinit();
 
     const command = parsed.value;
@@ -337,12 +338,12 @@ fn reload() !void {
 }
 
 pub fn main() !void {
-    var arena = std.heap.ArenaAllocator.init(std.heap.page_allocator);
-    defer arena.deinit();
+    // var arena = std.heap.ArenaAllocator.init(allocator);
+    // defer arena.deinit();
 
     // Initialize MLT logging
     c.mlt_log_set_level(c.MLT_LOG_DEBUG);
-    const allocator = arena.allocator();
+
     c.mlt_log_set_level(c.MLT_LOG_VERBOSE);
 
     // Define command line parameters with clap
@@ -410,7 +411,7 @@ pub fn main() !void {
         return;
     }
 
-    // try pretty.print(std.heap.page_allocator, repository, .{
+    // try pretty.print(allocator, repository, .{
     //     .array_show_item_idx = false,
     //     .inline_mode = false,
     // });
