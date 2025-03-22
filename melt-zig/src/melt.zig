@@ -349,8 +349,8 @@ pub fn main() !void {
     const params = comptime clap.parseParamsComptime(
         \\ -h, --help            Display help and exit.
         \\ --watch           Watch the input file and reload on changes.
-        \\ --consumer <str>  Consumer to use (sdl2, avformat) [default: sdl2].
-        \\ --output <str>    Output file for avformat consumer.
+        \\ --consumer <str>  Consumer to use (sdl2, avformat, xml) [default: sdl2].
+        \\ --output <str>    Output file for avformat or xml consumer.
         \\ <str>                 Input file path.
         \\
     );
@@ -448,9 +448,6 @@ pub fn main() !void {
     const consumer_type = parsed_args.args.consumer orelse "sdl2";
     const output_file = parsed_args.args.output;
 
-    // Track if consumer has a display
-    var is_display_consumer = true;
-
     // Create the specified consumer
     var consumer: ?[*c]c.struct_mlt_consumer_s = null;
     if (std.mem.eql(u8, consumer_type, "avformat")) {
@@ -459,17 +456,21 @@ pub fn main() !void {
             .target = output_file,
             .vcodec = "libx264",
             .acodec = "aac",
-            .f = if (output_file != null) "mp4" else "flv",
+            .f = "mp4",
         };
-
         consumer = try createAvformatConsumer(profile, avformat_props);
-        is_display_consumer = false; // avformat doesn't have a display
         std.debug.print("Using avformat consumer. Output will be written to: {s}\n", .{output_file orelse ""});
+    } else if (std.mem.eql(u8, consumer_type, "xml")) {
+        // Create xml consumer
+        consumer = c.mlt_factory_consumer(profile, "xml", if (output_file) |file| file.ptr else null);
+        std.debug.print("Using xml consumer. Output will be written to: {s}\n", .{output_file orelse "stdout"});
     } else {
         // Default to SDL2 consumer
         consumer = c.mlt_factory_consumer(profile, consumer_type.ptr, null);
         std.debug.print("Using {s} consumer for display\n", .{consumer_type});
     }
+
+    const is_display_consumer = std.mem.eql(u8, consumer_type, "sdl2");
 
     if (consumer == null) {
         std.debug.print("Failed to create {s} consumer\n", .{consumer_type});
