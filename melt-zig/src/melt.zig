@@ -8,20 +8,160 @@ const c = @cImport({
     @cInclude("signal.h");
 });
 
-// Global variables for reloading
-var g_producer: ?[*c]c.struct_mlt_producer_s = null;
-var g_consumer: ?[*c]c.struct_mlt_consumer_s = null;
-var g_current_file: ?[:0]const u8 = null;
-var g_profile: ?[*c]c.struct_mlt_profile_s = null;
-var g_should_reload: bool = false;
-var g_last_modified_time: i128 = 0; // Track the last modified time
-var g_watch_enabled: bool = false; // Flag to control file watching
+const MeltState = struct {
+    producer: ?[*c]c.struct_mlt_producer_s,
+    consumer: ?[*c]c.struct_mlt_consumer_s,
+    current_file: ?[:0]const u8,
+    profile: ?[*c]c.struct_mlt_profile_s,
+    should_reload: bool,
+    last_modified_time: i128,
+    watch_enabled: bool,
+    ws_enabled: bool,
+    pipe_read_fd: ?std.posix.fd_t,
+    pipe_write_fd: ?std.posix.fd_t,
+
+    pub fn init() MeltState {
+        return .{
+            .producer = null,
+            .consumer = null,
+            .current_file = null,
+            .profile = null,
+            .should_reload = false,
+            .last_modified_time = 0,
+            .watch_enabled = false,
+            .ws_enabled = false,
+            .pipe_read_fd = null,
+            .pipe_write_fd = null,
+        };
+    }
+};
+
+// Create a single global instance
+var state = MeltState.init();
 var gpa = std.heap.GeneralPurposeAllocator(.{}){};
 const allocator = gpa.allocator();
 
+// Websocket server variables
+var g_ws_enabled: bool = false;
+var g_pipe_read_fd: ?std.posix.fd_t = null;
+var g_pipe_write_fd: ?std.posix.fd_t = null;
+
+// Websocket server handler
+const WsHandler = struct {
+    app: *WsApp,
+    conn: *websocket.Conn,
+
+    pub fn init(h: websocket.Handshake, conn: *websocket.Conn, app: *WsApp) !WsHandler {
+        _ = h;
+        return .{
+            .app = app,
+            .conn = conn,
+        };
+    }
+
+    pub fn afterInit(self: *WsHandler) !void {
+        // Start streaming data from pipe in a separate thread
+        if (self.app.pipe_reader) |pipe_reader| {
+            _ = try std.Thread.spawn(.{}, struct {
+                fn run(handler: *WsHandler, pipe_fd: std.fs.File) !void {
+                    while (true) {
+                        const bytes_read = try pipe_fd.read(handler.app.read_buffer);
+                        if (bytes_read == 0) break; // EOF
+                        try handler.conn.writeBin(handler.app.read_buffer[0..bytes_read]);
+                    }
+                }
+            }.run, .{ self, pipe_reader });
+        }
+    }
+
+    pub fn clientMessage(self: *WsHandler, data: []const u8) !void {
+        _ = data;
+        _ = self;
+        // For now, we don't handle any incoming messages
+    }
+
+    pub fn close(self: *WsHandler) void {
+        _ = self;
+        // Cleanup will be handled by WsApp.deinit
+    }
+};
+
+// Websocket server app state
+const WsApp = struct {
+    pipe_reader: ?std.fs.File = null,
+    read_buffer: []u8 = undefined,
+
+    pub fn init() !WsApp {
+        return .{
+            .read_buffer = try allocator.alloc(u8, 65536),
+        };
+    }
+
+    pub fn deinit(self: *WsApp) void {
+        if (self.pipe_reader) |reader| {
+            reader.close();
+        }
+        allocator.free(self.read_buffer);
+    }
+};
+
+// Function to create a pipe
+fn createPipe() !void {
+    if (state.pipe_read_fd != null or state.pipe_write_fd != null) {
+        return error.PipeAlreadyExists;
+    }
+
+    const pipe_fds = try std.posix.pipe();
+
+    state.pipe_read_fd = pipe_fds[0];
+    state.pipe_write_fd = pipe_fds[1];
+}
+
+// Function to close pipe
+fn closePipe() void {
+    if (state.pipe_read_fd) |fd| {
+        std.posix.close(fd);
+        state.pipe_read_fd = null;
+    }
+    if (state.pipe_write_fd) |fd| {
+        std.posix.close(fd);
+        state.pipe_write_fd = null;
+    }
+}
+
+// Function to start websocket server
+fn startWebsocketServer() !std.Thread {
+    const thread = try std.Thread.spawn(
+        .{},
+        struct {
+            fn run() !void {
+                var server = try websocket.Server(WsHandler).init(allocator, .{
+                    .port = 9224,
+                    .address = "127.0.0.1",
+                    .handshake = .{
+                        .timeout = 3,
+                        .max_size = 1024,
+                        .max_headers = 0,
+                    },
+                });
+                var app = try WsApp.init();
+                if (state.pipe_read_fd) |fd| {
+                    app.pipe_reader = std.fs.File{ .handle = fd };
+                }
+
+                defer app.deinit();
+                try server.listen(&app);
+            }
+        }.run,
+        .{},
+    );
+
+    return thread;
+}
+
 // Signal handler for stopping playback
 fn stopHandler(_: c_int) callconv(.C) void {
-    if (g_producer) |melt| {
+    if (state.producer) |melt| {
         const properties = c.MLT_PRODUCER_PROPERTIES(melt);
         _ = c.mlt_properties_set_int(properties, "done", 1);
     }
@@ -96,7 +236,7 @@ fn processSDLEvents(producer: [*c]c.struct_mlt_producer_s, consumer: [*c]c.struc
                         // Optionally fire jack seek event if implemented
                     } else if (keyboard[0] == 'r' or keyboard[0] == 'R') {
                         // Mark for reload on next loop iteration
-                        g_should_reload = true;
+                        state.should_reload = true;
                         std.debug.print("Reloading MLT file...\n", .{});
                     }
                 }
@@ -266,22 +406,21 @@ fn spawnCommandListener(producer: [*c]c.struct_mlt_producer_s, consumer: [*c]c.s
 // Function to start the producer with the given file
 fn start(file_path: [:0]const u8, profile: *c.struct_mlt_profile_s, consumer: [*c]c.struct_mlt_consumer_s) ![*c]c.struct_mlt_producer_s {
     // Save the file path for reloading
-    g_current_file = file_path;
+    state.current_file = file_path;
 
     // Try creating a producer for the file
     const producer = c.mlt_factory_producer(profile, "xml", file_path.ptr);
 
     // Set global melt for signal handlers
-    g_producer = producer;
+    state.producer = producer;
 
     // Set transport properties
     const properties = c.MLT_CONSUMER_PROPERTIES(consumer);
-    // used to basically access consumer globally
     _ = c.mlt_properties_set_data(properties, "transport_producer", producer, 0, null, null);
     _ = c.mlt_properties_set_data(c.MLT_PRODUCER_PROPERTIES(producer), "transport_consumer", consumer, 0, null, null);
 
     // Set up error handling (only needed the first time)
-    if (g_consumer == null) {
+    if (state.consumer == null) {
         _ = c.mlt_events_listen(properties, consumer, "consumer-fatal-error", @ptrCast(&onFatalError));
 
         // Set up signal handlers (only needed the first time)
@@ -294,7 +433,7 @@ fn start(file_path: [:0]const u8, profile: *c.struct_mlt_profile_s, consumer: [*
             _ = c.signal(c.SIGPIPE, stopHandler);
         }
 
-        g_consumer = consumer;
+        state.consumer = consumer;
     }
 
     // Connect the producer to the consumer
@@ -319,22 +458,22 @@ fn start(file_path: [:0]const u8, profile: *c.struct_mlt_profile_s, consumer: [*
 
 // Function to reload the current file
 fn reload() !void {
-    if (g_current_file == null or g_profile == null or g_consumer == null) {
+    if (state.current_file == null or state.profile == null or state.consumer == null) {
         return error.NoActiveSession;
     }
 
     // Close the old producer
-    if (g_producer) |old_producer| {
+    if (state.producer) |old_producer| {
         // Disconnect the consumer before closing the producer
-        _ = c.mlt_consumer_connect(g_consumer.?, null);
+        _ = c.mlt_consumer_connect(state.consumer.?, null);
         // Pause the consumer before disconnecting
-        _ = c.mlt_consumer_stop(g_consumer.?);
+        _ = c.mlt_consumer_stop(state.consumer.?);
         c.mlt_producer_close(old_producer);
     }
 
     // Start a new producer with the same file
-    const new_producer = try start(g_current_file.?, g_profile.?, g_consumer.?);
-    g_producer = new_producer;
+    const new_producer = try start(state.current_file.?, state.profile.?, state.consumer.?);
+    state.producer = new_producer;
 }
 
 pub fn main() !void {
@@ -352,6 +491,7 @@ pub fn main() !void {
         \\ --watch           Watch the input file and reload on changes.
         \\ --consumer <str>  Consumer to use (sdl2, avformat, xml) [default: sdl2].
         \\ --output <str>    Output file for avformat or xml consumer.
+        \\ --ws              Enable websocket server for streaming avformat output.
         \\ <str>             Input file path.
         \\
     );
@@ -373,12 +513,12 @@ pub fn main() !void {
     if (parsed_args.args.help != 0) {
         try clap.help(std.io.getStdErr().writer(), clap.Help, &params, .{});
         try displayHelp();
-
         return;
     }
 
     // Set watch mode based on flag
-    g_watch_enabled = parsed_args.args.watch != 0;
+    state.watch_enabled = parsed_args.args.watch != 0;
+    state.ws_enabled = parsed_args.args.ws != 0;
 
     // Check if a file was provided
     if (parsed_args.positionals.len < 1) {
@@ -392,6 +532,12 @@ pub fn main() !void {
         std.debug.print("Error: Invalid file path\n", .{});
         return;
     };
+
+    // If websocket server is enabled, create pipe
+    if (state.ws_enabled) {
+        std.debug.print("Starting websocket server on port 9224\n", .{});
+        try createPipe();
+    }
 
     // Duplicate the string with null termination
     const input_file_path = try allocator.dupeZ(u8, input_file);
@@ -410,11 +556,6 @@ pub fn main() !void {
         std.debug.print("Failed to get repository\n", .{});
         return;
     }
-
-    // try pretty.print(allocator, repository, .{
-    //     .array_show_item_idx = false,
-    //     .inline_mode = false,
-    // });
 
     // Get properties containing producer services
     const producers = c.mlt_repository_producers(repository);
@@ -443,7 +584,7 @@ pub fn main() !void {
         return;
     }
     defer c.mlt_profile_close(profile);
-    g_profile = profile;
+    state.profile = profile;
 
     // Check if a consumer type was specified
     const consumer_type = parsed_args.args.consumer orelse "sdl2";
@@ -453,11 +594,18 @@ pub fn main() !void {
     var consumer: ?[*c]c.struct_mlt_consumer_s = null;
     if (std.mem.eql(u8, consumer_type, "avformat")) {
         // Create avformat consumer with basic settings
+        if (state.pipe_write_fd == null) return error.PipeNotFound;
         const avformat_props = AvformatConsumerProps{
-            .target = output_file,
+            .target = if (state.ws_enabled)
+                try std.fmt.allocPrint(allocator, "pipe:{d}", .{state.pipe_write_fd.?})
+            else
+                output_file,
             .vcodec = "libx264",
             .acodec = "aac",
-            .f = "mp4",
+            .f = "flv",
+            .preset = "ultrafast", // For low latency streaming
+            .tune = "zerolatency", // For low latency streaming
+            .crf = "23",
         };
         consumer = try createAvformatConsumer(profile, avformat_props);
         std.debug.print("Using avformat consumer. Output will be written to: {s}\n", .{output_file orelse ""});
@@ -490,7 +638,22 @@ pub fn main() !void {
     const producer = try start(input_file_path, profile, consumer.?);
     defer c.mlt_producer_close(producer);
 
-    if (g_watch_enabled) {
+    // Start websocket server if enabled
+    const ws_thread: ?std.Thread = if (state.ws_enabled)
+        try startWebsocketServer()
+    else
+        null;
+
+    if (state.ws_enabled) {
+        std.debug.print("Websocket server started on ws://127.0.0.1:9224\n", .{});
+    }
+    defer {
+        if (ws_thread) |thread| {
+            thread.join();
+        }
+    }
+
+    if (state.watch_enabled) {
         std.debug.print("Watch mode enabled: File will automatically reload when modified\n", .{});
     }
 
@@ -502,17 +665,16 @@ pub fn main() !void {
 
     // Spawn the command listener thread
     _ = try spawnCommandListener(producer, consumer.?);
-    // defer command_thread.join();
 
     // Main loop
     while (true) {
         // If we have a valid producer
-        if (g_producer == null) {
+        if (state.producer == null) {
             std.debug.print("No active producer, exiting main loop\n", .{});
             break;
         }
 
-        const current_producer = g_producer.?;
+        const current_producer = state.producer.?;
         const producer_props = c.MLT_PRODUCER_PROPERTIES(current_producer);
 
         // Check if done or consumer stopped
@@ -522,25 +684,25 @@ pub fn main() !void {
             break;
         }
 
-        if (g_consumer != null and c.mlt_consumer_is_stopped(g_consumer.?) != 0) {
+        if (state.consumer != null and c.mlt_consumer_is_stopped(state.consumer.?) != 0) {
             std.debug.print("Consumer has stopped\n", .{});
 
             break;
         }
 
         // Check if the file was modified (only if watch mode is enabled)
-        if (g_watch_enabled and g_current_file != null and g_current_file != null) {
+        if (state.watch_enabled and state.current_file != null and state.current_file != null) {
             // Get the file's current modification time
-            if (std.fs.cwd().statFile(g_current_file.?)) |stat| {
+            if (std.fs.cwd().statFile(state.current_file.?)) |stat| {
                 const current_mtime = stat.mtime;
 
                 // If this is the first check or the file has been modified
-                if (current_mtime > g_last_modified_time) {
-                    if (g_last_modified_time > 0) { // Skip the first time (initialization)
+                if (current_mtime > state.last_modified_time) {
+                    if (state.last_modified_time > 0) { // Skip the first time (initialization)
                         std.debug.print("File modification detected, triggering reload...\n", .{});
-                        g_should_reload = true;
+                        state.should_reload = true;
                     }
-                    g_last_modified_time = current_mtime;
+                    state.last_modified_time = current_mtime;
                 }
             } else |err| {
                 std.debug.print("Failed to check file modification time: {any}\n", .{err});
@@ -548,8 +710,8 @@ pub fn main() !void {
         }
 
         // Check if we need to reload
-        if (g_should_reload) {
-            g_should_reload = false;
+        if (state.should_reload) {
+            state.should_reload = false;
             std.debug.print("Attempting to reload...\n", .{});
             reload() catch |err| {
                 std.debug.print("Failed to reload MLT file: {any}\n", .{err});
@@ -558,8 +720,8 @@ pub fn main() !void {
         }
 
         // Process SDL events only for display consumers
-        if (is_display_consumer and g_producer != null and g_consumer != null) {
-            processSDLEvents(g_producer.?, g_consumer.?);
+        if (is_display_consumer and state.producer != null and state.consumer != null) {
+            processSDLEvents(state.producer.?, state.consumer.?);
         }
 
         // Sleep to avoid hogging CPU

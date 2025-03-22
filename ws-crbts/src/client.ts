@@ -12,7 +12,7 @@ var player = mpegts.createPlayer(
         type: 'flv',
         isLive: true,
 
-        url: `ws://localhost:8080/stream`,
+        url: `ws://127.0.0.1:9224`,
     },
     {
         isLive: true,
