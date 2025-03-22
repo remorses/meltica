@@ -268,13 +268,6 @@ fn readStdinLine() ![]const u8 {
     };
 }
 
-fn parseJsonLineStdin() !std.json.Parsed(std.json.Value) {
-    const line = try readStdinLine();
-    defer allocator.free(line);
-
-    return std.json.parseFromSlice(std.json.Value, allocator, line, .{ .ignore_unknown_fields = true });
-}
-
 // Define message types for command handling
 const MessageType = enum {
     pause,
@@ -283,51 +276,23 @@ const MessageType = enum {
     stop,
 };
 
-// JSON command structures for parsing
-const SeekCommand = struct {
-    position: f64,
-};
-
-const PauseCommand = struct {};
-const PlayCommand = struct {};
-const StopCommand = struct {};
-
-const JsonCommand = struct {
-    type: []const u8,
-    position: ?f64 = null,
-};
-
-const Message = union(MessageType) {
-    pause: void,
-    seek: struct { position: f64 },
-    play: void,
-    stop: void,
+// Message structure with type enum and optional fields
+const Message = struct {
+    type: MessageType,
+    seek_position: ?f64 = null,
 };
 
 // Parse JSON into our Message union
-fn parseMessage(json_value: std.json.Value) !Message {
+fn parseMessage(line: []const u8) !?Message {
+    var json_value = try std.json.parseFromSlice(std.json.Value, allocator, line, .{ .ignore_unknown_fields = true });
+    defer json_value.deinit();
     // First parse into our intermediate struct that maps the JSON structure
-    const parsed = try std.json.parseFromValue(JsonCommand, allocator, json_value, .{ .ignore_unknown_fields = true });
+    const parsed = try std.json.parseFromValue(Message, allocator, json_value.value, .{ .ignore_unknown_fields = true });
     defer parsed.deinit();
 
     const command = parsed.value;
 
-    // Map the command type to our Message union
-    if (std.mem.eql(u8, command.type, "pause")) {
-        return Message{ .pause = {} };
-    } else if (std.mem.eql(u8, command.type, "seek")) {
-        if (command.position) |position| {
-            return Message{ .seek = .{ .position = position } };
-        } else {
-            return error.MissingPositionField;
-        }
-    } else if (std.mem.eql(u8, command.type, "play")) {
-        return Message{ .play = {} };
-    } else if (std.mem.eql(u8, command.type, "stop")) {
-        return Message{ .stop = {} };
-    } else {
-        return error.UnknownMessageType;
-    }
+    return command;
 }
 
 // Thread function to listen for commands
@@ -344,7 +309,7 @@ fn commandListener(message: Message) !void {
         }
 
         // Process the message
-        switch (message) {
+        switch (message.type) {
             .pause => {
                 std.debug.print("Command: Pause\n", .{});
                 _ = c.mlt_consumer_stop(consumer);
@@ -355,10 +320,13 @@ fn commandListener(message: Message) !void {
                     _ = c.mlt_consumer_start(consumer);
                 }
             },
-            .seek => |data| {
-                std.debug.print("Command: Seek to {d} seconds\n", .{data.position});
+            .seek => {
+                if (message.seek_position == null) {
+                    return error.SeekPositionRequired;
+                }
+                std.debug.print("Command: Seek to {d} seconds\n", .{message.seek_position.?});
                 const fps = c.mlt_producer_get_fps(producer);
-                const position = @as(i32, @intFromFloat(data.position * fps));
+                const position = @as(i32, @intFromFloat(message.seek_position.? * fps));
 
                 // Get the consumer for purging
                 const props = c.MLT_PRODUCER_PROPERTIES(producer);
@@ -385,24 +353,16 @@ fn spawnCommandListener() !std.Thread {
     return std.Thread.spawn(.{}, struct {
         fn run() !void {
             while (true) {
-                // Try to read a line - this will block until data is available
-                var parsed = parseJsonLineStdin() catch |err| {
-                    if (err == error.EndOfStream) {
-                        std.debug.print("End of stream detected, exiting command listener\n", .{});
-                        break;
-                    }
-                    std.debug.print("Error reading JSON: {any}\n", .{err});
-                    continue;
-                };
-                defer parsed.deinit();
-
-                // Parse the JSON into our Message union
-                const message = parseMessage(parsed.value) catch |err| {
+                const line = try readStdinLine();
+                defer allocator.free(line);
+                const message = parseMessage(line) catch |err| {
                     std.debug.print("Error parsing message: {any}\n", .{err});
                     continue;
                 };
 
-                try commandListener(message);
+                if (message) |msg| {
+                    try commandListener(msg);
+                }
             }
         }
     }.run, .{});
