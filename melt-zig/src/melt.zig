@@ -13,7 +13,6 @@ const MeltState = struct {
     consumer: ?[*c]c.struct_mlt_consumer_s,
     current_file: ?[:0]const u8,
     profile: ?[*c]c.struct_mlt_profile_s,
-    should_reload: bool,
     last_modified_time: i128,
     watch_enabled: bool,
     ws_enabled: bool,
@@ -26,7 +25,7 @@ const MeltState = struct {
             .consumer = null,
             .current_file = null,
             .profile = null,
-            .should_reload = false,
+
             .last_modified_time = 0,
             .watch_enabled = false,
             .ws_enabled = false,
@@ -178,7 +177,7 @@ fn onFatalError(owner: [*c]c.struct_mlt_properties_s, consumer: [*c]c.struct_mlt
 }
 
 // Process SDL events
-fn processSDLEvents(producer: [*c]c.struct_mlt_producer_s, consumer: [*c]c.struct_mlt_consumer_s) void {
+fn processSDLEvents(producer: [*c]c.struct_mlt_producer_s, consumer: [*c]c.struct_mlt_consumer_s) !void {
     var event: c.SDL_Event = undefined;
 
     while (c.SDL_PollEvent(&event) != 0) {
@@ -236,8 +235,7 @@ fn processSDLEvents(producer: [*c]c.struct_mlt_producer_s, consumer: [*c]c.struc
 
                         // Optionally fire jack seek event if implemented
                     } else if (keyboard[0] == 'r' or keyboard[0] == 'R') {
-                        // Mark for reload on next loop iteration
-                        state.should_reload = true;
+                        try reload();
                         std.debug.print("Reloading MLT file...\n", .{});
                     }
                 }
@@ -652,7 +650,7 @@ pub fn main() !void {
                 if (current_mtime > state.last_modified_time) {
                     if (state.last_modified_time > 0) { // Skip the first time (initialization)
                         std.debug.print("File modification detected, triggering reload...\n", .{});
-                        state.should_reload = true;
+                        try reload();
                     }
                     state.last_modified_time = current_mtime;
                 }
@@ -661,19 +659,9 @@ pub fn main() !void {
             }
         }
 
-        // Check if we need to reload
-        if (state.should_reload) {
-            state.should_reload = false;
-            std.debug.print("Attempting to reload...\n", .{});
-            reload() catch |err| {
-                std.debug.print("Failed to reload MLT file: {any}\n", .{err});
-            };
-            // Continue running with either the reloaded or existing producer
-        }
-
         // Process SDL events only for display consumers
         if (is_display_consumer and state.producer != null and state.consumer != null) {
-            processSDLEvents(state.producer.?, state.consumer.?);
+            try processSDLEvents(state.producer.?, state.consumer.?);
         }
 
         // Sleep to avoid hogging CPU
