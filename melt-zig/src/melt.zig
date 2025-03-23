@@ -40,34 +40,45 @@ var state = MeltState.init();
 var gpa = std.heap.GeneralPurposeAllocator(.{}){};
 const allocator = gpa.allocator();
 
-// Websocket server handler
 const WsHandler = struct {
     app: *WsApp,
     conn: *websocket.Conn,
+    is_running: std.atomic.Value(bool),
 
     pub fn init(h: websocket.Handshake, conn: *websocket.Conn, app: *WsApp) !WsHandler {
         _ = h;
         return .{
             .app = app,
             .conn = conn,
+            .is_running = std.atomic.Value(bool).init(true),
         };
     }
 
     pub fn afterInit(self: *WsHandler) !void {
-        // Start streaming data from pipe in a separate thread
-        if (self.app.pipe_reader) |pipe_reader| {
-            const thread = try std.Thread.spawn(.{}, struct {
-                fn run(handler: *WsHandler, pipe_fd: std.fs.File) !void {
-                    while (true) {
-                        const bytes_read = try pipe_fd.read(handler.app.read_buffer);
-                        if (bytes_read == 0) break; // EOF
-                        try handler.conn.writeBin(handler.app.read_buffer[0..bytes_read]);
+        const thread = try std.Thread.spawn(.{}, struct {
+            fn run(handler: *WsHandler) !void {
+                const read_buffer = try allocator.alloc(u8, 1024);
+                defer allocator.free(read_buffer);
+
+                const reader = std.fs.File{ .handle = state.pipe_read_fd.? };
+                while (handler.is_running.load(.acquire)) {
+                    const bytes_read = reader.read(read_buffer) catch |err| {
+                        if (err == error.BrokenPipe) {
+                            std.debug.print("Pipe closed, exiting reader thread\n", .{});
+                            return;
+                        }
+                        return err;
+                    };
+                    if (bytes_read == 0) break; // EOF
+                    if (handler.is_running.load(.acquire) == true) {
+                        try handler.conn.writeBin(read_buffer[0..bytes_read]);
                     }
                 }
-            }.run, .{ self, pipe_reader });
+                std.debug.print("Websocket pipe consumer thread exiting\n", .{});
+            }
+        }.run, .{self});
 
-            thread.detach();
-        }
+        thread.detach();
     }
 
     pub fn clientMessage(self: *WsHandler, data: []const u8) !void {
@@ -79,7 +90,8 @@ const WsHandler = struct {
     }
 
     pub fn close(self: *WsHandler) void {
-        _ = self;
+        self.is_running.store(false, .release);
+
         std.debug.print("Websocket connection closed\n", .{});
         // Cleanup will be handled by WsApp.deinit
     }
@@ -87,20 +99,12 @@ const WsHandler = struct {
 
 // Websocket server app state
 const WsApp = struct {
-    pipe_reader: ?std.fs.File = null,
-    read_buffer: []u8 = undefined,
-
     pub fn init() !WsApp {
-        return .{
-            .read_buffer = try allocator.alloc(u8, 65536),
-        };
+        return .{};
     }
 
     pub fn deinit(self: *WsApp) void {
-        if (self.pipe_reader) |reader| {
-            reader.close();
-        }
-        allocator.free(self.read_buffer);
+        _ = self;
     }
 };
 
@@ -145,9 +149,6 @@ fn startWebsocketServer() !std.Thread {
                     },
                 });
                 var app = try WsApp.init();
-                if (state.pipe_read_fd) |fd| {
-                    app.pipe_reader = std.fs.File{ .handle = fd };
-                }
 
                 defer app.deinit();
                 try server.listen(&app);
