@@ -55,6 +55,7 @@ const WsHandler = struct {
     }
 
     pub fn afterInit(self: *WsHandler) !void {
+        // try reload();
         const thread = try std.Thread.spawn(.{}, struct {
             fn run(handler: *WsHandler) !void {
                 const read_buffer = try allocator.alloc(u8, 1024);
@@ -415,6 +416,24 @@ fn start(file_path: [:0]const u8, profile: *c.struct_mlt_profile_s, consumer: [*
     return producer;
 }
 
+// TODO this blocks on read of empty pipe, does not work
+fn clearPipe() !void {
+    if (state.pipe_read_fd) |fd| {
+        const reader = std.fs.File{ .handle = fd };
+        var buf: [1024]u8 = undefined;
+        var total_bytes: usize = 0;
+        while (true) {
+            const bytes_read = reader.read(&buf) catch |err| {
+                std.debug.print("Error reading from pipe: {any}\n", .{err});
+                break;
+            };
+            if (bytes_read == 0) break;
+            total_bytes += bytes_read;
+        }
+        std.debug.print("Cleared {d} bytes from pipe\n", .{total_bytes});
+    }
+}
+
 // Function to reload the current file
 fn reload() !void {
     if (state.current_file == null or state.profile == null or state.consumer == null) {
@@ -429,6 +448,7 @@ fn reload() !void {
         _ = c.mlt_consumer_stop(state.consumer.?);
         c.mlt_producer_close(old_producer);
     }
+    // try clearPipe();
 
     // Start a new producer with the same file
     const new_producer = try start(state.current_file.?, state.profile.?, state.consumer.?);
@@ -635,11 +655,12 @@ pub fn main() !void {
             break;
         }
 
-        if (state.consumer != null and c.mlt_consumer_is_stopped(state.consumer.?) != 0) {
-            std.debug.print("Consumer has stopped\n", .{});
+        // TODO what is this for?
+        // if (state.consumer != null and c.mlt_consumer_is_stopped(state.consumer.?) != 0) {
+        //     std.debug.print("Consumer has stopped\n", .{});
 
-            break;
-        }
+        //     break;
+        // }
 
         // Check if the file was modified (only if watch mode is enabled)
         if (state.watch_enabled and state.current_file != null and state.current_file != null) {
