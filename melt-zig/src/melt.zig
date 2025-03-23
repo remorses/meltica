@@ -43,14 +43,12 @@ const allocator = gpa.allocator();
 const WsHandler = struct {
     app: *WsApp,
     conn: *websocket.Conn,
-    is_running: std.atomic.Value(bool),
 
     pub fn init(h: websocket.Handshake, conn: *websocket.Conn, app: *WsApp) !WsHandler {
         _ = h;
         return .{
             .app = app,
             .conn = conn,
-            .is_running = std.atomic.Value(bool).init(true),
         };
     }
 
@@ -58,11 +56,23 @@ const WsHandler = struct {
         // try reload();
         const thread = try std.Thread.spawn(.{}, struct {
             fn run(handler: *WsHandler) !void {
+                const fps = c.mlt_producer_get_fps(state.producer.?);
+                const json_info_msg = try std.json.stringifyAlloc(allocator, .{
+                    .type = "info",
+                    .fps = fps,
+                }, .{});
+                defer allocator.free(json_info_msg);
+                if (!handler.conn.isClosed()) {
+                    try handler.conn.writeText(json_info_msg);
+                }
+
                 const read_buffer = try allocator.alloc(u8, 1024);
                 defer allocator.free(read_buffer);
 
                 const reader = std.fs.File{ .handle = state.pipe_read_fd.? };
-                while (handler.is_running.load(.acquire)) {
+                var last_sent_time: f64 = 0;
+
+                while (!handler.conn.isClosed()) {
                     const bytes_read = reader.read(read_buffer) catch |err| {
                         if (err == error.BrokenPipe) {
                             std.debug.print("Pipe closed, exiting reader thread\n", .{});
@@ -71,8 +81,26 @@ const WsHandler = struct {
                         return err;
                     };
                     if (bytes_read == 0) break; // EOF
-                    if (handler.is_running.load(.acquire) == true) {
+                    if (!handler.conn.isClosed()) {
                         try handler.conn.writeBin(read_buffer[0..bytes_read]);
+                    }
+
+                    const producer = state.producer.?;
+                    const currentFrame = c.mlt_producer_position(producer);
+                    const currentTime = @as(f64, @floatFromInt(currentFrame)) / fps;
+
+                    // Only send time update if more than 16ms has passed
+                    if (@abs(currentTime - last_sent_time) >= 0.016) {
+                        const json_msg = try std.json.stringifyAlloc(allocator, .{
+                            .type = "time",
+                            .currentFrame = currentFrame,
+                            .currentTime = currentTime,
+                        }, .{});
+                        defer allocator.free(json_msg);
+                        if (!handler.conn.isClosed()) {
+                            try handler.conn.writeText(json_msg);
+                        }
+                        last_sent_time = currentTime;
                     }
                 }
                 std.debug.print("Websocket pipe consumer thread exiting\n", .{});
@@ -91,8 +119,7 @@ const WsHandler = struct {
     }
 
     pub fn close(self: *WsHandler) void {
-        self.is_running.store(false, .release);
-
+        _ = self;
         std.debug.print("Websocket connection closed\n", .{});
         // Cleanup will be handled by WsApp.deinit
     }
@@ -209,8 +236,7 @@ fn processSDLEvents(producer: [*c]c.struct_mlt_producer_s, consumer: [*c]c.struc
                         if (position < 0) position = 0;
 
                         // Get the consumer for purging
-                        const props = c.MLT_PRODUCER_PROPERTIES(producer);
-                        const cons = c.mlt_properties_get_data(props, "transport_consumer", null);
+                        const cons = state.consumer.?;
                         if (cons != null) {
                             _ = c.mlt_consumer_purge(@ptrCast(@alignCast(cons)));
                         }
@@ -226,8 +252,8 @@ fn processSDLEvents(producer: [*c]c.struct_mlt_producer_s, consumer: [*c]c.struc
                         position += @intFromFloat(fps * 60); // 60 seconds = 1 minute
 
                         // Get the consumer for purging
-                        const props = c.MLT_PRODUCER_PROPERTIES(producer);
-                        const cons = c.mlt_properties_get_data(props, "transport_consumer", null);
+
+                        const cons = state.consumer.?;
                         if (cons != null) {
                             _ = c.mlt_consumer_purge(@ptrCast(@alignCast(cons)));
                         }
@@ -327,8 +353,8 @@ fn messageHandler(message: Message) !void {
             const position = @as(i32, @intFromFloat(message.seek_position.? * fps));
 
             // Get the consumer for purging
-            const props = c.MLT_PRODUCER_PROPERTIES(producer);
-            const cons = c.mlt_properties_get_data(props, "transport_consumer", null);
+
+            const cons = state.consumer.?;
             if (cons != null) {
                 _ = c.mlt_consumer_purge(@ptrCast(@alignCast(cons)));
             }
@@ -371,13 +397,8 @@ fn start(file_path: [:0]const u8, profile: *c.struct_mlt_profile_s, consumer: [*
     // Try creating a producer for the file
     const producer = c.mlt_factory_producer(profile, "xml", file_path.ptr);
 
-    // Set global melt for signal handlers
-    state.producer = producer;
-
     // Set transport properties
     const properties = c.MLT_CONSUMER_PROPERTIES(consumer);
-    _ = c.mlt_properties_set_data(properties, "transport_producer", producer, 0, null, null);
-    _ = c.mlt_properties_set_data(c.MLT_PRODUCER_PROPERTIES(producer), "transport_consumer", consumer, 0, null, null);
 
     // Set up error handling (only needed the first time)
     if (state.consumer == null) {
@@ -595,8 +616,15 @@ pub fn main() !void {
     } else {
         // Default to SDL2 consumer
         consumer = c.mlt_factory_consumer(profile, consumer_type.ptr, null);
+
         std.debug.print("Using {s} consumer for display\n", .{consumer_type});
     }
+    // Configure the consumer
+    const consumer_props = c.MLT_CONSUMER_PROPERTIES(consumer.?);
+    _ = c.mlt_properties_set(consumer_props, "rescale", "bilinear"); // Set rescaling method
+    _ = c.mlt_properties_set_int(consumer_props, "terminate_on_pause", 0); // Don't terminate when paused
+    _ = c.mlt_properties_set_int(consumer_props, "real_time", 1); // Use real-time processing
+    _ = c.mlt_properties_set_int(consumer_props, "buffer", 25); // Buffer frames
 
     const is_display_consumer = std.mem.eql(u8, consumer_type, "sdl2");
 
@@ -606,21 +634,17 @@ pub fn main() !void {
     }
     defer c.mlt_consumer_close(consumer.?);
 
-    // Configure the consumer
-    const consumer_props = c.MLT_CONSUMER_PROPERTIES(consumer.?);
-    _ = c.mlt_properties_set(consumer_props, "rescale", "bilinear"); // Set rescaling method
-    _ = c.mlt_properties_set_int(consumer_props, "terminate_on_pause", 0); // Don't terminate when paused
-    _ = c.mlt_properties_set_int(consumer_props, "real_time", 1); // Use real-time processing
-    _ = c.mlt_properties_set_int(consumer_props, "buffer", 25); // Buffer frames
-
-    // Start the producer with the input file
-    const producer = try start(input_file_path, profile, consumer.?);
-    defer c.mlt_producer_close(producer);
-
     if (state.ws_enabled) {
         // Start websocket server if enabled
         const ws_thread = try startWebsocketServer();
         ws_thread.detach();
+    }
+
+    state.producer = try start(input_file_path, profile, consumer.?);
+    defer {
+        if (state.producer) |producer| {
+            c.mlt_producer_close(producer);
+        }
     }
 
     if (state.watch_enabled) {

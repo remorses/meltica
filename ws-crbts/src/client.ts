@@ -7,6 +7,7 @@ if (!mpegts.getFeatureList().mseLivePlayback) {
 var videoElement: HTMLMediaElement = document.getElementById(
     'videoElement',
 )! as any
+
 var player = mpegts.createPlayer(
     {
         type: 'flv',
@@ -16,19 +17,15 @@ var player = mpegts.createPlayer(
     },
     {
         isLive: true,
-        // accurateSeek: true,
         autoCleanupSourceBuffer: true,
         stashInitialSize: 0,
         customLoader: MyWebSocketLoader,
-        // liveBufferLatencyChasing: true,
-        // liveBufferLatencyChasingOnPaused: true,
-        // liveBufferLatencyMaxLatency: 0.2,
-        // liveBufferLatencyMinRemain: 0.1,
         liveSync: false,
     },
 )
 console.log(player)
 player.attachMediaElement(videoElement as any)
+
 player.load()
 
 function discardBufferedData() {
@@ -62,6 +59,7 @@ type Message = {
     document.body.appendChild(button)
 }
 
+player.statisticsInfo
 {
     const button = document.createElement('button')
     button.textContent = 'Seek Forward 1 minute'
@@ -82,7 +80,6 @@ type Message = {
     document.body.appendChild(button)
 }
 
-
 {
     const slider = document.createElement('input')
     slider.type = 'range'
@@ -101,7 +98,7 @@ type Message = {
         player.pause()
         const msg: Message = {
             type: 'seek',
-            seek_position: Number(slider.value)
+            seek_position: Number(slider.value),
         }
         MyWebSocketLoader.singleton.ws.send(JSON.stringify(msg))
         discardBufferedData()
