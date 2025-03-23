@@ -41,11 +41,6 @@ var state = MeltState.init();
 var gpa = std.heap.GeneralPurposeAllocator(.{}){};
 const allocator = gpa.allocator();
 
-// Websocket server variables
-var g_ws_enabled: bool = false;
-var g_pipe_read_fd: ?std.posix.fd_t = null;
-var g_pipe_write_fd: ?std.posix.fd_t = null;
-
 // Websocket server handler
 const WsHandler = struct {
     app: *WsApp,
@@ -62,7 +57,7 @@ const WsHandler = struct {
     pub fn afterInit(self: *WsHandler) !void {
         // Start streaming data from pipe in a separate thread
         if (self.app.pipe_reader) |pipe_reader| {
-            _ = try std.Thread.spawn(.{}, struct {
+            const thread = try std.Thread.spawn(.{}, struct {
                 fn run(handler: *WsHandler, pipe_fd: std.fs.File) !void {
                     while (true) {
                         const bytes_read = try pipe_fd.read(handler.app.read_buffer);
@@ -71,6 +66,8 @@ const WsHandler = struct {
                     }
                 }
             }.run, .{ self, pipe_reader });
+
+            thread.detach();
         }
     }
 

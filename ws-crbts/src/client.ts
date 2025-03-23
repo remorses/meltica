@@ -81,3 +81,31 @@ type Message = {
     }
     document.body.appendChild(button)
 }
+
+
+{
+    const slider = document.createElement('input')
+    slider.type = 'range'
+    slider.min = '0'
+    slider.max = '60'
+    slider.step = '1'
+    slider.value = '0'
+    slider.style.width = '300px'
+
+    slider.oninput = () => {
+        if (!MyWebSocketLoader.singleton.ws) {
+            console.log('WebSocket not connected')
+            return
+        }
+
+        player.pause()
+        const msg: Message = {
+            type: 'seek',
+            seek_position: Number(slider.value)
+        }
+        MyWebSocketLoader.singleton.ws.send(JSON.stringify(msg))
+        discardBufferedData()
+    }
+
+    document.body.appendChild(slider)
+}
