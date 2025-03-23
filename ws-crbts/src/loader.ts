@@ -38,29 +38,30 @@ class RuntimeException extends Error {
     }
 }
 
-// For MPEG-TS/FLV over WebSocket live stream
-export class MyWebSocketLoader extends mpeg.BaseLoader {
-    private TAG: string
-    private needStash: boolean
-    ws: WebSocket | null
-    private requestAbort: boolean
-    private receivedLength: number
-
-    private _onDataArrival:
+abstract class LoaderCallbacks extends mpeg.BaseLoader {
+    _onDataArrival:
         | ((
               chunk: ArrayBuffer,
               byteStart: number,
               receivedLength?: number,
           ) => void)
         | null = null
-    private _onError:
+    _onError:
         | ((
               errorType: LoaderErrors,
               errorInfo: { code: number; msg: string },
           ) => void)
         | null = null
-    private _onComplete: ((rangeFrom: number, rangeTo: number) => void) | null =
-        null
+    _onComplete: ((rangeFrom: number, rangeTo: number) => void) | null = null
+}
+
+// For MPEG-TS/FLV over WebSocket live stream
+export class MyWebSocketLoader extends LoaderCallbacks {
+    private TAG: string
+    private needStash: boolean
+    ws: WebSocket | null
+    private requestAbort: boolean
+    private receivedLength: number
 
     static isSupported(): boolean {
         try {
