@@ -1,0 +1,3 @@
+[submodule "remotion-timeline"]
+	path = remotion-timeline
+	url = https://github.com/remorses/remotion-timeline
