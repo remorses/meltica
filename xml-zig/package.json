@@ -1,0 +1,13 @@
+{
+    "name": "xml-zig",
+    "private": true,
+    "description": "",
+    "scripts": {
+        "zig:build": "zig build",
+        "zig:test": "zig test src/xml.zig",
+        "zig:run": "zig build run"
+    },
+    "keywords": [],
+    "author": "remorses <beats.by.morse@gmail.com>",
+    "license": "ISC"
+}
