@@ -1,14 +1,12 @@
 {
-    "name": "cpp",
-    "version": "1.0.0",
+    "name": "melt-zig",
+    "private": true,
     "description": "",
-    "main": "index.js",
     "scripts": {
         "zig:build": "zig build",
         "zig:run": "zig build run"
     },
     "keywords": [],
     "author": "remorses <beats.by.morse@gmail.com>",
-    "license": "ISC",
-    "packageManager": "pnpm@10.4.1"
+    "license": "ISC"
 }
