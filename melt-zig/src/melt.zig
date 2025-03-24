@@ -326,7 +326,6 @@ fn parseMessage(line: []const u8) !?Message {
 fn messageHandler(message: Message) !void {
     const producer = state.producer.?;
     const consumer = state.consumer.?;
-    std.debug.print("Command listener thread started\n", .{});
 
     const producer_props = c.MLT_PRODUCER_PROPERTIES(producer);
     if (c.mlt_properties_get_int(producer_props, "done") != 0) {
