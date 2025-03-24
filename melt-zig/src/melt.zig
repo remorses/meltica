@@ -18,14 +18,14 @@ const MeltState = struct {
     ws_enabled: bool,
     pipe_read_fd: ?std.posix.fd_t,
     pipe_write_fd: ?std.posix.fd_t,
-
+    xml: []const u8,
     pub fn init() MeltState {
         return .{
             .producer = null,
             .consumer = null,
             .current_file = null,
             .profile = null,
-
+            .xml = "",
             .last_modified_time = 0,
             .watch_enabled = false,
             .ws_enabled = false,
@@ -60,6 +60,7 @@ const WsHandler = struct {
                 const json_info_msg = try std.json.stringifyAlloc(allocator, .{
                     .type = "info",
                     .fps = fps,
+                    .xml = state.xml,
                 }, .{});
                 defer allocator.free(json_info_msg);
                 if (!handler.conn.isClosed()) {
@@ -389,14 +390,55 @@ fn spawnCommandListener() !std.Thread {
     }.run, .{});
 }
 
+fn getProducerXmlString() ![]const u8 {
+    if (state.producer == null) {
+        return error.NoProducerAvailable;
+    }
+    if (state.profile == null) {
+        return error.NoProfileAvailable;
+    }
+
+    const producer = state.producer.?;
+    const profile = state.profile.?;
+
+    // Create XML string consumer
+    const consumer = c.mlt_factory_consumer(profile, "xml", "string");
+    if (consumer == null) {
+        return error.ConsumerCreationFailed;
+    }
+    defer c.mlt_consumer_close(consumer);
+
+    // Connect consumer to producer
+    if (c.mlt_consumer_connect(consumer, c.mlt_producer_service(producer)) != 0) {
+        return error.ConsumerConnectionFailed;
+    }
+
+    // Start the consumer
+    if (c.mlt_consumer_start(consumer) != 0) {
+        return error.ConsumerStartFailed;
+    }
+
+    // Get the XML string from consumer properties
+    const properties = c.MLT_CONSUMER_PROPERTIES(consumer);
+    const xml_str = c.mlt_properties_get(properties, "string");
+    if (xml_str == null) {
+        return error.NoXmlGenerated;
+    }
+
+    // Copy string to new buffer owned by caller
+    return try allocator.dupe(u8, std.mem.span(xml_str));
+}
+
 // Function to start the producer with the given file
 fn start(file_path: [:0]const u8, profile: *c.struct_mlt_profile_s, consumer: [*c]c.struct_mlt_consumer_s) ![*c]c.struct_mlt_producer_s {
     // Save the file path for reloading
     state.current_file = file_path;
 
     // Try creating a producer for the file
-    const producer = c.mlt_factory_producer(profile, "xml", file_path.ptr);
+    state.producer = c.mlt_factory_producer(profile, "xml", file_path.ptr);
 
+    state.xml = try getProducerXmlString();
+    std.debug.print("XML: {s}\n", .{state.xml});
     // Set transport properties
     const properties = c.MLT_CONSUMER_PROPERTIES(consumer);
 
@@ -418,7 +460,7 @@ fn start(file_path: [:0]const u8, profile: *c.struct_mlt_profile_s, consumer: [*
     }
 
     // Connect the producer to the consumer
-    if (c.mlt_consumer_connect(consumer, c.mlt_producer_service(producer)) != 0) {
+    if (c.mlt_consumer_connect(consumer, c.mlt_producer_service(state.producer.?)) != 0) {
         std.debug.print("Failed to connect consumer to producer\n", .{});
         return error.ConsumerConnectionFailed;
     }
@@ -434,7 +476,7 @@ fn start(file_path: [:0]const u8, profile: *c.struct_mlt_profile_s, consumer: [*
         std.debug.print("Consumer already running\n", .{});
     }
 
-    return producer;
+    return state.producer.?;
 }
 
 // TODO this blocks on read of empty pipe, does not work
@@ -472,8 +514,7 @@ fn reload() !void {
     // try clearPipe();
 
     // Start a new producer with the same file
-    const new_producer = try start(state.current_file.?, state.profile.?, state.consumer.?);
-    state.producer = new_producer;
+    state.producer = try start(state.current_file.?, state.profile.?, state.consumer.?);
 }
 
 pub fn main() !void {
