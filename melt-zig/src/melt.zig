@@ -434,8 +434,15 @@ fn start(file_path: [:0]const u8, profile: *c.struct_mlt_profile_s, consumer: [*
     // Save the file path for reloading
     state.current_file = file_path;
 
-    // Try creating a producer for the file
-    state.producer = c.mlt_factory_producer(profile, "xml", file_path.ptr);
+    // Read XML file content
+    const file = try std.fs.cwd().openFile(file_path, .{});
+    defer file.close();
+
+    const xmlContent = try file.readToEndAlloc(allocator, std.math.maxInt(usize));
+    defer allocator.free(xmlContent);
+    const xmlContentZ = try allocator.dupeZ(u8, xmlContent);
+    defer allocator.free(xmlContentZ);
+    state.producer = c.mlt_factory_producer(profile, "xml-string", xmlContentZ.ptr);
 
     state.xml = try getProducerXmlString();
     std.debug.print("XML: {s}\n", .{state.xml});
