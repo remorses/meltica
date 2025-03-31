@@ -5,8 +5,8 @@ pub fn build(b: *std.Build) void {
     const optimize = b.standardOptimizeOption(.{});
 
     const exe = b.addExecutable(.{
-        .name = "xml-zig",
-        .root_source_file = b.path("src/xml.zig"),
+        .name = "mlt-zig",
+        .root_source_file = b.path("src/mlt.zig"),
         .target = target,
         .optimize = optimize,
     });
@@ -30,8 +30,20 @@ pub fn build(b: *std.Build) void {
     const run_step = b.step("run", "Run the application");
     run_step.dependOn(&run_cmd.step);
 
-    b.installArtifact(exe);
+    // Unit tests
+    const unit_tests = b.addTest(.{
+        .root_source_file = b.path("src/mlt.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
 
-    // Create a simple test step that does nothing
-    _ = b.step("test", "Tests are not applicable for C code");
+    unit_tests.addLibraryPath(.{ .cwd_relative = "/usr/local/lib" });
+    unit_tests.addIncludePath(.{ .cwd_relative = "/usr/local/include" });
+    unit_tests.linkSystemLibrary("mlt-7.7");
+    unit_tests.linkLibC();
+
+    const run_unit_tests = b.addRunArtifact(unit_tests);
+
+    const test_step = b.step("test", "Run unit tests");
+    test_step.dependOn(&run_unit_tests.step);
 }
