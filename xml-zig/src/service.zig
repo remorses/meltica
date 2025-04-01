@@ -20,7 +20,7 @@ pub const Service = struct {
         var result = Service{
             .instance = service,
         };
-        result.incRef();
+        _ = result.incRef();
         return result;
     }
 
