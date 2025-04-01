@@ -1,7 +1,4 @@
 
-Notice that all the mlt types are already typedefs to pointers, which means in Zig you don't need to use * or ?, because these are c pointers.
-
-Also notice that the MLT framework implements inheritance for the MLT c types using same memory layout, to convert a type to another one that is inherited or inherits from you can use pointer casing, in zig you use @ptrCast. For example producer is a service which is a properties, if you want to use a function that accepts a service as argument but you currently have a producer, you can use the following: @ptrCast(producer)
 
 ### MLT++
 

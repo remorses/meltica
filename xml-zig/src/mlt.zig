@@ -5,4 +5,5 @@ test "ref all declarations" {
     testing.refAllDecls(@import("service.zig").Service);
     testing.refAllDecls(@import("filter.zig").Filter);
     testing.refAllDecls(@import("producer.zig").Producer);
+    testing.refAllDecls(@import("consumer.zig").Consumer);
 }

@@ -1,1 +1,0 @@
-the mlt c api uses ints as return values for function that can fail. you should convert these wrapper zig functions to return an error in case the mlt method fails instead.
