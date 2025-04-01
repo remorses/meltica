@@ -1,7 +1,5 @@
 const std = @import("std");
-const c = @cImport({
-    @cInclude("mlt-7/framework/mlt.h");
-});
+const c = @import("c.zig").c;
 
 const Service = @import("service.zig").Service;
 const Producer = @import("producer.zig").Producer;
@@ -28,7 +26,9 @@ pub const Transition = struct {
                     const temp = try std.heap.c_allocator.dupeZ(u8, id_str[0..i]);
                     defer std.heap.c_allocator.free(temp);
                     const arg_part = id_str[i + 1 ..];
-                    instance = c.mlt_factory_transition(profile, temp.ptr, arg_part.ptr);
+                    const arg_ptr = try std.heap.c_allocator.dupeZ(u8, std.mem.span(arg_part));
+                    defer std.heap.c_allocator.free(arg_ptr);
+                    instance = c.mlt_factory_transition(profile, temp, @ptrCast(arg_ptr));
                     break;
                 }
             }
@@ -42,19 +42,19 @@ pub const Transition = struct {
         return Transition{ .instance = instance };
     }
 
-    pub fn initFromService(service: Service) !Transition {
-        if (c.mlt_service_identify(service.instance) != c.mlt_service_transition_type) {
-            return error.InvalidService;
-        }
-        const transition = @as(*c.mlt_transition, @ptrCast(service.instance));
-        _ = c.mlt_transition_ref(transition);
-        return Transition{ .instance = transition };
-    }
+    // pub fn initFromService(service: Service) !Transition {
+    //     if (c.mlt_service_identify(service.instance) != c.mlt_service_transition_type) {
+    //         return error.InvalidService;
+    //     }
+    //     const transition = @as(c.mlt_transition, service.instance);
+    //     _ = c.mlt_properties_inc_ref(c.mlt_service_properties(transition));
+    //     return Transition{ .instance = transition };
+    // }
 
-    pub fn initFromTransition(transition: c.mlt_transition) Transition {
-        _ = c.mlt_transition_ref(transition);
-        return Transition{ .instance = transition };
-    }
+    // pub fn initFromTransition(transition: c.mlt_transition) Transition {
+    //     _ = c.mlt_properties_inc_ref(c.mlt_service_properties(transition));
+    //     return Transition{ .instance = transition };
+    // }
 
     pub fn deinit(self: *Transition) void {
         c.mlt_transition_close(self.instance);
@@ -78,7 +78,7 @@ pub const Transition = struct {
     }
 
     pub fn connectProducer(self: Transition, producer: Producer, a_track: i32, b_track: i32) !void {
-        const result = c.mlt_transition_connect(self.instance, producer.instance, a_track, b_track);
+        const result = c.mlt_transition_connect(self.instance, @ptrCast(producer.instance), a_track, b_track);
         if (result != 0) return error.ConnectFailed;
     }
 

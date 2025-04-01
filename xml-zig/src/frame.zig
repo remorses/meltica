@@ -1,8 +1,6 @@
 const std = @import("std");
 const Service = @import("service.zig").Service;
-const c = @cImport({
-    @cInclude("mlt-7/framework/mlt.h");
-});
+const c = @import("c.zig").c;
 const Properties = @import("properties.zig").Properties;
 const Producer = @import("producer.zig").Producer;
 

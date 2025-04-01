@@ -2,9 +2,7 @@ const std = @import("std");
 const Properties = @import("Properties.zig").Properties;
 const testing = std.testing;
 
-pub const c = @cImport({
-    @cInclude("mlt-7/framework/mlt.h");
-});
+const c = @import("c.zig").c;
 
 pub const Service = struct {
     instance: c.mlt_service,
@@ -87,7 +85,7 @@ pub const Service = struct {
         return Service.initFromService(consumer_service);
     }
 
-    pub fn getProfile(self: *const Service) ?c.mlt_profile {
+    pub fn getProfile(self: *const Service) c.mlt_profile {
         return c.mlt_service_profile(self.instance);
     }
 
@@ -111,7 +109,7 @@ pub const Service = struct {
         return c.mlt_service_move_filter(self.instance, from, to);
     }
 
-    pub fn filter(self: *Service, index: i32) ?c.mlt_filter {
+    pub fn filter(self: *Service, index: i32) c.mlt_filter {
         return c.mlt_service_filter(self.instance, index);
     }
 };

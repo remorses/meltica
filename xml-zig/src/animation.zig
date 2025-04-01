@@ -1,7 +1,5 @@
 const std = @import("std");
-const c = @cImport({
-    @cInclude("mlt-7/framework/mlt.h");
-});
+const c = @import("c.zig").c;
 
 pub const Animation = struct {
     instance: c.mlt_animation,

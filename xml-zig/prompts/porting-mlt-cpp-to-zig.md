@@ -14,9 +14,7 @@ For example `c.mlt_producer` is a `mlt_service` which is a `mlt_properties`, if 
 in zig you can use the following to import mlt exports
 
 ```zig
-const c = @cImport({
-    @cInclude("mlt-7/framework/mlt.h");
-});
+const c = @import("c.zig").c;
 ```
 
 # c mlt types are already optionals, don't add `?`

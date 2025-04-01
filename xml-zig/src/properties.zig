@@ -1,7 +1,5 @@
 const std = @import("std");
-const c = @cImport({
-    @cInclude("mlt-7/framework/mlt.h");
-});
+const c = @import("c.zig").c;
 const Event = @import("event.zig").Event;
 const Animation = @import("animation.zig").Animation;
 
@@ -127,7 +125,7 @@ pub const Properties = struct {
         }
     }
 
-    pub fn setData(self: *Properties, name: [*:0]const u8, value: ?*anyopaque, size: c_int, destructor: ?c.mlt_destructor, serialiser: ?c.mlt_serialiser) !void {
+    pub fn setData(self: *Properties, name: [*:0]const u8, value: ?*anyopaque, size: c_int, destructor: c.mlt_destructor, serialiser: c.mlt_serialiser) !void {
         if (c.mlt_properties_set_data(self.instance, name, value, size, destructor orelse null, serialiser orelse null) != 0) {
             return error.SetDataFailed;
         }
@@ -278,7 +276,7 @@ pub const Properties = struct {
         }
     }
 
-    pub fn getAnimation(self: *Properties, name: [*:0]const u8) ?c.mlt_animation {
+    pub fn getAnimation(self: *Properties, name: [*:0]const u8) c.mlt_animation {
         return c.mlt_properties_get_animation(self.instance, name);
     }
 

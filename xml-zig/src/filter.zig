@@ -2,9 +2,7 @@ const std = @import("std");
 const Properties = @import("Properties.zig").Properties;
 const testing = std.testing;
 
-pub const c = @cImport({
-    @cInclude("mlt-7/framework/mlt.h");
-});
+const c = @import("c.zig").c;
 
 pub const Filter = struct {
     instance: c.mlt_filter,

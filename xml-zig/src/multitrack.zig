@@ -1,7 +1,5 @@
 const std = @import("std");
-const c = @cImport({
-    @cInclude("mlt-7/framework/mlt.h");
-});
+const c = @import("c.zig").c;
 
 const Producer = @import("producer.zig").Producer;
 const Service = @import("service.zig").Service;
@@ -10,7 +8,7 @@ pub const Multitrack = struct {
     instance: c.mlt_multitrack,
 
     pub fn initFromMultitrack(multitrack: c.mlt_multitrack) Multitrack {
-        _ = c.mlt_multitrack_ref(multitrack);
+        _ = c.mlt_properties_inc_ref(c.mlt_service_properties(@ptrCast(multitrack)));
         return Multitrack{ .instance = multitrack };
     }
 
@@ -18,9 +16,9 @@ pub const Multitrack = struct {
         if (c.mlt_service_identify(service.instance) != c.mlt_service_multitrack_type) {
             return error.InvalidService;
         }
-        const multitrack = @as(*c.mlt_multitrack, @ptrCast(service.instance));
-        _ = c.mlt_multitrack_ref(multitrack);
-        return Multitrack{ .instance = multitrack };
+
+        _ = c.mlt_properties_inc_ref(c.mlt_service_properties(@ptrCast(service.instance)));
+        return Multitrack{ .instance = @ptrCast(service.instance) };
     }
 
     pub fn deinit(self: *Multitrack) void {
@@ -46,10 +44,9 @@ pub const Multitrack = struct {
         if (result != 0) return error.DisconnectFailed;
     }
 
-    pub fn clip(self: Multitrack, whence: c.mlt_whence, index: i32) !i32 {
+    pub fn clip(self: Multitrack, whence: c.mlt_whence, index: i32) !void {
         const result = c.mlt_multitrack_clip(self.instance, whence, index);
-        if (result < 0) return error.ClipFailed;
-        return result;
+        if (result != 0) return error.ClipFailed;
     }
 
     pub fn count(self: Multitrack) i32 {

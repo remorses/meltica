@@ -1,12 +1,10 @@
 const std = @import("std");
-const c = @cImport({
-    @cInclude("mlt-7/framework/mlt.h");
-});
+const c = @import("c.zig").c;
 const Properties = @import("properties.zig").Properties;
 const Producer = @import("producer.zig").Producer;
 
 pub const Profile = struct {
-    instance: ?c.mlt_profile,
+    instance: c.mlt_profile,
 
     pub fn init() Profile {
         return .{

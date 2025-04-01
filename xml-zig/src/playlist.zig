@@ -1,7 +1,5 @@
 const std = @import("std");
-const c = @cImport({
-    @cInclude("mlt-7/framework/mlt.h");
-});
+const c = @import("c.zig").c;
 const Producer = @import("producer.zig").Producer;
 const Service = @import("service.zig").Service;
 const Profile = @import("profile.zig").Profile;
@@ -57,7 +55,7 @@ pub const ClipInfo = struct {
             .producer = producer_instance,
             .cut = cut_instance,
             .start = info.start,
-            .resource = resource_str,
+            .resource = resource_str.?.ptr,
             .frame_in = info.frame_in,
             .frame_out = info.frame_out,
             .frame_count = info.frame_count,
