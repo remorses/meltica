@@ -49,9 +49,9 @@ pub const Service = struct {
         c.mlt_service_unlock(self.instance);
     }
 
-    pub fn connectProducer(self: *Service, producer_: *Service, index: i32) i32 {
-        if (self.instance == null or producer_.instance == null) return -1;
-        return c.mlt_service_connect_producer(self.instance.?, producer_.instance.?, index);
+    pub fn connectProducer(self: *const Service, producer_: *const Service, index: i32) !void {
+        if (self.instance == null or producer_.instance == null) return error.InvalidService;
+        if (c.mlt_service_connect_producer(self.instance.?, producer_.instance.?, index) != 0) return error.ConnectProducerFailed;
     }
 
     pub fn insertProducer(self: *Service, producer_: *Service, index: i32) i32 {
@@ -78,7 +78,7 @@ pub const Service = struct {
         return c.mlt_service_identify(self.instance);
     }
 
-    pub fn producer(self: *Service) ?Service {
+    pub fn producer(self: *const Service) ?Service {
         const producer_service = c.mlt_service_producer(self.instance);
         if (producer_service == null) return null;
         return Service.initFromService(producer_service);
@@ -90,7 +90,7 @@ pub const Service = struct {
         return Service.initFromService(consumer_service);
     }
 
-    pub fn getProfile(self: *Service) ?c.mlt_profile {
+    pub fn getProfile(self: *const Service) ?c.mlt_profile {
         return c.mlt_service_profile(self.instance);
     }
 

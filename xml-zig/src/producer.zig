@@ -7,11 +7,13 @@ const Service = @import("service.zig").Service;
 pub const Producer = struct {
     instance: c.mlt_producer,
     parent: ?*Producer,
+    last_filter: ?*Service,
 
     pub fn init() Producer {
         return .{
             .instance = null,
             .parent = null,
+            .last_filter = null,
         };
     }
 
@@ -29,6 +31,7 @@ pub const Producer = struct {
         return .{
             .instance = instance,
             .parent = null,
+            .last_filter = null,
         };
     }
 
@@ -49,6 +52,7 @@ pub const Producer = struct {
         var result = Producer{
             .instance = @ptrCast(producer.getService()),
             .parent = null,
+            .last_filter = null,
         };
         _ = result.incRef();
         return result;
@@ -58,6 +62,7 @@ pub const Producer = struct {
         var result = Producer{
             .instance = producer,
             .parent = null,
+            .last_filter = null,
         };
         _ = result.incRef();
         return result;
@@ -66,6 +71,11 @@ pub const Producer = struct {
     pub fn deinit(self: *Producer) void {
         if (self.parent) |parent| {
             parent.deinit();
+        }
+        if (self.last_filter) |last| {
+            last.deinit();
+            std.heap.c_allocator.destroy(last);
+            self.last_filter = null;
         }
         c.mlt_producer_close(self.instance);
         self.instance = null;
@@ -97,8 +107,8 @@ pub const Producer = struct {
         return if (self.parent) |p| p else self;
     }
 
-    pub fn getService(self: *Producer) c.mlt_service {
-        return c.mlt_producer_service(self.getProducer());
+    pub fn getService(self: *Producer) Service {
+        return Service.initFromService(c.mlt_producer_service(self.getProducer()));
     }
 
     pub fn seek(self: *Producer, position_: i32) i32 {
@@ -128,10 +138,7 @@ pub const Producer = struct {
     pub fn pause(self: *Producer) i32 {
         if (self.getSpeed() == 0) return 0;
 
-        const service = self.getService();
-        if (service == null) return 1;
-
-        const consumer: c.mlt_consumer = @ptrCast(c.mlt_service_consumer(service));
+        const consumer: c.mlt_consumer = @ptrCast(c.mlt_service_consumer(@ptrCast(self.instance)));
         if (consumer == null) return 1;
 
         // TODO: Implement event handling for consumer-sdl-paused
@@ -196,8 +203,8 @@ pub const Producer = struct {
         return self.sameClip(that) and self.getOut() == (that.getIn() - 1);
     }
 
-    pub fn optimize(self: *Producer) void {
-        _ = c.mlt_producer_optimise(self.getProducer());
+    pub fn optimize(self: *Producer) !void {
+        if (c.mlt_producer_optimise(self.getProducer()) != 0) return error.OptimizeFailed;
     }
 
     pub fn clear(self: *Producer) i32 {
@@ -214,5 +221,75 @@ pub const Producer = struct {
 
     pub fn probe(self: *Producer) bool {
         return c.mlt_producer_probe(self.getProducer()) != 0;
+    }
+
+    pub fn attach(self: *Producer, filter: *Service) !i32 {
+        if (filter.instance == null) return error.InvalidFilter;
+
+        const last = self.last_filter orelse return error.NoLastService;
+
+        if (last.consumer()) |filter_consumer| {
+            try filter.connectProducer(last, 0);
+
+            try filter_consumer.connectProducer(filter, 0);
+
+            const new_last = try std.heap.c_allocator.create(Service);
+            new_last.* = Service.initFromService(filter.instance);
+
+            last.deinit();
+            std.heap.c_allocator.destroy(last);
+            self.last_filter = new_last;
+
+            return 0;
+        }
+
+        return error.ConsumerNotFound;
+    }
+    // Detaches a filter from the producer's filter chain
+    // This involves:
+    // 1. Finding the filter in the chain by traversing from last service
+    // 2. Reconnecting the producer and consumer around the removed filter
+    // 3. Creating a dummy producer to take ownership of the detached filter
+    // 4. Updating the last service reference if needed
+    pub fn detach(self: *Producer, filter: *Service) !i32 {
+        // Early return if filter is invalid
+        if (filter.instance == null) return 0;
+
+        const last = self.last_filter orelse return error.NoLastService;
+
+        // Start traversing from last service
+        var it = Service.initFromService(last.instance);
+
+        // Walk up the producer chain until we find the filter
+        while (it.instance != null and it.instance != filter.instance) {
+            if (it.producer()) |prod| {
+                it = prod;
+            } else break;
+        }
+
+        // If we found the filter, detach it
+        if (it.instance == filter.instance) {
+            const producer_service = it.producer() orelse return error.ProducerNotFound;
+            const consumer_service = it.consumer() orelse return error.ConsumerNotFound;
+
+            // Reconnect around the filter
+            try consumer_service.connectProducer(&producer_service, 0);
+
+            // Create dummy producer to take ownership of detached filter
+            var dummy = try Producer.initWithProfile(self.getService().getProfile() orelse return error.NoProfile, "colour", null);
+            try dummy.getService().connectProducer(&it, 0);
+
+            // Update last service if needed
+            if (last.instance == it.instance) {
+                const new_last = try std.heap.c_allocator.create(Service);
+                new_last.* = Service.initFromService(producer_service.instance);
+
+                last.deinit();
+                std.heap.c_allocator.destroy(last);
+                self.last_filter = new_last;
+            }
+        }
+
+        return 0;
     }
 };
