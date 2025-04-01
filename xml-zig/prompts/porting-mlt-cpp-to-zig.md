@@ -19,6 +19,10 @@ const c = @cImport({
 });
 ```
 
+# c mlt types are already optionals, don't add `?`
+
+mlt types are already typedefs to c pointers, this means you zig you should not add ? in argument signatures or return types.
+
 # error handling
 
 the mlt c api uses ints as return values for function that can fail, notice that some functions return ints as return value, you need to think hard to understand if a function return type is an error or just the return type. 

@@ -45,10 +45,6 @@ pub const Filter = struct {
         self.instance = null;
     }
 
-    pub fn getFilter(self: *Filter) ?c.mlt_filter {
-        return self.instance;
-    }
-
     pub fn getService(self: *Filter) ?c.mlt_service {
         return @ptrCast(self.instance);
     }

@@ -33,10 +33,6 @@ pub const Service = struct {
         return c.mlt_properties_inc_ref(c.mlt_service_properties(self.instance));
     }
 
-    pub fn getService(self: *Service) ?c.mlt_service {
-        return self.instance;
-    }
-
     pub fn getProperties(self: *Service) ?c.mlt_properties {
         return c.mlt_service_properties(self.instance);
     }

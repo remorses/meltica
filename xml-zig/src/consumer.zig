@@ -52,7 +52,7 @@ pub const Consumer = struct {
         }
 
         var result = Consumer{
-            .instance = @ptrCast(service.getService()),
+            .instance = @ptrCast(service.instance),
         };
         _ = result.incRef();
         return result;
@@ -75,12 +75,8 @@ pub const Consumer = struct {
         return c.mlt_properties_inc_ref(c.mlt_consumer_properties(self.instance));
     }
 
-    pub fn getConsumer(self: *Consumer) c.mlt_consumer {
-        return self.instance;
-    }
-
     pub fn getService(self: *Consumer) Service {
-        return Service.initFromService(c.mlt_consumer_service(self.getConsumer()));
+        return Service.initFromService(c.mlt_consumer_service(self.instance));
     }
 
     pub fn connect(self: *Consumer, service: *Service) !void {

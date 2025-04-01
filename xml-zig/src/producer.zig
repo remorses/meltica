@@ -50,7 +50,7 @@ pub const Producer = struct {
         }
 
         var result = Producer{
-            .instance = @ptrCast(producer.getService()),
+            .instance = @ptrCast(producer.instance),
             .parent = null,
             .last_filter = null,
         };
@@ -85,10 +85,6 @@ pub const Producer = struct {
         return c.mlt_properties_inc_ref(c.mlt_producer_properties(self.instance));
     }
 
-    pub fn getProducer(self: *Producer) c.mlt_producer {
-        return self.instance;
-    }
-
     pub fn getParentProducer(self: *Producer) c.mlt_producer {
         if (self.instance == null) return null;
         if (c.mlt_producer_cut_parent(self.instance)) |parent| {
@@ -108,31 +104,31 @@ pub const Producer = struct {
     }
 
     pub fn getService(self: *Producer) Service {
-        return Service.initFromService(c.mlt_producer_service(self.getProducer()));
+        return Service.initFromService(c.mlt_producer_service(self.instance));
     }
 
     pub fn seek(self: *Producer, position_: i32) i32 {
-        return c.mlt_producer_seek(self.getProducer(), position_);
+        return c.mlt_producer_seek(self.instance, position_);
     }
 
     pub fn seekTime(self: *Producer, time: [*:0]const u8) i32 {
-        return c.mlt_producer_seek_time(self.getProducer(), time);
+        return c.mlt_producer_seek_time(self.instance, time);
     }
 
     pub fn position(self: *Producer) i32 {
-        return c.mlt_producer_position(self.getProducer());
+        return c.mlt_producer_position(self.instance);
     }
 
     pub fn frame(self: *Producer) i32 {
-        return c.mlt_producer_frame(self.getProducer());
+        return c.mlt_producer_frame(self.instance);
     }
 
     pub fn frameTime(self: *Producer, format: c.mlt_time_format) ?[*:0]u8 {
-        return c.mlt_producer_frame_time(self.getProducer(), format);
+        return c.mlt_producer_frame_time(self.instance, format);
     }
 
     pub fn setSpeed(self: *Producer, speed: f64) i32 {
-        return c.mlt_producer_set_speed(self.getProducer(), speed);
+        return c.mlt_producer_set_speed(self.instance, speed);
     }
 
     pub fn pause(self: *Producer) i32 {
@@ -142,43 +138,43 @@ pub const Producer = struct {
         if (consumer == null) return 1;
 
         // TODO: Implement event handling for consumer-sdl-paused
-        return c.mlt_producer_set_speed(self.getProducer(), 0);
+        return c.mlt_producer_set_speed(self.instance, 0);
     }
 
     pub fn getSpeed(self: *Producer) f64 {
-        return c.mlt_producer_get_speed(self.getProducer());
+        return c.mlt_producer_get_speed(self.instance);
     }
 
     pub fn getFps(self: *Producer) f64 {
-        return c.mlt_producer_get_fps(self.getProducer());
+        return c.mlt_producer_get_fps(self.instance);
     }
 
     pub fn setInAndOut(self: *Producer, in: i32, out: i32) i32 {
-        return c.mlt_producer_set_in_and_out(self.getProducer(), in, out);
+        return c.mlt_producer_set_in_and_out(self.instance, in, out);
     }
 
     pub fn getIn(self: *Producer) i32 {
-        return c.mlt_producer_get_in(self.getProducer());
+        return c.mlt_producer_get_in(self.instance);
     }
 
     pub fn getOut(self: *Producer) i32 {
-        return c.mlt_producer_get_out(self.getProducer());
+        return c.mlt_producer_get_out(self.instance);
     }
 
     pub fn getLength(self: *Producer) i32 {
-        return c.mlt_producer_get_length(self.getProducer());
+        return c.mlt_producer_get_length(self.instance);
     }
 
     pub fn getLengthTime(self: *Producer, format: c.mlt_time_format) ?[*:0]u8 {
-        return c.mlt_producer_get_length_time(self.getProducer(), format);
+        return c.mlt_producer_get_length_time(self.instance, format);
     }
 
     pub fn getPlaytime(self: *Producer) i32 {
-        return c.mlt_producer_get_playtime(self.getProducer());
+        return c.mlt_producer_get_playtime(self.instance);
     }
 
     pub fn cut(self: *Producer, in: i32, out: i32) !*Producer {
-        const producer = c.mlt_producer_cut(self.getProducer(), in, out);
+        const producer = c.mlt_producer_cut(self.instance, in, out);
         if (producer == null) return error.CutFailed;
 
         const result = try std.heap.c_allocator.create(Producer);
@@ -188,15 +184,15 @@ pub const Producer = struct {
     }
 
     pub fn isCut(self: *Producer) bool {
-        return c.mlt_producer_is_cut(self.getProducer()) != 0;
+        return c.mlt_producer_is_cut(self.instance) != 0;
     }
 
     pub fn isBlank(self: *Producer) bool {
-        return c.mlt_producer_is_blank(self.getProducer()) != 0;
+        return c.mlt_producer_is_blank(self.instance) != 0;
     }
 
     pub fn sameClip(self: *Producer, that: *Producer) bool {
-        return c.mlt_producer_cut_parent(self.getProducer()) == c.mlt_producer_cut_parent(that.getProducer());
+        return c.mlt_producer_cut_parent(self.instance) == c.mlt_producer_cut_parent(that.instance);
     }
 
     pub fn runsInto(self: *Producer, that: *Producer) bool {
@@ -204,23 +200,23 @@ pub const Producer = struct {
     }
 
     pub fn optimize(self: *Producer) !void {
-        if (c.mlt_producer_optimise(self.getProducer()) != 0) return error.OptimizeFailed;
+        if (c.mlt_producer_optimise(self.instance) != 0) return error.OptimizeFailed;
     }
 
     pub fn clear(self: *Producer) i32 {
-        return c.mlt_producer_clear(self.getProducer());
+        return c.mlt_producer_clear(self.instance);
     }
 
     pub fn getCreationTime(self: *Producer) i64 {
-        return c.mlt_producer_get_creation_time(self.getProducer());
+        return c.mlt_producer_get_creation_time(self.instance);
     }
 
     pub fn setCreationTime(self: *Producer, creation_time: i64) void {
-        c.mlt_producer_set_creation_time(self.getProducer(), creation_time);
+        c.mlt_producer_set_creation_time(self.instance, creation_time);
     }
 
     pub fn probe(self: *Producer) bool {
-        return c.mlt_producer_probe(self.getProducer()) != 0;
+        return c.mlt_producer_probe(self.instance) != 0;
     }
 
     pub fn attach(self: *Producer, filter: *Service) !i32 {
