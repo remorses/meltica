@@ -39,3 +39,12 @@ pub fn initWithProfile(profile: c.mlt_profile) !Consumer {
 if you need to pass a Zig struct like Producer or Filter to a mlt function that expects a `c.mlt_service` you can use `@ptrCast(x.instance)`
 
 MLT implements inheritance via common memory layout, this means you have to cast one mlt type to another. Use ptrCast instead of .getService() or similar.
+
+## cpp inheritance
+
+in cpp inheritance where a field is shared, for example instance, with different types, for example mlt_service and mlt_producer, you have to implement the common method of the parent class, for example get_properties, using a the right mlt function in both classes.
+
+to port this code to zig you have to implement methods to get the parent classes, for example in Service you can add service.getProperties() to return the Properties struct, you should implement this method similarly to how the cpp class does it, in this case it would be something like `Properties { .instance = c.mlt_service_properties(self.instance) }`. then instead of calling the Properties methods directly in Service, you have to do `service.getProperties().propMethod()` instead. this method basically implements inheritance using composition.
+
+you should apply this approach only when you need parent methods in a child struct, for example if in service you need to use some methods from properties.
+

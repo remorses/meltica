@@ -1,4 +1,5 @@
 const std = @import("std");
+const Properties = @import("Properties.zig").Properties;
 const testing = std.testing;
 
 pub const c = @cImport({
@@ -43,14 +44,6 @@ pub const Filter = struct {
     pub fn deinit(self: *Filter) void {
         c.mlt_filter_close(self.instance);
         self.instance = null;
-    }
-
-    pub fn getService(self: *Filter) ?c.mlt_service {
-        return @ptrCast(self.instance);
-    }
-
-    pub fn getProperties(self: *Filter) ?c.mlt_properties {
-        return @ptrCast(self.instance);
     }
 
     pub fn connect(self: *Filter, service: c.mlt_service, index: i32) i32 {

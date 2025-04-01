@@ -1,4 +1,5 @@
 const std = @import("std");
+const Properties = @import("Properties.zig").Properties;
 const testing = std.testing;
 
 pub const c = @cImport({
@@ -33,8 +34,8 @@ pub const Service = struct {
         return c.mlt_properties_inc_ref(c.mlt_service_properties(self.instance));
     }
 
-    pub fn getProperties(self: *Service) ?c.mlt_properties {
-        return c.mlt_service_properties(self.instance);
+    pub fn getProperties(self: *Service) Properties {
+        return Properties{ .instance = c.mlt_service_properties(self.instance) };
     }
 
     pub fn lock(self: *Service) void {

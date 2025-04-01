@@ -11,4 +11,8 @@ test "ref all declarations" {
     testing.refAllDecls(@import("event.zig").EventData);
     testing.refAllDecls(@import("frame.zig").Frame);
     testing.refAllDecls(@import("animation.zig").Animation);
+    testing.refAllDecls(@import("playlist.zig").Playlist);
+    testing.refAllDecls(@import("playlist.zig").ClipInfo);
+    testing.refAllDecls(@import("tractor.zig").Tractor);
+    testing.refAllDecls(@import("profile.zig").Profile);
 }
