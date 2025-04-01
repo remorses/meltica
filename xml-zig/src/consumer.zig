@@ -3,6 +3,7 @@ const c = @cImport({
     @cInclude("mlt-7/framework/mlt.h");
 });
 const Service = @import("service.zig").Service;
+const Properties = @import("properties.zig").Properties;
 
 pub const Consumer = struct {
     instance: c.mlt_consumer,
@@ -110,11 +111,14 @@ pub const Consumer = struct {
     }
 
     pub fn run(self: *Consumer) !void {
-        try self.start();
+        const ret = try self.start();
         if (!self.isStopped()) {
-            // TODO: Implement event handling
-            // For now we'll just return since we can't wait for consumer-stopped event
-            return;
+            const properties = c.mlt_consumer_properties(self.instance);
+            var props = Properties.initFromProperties(properties);
+            var event = try props.setupWaitFor("consumer-stopped");
+            defer event.deinit();
+            props.waitFor(&event);
         }
+        return ret;
     }
 };
