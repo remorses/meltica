@@ -15,4 +15,8 @@ test "ref all declarations" {
     testing.refAllDecls(@import("playlist.zig").ClipInfo);
     testing.refAllDecls(@import("tractor.zig").Tractor);
     testing.refAllDecls(@import("profile.zig").Profile);
+    testing.refAllDecls(@import("profile.zig").Profile);
+    testing.refAllDecls(@import("field.zig").Field);
+    testing.refAllDecls(@import("multitrack.zig").Multitrack);
+    testing.refAllDecls(@import("transition.zig").Transition);
 }
