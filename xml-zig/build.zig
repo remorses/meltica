@@ -4,6 +4,9 @@ pub fn build(b: *std.Build) void {
     const target = b.standardTargetOptions(.{});
     const optimize = b.standardOptimizeOption(.{});
 
+    // Get the xml dependency
+    const xml_dep = b.dependency("xml", .{});
+
     const exe = b.addExecutable(.{
         .name = "mlt-zig",
         .root_source_file = b.path("src/mlt.zig"),
@@ -18,6 +21,9 @@ pub fn build(b: *std.Build) void {
     );
 
     exe.linkLibC();
+
+    // Add xml module to executable
+    exe.root_module.addImport("xml", xml_dep.module("xml"));
 
     b.installArtifact(exe);
 
@@ -41,6 +47,9 @@ pub fn build(b: *std.Build) void {
     unit_tests.addIncludePath(.{ .cwd_relative = "/usr/local/include" });
     unit_tests.linkSystemLibrary("mlt-7.7");
     unit_tests.linkLibC();
+
+    // Add xml module to tests
+    unit_tests.root_module.addImport("xml", xml_dep.module("xml"));
 
     const run_unit_tests = b.addRunArtifact(unit_tests);
 
