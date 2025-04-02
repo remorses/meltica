@@ -8,35 +8,30 @@ pub const Filter = struct {
     instance: c.mlt_filter,
 
     pub fn init() Filter {
-        return Filter{
+        return .{
             .instance = null,
         };
     }
 
-    pub fn initFromProfile(profile: c.mlt_profile, id: [*:0]const u8, arg: ?[*:0]const u8) Filter {
+    pub fn initWithProfile(profile: c.mlt_profile, id: [*:0]const u8, arg: ?[*:0]const u8) !Filter {
         var instance: c.mlt_filter = null;
 
         if (arg) |a| {
             instance = c.mlt_factory_filter(profile, id, a);
-            return Filter{ .instance = instance };
-        }
-
-        // Check if id contains a colon
-        const id_span = std.mem.span(id);
-        if (std.mem.indexOfScalar(u8, id_span, ':')) |i| {
-            const temp = id_span[0..i];
-            const split_arg = id_span[i + 1 ..];
-            instance = c.mlt_factory_filter(profile, temp.ptr, split_arg.ptr);
         } else {
-            instance = c.mlt_factory_filter(profile, id, null);
+            // Check if id contains a colon
+            const id_span = std.mem.span(id);
+            if (std.mem.indexOfScalar(u8, id_span, ':')) |i| {
+                const temp = id_span[0..i];
+                const split_arg = id_span[i + 1 ..];
+                instance = c.mlt_factory_filter(profile, temp.ptr, split_arg.ptr);
+            } else {
+                instance = c.mlt_factory_filter(profile, id, null);
+            }
         }
 
+        if (instance == null) return error.FilterInitFailed;
         return Filter{ .instance = instance };
-    }
-
-    pub fn initFromFilter(filter: c.mlt_filter) Filter {
-        if (filter == null) return Filter.init();
-        return Filter{ .instance = filter };
     }
 
     pub fn deinit(self: *Filter) void {

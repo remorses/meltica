@@ -19,4 +19,6 @@ test "ref all declarations" {
     testing.refAllDecls(@import("field.zig").Field);
     testing.refAllDecls(@import("multitrack.zig").Multitrack);
     testing.refAllDecls(@import("transition.zig").Transition);
+    testing.refAllDecls(@import("factory.zig").Factory);
+    testing.refAllDecls(@import("repository.zig").Repository);
 }
