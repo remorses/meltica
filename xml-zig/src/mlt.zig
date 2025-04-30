@@ -42,3 +42,22 @@ test "can parse xml" {
     std.debug.print("{}\n", .{document_node});
     defer document_node.deinit();
 }
+pub fn main() !void {
+    const Factory = @import("factory.zig").Factory;
+    const Profile = @import("profile.zig").Profile;
+    const Producer = @import("producer.zig").Producer;
+    const Consumer = @import("consumer.zig").Consumer;
+
+    _ = Factory.init(null);
+    var profile = Profile.init();
+    defer profile.deinit();
+
+    var producer = try Producer.initWithProfile(profile.instance, null, "video.mp4");
+    defer producer.deinit();
+
+    var consumer = try Consumer.initWithProfileAndId(profile.instance, "sdl2", null);
+    defer consumer.deinit();
+
+    try consumer.connect(&producer.getService());
+    try consumer.run();
+}

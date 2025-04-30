@@ -78,7 +78,7 @@ pub const Consumer = struct {
         return Service.initFromService(c.mlt_consumer_service(self.instance));
     }
 
-    pub fn connect(self: *Consumer, service: *Service) !void {
+    pub fn connect(self: *Consumer, service: *const Service) !void {
         if (c.mlt_consumer_connect(self.instance, @ptrCast(service.instance)) != 0) {
             return error.ConnectFailed;
         }
