@@ -26,3 +26,5 @@ node_modules
 zig-out
 .zig-cache
 .cache
+result
+*.xz

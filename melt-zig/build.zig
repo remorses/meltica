@@ -10,6 +10,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    
     const clap = b.dependency("clap", .{});
     exe.root_module.addImport("clap", clap.module("clap"));
     const pretty = b.dependency("pretty", .{ .target = target, .optimize = optimize });
@@ -17,16 +18,9 @@ pub fn build(b: *std.Build) void {
     const websocket = b.dependency("websocket", .{ .target = target, .optimize = optimize });
     exe.root_module.addImport("websocket", websocket.module("websocket"));
 
-    exe.addLibraryPath(.{ .cwd_relative = "/usr/local/lib" });
-    exe.addIncludePath(.{ .cwd_relative = "/usr/local/include" });
-    exe.linkSystemLibrary(
-        "mlt-7.7",
-    );
-    exe.linkSystemLibrary(
-        "SDL2-2.0.0",
-    );
-
     exe.linkLibC();
+    exe.linkSystemLibrary("mlt-7");
+    exe.linkSystemLibrary("SDL2");
 
     b.installArtifact(exe);
 
@@ -39,8 +33,6 @@ pub fn build(b: *std.Build) void {
 
     const run_step = b.step("run", "Run the application");
     run_step.dependOn(&run_cmd.step);
-
-    b.installArtifact(exe);
 
     // Create a simple test step that does nothing
     _ = b.step("test", "Tests are not applicable for C code");
