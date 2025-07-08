@@ -598,9 +598,23 @@ pub fn main() !void {
     defer c.mlt_factory_close();
 
     // Get the repository
-    const repository = c.mlt_factory_repository();
+    var repository = c.mlt_factory_repository();
     if (repository == null) {
-        std.debug.print("Failed to get repository\n", .{});
+        // Try to get MLT_REPOSITORY from environment
+        var repo_path: ?[*c]const u8 = null;
+        if (std.process.getEnvVarOwned(allocator, "MLT_REPOSITORY")) |envval| {
+            repo_path = envval.ptr;
+        } else |_| {
+            repo_path = null;
+        }
+
+        if (repo_path) |path| {
+            repository = c.mlt_factory_init(path);
+        }
+
+        if (repository == null) {
+            std.debug.print("Failed to get repository\n", .{});
+        }
         return;
     }
 
