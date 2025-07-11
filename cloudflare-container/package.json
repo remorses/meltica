@@ -1,0 +1,20 @@
+{
+    "name": "containers",
+    "description": "Build a Container-enabled Worker",
+    "version": "0.0.0",
+    "private": true,
+    "scripts": {
+        "deployment": "wrangler deploy",
+        "dev": "wrangler dev"
+    },
+    "devDependencies": {
+        "typescript": "5.8.3",
+        "wrangler": "4.21.x"
+    },
+    "dependencies": {
+        "@cloudflare/containers": "^0.0.20",
+        "@cloudflare/workers-types": "^4.20250711.0",
+        "hono": "4.8.2",
+        "wrangler": "^4.24.3"
+    }
+}
