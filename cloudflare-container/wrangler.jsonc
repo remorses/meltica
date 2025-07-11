@@ -1,7 +1,7 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "meltica-initial-container",
-  "main": "src/index.ts",
+  "main": "src/worker.ts",
   "compatibility_date": "2025-05-23",
   "compatibility_flags": ["nodejs_compat"],
   "observability": {
@@ -9,10 +9,10 @@
   },
   "containers": [
     {
-      "class_name": "MyContainer",
+      "class_name": "MelticaInitialContainer",
       "image": "./Dockerfile",
       "max_instances": 10,
-      "name": "hello-containers"
+      "name": "meltica-initial-containers"
     }
   ],
   "durable_objects": {

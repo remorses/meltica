@@ -29,3 +29,4 @@ zig-out
 result
 *.xz
 melt-zig-linux
+.wrangler
