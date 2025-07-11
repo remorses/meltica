@@ -107,11 +107,15 @@
                 self.packages.${system}.melt-zig-linux
                 pkgsLinux.qt6Packages.mlt 
                 pkgsLinux.SDL2 
+                pkgsLinux.ladspaPlugins
               ];
             };
             config = {
               Entrypoint = [ "${self.packages.${system}.melt-zig-linux}/bin/melt-zig" ];
               WorkingDir = "/app";
+              Env = [
+                "LADSPA_PATH=${pkgsLinux.ladspaPlugins}/lib/ladspa"
+              ];
             };
           };
 
