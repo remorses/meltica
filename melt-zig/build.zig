@@ -10,7 +10,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
-
+    
     const clap = b.dependency("clap", .{});
     exe.root_module.addImport("clap", clap.module("clap"));
     const pretty = b.dependency("pretty", .{ .target = target, .optimize = optimize });
@@ -20,7 +20,7 @@ pub fn build(b: *std.Build) void {
 
     exe.linkLibC();
 
-    // For cross-compilation, try to be more explicit about library paths
+    // For cross-compilation, use explicit paths when available
     const target_os = target.query.os_tag orelse std.Target.Os.Tag.linux;
     if (target_os == .linux) {
         // Cross-compiling to Linux - add explicit paths if available
@@ -37,7 +37,7 @@ pub fn build(b: *std.Build) void {
             exe.addIncludePath(.{ .cwd_relative = sdl2_include });
         }
     }
-
+    
     exe.linkSystemLibrary("mlt-7");
     exe.linkSystemLibrary("SDL2");
 

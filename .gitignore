@@ -28,3 +28,4 @@ zig-out
 .cache
 result
 *.xz
+melt-zig-linux
