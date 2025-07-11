@@ -40,7 +40,7 @@
             ];
 
             buildInputs = with pkgs; [
-              mlt
+              qt6Packages.mlt
               SDL2
             ];
 
@@ -68,16 +68,16 @@
             ];
 
             buildInputs = with pkgs; [
-              mlt
+              qt6Packages.mlt
               SDL2
             ];
 
             buildPhase = ''
               export HOME=$TMPDIR
               # Set environment variables for cross-compilation
-              export MLT_LIB_PATH="${pkgsLinux.mlt}/lib"
+              export MLT_LIB_PATH="${pkgsLinux.qt6Packages.mlt}/lib"
               export SDL2_LIB_PATH="${pkgsLinux.SDL2}/lib"
-              export MLT_INCLUDE_PATH="${pkgsLinux.mlt.dev}/include"
+              export MLT_INCLUDE_PATH="${pkgsLinux.qt6Packages.mlt.dev}/include"
               export SDL2_INCLUDE_PATH="${pkgsLinux.SDL2.dev}/include"
               
               # Cross-compile to Linux
@@ -91,7 +91,7 @@
               chmod +x $out/bin/melt-zig
               # Patch RPATH and interpreter for proper library loading
               ${pkgs.patchelf}/bin/patchelf \
-                --set-rpath "${pkgsLinux.mlt}/lib:${pkgsLinux.SDL2}/lib:${pkgsLinux.glibc}/lib" \
+                --set-rpath "${pkgsLinux.qt6Packages.mlt}/lib:${pkgsLinux.SDL2}/lib:${pkgsLinux.glibc}/lib" \
                 --set-interpreter "${pkgsLinux.glibc}/lib/ld-linux-x86-64.so.2" \
                 $out/bin/melt-zig || true
             '';
@@ -105,7 +105,7 @@
               name = "melt-zig-env";
               paths = [ 
                 self.packages.${system}.melt-zig-linux
-                pkgsLinux.mlt 
+                pkgsLinux.qt6Packages.mlt 
                 pkgsLinux.SDL2 
               ];
             };
