@@ -89,8 +89,11 @@
               cp zig-out/bin/melt-zig $out/bin/
               # Make the binary executable
               chmod +x $out/bin/melt-zig
-              # Patch interpreter to use the glibc dynamic linker
-              ${pkgs.patchelf}/bin/patchelf --set-interpreter "${pkgsLinux.glibc}/lib/ld-linux-x86-64.so.2" $out/bin/melt-zig || true
+              # Patch RPATH and interpreter for proper library loading
+              ${pkgs.patchelf}/bin/patchelf \
+                --set-rpath "${pkgsLinux.mlt}/lib:${pkgsLinux.SDL2}/lib:${pkgsLinux.glibc}/lib" \
+                --set-interpreter "${pkgsLinux.glibc}/lib/ld-linux-x86-64.so.2" \
+                $out/bin/melt-zig || true
             '';
           };
 
@@ -104,17 +107,11 @@
                 self.packages.${system}.melt-zig-linux
                 pkgsLinux.mlt 
                 pkgsLinux.SDL2 
-                pkgsLinux.bash
-                pkgsLinux.coreutils
-                pkgsLinux.glibc
               ];
             };
             config = {
-              Cmd = [ "${self.packages.${system}.melt-zig-linux}/bin/melt-zig" ];
+              Entrypoint = [ "${self.packages.${system}.melt-zig-linux}/bin/melt-zig" ];
               WorkingDir = "/app";
-              Env = [
-                "LD_LIBRARY_PATH=${pkgsLinux.mlt}/lib:${pkgsLinux.SDL2}/lib:${pkgsLinux.glibc}/lib"
-              ];
             };
           };
 
