@@ -1,13 +1,13 @@
-FROM oven/bun:latest
+FROM node:20-alpine
 
 WORKDIR /app
 
 COPY package.json ./
-RUN bun install
+RUN npm install
 
 COPY src/ ./src/
 COPY tsconfig.json ./
 
 EXPOSE 8080
 
-CMD ["bun", "run", "src/speed-test.ts"]
+CMD ["npx", "tsx", "src/speed-test.ts"]

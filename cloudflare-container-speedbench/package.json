@@ -5,10 +5,13 @@
     "private": true,
     "scripts": {
         "deployment": "wrangler deploy",
-        "dev": "wrangler dev"
+        "dev": "wrangler dev",
+        "start": "tsx src/speed-test.ts"
     },
     "devDependencies": {
-        "@types/bun": "^1.1.14",
+        "@types/node": "^20.0.0",
+        "dotenv-cli": "^8.0.0",
+        "tsx": "^4.0.0",
         "typescript": "5.8.3",
         "wrangler": "4.21.x"
     },

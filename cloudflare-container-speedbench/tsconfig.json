@@ -7,7 +7,7 @@
         "outDir": "dist",
         "lib": ["esnext"],
 
-        "types": ["@cloudflare/workers-types", "bun"]
+        "types": ["@cloudflare/workers-types", "node"]
     },
     "include": ["src"]
 }
