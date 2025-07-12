@@ -31,3 +31,5 @@ result
 melt-zig-linux
 .wrangler
 .env
+.env.*
+result

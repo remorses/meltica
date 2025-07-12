@@ -11,41 +11,22 @@ const R2_ENDPOINT = '103e73569e2f6d4aea0fb679ceb8709b.r2.cloudflarestorage.com';
 const AWS_REGION = 'auto';
 const AWS_SERVICE = 's3';
 
-// Pre-generate a large buffer of random data to reuse
-const PREGENERATED_CHUNK_SIZE = 100 * 1024 * 1024; // 100MB chunks
-const preGeneratedData = Buffer.alloc(PREGENERATED_CHUNK_SIZE);
-console.log('Pre-generating 100MB of random data...');
-require('crypto').randomFillSync(preGeneratedData);
-console.log('Random data pre-generated');
+// Pre-generate full 1GB of data in memory using 100MB template
+const PART_SIZE = 100 * 1024 * 1024; // 100MB parts
+const TOTAL_PARTS = 10; // 10 x 100MB = 1GB
+const CONCURRENT_UPLOADS = 5;
 
-// Generate a Node.js Readable stream that reuses pre-generated data
-function createRandomDataStream(size: number): Readable {
-  let bytesGenerated = 0;
+console.log('Pre-generating 1GB of data in memory...');
+const templateData = Buffer.alloc(PART_SIZE);
+require('crypto').randomFillSync(templateData);
 
-  return new Readable({
-    highWaterMark: 128 * 1024 * 1024, // 128MB buffer for maximum throughput
-    read() {
-      if (bytesGenerated >= size) {
-        this.push(null); // End the stream
-        return;
-      }
-
-      const remainingBytes = size - bytesGenerated;
-      const currentChunkSize = Math.min(PREGENERATED_CHUNK_SIZE, remainingBytes);
-
-      // Reuse pre-generated data instead of creating new random data
-      if (currentChunkSize === PREGENERATED_CHUNK_SIZE) {
-        // Fast path: push entire pre-generated buffer
-        this.push(preGeneratedData);
-      } else {
-        // Last chunk: slice the pre-generated buffer
-        this.push(preGeneratedData.slice(0, currentChunkSize));
-      }
-
-      bytesGenerated += currentChunkSize;
-    }
-  });
+// Create 10 parts of 100MB each (reusing the same template data)
+const dataParts: Buffer[] = [];
+for (let i = 0; i < TOTAL_PARTS; i++) {
+  // Share the same buffer to save memory - R2 won't know it's the same data
+  dataParts.push(templateData);
 }
+console.log('1GB of data ready in memory (10 x 100MB parts)');
 
 // Create AWS Signature V4 for S3 requests
 function createAWSSignatureV4(
@@ -112,14 +93,10 @@ function createAWSSignatureV4(
   };
 }
 
-// Direct HTTP upload to R2
-async function uploadToS3(stream: Readable): Promise<{ uploadTime: number; fileKey: string }> {
-  const fileKey = `speed-test/${randomUUID()}.bin`;
+// Upload a single part to R2
+async function uploadPart(partData: Buffer, partNumber: number, fileKey: string): Promise<{ partNumber: number; uploadTime: number }> {
   const bucketName = process.env.S3_BUCKET!;
-  const path = `/${bucketName}/${fileKey}`;
-
-  console.log('Starting direct HTTP upload to R2...');
-  console.log(`Target: https://${R2_ENDPOINT}${path}`);
+  const path = `/${bucketName}/${fileKey}-part${partNumber}`;
   
   const uploadStart = Date.now();
 
@@ -129,19 +106,19 @@ async function uploadToS3(stream: Readable): Promise<{ uploadTime: number; fileK
       const headers = {
         'Host': R2_ENDPOINT,
         'Content-Type': 'application/octet-stream',
-        'Content-Length': FILE_SIZE.toString()
+        'Content-Length': partData.length.toString()
       };
       
-      // Sign request with UNSIGNED-PAYLOAD for streaming
-      const signedHeaders = createAWSSignatureV4('PUT', path, headers, 'UNSIGNED-PAYLOAD');
+      // Sign request
+      const signedHeaders = createAWSSignatureV4('PUT', path, headers, partData);
       
-      // Create HTTPS request with optimized settings
+      // Create HTTPS request
       const agent = new https.Agent({
         keepAlive: true,
         keepAliveMsecs: 1000,
-        maxSockets: 10,
-        maxFreeSockets: 10,
-        timeout: 600000 // 10 minutes
+        maxSockets: 20, // Increased for concurrent uploads
+        maxFreeSockets: 20,
+        timeout: 600000
       });
       
       const options = {
@@ -153,7 +130,6 @@ async function uploadToS3(stream: Readable): Promise<{ uploadTime: number; fileK
         agent: agent
       };
       
-      console.log('Creating HTTPS request...');
       const req = https.request(options, (res) => {
         let responseBody = '';
         
@@ -163,57 +139,89 @@ async function uploadToS3(stream: Readable): Promise<{ uploadTime: number; fileK
         
         res.on('end', () => {
           const uploadTime = Date.now() - uploadStart;
-          const uploadSpeedMBps = 1024 / (uploadTime / 1000);
           
           if (res.statusCode === 200 || res.statusCode === 201) {
-            console.log(`Direct upload completed in ${(uploadTime / 1000).toFixed(2)}s (${uploadSpeedMBps.toFixed(2)} MB/s)`);
-            resolve({ uploadTime, fileKey });
+            console.log(`Part ${partNumber} uploaded in ${(uploadTime / 1000).toFixed(2)}s`);
+            resolve({ partNumber, uploadTime });
           } else {
-            console.error(`Upload failed with status ${res.statusCode}: ${responseBody}`);
-            reject(new Error(`Upload failed: ${res.statusCode} - ${responseBody}`));
+            reject(new Error(`Part ${partNumber} failed: ${res.statusCode} - ${responseBody}`));
           }
         });
       });
       
       req.on('error', (error) => {
-        console.error('Request error:', error);
         reject(error);
       });
       
-      // Track upload progress
-      let totalBytesWritten = 0;
-      let lastLogTime = uploadStart;
-      let lastLogBytes = 0;
-      
-      stream.on('data', (chunk) => {
-        totalBytesWritten += chunk.length;
-        const now = Date.now();
-        
-        // Log progress every 5 seconds or 100MB
-        if (now - lastLogTime > 5000 || totalBytesWritten - lastLogBytes >= 100 * 1024 * 1024) {
-          const elapsedTime = (now - uploadStart) / 1000;
-          const currentSpeed = (totalBytesWritten / (1024 * 1024)) / elapsedTime;
-          const instantSpeed = ((totalBytesWritten - lastLogBytes) / (1024 * 1024)) / ((now - lastLogTime) / 1000);
-          
-          console.log(`Progress: ${(totalBytesWritten / (1024 * 1024)).toFixed(1)} MB uploaded in ${elapsedTime.toFixed(1)}s (avg: ${currentSpeed.toFixed(2)} MB/s, current: ${instantSpeed.toFixed(2)} MB/s)`);
-          
-          lastLogTime = now;
-          lastLogBytes = totalBytesWritten;
-        }
-      });
-      
-      // Pipe stream to request
-      stream.pipe(req);
-      
-      stream.on('end', () => {
-        console.log(`Total bytes uploaded: ${totalBytesWritten} (${(totalBytesWritten / (1024 * 1024)).toFixed(2)} MB)`);
-      });
+      // Write the buffer directly
+      req.write(partData);
+      req.end();
       
     } catch (error) {
-      console.error('Direct upload failed:', error);
       reject(error);
     }
   });
+}
+
+// Concurrent upload of all parts
+async function uploadToS3(unused?: any): Promise<{ uploadTime: number; fileKey: string }> {
+  const fileKey = `speed-test/${randomUUID()}`;
+
+  console.log('Starting concurrent multi-part upload to R2...');
+  console.log(`Uploading ${TOTAL_PARTS} parts of ${PART_SIZE / (1024 * 1024)}MB each with ${CONCURRENT_UPLOADS} concurrent connections`);
+  
+  const uploadStart = Date.now();
+  
+  try {
+    // Upload parts with controlled concurrency
+    let partIndex = 0;
+    const activeUploads = new Map<Promise<{ partNumber: number; uploadTime: number }>, number>();
+    const results: { partNumber: number; uploadTime: number }[] = [];
+    
+    // Start initial concurrent uploads
+    while (partIndex < CONCURRENT_UPLOADS && partIndex < TOTAL_PARTS) {
+      const promise = uploadPart(dataParts[partIndex], partIndex + 1, fileKey);
+      activeUploads.set(promise, partIndex);
+      console.log(`Started upload for part ${partIndex + 1}/${TOTAL_PARTS}`);
+      partIndex++;
+    }
+    
+    // Process uploads as they complete
+    while (activeUploads.size > 0) {
+      const completed = await Promise.race(activeUploads.keys());
+      results.push(completed);
+      activeUploads.delete(completed as any);
+      
+      // Start next upload if available
+      if (partIndex < TOTAL_PARTS) {
+        const promise = uploadPart(dataParts[partIndex], partIndex + 1, fileKey);
+        activeUploads.set(promise, partIndex);
+        console.log(`Started upload for part ${partIndex + 1}/${TOTAL_PARTS}`);
+        partIndex++;
+      }
+    }
+    
+    const uploadTime = Date.now() - uploadStart;
+    const uploadSpeedMBps = 1024 / (uploadTime / 1000);
+    
+    console.log(`\nAll parts uploaded successfully!`);
+    console.log(`Total upload time: ${(uploadTime / 1000).toFixed(2)}s`);
+    console.log(`Upload speed: ${uploadSpeedMBps.toFixed(2)} MB/s`);
+    
+    // Log individual part times
+    const partTimes = results.sort((a, b) => a.partNumber - b.partNumber);
+    console.log('\nPart upload times:');
+    partTimes.forEach(({ partNumber, uploadTime }) => {
+      const speed = (PART_SIZE / (1024 * 1024)) / (uploadTime / 1000);
+      console.log(`  Part ${partNumber}: ${(uploadTime / 1000).toFixed(2)}s (${speed.toFixed(2)} MB/s)`);
+    });
+
+    return { uploadTime, fileKey };
+
+  } catch (error) {
+    console.error('Concurrent upload failed:', error);
+    throw error;
+  }
 }
 
 // HTTP server for container
@@ -262,11 +270,9 @@ const server = createServer(async (req, res) => {
     }
 
     try {
-      console.log("Creating random data stream...");
-      const stream = createRandomDataStream(FILE_SIZE);
-      console.log("Random data stream created, starting upload...");
+      console.log("Starting concurrent upload test...");
       
-      const result = await uploadToS3(stream);
+      const result = await uploadToS3();
 
       console.timeEnd("upload-test");
       console.log("=== S3 UPLOAD TEST COMPLETED SUCCESSFULLY ===");
@@ -303,20 +309,18 @@ const server = createServer(async (req, res) => {
   }
 
   if (url.pathname === "/generate" && req.method === "GET") {
-    console.log("Generating 1GB random data stream...");
-    console.time("generate-initial-data");
-
-    const stream = createRandomDataStream(FILE_SIZE);
-
-    console.timeEnd("generate-initial-data");
-    console.time("send-data");
-
+    console.log("Sending pre-generated 1GB data...");
+    
     res.writeHead(200, {
       "Content-Type": "application/octet-stream",
       "Content-Length": FILE_SIZE.toString(),
     });
     
-    stream.pipe(res);
+    // Send all parts sequentially
+    for (let i = 0; i < TOTAL_PARTS; i++) {
+      res.write(dataParts[i]);
+    }
+    res.end();
     return;
   }
 
