@@ -1,0 +1,21 @@
+{
+    "name": "containers-bench",
+    "description": "Build a Container-enabled Worker",
+    "version": "0.0.0",
+    "private": true,
+    "scripts": {
+        "deployment": "wrangler deploy",
+        "dev": "wrangler dev"
+    },
+    "devDependencies": {
+        "@types/bun": "^1.1.14",
+        "typescript": "5.8.3",
+        "wrangler": "4.21.x"
+    },
+    "dependencies": {
+        "@cloudflare/containers": "^0.0.22",
+        "@cloudflare/workers-types": "^4.20250712.0",
+        "hono": "4.8.2",
+        "wrangler": "^4.24.3"
+    }
+}
