@@ -20,22 +20,23 @@ pub fn build(b: *std.Build) void {
 
     exe.linkLibC();
 
-    // For cross-compilation, use explicit paths when available
-    const target_os = target.query.os_tag orelse std.Target.Os.Tag.linux;
-    if (target_os == .linux) {
-        // Cross-compiling to Linux - add explicit paths if available
-        if (std.posix.getenv("MLT_LIB_PATH")) |mlt_path| {
-            exe.addLibraryPath(.{ .cwd_relative = mlt_path });
-        }
-        if (std.posix.getenv("SDL2_LIB_PATH")) |sdl2_path| {
-            exe.addLibraryPath(.{ .cwd_relative = sdl2_path });
-        }
-        if (std.posix.getenv("MLT_INCLUDE_PATH")) |mlt_include| {
-            exe.addIncludePath(.{ .cwd_relative = mlt_include });
-        }
-        if (std.posix.getenv("SDL2_INCLUDE_PATH")) |sdl2_include| {
-            exe.addIncludePath(.{ .cwd_relative = sdl2_include });
-        }
+    // Add library and include paths for all platforms
+    exe.addLibraryPath(.{ .cwd_relative = "/usr/local/lib" });
+    exe.addIncludePath(.{ .cwd_relative = "/usr/local/include/mlt-7" });
+    exe.addIncludePath(.{ .cwd_relative = "/usr/local/include" });
+    
+    // Add environment variable overrides
+    if (std.posix.getenv("MLT_LIB_PATH")) |mlt_path| {
+        exe.addLibraryPath(.{ .cwd_relative = mlt_path });
+    }
+    if (std.posix.getenv("MLT_INCLUDE_PATH")) |mlt_include| {
+        exe.addIncludePath(.{ .cwd_relative = mlt_include });
+    }
+    if (std.posix.getenv("SDL2_LIB_PATH")) |sdl2_path| {
+        exe.addLibraryPath(.{ .cwd_relative = sdl2_path });
+    }
+    if (std.posix.getenv("SDL2_INCLUDE_PATH")) |sdl2_include| {
+        exe.addIncludePath(.{ .cwd_relative = sdl2_include });
     }
     
     exe.linkSystemLibrary("mlt-7");
