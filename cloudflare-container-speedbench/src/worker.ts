@@ -1,6 +1,6 @@
 import { Container, getContainer } from '@cloudflare/containers'
 
-export class MelticaInitialContainer extends Container {
+export class MelticaSpeedtestContainerObject extends Container {
     defaultPort = 8080
     sleepAfter = '1m'
 
@@ -78,7 +78,7 @@ export default {
                 const uploadTime = Date.now() - uploadStart;
                 const uploadSpeedMBps = (1024 / (uploadTime / 1000)); // 1GB in MB / seconds
 
-                console.log(`Upload completed in ${uploadTime}ms (${uploadSpeedMBps.toFixed(2)} MB/s)`);
+                console.log(`Upload completed in ${(uploadTime/1000).toFixed(2)}s (${uploadSpeedMBps.toFixed(2)} MB/s)`);
 
                 // 3. Download test - get the file back from R2
                 console.log('Starting R2 download...');
@@ -89,13 +89,25 @@ export default {
                     throw new Error('Failed to retrieve file from R2');
                 }
 
-                // Consume the stream to measure actual download time
-                const downloadedData = await downloadObj.arrayBuffer();
+                // Consume the stream to measure actual download time without storing in memory
+                let bytesRead = 0;
+                const reader = downloadObj.body!.getReader();
+                
+                try {
+                    while (true) {
+                        const { done, value } = await reader.read();
+                        if (done) break;
+                        bytesRead += value.length;
+                    }
+                } finally {
+                    reader.releaseLock();
+                }
+                
                 const downloadTime = Date.now() - downloadStart;
                 const downloadSpeedMBps = (1024 / (downloadTime / 1000)); // 1GB in MB / seconds
 
                 console.log(`Download completed in ${downloadTime}ms (${downloadSpeedMBps.toFixed(2)} MB/s)`);
-                console.log(`Downloaded ${downloadedData.byteLength} bytes`);
+                console.log(`Downloaded ${bytesRead} bytes`);
 
                 const result: SpeedTestResult = {
                     uploadTime,

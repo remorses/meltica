@@ -1,6 +1,6 @@
 {
     "$schema": "node_modules/wrangler/config-schema.json",
-    "name": "meltica-initial-container",
+    "name": "meltica-speedtest-r2-containers",
     "main": "src/worker.ts",
     "compatibility_date": "2025-05-23",
     "compatibility_flags": ["nodejs_compat"],
@@ -11,23 +11,25 @@
     },
     "containers": [
         {
-            "class_name": "MelticaInitialContainer",
+            "class_name": "MelticaSpeedtestContainerObject",
             "image": "./Dockerfile",
-            "max_instances": 10,
-            "name": "meltica-initial-containers",
+            "max_instances": 2,
+
+            "name": "meltica-speedtest-containers",
+            "instance_type": "standard",
         },
     ],
     "durable_objects": {
         "bindings": [
             {
-                "class_name": "MelticaInitialContainer",
+                "class_name": "MelticaSpeedtestContainerObject",
                 "name": "CONTAINER",
             },
         ],
     },
     "migrations": [
         {
-            "new_sqlite_classes": ["MelticaInitialContainer"],
+            "new_sqlite_classes": ["MelticaSpeedtestContainerObject"],
             "tag": "v1",
         },
     ],
@@ -37,5 +39,4 @@
             "bucket_name": "containers-r2-speed-test",
         },
     ],
-
 }

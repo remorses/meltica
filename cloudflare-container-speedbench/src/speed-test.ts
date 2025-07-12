@@ -35,8 +35,12 @@ const server = Bun.serve({
     
     if (url.pathname === "/generate" && req.method === "GET") {
       console.log("Generating 1GB random data stream...");
+      console.time("generate-initial-data");
       
       const stream = createRandomDataStream(FILE_SIZE);
+      
+      console.timeEnd("generate-initial-data");
+      console.time("send-data");
       
       return new Response(stream, {
         headers: {
