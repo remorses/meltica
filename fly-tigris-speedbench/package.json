@@ -1,0 +1,18 @@
+{
+    "name": "fly-tigris-speedbench",
+    "description": "Build a Container-enabled Worker",
+    "version": "0.0.0",
+    "private": true,
+    "scripts": {
+
+    },
+    "devDependencies": {
+        "@types/node": "^20.0.0",
+        "dotenv-cli": "^8.0.0",
+        "tsx": "^4.0.0",
+        "typescript": "5.8.3"
+    },
+    "dependencies": {
+        "hono": "4.8.2"
+    }
+}
