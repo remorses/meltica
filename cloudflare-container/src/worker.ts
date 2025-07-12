@@ -1,4 +1,4 @@
-import { Container } from '@cloudflare/containers'
+import { Container, getContainer } from '@cloudflare/containers'
 
 export class MelticaInitialContainer extends Container {
     defaultPort = 9224
@@ -9,18 +9,18 @@ export class MelticaInitialContainer extends Container {
         MESSAGE: 'I was passed in via the container class!',
     }
 
-    // Optional lifecycle hooks
-    override onStart() {
-        console.log('Container successfully started')
-    }
+    // // Optional lifecycle hooks
+    // override onStart() {
+    //     console.log('Container successfully started')
+    // }
 
-    override onStop() {
-        console.log('Container successfully shut down')
-    }
+    // override onStop() {
+    //     console.log('Container successfully shut down')
+    // }
 
-    override onError(error: unknown) {
-        console.log('Container error:', error)
-    }
+    // override onError(error: unknown) {
+    //     console.log('Container error:', error)
+    // }
 }
 
 

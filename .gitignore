@@ -30,3 +30,4 @@ result
 *.xz
 melt-zig-linux
 .wrangler
+.env
