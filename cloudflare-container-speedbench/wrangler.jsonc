@@ -1,0 +1,41 @@
+{
+    "$schema": "node_modules/wrangler/config-schema.json",
+    "name": "meltica-initial-container",
+    "main": "src/worker.ts",
+    "compatibility_date": "2025-05-23",
+    "compatibility_flags": ["nodejs_compat"],
+    "observability": {
+        "enabled": true,
+        "head_sampling_rate": 1,
+        "logs": { "enabled": true, "head_sampling_rate": 1 },
+    },
+    "containers": [
+        {
+            "class_name": "MelticaInitialContainer",
+            "image": "./Dockerfile",
+            "max_instances": 10,
+            "name": "meltica-initial-containers",
+        },
+    ],
+    "durable_objects": {
+        "bindings": [
+            {
+                "class_name": "MelticaInitialContainer",
+                "name": "CONTAINER",
+            },
+        ],
+    },
+    "migrations": [
+        {
+            "new_sqlite_classes": ["MelticaInitialContainer"],
+            "tag": "v1",
+        },
+    ],
+    "r2_buckets": [
+        {
+            "binding": "R2_BUCKET",
+            "bucket_name": "containers-r2-speed-test",
+        },
+    ],
+
+}
