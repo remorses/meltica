@@ -27,8 +27,34 @@ export class MelticaSpeedtestContainerObjectFromWorker extends Container {
 
         if (url.pathname === '/speed-test' && request.method === 'POST') {
             try {
-                const result = await this.runSpeedTest()
-                return Response.json(result)
+                // Start container orchestrated parallel upload test
+                const orchestrateUrl = 'http://localhost:8080/orchestrate-upload'
+                console.log('Starting container orchestrated parallel upload test...')
+                const testStart = Date.now()
+                
+                const orchestrateResp = await this.containerFetch(new Request(orchestrateUrl, {
+                    method: 'GET'
+                }), 8080)
+                
+                if (!orchestrateResp.ok) {
+                    const errorText = await orchestrateResp.text()
+                    throw new Error(`Container orchestration error: ${orchestrateResp.status} - ${errorText}`)
+                }
+
+                const result = await orchestrateResp.json() as any
+                const totalTime = Date.now() - testStart
+
+                console.log(`Container orchestrated test completed in ${totalTime}ms`)
+
+                return Response.json({
+                    uploadTime: result.uploadTime,
+                    downloadTime: result.downloadTime || 0,
+                    uploadSpeed: result.uploadSpeed,
+                    downloadSpeed: result.downloadSpeed || 'N/A',
+                    fileKey: result.fileKey,
+                    parallelParts: result.parallelParts,
+                    orchestrationTime: totalTime
+                })
             } catch (error) {
                 return new Response(
                     JSON.stringify({
@@ -47,95 +73,6 @@ export class MelticaSpeedtestContainerObjectFromWorker extends Container {
 
         return super.fetch(request)
     }
-
-    async runSpeedTest(): Promise<SpeedTestResult> {
-        console.log('Starting speed test...')
-
-        // 1. Generate data from internal container
-        const generateUrl = 'http://localhost:8080/generate'
-        console.log('Requesting file generation from container...')
-        const generateStart = Date.now()
-        const generateResp = await this.containerFetch(generateUrl, 8080)
-
-        if (!generateResp.ok) {
-            throw new Error(`Container error: ${generateResp.status}`)
-        }
-
-        // 2. Upload stream directly to R2 with fixed length
-        console.log('Starting R2 upload...')
-        const uploadStart = Date.now()
-        const fileKey = `speed-test/${crypto.randomUUID()}.bin`
-
-        // Create a FixedLengthStream to specify the length for R2
-        const fileSize = 1024 * 1024 * 1024 // 1GB
-        const fixedLengthStream = new FixedLengthStream(fileSize)
-
-        if (generateResp.body) {
-            generateResp.body.pipeTo(fixedLengthStream.writable)
-        }
-
-        await this.env.R2_BUCKET.put(fileKey, fixedLengthStream.readable, {
-            httpMetadata: {
-                contentType: 'application/octet-stream',
-            },
-        })
-
-        const uploadTime = Date.now() - uploadStart
-        const uploadSpeedMBps = 1024 / (uploadTime / 1000) // 1GB in MB / seconds
-
-        console.log(
-            `Upload completed in ${(uploadTime / 1000).toFixed(2)}s (${uploadSpeedMBps.toFixed(2)} MB/s)`,
-        )
-
-        // 3. Download test - get the file back from R2
-        console.log('Starting R2 download...')
-        
-        // Test R2 latency 4 times
-        for (let i = 1; i <= 4; i++) {
-            console.time(`r2-latency-test-${i}`)
-            const latencyTestObj = await this.env.R2_BUCKET.get(fileKey)
-            console.timeEnd(`r2-latency-test-${i}`)
-            if (latencyTestObj) {
-                latencyTestObj.body?.cancel()
-            }
-        }
-        
-        const downloadStart = Date.now()
-        const downloadObj = await this.env.R2_BUCKET.get(fileKey)
-        if (!downloadObj) {
-            throw new Error('Failed to retrieve file from R2')
-        }
-
-        // Consume the stream to measure actual download time without storing in memory
-        let bytesRead = 0
-        const reader = downloadObj.body!.getReader()
-
-        try {
-            while (true) {
-                const { done, value } = await reader.read()
-                if (done) break
-                bytesRead += value.length
-            }
-        } finally {
-            reader.releaseLock()
-        }
-
-        const downloadTime = Date.now() - downloadStart
-        const downloadSpeedMBps = 1024 / (downloadTime / 1000) // 1GB in MB / seconds
-
-        console.log(
-            `Download completed in ${downloadTime}ms (${downloadSpeedMBps.toFixed(2)} MB/s)`,
-        )
-        console.log(`Downloaded ${bytesRead} bytes`)
-
-        return {
-            uploadTime,
-            downloadTime,
-            uploadSpeed: `${uploadSpeedMBps.toFixed(2)} MB/s`,
-            downloadSpeed: `${downloadSpeedMBps.toFixed(2)} MB/s`,
-            fileKey,
-        }
-    }
 }
 
 interface Env {
@@ -149,11 +86,137 @@ interface SpeedTestResult {
     uploadSpeed: string
     downloadSpeed: string
     fileKey: string
+    parallelParts?: number
+    orchestrationTime?: number
 }
+
+// Global variable to store multipart uploads
+const activeMultipartUploads = new Map<string, R2MultipartUpload>()
 
 export default {
     async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
         const url = new URL(request.url)
+
+        // Start multipart upload
+        if (url.pathname === '/start-multipart' && request.method === 'POST') {
+            try {
+                const { fileKey } = await request.json() as { fileKey: string }
+                
+                console.log(`Starting multipart upload for ${fileKey}`)
+                
+                const multipartUpload = await env.R2_BUCKET.createMultipartUpload(fileKey, {
+                    httpMetadata: {
+                        contentType: 'application/octet-stream',
+                    },
+                })
+
+                // Store the multipart upload for later use
+                activeMultipartUploads.set(fileKey, multipartUpload)
+
+                console.log(`Multipart upload started for ${fileKey}`)
+                
+                return Response.json({ 
+                    fileKey,
+                    uploadId: fileKey // Using fileKey as identifier
+                })
+            } catch (error) {
+                console.error('Failed to start multipart upload:', error)
+                return new Response(
+                    JSON.stringify({
+                        error: error instanceof Error ? error.message : 'Unknown error'
+                    }),
+                    { status: 500, headers: { 'Content-Type': 'application/json' } }
+                )
+            }
+        }
+
+        // Upload part for multipart upload
+        if (url.pathname === '/upload-part' && request.method === 'POST') {
+            try {
+                const { fileKey, partNumber, partData } = await request.json() as {
+                    fileKey: string
+                    partNumber: number  
+                    partData: string // base64 encoded
+                }
+
+                console.log(`Uploading part ${partNumber} for multipart upload ${fileKey}`)
+                
+                const multipartUpload = activeMultipartUploads.get(fileKey)
+                if (!multipartUpload) {
+                    throw new Error(`No active multipart upload found for ${fileKey}`)
+                }
+                
+                // Decode base64 data
+                const binaryData = Uint8Array.from(atob(partData), c => c.charCodeAt(0))
+                
+                // Upload part to R2 multipart upload
+                const uploadedPart = await multipartUpload.uploadPart(partNumber, binaryData)
+
+                console.log(`Part ${partNumber} uploaded with ETag: ${uploadedPart.etag}`)
+                
+                return Response.json({ 
+                    success: true, 
+                    partNumber,
+                    etag: uploadedPart.etag,
+                    size: binaryData.length 
+                })
+            } catch (error) {
+                console.error('Part upload failed:', error)
+                return new Response(
+                    JSON.stringify({
+                        error: error instanceof Error ? error.message : 'Unknown error'
+                    }),
+                    { status: 500, headers: { 'Content-Type': 'application/json' } }
+                )
+            }
+        }
+
+        // Complete multipart upload
+        if (url.pathname === '/complete-multipart' && request.method === 'POST') {
+            try {
+                const { fileKey, parts } = await request.json() as {
+                    fileKey: string
+                    parts: Array<{ partNumber: number; etag: string }>
+                }
+
+                console.log(`Completing multipart upload ${fileKey} with ${parts.length} parts`)
+
+                const multipartUpload = activeMultipartUploads.get(fileKey)
+                if (!multipartUpload) {
+                    throw new Error(`No active multipart upload found for ${fileKey}`)
+                }
+
+                // Convert to R2UploadedPart format
+                const uploadedParts = parts.map(part => ({
+                    partNumber: part.partNumber,
+                    etag: part.etag
+                }))
+
+                // Complete the multipart upload
+                const completedObject = await multipartUpload.complete(uploadedParts)
+
+                // Clean up stored multipart upload
+                activeMultipartUploads.delete(fileKey)
+
+                console.log(`Multipart upload completed successfully: ${completedObject.key}`)
+
+                return Response.json({ 
+                    success: true, 
+                    fileKey: completedObject.key,
+                    etag: completedObject.etag,
+                    size: completedObject.size,
+                    partsCount: parts.length
+                })
+            } catch (error) {
+                console.error('Failed to complete multipart upload:', error)
+                return new Response(
+                    JSON.stringify({
+                        error: error instanceof Error ? error.message : 'Unknown error'
+                    }),
+                    { status: 500, headers: { 'Content-Type': 'application/json' } }
+                )
+            }
+        }
 
         if (url.pathname === '/' && request.method === 'GET') {
             try {

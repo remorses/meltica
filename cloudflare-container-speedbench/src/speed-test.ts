@@ -1,20 +1,17 @@
 import { createServer } from 'http';
-import { Readable } from 'stream';
 import { randomUUID } from 'crypto';
-import { createHash, createHmac } from 'crypto';
-import https from 'https';
+import { spawn } from 'child_process';
+import fs from 'fs';
+import path from 'path';
 
 const FILE_SIZE = 1024 * 1024 * 1024; // 1GB
 
 // R2 configuration
 const R2_ENDPOINT = '103e73569e2f6d4aea0fb679ceb8709b.r2.cloudflarestorage.com';
-const AWS_REGION = 'auto';
-const AWS_SERVICE = 's3';
 
 // Pre-generate full 1GB of data in memory using 100MB template
 const PART_SIZE = 100 * 1024 * 1024; // 100MB parts
 const TOTAL_PARTS = 10; // 10 x 100MB = 1GB
-const CONCURRENT_UPLOADS = 5;
 
 console.log('Pre-generating 1GB of data in memory...');
 const templateData = Buffer.alloc(PART_SIZE);
@@ -28,198 +25,144 @@ for (let i = 0; i < TOTAL_PARTS; i++) {
 }
 console.log('1GB of data ready in memory (10 x 100MB parts)');
 
-// Create AWS Signature V4 for S3 requests
-function createAWSSignatureV4(
-  method: string,
-  path: string,
-  headers: Record<string, string>,
-  payload: Buffer | string = ''
-): Record<string, string> {
-  const accessKey = process.env.AWS_ACCESS_KEY_ID!;
-  const secretKey = process.env.AWS_SECRET_ACCESS_KEY!;
+// Configure rclone for R2
+function configureRclone() {
+  const config = `[r2]
+type = s3
+provider = Cloudflare
+access_key_id = ${process.env.AWS_ACCESS_KEY_ID}
+secret_access_key = ${process.env.AWS_SECRET_ACCESS_KEY}
+region = auto
+endpoint = https://${R2_ENDPOINT}
+acl = private
+no_check_bucket = true
+`;
   
-  const now = new Date();
-  const dateStamp = now.toISOString().slice(0, 10).replace(/-/g, '');
-  const amzDate = now.toISOString().replace(/[:-]|\.\d{3}/g, '');
+  // Create rclone config directory
+  const configDir = '/tmp/.config/rclone';
+  if (!fs.existsSync(configDir)) {
+    fs.mkdirSync(configDir, { recursive: true });
+  }
   
-  // Create canonical request
-  const canonicalHeaders = Object.entries(headers)
-    .sort(([a], [b]) => a.toLowerCase().localeCompare(b.toLowerCase()))
-    .map(([k, v]) => `${k.toLowerCase()}:${v.trim()}`)
-    .join('\n');
+  // Write config file
+  fs.writeFileSync(path.join(configDir, 'rclone.conf'), config);
   
-  const signedHeaders = Object.keys(headers)
-    .sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()))
-    .map(k => k.toLowerCase())
-    .join(';');
-  
-  const payloadHash = payload === 'UNSIGNED-PAYLOAD' ? 'UNSIGNED-PAYLOAD' : createHash('sha256').update(payload).digest('hex');
-  
-  const canonicalRequest = [
-    method,
-    path,
-    '',
-    canonicalHeaders,
-    '',
-    signedHeaders,
-    payloadHash
-  ].join('\n');
-  
-  // Create string to sign
-  const algorithm = 'AWS4-HMAC-SHA256';
-  const credentialScope = `${dateStamp}/${AWS_REGION}/${AWS_SERVICE}/aws4_request`;
-  const stringToSign = [
-    algorithm,
-    amzDate,
-    credentialScope,
-    createHash('sha256').update(canonicalRequest).digest('hex')
-  ].join('\n');
-  
-  // Calculate signature
-  const kDate = createHmac('sha256', `AWS4${secretKey}`).update(dateStamp).digest();
-  const kRegion = createHmac('sha256', kDate).update(AWS_REGION).digest();
-  const kService = createHmac('sha256', kRegion).update(AWS_SERVICE).digest();
-  const kSigning = createHmac('sha256', kService).update('aws4_request').digest();
-  const signature = createHmac('sha256', kSigning).update(stringToSign).digest('hex');
-  
-  // Create authorization header
-  const authorizationHeader = `${algorithm} Credential=${accessKey}/${credentialScope}, SignedHeaders=${signedHeaders}, Signature=${signature}`;
-  
-  return {
-    ...headers,
-    'x-amz-date': amzDate,
-    'x-amz-content-sha256': payloadHash,
-    'Authorization': authorizationHeader
-  };
+  // Set environment variable for rclone config
+  process.env.RCLONE_CONFIG = path.join(configDir, 'rclone.conf');
 }
 
-// Upload a single part to R2
-async function uploadPart(partData: Buffer, partNumber: number, fileKey: string): Promise<{ partNumber: number; uploadTime: number }> {
-  const bucketName = process.env.S3_BUCKET!;
-  const path = `/${bucketName}/${fileKey}-part${partNumber}`;
-  
-  const uploadStart = Date.now();
-
-  return new Promise((resolve, reject) => {
-    try {
-      // Prepare headers
-      const headers = {
-        'Host': R2_ENDPOINT,
-        'Content-Type': 'application/octet-stream',
-        'Content-Length': partData.length.toString()
-      };
-      
-      // Sign request
-      const signedHeaders = createAWSSignatureV4('PUT', path, headers, partData);
-      
-      // Create HTTPS request
-      const agent = new https.Agent({
-        keepAlive: true,
-        keepAliveMsecs: 1000,
-        maxSockets: 20, // Increased for concurrent uploads
-        maxFreeSockets: 20,
-        timeout: 600000
-      });
-      
-      const options = {
-        hostname: R2_ENDPOINT,
-        port: 443,
-        path: path,
-        method: 'PUT',
-        headers: signedHeaders,
-        agent: agent
-      };
-      
-      const req = https.request(options, (res) => {
-        let responseBody = '';
-        
-        res.on('data', (chunk) => {
-          responseBody += chunk;
-        });
-        
-        res.on('end', () => {
-          const uploadTime = Date.now() - uploadStart;
-          
-          if (res.statusCode === 200 || res.statusCode === 201) {
-            console.log(`Part ${partNumber} uploaded in ${(uploadTime / 1000).toFixed(2)}s`);
-            resolve({ partNumber, uploadTime });
-          } else {
-            reject(new Error(`Part ${partNumber} failed: ${res.statusCode} - ${responseBody}`));
-          }
-        });
-      });
-      
-      req.on('error', (error) => {
-        reject(error);
-      });
-      
-      // Write the buffer directly
-      req.write(partData);
-      req.end();
-      
-    } catch (error) {
-      reject(error);
-    }
-  });
-}
-
-// Concurrent upload of all parts
+// Upload using rclone with optimized parameters
 async function uploadToS3(unused?: any): Promise<{ uploadTime: number; fileKey: string }> {
   const fileKey = `speed-test/${randomUUID()}`;
-
-  console.log('Starting concurrent multi-part upload to R2...');
-  console.log(`Uploading ${TOTAL_PARTS} parts of ${PART_SIZE / (1024 * 1024)}MB each with ${CONCURRENT_UPLOADS} concurrent connections`);
+  const tempFile = `/tmp/speedtest-${randomUUID()}.dat`;
   
+  console.log('Configuring rclone for R2...');
+  configureRclone();
+  
+  console.log('Creating 1GB test file...');
   const uploadStart = Date.now();
   
   try {
-    // Upload parts with controlled concurrency
-    let partIndex = 0;
-    const activeUploads = new Map<Promise<{ partNumber: number; uploadTime: number }>, number>();
-    const results: { partNumber: number; uploadTime: number }[] = [];
-    
-    // Start initial concurrent uploads
-    while (partIndex < CONCURRENT_UPLOADS && partIndex < TOTAL_PARTS) {
-      const promise = uploadPart(dataParts[partIndex], partIndex + 1, fileKey);
-      activeUploads.set(promise, partIndex);
-      console.log(`Started upload for part ${partIndex + 1}/${TOTAL_PARTS}`);
-      partIndex++;
+    // Create a 1GB file by writing our pre-generated data
+    const writeStream = fs.createWriteStream(tempFile);
+    for (let i = 0; i < TOTAL_PARTS; i++) {
+      writeStream.write(dataParts[i]);
     }
+    writeStream.end();
     
-    // Process uploads as they complete
-    while (activeUploads.size > 0) {
-      const completed = await Promise.race(activeUploads.keys());
-      results.push(completed);
-      activeUploads.delete(completed as any);
+    // Wait for file to be written
+    await new Promise((resolve) => writeStream.on('finish', resolve));
+    
+    console.log('Starting rclone upload to R2 with optimized parameters...');
+    
+    // Construct rclone command with optimized parameters for maximum speed
+    const bucketName = process.env.S3_BUCKET!;
+    const rcloneCmd = [
+      'rclone',
+      'copy',
+      '-v',  // Verbose output for debugging
+      '--transfers', '32',  // Moderate parallel transfers
+      '--s3-upload-concurrency', '32',  // Moderate upload concurrency
+      '--s3-chunk-size', '64M',  // Optimal chunk size
+      '--no-check-dest',  // Skip destination checks
+      '--ignore-checksum',  // Skip checksums for speed
+      '--s3-disable-checksum',  // Disable S3 checksums
+      '--retries', '1',  // Reduce retries
+      tempFile,
+      `r2:${bucketName}/${fileKey}`
+    ].join(' ');
+    
+    console.log(`Executing rclone command...`);
+    
+    // Execute rclone with optimized parameters for containers
+    const rcloneProcess = spawn('rclone', [
+      'copy',
+      '-v',  // Verbose output for debugging
+      '--transfers', '1',  // Single transfer for maximum bandwidth per file
+      '--checkers', '1',  // Minimal checkers to reduce CPU load
+      '--multi-thread-streams', '8',  // Conservative multi-threading
+      '--multi-thread-cutoff', '256M',  // Enable multi-threading for files > 256MB
+      '--s3-chunk-size', '512M',  // Very large chunks
+      '--s3-upload-cutoff', '2048M',  // Avoid multipart for 1GB file
+      '--s3-disable-checksum',  // Disable CPU-heavy checksums
+      '--no-check-dest',  // Skip destination checks
+      '--ignore-checksum',  // Skip checksum validation
+      '--no-update-modtime',  // Skip setting modification times
+      '--buffer-size', '128k',  // Standard buffer size
+      '--retries', '1',  // Minimal retries for speed
+      tempFile,
+      `r2:${bucketName}/${fileKey}`
+    ], {
+      env: { ...process.env },
+      stdio: ['inherit', 'pipe', 'pipe']
+    });
+    
+    let stdout = '';
+    let stderr = '';
+    
+    rcloneProcess.stdout.on('data', (data) => {
+      stdout += data.toString();
+      console.log('RCLONE:', data.toString().trim());
+    });
+    
+    rcloneProcess.stderr.on('data', (data) => {
+      stderr += data.toString();
+      console.error('RCLONE ERROR:', data.toString().trim());
+    });
+    
+    // Wait for rclone to complete
+    await new Promise<void>((resolve, reject) => {
+      rcloneProcess.on('close', (code) => {
+        if (code === 0) {
+          resolve();
+        } else {
+          reject(new Error(`Rclone exited with code ${code}. stderr: ${stderr}`));
+        }
+      });
       
-      // Start next upload if available
-      if (partIndex < TOTAL_PARTS) {
-        const promise = uploadPart(dataParts[partIndex], partIndex + 1, fileKey);
-        activeUploads.set(promise, partIndex);
-        console.log(`Started upload for part ${partIndex + 1}/${TOTAL_PARTS}`);
-        partIndex++;
-      }
-    }
+      rcloneProcess.on('error', (err) => {
+        reject(new Error(`Failed to start rclone: ${err.message}`));
+      });
+    });
     
     const uploadTime = Date.now() - uploadStart;
     const uploadSpeedMBps = 1024 / (uploadTime / 1000);
     
-    console.log(`\nAll parts uploaded successfully!`);
+    console.log(`\nUpload completed successfully!`);
     console.log(`Total upload time: ${(uploadTime / 1000).toFixed(2)}s`);
     console.log(`Upload speed: ${uploadSpeedMBps.toFixed(2)} MB/s`);
     
-    // Log individual part times
-    const partTimes = results.sort((a, b) => a.partNumber - b.partNumber);
-    console.log('\nPart upload times:');
-    partTimes.forEach(({ partNumber, uploadTime }) => {
-      const speed = (PART_SIZE / (1024 * 1024)) / (uploadTime / 1000);
-      console.log(`  Part ${partNumber}: ${(uploadTime / 1000).toFixed(2)}s (${speed.toFixed(2)} MB/s)`);
-    });
-
+    // Clean up temp file
+    fs.unlinkSync(tempFile);
+    
     return { uploadTime, fileKey };
-
+    
   } catch (error) {
-    console.error('Concurrent upload failed:', error);
+    // Clean up temp file on error
+    if (fs.existsSync(tempFile)) {
+      fs.unlinkSync(tempFile);
+    }
+    console.error('Rclone upload failed:', error);
     throw error;
   }
 }

@@ -14,7 +14,7 @@
         {
             "class_name": "MelticaSpeedtestContainerObjectFromWorker",
             "image": "./Dockerfile",
-            "max_instances": 2,
+            "max_instances": 10,
 
             "name": "meltica-speedtest-containers-from-worker",
             "instance_type": "standard",

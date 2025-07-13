@@ -10,7 +10,9 @@ The benchmark uploads 1GB of data from a Cloudflare Container to R2 storage and 
 
 ## Speed Test Results
 
-### Optimization Journey
+### Complete Speed Test Results
+
+#### JavaScript Implementation Results
 
 | Version | Approach | Speed | Time | Improvement |
 |---------|----------|-------|------|-------------|
@@ -22,7 +24,17 @@ The benchmark uploads 1GB of data from a Cloudflare Container to R2 storage and 
 | 6. Maximum Buffers | 100MB chunks, 128MB buffer | 48.36 MB/s | 21.2s | +97% |
 | 7. Concurrent Upload | 5 concurrent 100MB parts | 47.71 MB/s | 21.5s | +94% |
 
-### Maximum Achieved Speed: **48.85 MB/s**
+#### Rclone CLI Implementation Results
+
+| Version | Configuration | Speed | Time | Notes |
+|---------|--------------|-------|------|-------|
+| 8. Rclone Baseline | --transfers 8, --s3-upload-concurrency 1, --s3-chunk-size 1024M | 32.28 MB/s | 31.7s | Initial rclone test |
+| 9. Rclone Optimized | --transfers 1, --multi-thread-streams 8, --s3-chunk-size 512M | **39.88 MB/s** | 25.7s | +23% over baseline |
+| 10. Rclone Final | Same as optimized, multiple runs | 39.65 MB/s | 25.8s | Consistent performance |
+
+### Maximum Achieved Speeds
+- **JavaScript Implementation**: **48.85 MB/s**
+- **Rclone Implementation**: **39.88 MB/s**
 
 The best performance was achieved with:
 - **Pre-generated data**: 50MB template buffer reused for all chunks
@@ -31,6 +43,45 @@ The best performance was achieved with:
 - **Optimized HTTPS agent**: Keep-alive connections
 
 ## Key Findings
+
+### Rclone Implementation Analysis
+
+We also tested using the industry-standard `rclone` CLI tool as an alternative to custom JavaScript implementation:
+
+#### Rclone Performance Results
+- **Initial Performance**: 32.28 MB/s (66% of JavaScript speed)
+- **Optimized Performance**: 39.88 MB/s (82% of JavaScript speed)
+- **Improvement**: +23% through parameter tuning
+
+#### Rclone Optimization Parameters
+```bash
+rclone copy -v \
+  --transfers 1 \              # Single transfer for max bandwidth
+  --checkers 1 \               # Minimal checkers to reduce CPU
+  --multi-thread-streams 8 \   # Multi-threading for large files
+  --multi-thread-cutoff 256M \ # Enable for files > 256MB
+  --s3-chunk-size 512M \       # Very large chunks
+  --s3-upload-cutoff 2048M \   # Avoid multipart for 1GB
+  --s3-disable-checksum \      # Disable CPU-heavy checksums
+  --no-check-dest \            # Skip destination checks
+  --ignore-checksum \          # Skip checksum validation
+  --no-update-modtime \        # Skip setting mod times
+  --buffer-size 128k \         # Standard buffer size
+  --retries 1                  # Minimal retries
+```
+
+#### Rclone Trade-offs
+**Advantages:**
+- ✅ Industry-standard tool with excellent reliability
+- ✅ Simplified code (removed AWS signature implementation)
+- ✅ Better error handling and retry logic
+- ✅ Easy configuration and tuning
+- ✅ Well-maintained and tested
+
+**Disadvantages:**
+- ❌ ~18% slower than optimized JavaScript
+- ❌ Additional process overhead
+- ❌ Less fine-grained control over upload process
 
 ### Major Performance Bottlenecks
 
@@ -124,8 +175,19 @@ curl https://meltica-speedtest-r2-containers.remorses.workers.dev
 
 ## Conclusion
 
-We achieved a **99% performance improvement** (24.57 → 48.85 MB/s) through systematic optimization, with the biggest gains coming from eliminating CPU bottlenecks rather than network optimizations. For even higher speeds, consider:
+We achieved a **99% performance improvement** (24.57 → 48.85 MB/s) through systematic optimization, with the biggest gains coming from eliminating CPU bottlenecks rather than network optimizations.
 
-- Using Cloudflare Workers' native R2 bindings
+### Implementation Comparison
+- **JavaScript (Direct HTTP)**: 48.85 MB/s - Maximum performance with full control
+- **Rclone CLI**: 39.88 MB/s - Good performance with better maintainability
+
+The ~40-49 MB/s range appears to be the practical limit for Cloudflare Container uploads to R2, constrained by:
+- Container resource limitations (CPU/memory/network)
+- HTTPS protocol overhead
+- Single-threaded upload constraints
+
+For even higher speeds, consider:
+- Using Cloudflare Workers' native R2 bindings (bypasses container networking)
 - Testing with different container runtime environments
 - Implementing parallel uploads to multiple R2 endpoints
+- Using native compiled languages (Rust/Go) to reduce overhead
