@@ -1,0 +1,53 @@
+name: Cloudflare Upload Speed Benchmark
+
+on:
+  workflow_dispatch:
+    inputs:
+      aws_region:
+        description: 'AWS Region (default: auto)'
+        required: false
+        default: 'auto'
+        type: string
+
+jobs:
+  benchmark:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    
+    - name: Setup Bun
+      uses: oven-sh/setup-bun@v2
+      with:
+        bun-version: latest
+    
+    - name: Install dependencies
+      working-directory: ./cloudflare-container-speedbench
+      run: bun install
+    
+    - name: Install rclone
+      run: |
+        curl https://rclone.org/install.sh | sudo bash
+        rclone version
+    
+    - name: Run upload benchmark
+      working-directory: ./cloudflare-container-speedbench
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_REGION: ${{ github.event.inputs.aws_region }}
+        S3_BUCKET: ${{ secrets.S3_BUCKET }}
+      run: |
+        echo "Starting Cloudflare R2 upload speed benchmark..."
+        bun run src/run-upload.ts
+    
+    - name: Upload results as artifact
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: benchmark-results
+        path: |
+          cloudflare-container-speedbench/*.log
+          cloudflare-container-speedbench/*.txt
+        retention-days: 7

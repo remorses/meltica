@@ -52,7 +52,7 @@ no_check_bucket = true
 }
 
 // Upload using rclone with optimized parameters
-async function uploadToS3(unused?: any): Promise<{ uploadTime: number; fileKey: string }> {
+export async function uploadToS3(unused?: any): Promise<{ uploadTime: number; fileKey: string }> {
   const fileKey = `speed-test/${randomUUID()}`;
   const tempFile = `/tmp/speedtest-${randomUUID()}.dat`;
   
